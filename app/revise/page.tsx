@@ -15,6 +15,11 @@ import {
 } from "../../components/ui";
 import { getDB, type Bookmark, type MistakeEntry } from "../../lib/db";
 import {
+  isPaperBookmark,
+  type BookmarkRef,
+} from "../../components/bookmarks";
+import { PAPERS_BY_SUBJECT, type PaperFile } from "../../lib/pyq-papers";
+import {
   getModuleLocal,
   getSubjectLocal,
   getTopicBySlug,
@@ -33,6 +38,17 @@ interface DeckRow {
   question: Question;
   wrongCount?: number;
   nextReview?: string;
+}
+
+interface PaperRow {
+  key: string;
+  short: string;
+  paper: PaperFile;
+}
+
+function findPaper(subject: string, paperId: string): PaperFile | null {
+  const list = PAPERS_BY_SUBJECT[subject] ?? [];
+  return list.find((p) => p.id === paperId) ?? null;
 }
 
 /** Resolve a bookmark / mistake entry to its question; null when stale. */
@@ -91,7 +107,7 @@ function DeckList({
           const mod = subj?.modules.find((m) => m.num === r.num);
           const topic = mod?.topics.find((t) => t.title === r.topicTitle);
           const href = topic
-            ? `${topicHref(subj!.short, mod!.num, topic)}?tab=practice`
+            ? `${topicHref(subj!.short, mod!.num, topic)}/practice`
             : "#";
           return (
             <Link
@@ -135,6 +151,7 @@ function DeckList({
 export default function RevisePage() {
   const [mistakes, setMistakes] = useState<DeckRow[]>([]);
   const [bookmarks, setBookmarks] = useState<DeckRow[]>([]);
+  const [paperBookmarks, setPaperBookmarks] = useState<PaperRow[]>([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -157,12 +174,24 @@ export default function RevisePage() {
           });
       }
       const bRows: DeckRow[] = [];
+      const pRows: PaperRow[] = [];
       for (const b of saved as Bookmark[]) {
+        if (isPaperBookmark(b as BookmarkRef)) {
+          const paper = findPaper(b.subject, b.topic);
+          if (paper)
+            pRows.push({
+              key: `paper::${b.subject}::${b.topic}`,
+              short: b.subject,
+              paper,
+            });
+          continue;
+        }
         const row = resolveEntry(b.subject, b.module, b.topic, b.qIndex);
         if (row) bRows.push(row);
       }
       setMistakes(mRows);
       setBookmarks(bRows);
+      setPaperBookmarks(pRows);
       setLoaded(true);
     })().catch(() => {
       if (live) setLoaded(true);
@@ -202,8 +231,70 @@ export default function RevisePage() {
             emptyTitle="No bookmarks yet"
             emptySubtitle="Bookmark any question while practicing to find it here."
           />
+          <PaperBookmarkList
+            title="Saved papers"
+            subtitle="Question papers you bookmarked"
+            rows={paperBookmarks}
+            emptyTitle="No saved papers"
+            emptySubtitle="Bookmark a paper from the PYQ hub to find it here."
+          />
         </>
       )}
     </main>
+  );
+}
+
+function PaperBookmarkList({
+  title,
+  subtitle,
+  rows,
+  emptyTitle,
+  emptySubtitle,
+}: {
+  title: string;
+  subtitle: string;
+  rows: PaperRow[];
+  emptyTitle: string;
+  emptySubtitle: string;
+}) {
+  return (
+    <section className="flex flex-col gap-3">
+      <header className="flex items-baseline justify-between">
+        <div>
+          <h2 className="text-lg font-bold text-[var(--text)]">{title}</h2>
+          <p className="text-xs text-[var(--text-dim)]">{subtitle}</p>
+        </div>
+        {rows.length > 0 ? <Pill>{rows.length}</Pill> : null}
+      </header>
+      {rows.length === 0 ? (
+        <EmptyState title={emptyTitle} subtitle={emptySubtitle} />
+      ) : (
+        rows.map((r) => (
+          <a
+            key={r.key}
+            href={r.paper.file}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block min-h-[44px]"
+            aria-label={`Open paper: ${r.paper.title}`}
+          >
+            <GlassCard className="transition-transform active:scale-[0.99]">
+              <div className="flex items-center gap-3">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Pill>{r.short}</Pill>
+                    <Pill variant="default">{r.paper.label}</Pill>
+                  </div>
+                  <p className="mt-1.5 truncate text-[15px] font-semibold text-[var(--text)]">
+                    {r.paper.title}
+                  </p>
+                </div>
+                <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
+              </div>
+            </GlassCard>
+          </a>
+        ))
+      )}
+    </section>
   );
 }
