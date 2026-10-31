@@ -199,6 +199,7 @@ export const CodePad = forwardRef<
   >("idle");
   const [output, setOutput] = useState<string | null>(null);
   const [runError, setRunError] = useState<string | null>(null);
+  const [stdin, setStdin] = useState("");
   const [lastRunCode, setLastRunCode] = useState<string | null>(null);
   const [lastOutput, setLastOutput] = useState<string | null>(null);
   const expectedCache = useRef<string | null | undefined>(undefined);
@@ -212,7 +213,7 @@ export const CodePad = forwardRef<
     setRunError(null);
     try {
       setRunState("running");
-      const r = await runPython(code);
+      const r = await runPython(code, stdin);
       if (seq !== runSeq.current) return r;
       setOutput(r.output);
       setRunError(r.error);
@@ -316,6 +317,30 @@ export const CodePad = forwardRef<
             className="w-full resize-y bg-transparent p-3 font-mono text-[14px] leading-[1.7] text-[var(--text)] placeholder:text-[var(--text-faint)] outline-none"
           />
         </div>
+      </div>
+      <div>
+        <label
+          htmlFor="codepad-stdin"
+          className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]"
+        >
+          Input
+        </label>
+        <p className="mt-1 text-[12px] text-[var(--text-faint)]">
+          Lines your program will read with input()
+        </p>
+        <textarea
+          id="codepad-stdin"
+          value={stdin}
+          onChange={(e) => setStdin(e.target.value)}
+          rows={3}
+          placeholder={"5\n10"}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          aria-label="Program input"
+          className="mt-2 w-full resize-y rounded-2xl bg-[var(--track)] p-3 font-mono text-[14px] leading-[1.7] text-[var(--text)] placeholder:text-[var(--text-faint)] outline-none"
+        />
       </div>
       <button
         type="button"

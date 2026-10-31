@@ -7,6 +7,7 @@
 
 import { useMemo, useState } from "react";
 import { PaperCard } from "../../components/papers";
+import { TabBarSpacer } from "../../components/ui";
 import { PAPERS_BY_SUBJECT } from "../../lib/pyq-papers";
 import { subjects } from "@/src/content/subjects";
 
@@ -79,6 +80,7 @@ export default function PyqsPage() {
           <PaperCard key={p.id} paper={p} subject={active} />
         ))}
       </section>
+      <TabBarSpacer />
     </main>
   );
 }

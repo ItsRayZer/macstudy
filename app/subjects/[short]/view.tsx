@@ -12,6 +12,7 @@ import {
   ChevronRightIcon,
   GlassCard,
   ProgressBar,
+  TabBarSpacer,
 } from "../../../components/ui";
 import { computeModuleProgress } from "../../../lib/progress";
 import { EXAMS } from "../../../lib/exams";
@@ -192,6 +193,7 @@ export function SubjectView({ short }: { short: string }) {
         })}
       </div>
 
+      <TabBarSpacer />
     </main>
   );
 }

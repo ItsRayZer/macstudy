@@ -298,6 +298,22 @@ export function BottomNav() {
   );
 }
 
+// ------------------------------------------------------------ TabBarSpacer ---
+
+/**
+ * Spacer that clears the floating bottom tab bar at the end of long pages,
+ * so the last card never hides behind it. Includes the device safe area.
+ */
+export function TabBarSpacer() {
+  return (
+    <div
+      aria-hidden="true"
+      className="h-28 w-full shrink-0"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    />
+  );
+}
+
 // --------------------------------------------------------------- Countdown ---
 
 export function Countdown({

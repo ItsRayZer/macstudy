@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { subjects } from "@/src/content/subjects";
 import { getModuleFormulas } from "@/src/content/formulas";
 import { getModuleLocal, getSubjectLocal } from "../../../../../lib/study";
-import { GlassCard } from "../../../../../components/ui";
+import { GlassCard, TabBarSpacer } from "../../../../../components/ui";
 
 function BackIcon({ className }: { className?: string }) {
   return (
@@ -88,6 +88,7 @@ export default async function FormulasPage({
           ))}
         </section>
       ))}
+      <TabBarSpacer />
     </main>
   );
 }

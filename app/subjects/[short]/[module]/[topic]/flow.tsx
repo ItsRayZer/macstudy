@@ -42,7 +42,13 @@ import {
   BookmarkButton,
   questionBookmarkRef,
 } from "../../../../../components/bookmarks";
-import { Inline, RichText } from "../../../../../components/rich-text";
+import Link from "next/link";
+import {
+  Inline,
+  RichText,
+  looksLikeFormula,
+} from "../../../../../components/rich-text";
+import { getModuleFormulas } from "@/src/content/formulas";
 import { useAppStore } from "../../../../../lib/store";
 import {
   matchVideoSlot,
@@ -583,7 +589,42 @@ function structureLearn(topic: Topic): PointBlock[] {
   return blocks;
 }
 
-function LearnBlocks({ blocks }: { blocks: PointBlock[] }) {
+/**
+ * A theory line that is a pure formula or equation: full-width monospace
+ * block with horizontal scroll so it renders completely and never
+ * truncates, plus a subtle link to the module's formula chart.
+ */
+function TheoryFormula({
+  text,
+  formulaHref,
+}: {
+  text: string;
+  formulaHref: string | null;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <p className="w-full overflow-x-auto whitespace-nowrap rounded-2xl bg-[var(--track)] px-4 py-3 text-center font-mono text-[15px] leading-[1.7] tracking-wide text-[var(--text)]">
+        {text}
+      </p>
+      {formulaHref ? (
+        <Link
+          href={formulaHref}
+          className="self-end text-[12px] font-medium text-[var(--text-faint)] underline decoration-[var(--glass-border)] underline-offset-2 active:opacity-80"
+        >
+          Formula chart
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+
+function LearnBlocks({
+  blocks,
+  formulaHref,
+}: {
+  blocks: PointBlock[];
+  formulaHref: string | null;
+}) {
   const firstQa = blocks.findIndex((b) => b.kind === "qa");
   return (
     <article className="flex flex-col gap-6">
@@ -616,6 +657,11 @@ function LearnBlocks({ blocks }: { blocks: PointBlock[] }) {
           );
         }
         if (b.kind === "definition") {
+          if (looksLikeFormula(b.text)) {
+            return (
+              <TheoryFormula key={i} text={b.text} formulaHref={formulaHref} />
+            );
+          }
           return (
             <div
               key={i}
@@ -631,6 +677,11 @@ function LearnBlocks({ blocks }: { blocks: PointBlock[] }) {
           );
         }
         if (b.kind === "lead") {
+          if (looksLikeFormula(b.text)) {
+            return (
+              <TheoryFormula key={i} text={b.text} formulaHref={formulaHref} />
+            );
+          }
           return (
             <p key={i} className="text-[18px] leading-[1.75] text-[var(--text)]">
               {b.text}
@@ -643,19 +694,27 @@ function LearnBlocks({ blocks }: { blocks: PointBlock[] }) {
               <h2 className="text-[20px] font-bold text-[var(--text)]">
                 Key points
               </h2>
-              <ul className="mt-4 flex flex-col gap-4">
-                {b.items.map((pt, j) => (
-                  <li key={j} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-dim)]"
+              <div className="mt-4 flex flex-col gap-4">
+                {b.items.map((pt, j) =>
+                  looksLikeFormula(pt) ? (
+                    <TheoryFormula
+                      key={j}
+                      text={pt}
+                      formulaHref={formulaHref}
                     />
-                    <p className="text-[16px] leading-[1.75] text-[var(--text-dim)]">
-                      <Inline text={pt} />
-                    </p>
-                  </li>
-                ))}
-              </ul>
+                  ) : (
+                    <div key={j} className="flex gap-3">
+                      <span
+                        aria-hidden="true"
+                        className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-dim)]"
+                      />
+                      <p className="text-[16px] leading-[1.75] text-[var(--text-dim)]">
+                        <Inline text={pt} />
+                      </p>
+                    </div>
+                  ),
+                )}
+              </div>
             </div>
           );
         }
@@ -733,7 +792,14 @@ export function LearnPhase({
     <section aria-label="Learn" className="flex flex-col gap-6">
       <VideoSection slot={slot} />
 
-      <LearnBlocks blocks={pages[page] ?? []} />
+      <LearnBlocks
+        blocks={pages[page] ?? []}
+        formulaHref={
+          getModuleFormulas(subject.short, mod.num)
+            ? `/subjects/${subject.short}/${mod.num}/formulas`
+            : null
+        }
+      />
 
       {isLast ? <ExamFootnote pattern={pattern} /> : null}
 

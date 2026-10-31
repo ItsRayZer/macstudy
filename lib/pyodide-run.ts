@@ -55,14 +55,30 @@ export function pyodideLoading(): boolean {
 
 /**
  * Run Python source and capture stdout. Returns { output, error }.
+ * stdinText feeds the program's input(): each input() call reads the next
+ * line; EOF raises EOFError just like a terminal. Empty stdin keeps the
+ * previous behavior (input() raises EOFError immediately).
  * Rejects only when the runtime itself cannot load (caller falls back to
  * the local grader silently).
  */
-export async function runPython(source: string): Promise<RunResult> {
+export async function runPython(
+  source: string,
+  stdinText = "",
+): Promise<RunResult> {
   const py = await getPyodide();
   const chunks: string[] = [];
   py.setStdout({ batched: (t: string) => chunks.push(t) });
   py.setStderr({ batched: (t: string) => chunks.push(t) });
+  const raw = stdinText.replace(/\r\n/g, "\n");
+  const feed = raw.length > 0 && !raw.endsWith("\n") ? raw + "\n" : raw;
+  let pos = 0;
+  try {
+    py.setStdin({
+      stdin: () => (pos < feed.length ? feed.charCodeAt(pos++) : null),
+    });
+  } catch {
+    // Older runtime without setStdin: continue with the default stdin.
+  }
   try {
     const exec = (async () => {
       await py.runPythonAsync(source);

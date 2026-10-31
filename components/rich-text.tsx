@@ -3,9 +3,13 @@
 // (line breaks, "Example:"/"Step" markers, numbered items) into structured
 // blocks: paragraphs with breathing room, real bullet/numbered lists, bold
 // key terms, stepped working, monospace formulas, example boxes.
+// Code blocks get a Run button that executes them in-browser (Pyodide).
 // Never dumps raw text in one <p>. Monochrome, zero emojis.
 
-import type { ReactNode } from "react";
+"use client";
+
+import { useRef, useState, type ReactNode } from "react";
+import { runPython } from "../lib/pyodide-run";
 
 export type RichBlock =
   | { kind: "p"; text: string }
@@ -31,7 +35,7 @@ const KNOWN_FUNCS = new Set([
 ]);
 
 /** Heuristic: does this line read as a pure equation/expression? */
-function looksLikeFormula(line: string): boolean {
+export function looksLikeFormula(line: string): boolean {
   const t = line.trim();
   if (!t.includes("=") || t.length > 80) return false;
   const words = t.split(/[^A-Za-z]+/).filter(Boolean);
@@ -247,6 +251,83 @@ export function RichText({ lines }: { lines: string[] }) {
   return <div className="flex flex-col gap-4">{rendered}</div>;
 }
 
+/**
+ * Code block with an inline Run button: executes the snippet in-browser
+ * with the shared Pyodide runner and shows the program output below.
+ * Used in Learn theory examples and anywhere answers render code.
+ */
+function RunnableCode({ code }: { code: string }) {
+  const [state, setState] = useState<"idle" | "loading" | "running" | "done">(
+    "idle",
+  );
+  const [output, setOutput] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const seq = useRef(0);
+
+  const doRun = async () => {
+    const my = ++seq.current;
+    setState("loading");
+    setError(null);
+    try {
+      setState("running");
+      const r = await runPython(code);
+      if (my !== seq.current) return;
+      setOutput(r.output);
+      setError(r.error);
+      setState("done");
+    } catch {
+      if (my !== seq.current) return;
+      setState("done");
+      setError("Could not start the runner. Try again.");
+    }
+  };
+
+  const busy = state === "loading" || state === "running";
+
+  return (
+    <div className="flex flex-col gap-2">
+      <pre className="overflow-x-auto rounded-2xl bg-[var(--track)] p-4 font-mono text-[14px] leading-[1.7] text-[var(--text)]">
+        {code}
+      </pre>
+      <div>
+        <button
+          type="button"
+          onClick={() => void doRun()}
+          disabled={busy}
+          className="flex min-h-[44px] items-center gap-2 rounded-2xl border border-[var(--neon)] px-5 text-[14px] font-bold text-[var(--neon-soft)] active:opacity-80 disabled:opacity-40"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            className="h-4 w-4"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <polygon points="6 3 20 12 6 21 6 3" />
+          </svg>
+          {state === "loading"
+            ? "Loading Python…"
+            : state === "running"
+              ? "Running…"
+              : "Run"}
+        </button>
+      </div>
+      {state === "done" ? (
+        <div className="rounded-2xl bg-[var(--inset,#0A0A0C)] p-4">
+          <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
+            Output
+          </p>
+          {error ? (
+            <p className="mt-2 font-mono text-[13px] text-red-400">{error}</p>
+          ) : null}
+          <pre className="mt-2 max-h-48 overflow-auto font-mono text-[13px] leading-[1.6] text-[var(--text)]">
+            {output || "(no output)"}
+          </pre>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function RichBlockView({ block }: { block: RichBlock }) {
   switch (block.kind) {
     case "p":
@@ -309,14 +390,10 @@ function RichBlockView({ block }: { block: RichBlock }) {
         </div>
       );
     case "code":
-      return (
-        <pre className="overflow-x-auto rounded-2xl bg-[var(--track)] p-4 font-mono text-[14px] leading-[1.7] text-[var(--text)]">
-          {block.text}
-        </pre>
-      );
+      return <RunnableCode code={block.text} />;
     case "formula":
       return (
-        <p className="rounded-2xl bg-[var(--track)] px-4 py-3 text-center font-mono text-[15px] leading-[1.7] tracking-wide text-[var(--text)]">
+        <p className="w-full overflow-x-auto whitespace-nowrap rounded-2xl bg-[var(--track)] px-4 py-3 text-center font-mono text-[15px] leading-[1.7] tracking-wide text-[var(--text)]">
           {block.text}
         </p>
       );

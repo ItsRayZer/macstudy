@@ -12,6 +12,7 @@ import {
   EmptyState,
   GlassCard,
   Pill,
+  TabBarSpacer,
 } from "../../components/ui";
 import { getDB, type Bookmark, type MistakeEntry } from "../../lib/db";
 import {
@@ -297,6 +298,7 @@ export default function RevisePage() {
           />
         </>
       )}
+      <TabBarSpacer />
     </main>
   );
 }

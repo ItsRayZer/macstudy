@@ -14,6 +14,7 @@ import {
   GlassCard,
   Pill,
   ProgressBar,
+  TabBarSpacer,
 } from "../../../../components/ui";
 import { getDB } from "../../../../lib/db";
 import {
@@ -374,6 +375,7 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
           );
         })}
       </div>
+      <TabBarSpacer />
     </main>
   );
 }
