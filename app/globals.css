@@ -216,3 +216,5 @@
   background: rgba(244, 63, 94, 0.22);
   box-shadow: inset 0 0 0 2px rgba(244, 63, 94, 0.55);
 }
+
+/* build: include wordmark.jpg in production bundle */
