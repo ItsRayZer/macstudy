@@ -12,7 +12,7 @@ export function XpBar({ today, goal }: { today: number; goal: number }) {
       <div className="flex items-center justify-between gap-2">
         <span className="flex items-center gap-2">
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--text)] text-[var(--bg)]">
-            <ZapIcon className="h-4 w-4 text-white" />
+            <ZapIcon className="h-4 w-4" />
           </span>
           <span className="text-sm font-semibold">XP today</span>
         </span>

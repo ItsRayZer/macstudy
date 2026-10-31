@@ -144,10 +144,11 @@ export function GlassCard({
 export type PillVariant = "sure" | "repeated" | "important" | "default";
 
 const PILL_STYLES: Record<PillVariant, string> = {
-  sure: "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+  sure: "border-[var(--neon)]/40 bg-[var(--neon)]/10 text-[var(--neon-soft)]",
   repeated:
-    "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-  important: "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+    "border-amber-400/30 bg-amber-400/10 text-amber-600 dark:text-amber-300",
+  important:
+    "border-[var(--text-dim)]/40 bg-transparent text-[var(--text-dim)]",
   default: "border-white/20 bg-white/5 text-[var(--text-dim)]",
 };
 
@@ -188,7 +189,7 @@ export function ProgressBar({
       aria-valuemax={100}
     >
       <div
-        className="h-full rounded-full bg-[var(--text)] transition-[width] duration-500"
+        className="gloss-fill h-full rounded-full transition-[width] duration-500"
         style={{ width: `${v}%` }}
       />
     </div>
@@ -254,41 +255,44 @@ export function BottomNav() {
   const pathname = usePathname();
   if (TOPIC_PAGE_RE.test(pathname)) return null;
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50" aria-label="Primary">
-      <div className="mx-auto w-full max-w-[480px] px-4 pb-[max(0.9rem,env(safe-area-inset-bottom))] pt-2">
-        <div className="glass-strong flex items-stretch rounded-3xl px-2 py-2 shadow-[var(--shadow)]">
-          {TABS.map(({ href, label, Icon: TabIcon }) => {
-            const active =
-              href === "/" ? pathname === "/" : pathname.startsWith(href);
-            return (
-              <Link
-                key={href}
-                href={href}
-                aria-current={active ? "page" : undefined}
-                className="flex min-h-[60px] min-w-[52px] flex-1 flex-col items-center justify-center gap-1 rounded-2xl"
+    <nav
+      className="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-50"
+      aria-label="Primary"
+    >
+      <div className="glass-strong mx-auto grid w-full max-w-[420px] grid-cols-5 rounded-full px-3 py-1.5">
+        {TABS.map(({ href, label, Icon: TabIcon }) => {
+          const active =
+            href === "/" ? pathname === "/" : pathname.startsWith(href);
+          return (
+            <Link
+              key={href}
+              href={href}
+              aria-current={active ? "page" : undefined}
+              className="flex min-h-[52px] flex-col items-center justify-center gap-1"
+            >
+              <TabIcon
+                className={`h-[22px] w-[22px] ${
+                  active ? "text-[var(--text)]" : "text-[var(--text-faint)]"
+                }`}
+              />
+              <span
+                className={`text-[10px] leading-none ${
+                  active
+                    ? "font-semibold text-[var(--text)]"
+                    : "text-[var(--text-faint)]"
+                }`}
               >
-                <span
-                  className={`flex h-9 w-12 items-center justify-center rounded-full transition-all ${
-                    active
-                      ? "bg-[var(--text)] text-[var(--bg)]"
-                      : "text-[var(--text-faint)]"
-                  }`}
-                >
-                  <TabIcon className="h-5 w-5" />
-                </span>
-                <span
-                  className={`text-[10px] leading-none ${
-                    active
-                      ? "font-semibold text-[var(--text)]"
-                      : "text-[var(--text-faint)]"
-                  }`}
-                >
-                  {label}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
+                {label}
+              </span>
+              <span
+                aria-hidden="true"
+                className={`h-1 w-1 rounded-full ${
+                  active ? "bg-[var(--neon)]" : "bg-transparent"
+                }`}
+              />
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

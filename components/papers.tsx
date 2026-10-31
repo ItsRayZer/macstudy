@@ -2,7 +2,10 @@
 // Shared question-paper cards: view in browser + download. Files are bundled
 // with the app under public/pyq/ - no external dependency.
 
+"use client";
+
 import { GlassCard, Pill } from "./ui";
+import { BookmarkButton, paperBookmarkRef } from "./bookmarks";
 import type { PaperFile } from "../lib/pyq-papers";
 
 function DocIcon({ className }: { className?: string }) {
@@ -15,18 +18,30 @@ function DocIcon({ className }: { className?: string }) {
   );
 }
 
-export function PaperCard({ paper }: { paper: PaperFile }) {
+export function PaperCard({
+  paper,
+  subject,
+}: {
+  paper: PaperFile;
+  subject?: string;
+}) {
   return (
     <GlassCard className="p-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent)]">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--track)] text-[var(--text)]">
           <DocIcon className="h-6 w-6" />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <Pill variant={paper.kind === "model" ? "sure" : "default"}>
               {paper.label}
             </Pill>
+            {subject ? (
+              <BookmarkButton
+                target={paperBookmarkRef(subject, paper.id)}
+                label="paper"
+              />
+            ) : null}
           </div>
           <h3 className="mt-1.5 text-[15px] font-semibold leading-snug text-[var(--text)]">
             {paper.title}
@@ -41,7 +56,7 @@ export function PaperCard({ paper }: { paper: PaperFile }) {
               href={paper.file}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-xl bg-[var(--accent)] px-4 text-sm font-semibold text-white transition-transform active:scale-[0.98]"
+              className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-xl bg-[var(--text)] px-4 text-sm font-semibold text-[var(--bg)] transition-transform active:scale-[0.98]"
             >
               View
             </a>

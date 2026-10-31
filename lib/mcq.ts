@@ -2,7 +2,7 @@
 // Deterministic 4-option MCQ builder for the topic TEST phase.
 //
 // The correct option is condensed from the question's real answer (first
-// answer line, trimmed) — correct answers are never changed. The 3
+// answer line, trimmed); correct answers are never changed. The 3
 // distractors are drawn from the SAME topic's own content (other questions'
 // answers, then theory points): real vocabulary from the chapter, plausible
 // but wrong for this question. Nothing is invented outside the topic data.
