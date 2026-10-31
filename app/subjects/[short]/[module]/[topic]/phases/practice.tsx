@@ -280,6 +280,7 @@ export function PracticePhase({
   };
 
   const onNextQ = () => {
+    window.scrollTo(0, 0);
     const np = pos + 1;
     if (np < queue.length) {
       setPos(np);

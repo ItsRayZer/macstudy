@@ -310,6 +310,7 @@ export function TestPhase({
 
   const nextQuestion = () => {
     if (!session || finishing) return;
+    window.scrollTo(0, 0);
     if (session.done) {
       void doFinish();
       return;

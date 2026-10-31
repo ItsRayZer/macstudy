@@ -712,6 +712,11 @@ export function LearnPhase({
     onProgress(totalPages === 0 ? 1 : (page + 1) / totalPages);
   }, [page, totalPages, onProgress]);
 
+  // New page = new content: bring the user back to the top.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
   // Reaching the last Learn page counts as finishing Learn: persist the 25%
   // milestone so progress survives a reload. Never downgrades.
   const learnSaved = useRef(false);
