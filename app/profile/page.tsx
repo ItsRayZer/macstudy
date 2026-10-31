@@ -58,9 +58,7 @@ function Icon({
 function CoinIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v10" />
-      <path d="M9 9.5c0-1 1.3-2 3-2s3 1 3 2-1.5 2.5-3 3-3 1.5-3 3 1.3 2 3 2 3-1 3-2" />
+      <path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.1-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" />
     </Icon>
   );
 }

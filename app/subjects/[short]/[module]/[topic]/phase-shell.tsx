@@ -14,6 +14,7 @@ import {
   getModuleLocal,
   getSubjectLocal,
   getTopicBySlug,
+  nextTopicHref,
 } from "../../../../../lib/study";
 import { PHASES, type PhaseIndex } from "../../../../../lib/phase-unlocks";
 function BackArrowIcon({ className }: { className?: string }) {
@@ -60,6 +61,7 @@ export function PhaseShell({
   const topic = mod ? getTopicBySlug(mod, slug) : undefined;
 
   const base = `/subjects/${short}/${num}/${slug}`;
+  const nextHref = nextTopicHref(short, num, slug);
 
   // Phase progress reflects real progress across ALL phases (Learn 0-25%,
   // Practice 25-50%, Test 50-75%, Revise 75-100%). It must never show full
@@ -144,6 +146,40 @@ export function PhaseShell({
       </header>
 
       {children}
+
+      {/* Free navigation: every phase is optional. */}
+      <nav
+        aria-label="Phase exits"
+        className="flex flex-col gap-2 border-t border-[var(--glass-border)] pt-4"
+      >
+        {nextHref ? (
+          <Link
+            href={nextHref}
+            className="flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+          >
+            Skip to next topic
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-5 w-5"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </Link>
+        ) : null}
+        <Link
+          href="/"
+          className="flex min-h-[48px] items-center justify-center rounded-2xl text-[14px] font-semibold text-[var(--text-dim)] active:opacity-80"
+        >
+          Back to Home
+        </Link>
+      </nav>
     </main>
   );
 }

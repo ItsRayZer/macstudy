@@ -105,6 +105,33 @@ export function topicHref(
   return `/subjects/${short}/${moduleNum}/${topicSlug(topic)}`;
 }
 
+/**
+ * Href of the next topic's Learn page in syllabus order (next topic in the
+ * same module, else the first topic of the next module). Null when this is
+ * the last topic of the subject.
+ */
+export function nextTopicHref(
+  short: string,
+  moduleNum: string,
+  slug: string,
+): string | null {
+  const subject = getSubjectLocal(short);
+  if (!subject) return null;
+  const mi = subject.modules.findIndex((m) => m.num === moduleNum);
+  if (mi < 0) return null;
+  const mod = subject.modules[mi];
+  const ti = mod.topics.findIndex((t) => topicSlug(t) === slug);
+  if (ti < 0) return null;
+  if (ti + 1 < mod.topics.length) {
+    return `${topicHref(short, mod.num, mod.topics[ti + 1])}/learn`;
+  }
+  const nextMod = subject.modules[mi + 1];
+  if (nextMod && nextMod.topics.length > 0) {
+    return `${topicHref(short, nextMod.num, nextMod.topics[0])}/learn`;
+  }
+  return null;
+}
+
 // -------------------------------------------------------------- video slot ---
 
 const STOP_WORDS = new Set([

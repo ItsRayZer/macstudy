@@ -10,7 +10,6 @@ import {
   ChevronRightIcon,
   FlameIcon,
   ProgressBar,
-  UserIcon,
 } from "../components/ui";
 import { useAppStore } from "../lib/store";
 import { getDB } from "../lib/db";
@@ -56,9 +55,7 @@ function Icon({
 function CoinIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v10" />
-      <path d="M9 9.5c0-1 1.3-2 3-2s3 1 3 2-1.5 2.5-3 3-3 1.5-3 3 1.3 2 3 2 3-1 3-2" />
+      <path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.1-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" />
     </Icon>
   );
 }
@@ -254,6 +251,7 @@ export default function HomePage() {
   const refreshFromDB = useAppStore((s) => s.refreshFromDB);
 
   const [totalXP, setTotalXP] = useState(0);
+  const [logoOk, setLogoOk] = useState(true);
   const [progresses, setProgresses] = useState<SubjectProgress[]>([]);
   const [continueTarget, setContinueTarget] =
     useState<ContinueTarget | null>(null);
@@ -360,17 +358,21 @@ export default function HomePage() {
     <main className="flex flex-col gap-5">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--track)] text-[var(--text)]">
-            <UserIcon className="h-6 w-6" />
-          </span>
-          <div>
-            <h1 className="text-[20px] font-bold leading-tight text-[var(--text)]">
-              Student
-            </h1>
-            <p className="text-[12px] text-[var(--text-faint)]">
-              MGU BCA 3rd Sem
-            </p>
-          </div>
+          {logoOk ? (
+            <img
+              src="/wordmark.jpg"
+              alt="BcaEasy"
+              className="h-10 w-auto rounded-lg"
+              onError={() => setLogoOk(false)}
+            />
+          ) : (
+            <span className="text-[22px] font-bold tracking-tight text-[var(--text)]">
+              BcaEasy
+            </span>
+          )}
+          <p className="text-[12px] text-[var(--text-faint)]">
+            MGU BCA 3rd Sem
+          </p>
         </div>
         <div className="flex items-center gap-2">
           <span className="flex min-h-[36px] items-center gap-1.5 rounded-full border border-[var(--neon)]/30 bg-[var(--neon)]/10 px-3">

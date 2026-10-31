@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "MacStudy",
-    template: "%s | MacStudy",
+    default: "BcaEasy",
+    template: "%s | BcaEasy",
   },
   description:
     "Premium study companion for MGU BCA 3rd semester: track progress, revise smart, ace every exam.",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "MacStudy",
+    title: "BcaEasy",
   },
   icons: {
     icon: [
@@ -33,6 +33,12 @@ export const metadata: Metadata = {
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  openGraph: {
+    title: "BcaEasy",
+    description:
+      "Premium study companion for MGU BCA 3rd semester: track progress, revise smart, ace every exam.",
+    images: [{ url: "/wordmark.jpg", width: 2048, height: 682 }],
   },
 };
 
