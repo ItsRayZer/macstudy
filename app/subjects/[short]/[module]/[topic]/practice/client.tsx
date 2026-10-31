@@ -1,0 +1,58 @@
+// app/subjects/[short]/[module]/[topic]/practice/client.tsx
+// Practice phase screen: guided single-question flow. Next moves to Test.
+
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { PhaseShell } from "../phase-shell";
+import { PracticePhase } from "../flow";
+import {
+  getModuleLocal,
+  getSubjectLocal,
+  getTopicBySlug,
+} from "../../../../../../lib/study";
+
+export function PracticeClient({
+  short,
+  num,
+  slug,
+}: {
+  short: string;
+  num: string;
+  slug: string;
+}) {
+  const router = useRouter();
+  const [progress, setProgress] = useState(0);
+
+  const subject = getSubjectLocal(short);
+  const mod = subject ? getModuleLocal(subject, num) : undefined;
+  const topic = mod ? getTopicBySlug(mod, slug) : undefined;
+  if (!subject || !mod || !topic) return null;
+
+  const base = `/subjects/${short}/${num}/${slug}`;
+
+  return (
+    <PhaseShell
+      short={short}
+      num={num}
+      slug={slug}
+      phase={1}
+      backHref={`${base}/learn`}
+      backLabel="Learn"
+      progress={progress}
+    >
+      <PracticePhase
+        short={subject.short}
+        num={mod.num}
+        topicTitle={topic.title}
+        topic={topic}
+        questions={topic.questions}
+        onProgress={setProgress}
+        onNext={() => {
+          router.push(`${base}/test`);
+        }}
+      />
+    </PhaseShell>
+  );
+}
