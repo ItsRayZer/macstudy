@@ -22,6 +22,11 @@ import {
   ProgressBar,
 } from "../../../../../components/ui";
 import { getDB } from "../../../../../lib/db";
+import {
+  BookmarkButton,
+  questionBookmarkRef,
+} from "../../../../../components/bookmarks";
+import { Inline, RichText } from "../../../../../components/rich-text";
 import { useAppStore } from "../../../../../lib/store";
 import {
   matchVideoSlot,
@@ -29,7 +34,7 @@ import {
   summarizeExamPattern,
 } from "../../../../../lib/study";
 import { QuizSession, xpForTag, type QuizFinal } from "../../../../../lib/quiz";
-import { buildMcq } from "../../../../../lib/mcq";
+import { buildMcq, type Mcq } from "../../../../../lib/mcq";
 import {
   GRADE_BUTTONS,
   Rating,
@@ -143,6 +148,25 @@ function ArrowIcon({ className }: { className?: string }) {
   );
 }
 
+function BackNavIcon({ className }: { className?: string }) {
+  return (
+    <Icon className={className}>
+      <path d="M19 12H5" />
+      <path d="m12 19-7-7 7-7" />
+    </Icon>
+  );
+}
+
+function FlipIcon({ className }: { className?: string }) {
+  return (
+    <Icon className={className}>
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M3 12a9 9 0 0 1 15.5-6.2L21 8" />
+      <path d="M21 3v5h-5" />
+    </Icon>
+  );
+}
+
 // -------------------------------------------------------------- answer view ---
 
 /**
@@ -150,37 +174,9 @@ function ArrowIcon({ className }: { className?: string }) {
  * spaces are code and render as monospace blocks.
  */
 export function AnswerBlock({ lines }: { lines: string[] }) {
-  const blocks: { code: boolean; text: string[] }[] = [];
-  for (const line of lines) {
-    const code = line.startsWith("    ");
-    const text = code ? line.slice(4) : line;
-    const last = blocks[blocks.length - 1];
-    if (last && last.code === code) last.text.push(text);
-    else blocks.push({ code, text: [text] });
-  }
-  return (
-    <div className="flex flex-col gap-3">
-      {blocks.map((b, i) =>
-        b.code ? (
-          <pre
-            key={i}
-            className="overflow-x-auto rounded-2xl bg-[var(--track)] p-4 font-mono text-[14px] leading-relaxed text-[var(--text)]"
-          >
-            {b.text.join("\n")}
-          </pre>
-        ) : (
-          b.text.map((t, j) => (
-            <p
-              key={`${i}-${j}`}
-              className="text-[16px] leading-[1.75] text-[var(--text-dim)]"
-            >
-              {t}
-            </p>
-          ))
-        ),
-      )}
-    </div>
-  );
+  // Rich structured rendering everywhere answers appear: Practice reveal,
+  // Test full-answer, flashcards, mistake review.
+  return <RichText lines={lines} />;
 }
 
 // ---------------------------------------------------------------- tag pill ---
@@ -342,107 +338,167 @@ function structurePoints(points: string[], topicTitle: string): PointBlock[] {
   return blocks;
 }
 
-// ------------------------------------------------------------------- LEARN ---
+/**
+ * Chunk theory blocks into 2-4 pager pages: head (definition/lead) first,
+ * key points in chunks, examples last. Never more than 4 pages.
+ */
+function paginateLearn(blocks: PointBlock[]): PointBlock[][] {
+  if (blocks.length === 0) return [[]];
+  const pages: PointBlock[][] = [[blocks[0]]];
+  let items: string[] = [];
+  let exItems: string[] = [];
+  for (const b of blocks.slice(1)) {
+    if (b.kind === "points") items = items.concat(b.items);
+    else if (b.kind === "examples") exItems = exItems.concat(b.items);
+  }
+  const exPages = exItems.length > 0 ? 1 : 0;
+  const pointPages = Math.max(1, 3 - exPages);
+  const chunk = Math.max(4, Math.ceil(items.length / pointPages));
+  for (let i = 0; i < items.length; i += chunk) {
+    pages.push([{ kind: "points", items: items.slice(i, i + chunk) }]);
+  }
+  if (exItems.length > 0) pages.push([{ kind: "examples", items: exItems }]);
+  return pages.slice(0, 4);
+}
+
+function LearnBlocks({ blocks }: { blocks: PointBlock[] }) {
+  return (
+    <article className="flex flex-col gap-6">
+      {blocks.map((b, i) => {
+        if (b.kind === "definition") {
+          return (
+            <div
+              key={i}
+              className="rounded-3xl border border-[var(--glass-border)] bg-[var(--glass)] p-5"
+            >
+              <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
+                Definition
+              </p>
+              <p className="mt-2 text-[18px] font-medium leading-[1.7] text-[var(--text)]">
+                <Inline text={b.text} />
+              </p>
+            </div>
+          );
+        }
+        if (b.kind === "lead") {
+          return (
+            <p key={i} className="text-[18px] leading-[1.75] text-[var(--text)]">
+              {b.text}
+            </p>
+          );
+        }
+        if (b.kind === "points") {
+          return (
+            <div key={i}>
+              <h2 className="text-[20px] font-bold text-[var(--text)]">
+                Key points
+              </h2>
+              <ul className="mt-4 flex flex-col gap-4">
+                {b.items.map((pt, j) => (
+                  <li key={j} className="flex gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-dim)]"
+                    />
+                    <p className="text-[16px] leading-[1.75] text-[var(--text-dim)]">
+                      <Inline text={pt} />
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        }
+        return (
+          <div key={i}>
+            <h2 className="text-[20px] font-bold text-[var(--text)]">Examples</h2>
+            <div className="mt-4 flex flex-col gap-3">
+              {b.items.map((pt, j) => (
+                <div key={j} className="rounded-2xl bg-[var(--track)] p-4">
+                  <p className="text-[16px] leading-[1.75] text-[var(--text-dim)]">
+                    <Inline text={pt} />
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+      {blocks.length === 0 ? (
+        <p className="text-[16px] leading-[1.75] text-[var(--text-dim)]">
+          Work through the practice questions below, they cover this topic end
+          to end.
+        </p>
+      ) : null}
+    </article>
+  );
+}
 
 export function LearnPhase({
   subject,
   mod,
   topic,
+  onProgress,
   onNext,
 }: {
   subject: Subject;
   mod: Module;
   topic: Topic;
+  onProgress: (fraction: number) => void;
   onNext: () => void;
 }) {
   const slot = matchVideoSlot(subject.short, mod.num, topic);
   const pattern = mod.examPattern ?? subject.examPattern;
-  const blocks = structurePoints(topic.points, topic.title);
+  const pages = useMemo(
+    () => paginateLearn(structurePoints(topic.points, topic.title)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [subject.short, mod.num, topic.title],
+  );
+  const [page, setPage] = useState(0);
+  const totalPages = pages.length;
+  const isLast = page === totalPages - 1;
+
+  useEffect(() => {
+    onProgress(totalPages === 0 ? 1 : (page + 1) / totalPages);
+  }, [page, totalPages, onProgress]);
 
   return (
     <section aria-label="Learn" className="flex flex-col gap-6">
       <VideoSection slot={slot} />
 
-      <article className="flex flex-col gap-6">
-        {blocks.map((b, i) => {
-          if (b.kind === "definition") {
-            return (
-              <div
-                key={i}
-                className="rounded-3xl border border-[var(--glass-border)] bg-[var(--glass)] p-5"
-              >
-                <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
-                  Definition
-                </p>
-                <p className="mt-2 text-[18px] font-medium leading-[1.7] text-[var(--text)]">
-                  {b.text}
-                </p>
-              </div>
-            );
-          }
-          if (b.kind === "lead") {
-            return (
-              <p
-                key={i}
-                className="text-[18px] leading-[1.75] text-[var(--text)]"
-              >
-                {b.text}
-              </p>
-            );
-          }
-          if (b.kind === "points") {
-            return (
-              <div key={i}>
-                <h2 className="text-[20px] font-bold text-[var(--text)]">
-                  Key points
-                </h2>
-                <ul className="mt-4 flex flex-col gap-4">
-                  {b.items.map((pt, j) => (
-                    <li key={j} className="flex gap-3">
-                      <span
-                        aria-hidden="true"
-                        className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-dim)]"
-                      />
-                      <p className="text-[16px] leading-[1.75] text-[var(--text-dim)]">
-                        {pt}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          }
-          return (
-            <div key={i}>
-              <h2 className="text-[20px] font-bold text-[var(--text)]">
-                Examples
-              </h2>
-              <div className="mt-4 flex flex-col gap-3">
-                {b.items.map((pt, j) => (
-                  <div
-                    key={j}
-                    className="rounded-2xl bg-[var(--track)] p-4"
-                  >
-                    <p className="text-[16px] leading-[1.75] text-[var(--text-dim)]">
-                      {pt}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-        {blocks.length === 0 ? (
-          <p className="text-[16px] leading-[1.75] text-[var(--text-dim)]">
-            Work through the practice questions below, they cover this topic
-            end to end.
-          </p>
+      <LearnBlocks blocks={pages[page] ?? []} />
+
+      {isLast ? <ExamFootnote pattern={pattern} /> : null}
+
+      <div className="flex items-center justify-between gap-3">
+        {page > 0 ? (
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            className="flex min-h-[52px] items-center rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+          >
+            Back
+          </button>
+        ) : (
+          <span className="text-[13px] tabular-nums text-[var(--text-faint)]">
+            Part 1 of {totalPages}
+          </span>
+        )}
+        {page > 0 ? (
+          <span className="text-[13px] tabular-nums text-[var(--text-faint)]">
+            Part {page + 1} of {totalPages}
+          </span>
         ) : null}
-      </article>
+      </div>
 
-      <ExamFootnote pattern={pattern} />
-
-      <NextButton label={`Practice · ${topic.questions.length} questions`} onClick={onNext} />
+      {isLast ? (
+        <NextButton
+          label={`Practice · ${topic.questions.length} questions`}
+          onClick={onNext}
+        />
+      ) : (
+        <NextButton label="Next" onClick={() => setPage((p) => p + 1)} />
+      )}
     </section>
   );
 }
@@ -453,6 +509,7 @@ export function PracticePhase({
   short,
   num,
   topicTitle,
+  topic,
   questions,
   onProgress,
   onNext,
@@ -460,13 +517,29 @@ export function PracticePhase({
   short: string;
   num: string;
   topicTitle: string;
+  topic: Topic;
   questions: Question[];
   onProgress: (fraction: number) => void;
   onNext: () => void;
 }) {
-  const [revealed, setRevealed] = useState<Record<number, boolean>>({});
+  const total = questions.length;
+  const [queue, setQueue] = useState<number[]>(() =>
+    questions.map((_, i) => i),
+  );
+  const [pos, setPos] = useState(0);
+  const [round, setRound] = useState(1);
+  const [repeat, setRepeat] = useState<number[]>([]);
+  const [repeatTotal, setRepeatTotal] = useState(0);
+  // prompt: Answer / Skip / I don't know · options: 4 choices · result: feedback
+  const [step, setStep] = useState<"prompt" | "options" | "result">("prompt");
+  const [mcq, setMcq] = useState<Mcq | null>(null);
+  const [picked, setPicked] = useState<number | null>(null);
+  const [showFull, setShowFull] = useState(false);
+  const [finished, setFinished] = useState(false);
   const [bookmarked, setBookmarked] = useState<Record<number, boolean>>({});
-  const [wrongNote, setWrongNote] = useState<number | null>(null);
+
+  const qIdx = queue[pos];
+  const q = qIdx != null ? questions[qIdx] : null;
 
   useEffect(() => {
     let live = true;
@@ -486,97 +559,312 @@ export function PracticePhase({
     };
   }, [short, num, topicTitle]);
 
-  useEffect(() => {
-    const count = Object.values(revealed).filter(Boolean).length;
-    onProgress(questions.length === 0 ? 1 : count / questions.length);
-  }, [revealed, questions.length, onProgress]);
+  const reportProgress = (
+    p: number,
+    r: number,
+    repDone: number,
+    repAll: number,
+  ) => {
+    if (total === 0) {
+      onProgress(1);
+      return;
+    }
+    if (r === 1) onProgress(0.85 * (p / total));
+    else onProgress(0.85 + 0.15 * (repAll === 0 ? 1 : repDone / repAll));
+  };
 
-  const toggleReveal = (i: number) =>
-    setRevealed((r) => ({ ...r, [i]: !r[i] }));
+  const resetStep = () => {
+    setStep("prompt");
+    setMcq(null);
+    setPicked(null);
+    setShowFull(false);
+  };
 
-  const toggleBookmark = async (i: number) => {
+  const enqueueRepeat = (idx: number) => {
+    setRepeat((r) => (r.includes(idx) ? r : [...r, idx]));
+  };
+
+  const dequeueRepeat = (idx: number) => {
+    setRepeat((r) => r.filter((x) => x !== idx));
+  };
+
+  const toggleBookmark = async () => {
+    if (qIdx == null) return;
     try {
-      const now = await getDB().toggleBookmark(short, num, topicTitle, i);
-      setBookmarked((m) => ({ ...m, [i]: now }));
+      const now = await getDB().toggleBookmark(short, num, topicTitle, qIdx);
+      setBookmarked((m) => ({ ...m, [qIdx]: now }));
     } catch {
       // keep the UI usable when storage fails
     }
   };
 
-  const markWrong = async (i: number) => {
-    try {
-      await getDB().addMistake(short, num, topicTitle, i);
-      setWrongNote(i);
-      window.setTimeout(() => {
-        setWrongNote((n) => (n === i ? null : n));
-      }, 2000);
-    } catch {
-      // keep the UI usable when storage fails
-    }
+  const onAnswer = () => {
+    if (q == null || qIdx == null) return;
+    setMcq(buildMcq(q, topic, qIdx));
+    setStep("options");
   };
+
+  const onSkip = (mark: boolean) => {
+    // Skip / I don't know: queue for the repeat round. The full answer
+    // appears ONLY on explicit tap.
+    if (qIdx != null && mark) enqueueRepeat(qIdx);
+    setPicked(null);
+    setShowFull(false);
+    setStep("result");
+  };
+
+  const onChoose = (oi: number) => {
+    if (!mcq || picked != null || qIdx == null) return;
+    setPicked(oi);
+    const correct = oi === mcq.correctIndex;
+    // Wrong = they need to learn it: auto-show the full answer.
+    // Correct = brief success only. Skip path uses an explicit button.
+    setShowFull(!correct);
+    if (!correct) enqueueRepeat(qIdx);
+    setStep("result");
+  };
+
+  const onNextQ = () => {
+    const np = pos + 1;
+    if (np < queue.length) {
+      setPos(np);
+      resetStep();
+      reportProgress(np, round, 0, 0);
+      return;
+    }
+    // End of this pass: repeat the mistaken/skipped ones, else finish.
+    setRepeat((rep) => {
+      if (rep.length > 0) {
+        setQueue(rep);
+        setRepeatTotal(rep.length);
+        setPos(0);
+        setRound((r) => r + 1);
+        resetStep();
+        reportProgress(0, 2, 0, rep.length);
+      } else {
+        setFinished(true);
+        onProgress(1);
+      }
+      return [];
+    });
+  };
+
+  if (total === 0) {
+    return (
+      <section aria-label="Practice" className="flex flex-col gap-4">
+        <h2 className="text-[20px] font-bold text-[var(--text)]">Practice</h2>
+        <p className="text-[15px] text-[var(--text-dim)]">
+          No practice questions for this topic yet. Head to the quiz.
+        </p>
+        <NextButton label="Take the quiz" onClick={onNext} />
+      </section>
+    );
+  }
+
+  if (finished) {
+    return (
+      <section aria-label="Practice complete" className="flex flex-col gap-4">
+        <GlassCard>
+          <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
+            Practice complete
+          </p>
+          <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
+            Nice, you worked through every question
+          </h2>
+          <p className="mt-2 text-[15px] leading-[1.7] text-[var(--text-dim)]">
+            {round > 1
+              ? `Including a review round for the tricky ones.`
+              : `Clean pass, nothing needed a second look.`}{" "}
+            Practice is safe to fail, the quiz is where you prove it.
+          </p>
+          <div className="mt-5">
+            <NextButton label="Take the quiz" onClick={onNext} />
+          </div>
+        </GlassCard>
+      </section>
+    );
+  }
+
+  if (!q || qIdx == null) return null;
 
   return (
     <section aria-label="Practice" className="flex flex-col gap-4">
-      <h2 className="text-[20px] font-bold text-[var(--text)]">
-        Practice questions
-      </h2>
-      {questions.map((q, i) => (
-        <GlassCard key={i}>
-          <div className="flex items-start justify-between gap-2">
-            <p className="text-[17px] font-semibold leading-[1.6] text-[var(--text)]">
-              <span className="text-[var(--text-faint)]">Q{i + 1}. </span>
-              {q.q}
-            </p>
-            <button
-              type="button"
-              onClick={() => toggleBookmark(i)}
-              aria-label={bookmarked[i] ? "Remove bookmark" : "Bookmark question"}
-              aria-pressed={Boolean(bookmarked[i])}
-              className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-2xl text-[var(--text-dim)] active:bg-[var(--track)]"
-            >
-              <BookmarkIcon
-                className="h-5 w-5"
-                filled={Boolean(bookmarked[i])}
-              />
-            </button>
-          </div>
+      <div className="flex items-center justify-between">
+        <h2 className="text-[20px] font-bold text-[var(--text)]">Practice</h2>
+        <span className="text-[13px] tabular-nums text-[var(--text-dim)]">
+          {round > 1
+            ? `Review round · ${pos + 1} of ${queue.length}`
+            : `Question ${pos + 1} of ${total}`}
+        </span>
+      </div>
 
-          <div className="mt-3 flex flex-wrap gap-2">
+      <GlassCard>
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex flex-wrap gap-2">
             <TagPill tagBase={q.tagBase} years={q.years} />
           </div>
-
           <button
             type="button"
-            onClick={() => toggleReveal(i)}
-            aria-expanded={Boolean(revealed[i])}
-            className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+            onClick={toggleBookmark}
+            aria-label={bookmarked[qIdx] ? "Remove bookmark" : "Bookmark question"}
+            aria-pressed={Boolean(bookmarked[qIdx])}
+            className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-2xl text-[var(--text-dim)] active:bg-[var(--track)]"
           >
-            {revealed[i] ? "Hide answer" : "Show answer"}
+            <BookmarkIcon className="h-5 w-5" filled={Boolean(bookmarked[qIdx])} />
           </button>
+        </div>
+        <p className="mt-3 text-[18px] font-semibold leading-[1.6] text-[var(--text)]">
+          {q.q}
+        </p>
 
-          {revealed[i] ? (
-            <div className="mt-4">
-              <AnswerBlock lines={q.a} />
-            </div>
-          ) : null}
-
-          <div className="mt-3 flex items-center justify-between gap-2">
+        {step === "prompt" ? (
+          <div className="mt-5 flex flex-col gap-2">
             <button
               type="button"
-              onClick={() => markWrong(i)}
-              className="flex min-h-[44px] items-center rounded-2xl px-4 text-[15px] font-medium text-[var(--text-dim)] active:bg-[var(--track)]"
+              onClick={onAnswer}
+              className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold"
             >
-              I got this wrong
+              Answer
             </button>
-            {wrongNote === i ? (
-              <span className="text-[13px] font-medium text-amber-600 dark:text-amber-300">
-                Added to mistake deck
-              </span>
-            ) : null}
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => onSkip(true)}
+                className="flex min-h-[48px] items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-semibold text-[var(--text-dim)] active:opacity-80"
+              >
+                Skip
+              </button>
+              <button
+                type="button"
+                onClick={() => onSkip(true)}
+                className="flex min-h-[48px] items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-semibold text-[var(--text-dim)] active:opacity-80"
+              >
+                I don&apos;t know
+              </button>
+            </div>
           </div>
-        </GlassCard>
-      ))}
-      <NextButton label="Take the quiz" onClick={onNext} />
+        ) : null}
+
+        {step === "options" && mcq ? (
+          <div
+            className="mt-4 flex flex-col gap-2"
+            role="radiogroup"
+            aria-label="Answer options"
+          >
+            {mcq.options.map((opt, oi) => {
+              const isCorrect = oi === mcq.correctIndex;
+              const isPicked = oi === picked;
+              const style =
+                picked == null
+                  ? "border-[var(--glass-border)] bg-[var(--glass)]"
+                  : isCorrect
+                    ? "border-emerald-500/60 bg-emerald-500/10"
+                    : isPicked
+                      ? "border-rose-500/60 bg-rose-500/10"
+                      : "border-[var(--glass-border)] opacity-50";
+              return (
+                <button
+                  key={oi}
+                  type="button"
+                  role="radio"
+                  aria-checked={isPicked}
+                  disabled={picked != null}
+                  onClick={() => onChoose(oi)}
+                  className={`flex min-h-[56px] w-full items-center gap-3 rounded-2xl border p-3 text-left transition-colors active:opacity-80 disabled:cursor-default ${style}`}
+                >
+                  <span
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-[13px] font-bold ${
+                      picked != null && isCorrect
+                        ? "bg-emerald-500 text-white"
+                        : picked != null && isPicked
+                          ? "bg-rose-500 text-white"
+                          : "bg-[var(--track)] text-[var(--text)]"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    {String.fromCharCode(65 + oi)}
+                  </span>
+                  <span className="text-[15px] leading-[1.6] text-[var(--text)]">
+                    {opt}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+
+        {step === "result" ? (
+          <>
+            {picked != null && mcq && picked === mcq.correctIndex ? (
+              <>
+                <p className="mt-4 text-center text-[15px] font-semibold text-[var(--neon-soft)]" role="status">
+                  Correct, nicely done
+                </p>
+                <button
+                  type="button"
+                  onClick={onNextQ}
+                  className="cta-neon mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl text-[15px] font-bold"
+                >
+                  Next
+                  <ArrowIcon className="h-5 w-5" />
+                </button>
+              </>
+            ) : (
+              <>
+                {picked != null ? (
+                  <p className="mt-4 text-center text-[15px] font-semibold text-[var(--text-dim)]" role="status">
+                    Not quite, the correct option is highlighted
+                  </p>
+                ) : null}
+                {showFull ? (
+                  <>
+                    <div className="mt-4 rounded-2xl bg-[var(--track)] p-4">
+                      <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
+                        Full answer
+                      </p>
+                      <div className="mt-2">
+                        <AnswerBlock lines={q.a} />
+                      </div>
+                    </div>
+                    <div className="mt-4 grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          // "I got it": self-declared known, never penalizes.
+                          if (qIdx != null) dequeueRepeat(qIdx);
+                          onNextQ();
+                        }}
+                        className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold"
+                      >
+                        I got it
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          // "Skip": queue for the end-of-phase repeat round.
+                          if (qIdx != null) enqueueRepeat(qIdx);
+                          onNextQ();
+                        }}
+                        className="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+                      >
+                        Skip
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowFull(true)}
+                    className="mt-4 flex min-h-[52px] w-full items-center justify-center rounded-2xl border border-[var(--glass-border)] bg-[var(--glass)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+                  >
+                    Show full answer
+                  </button>
+                )}
+              </>
+            )}
+          </>
+        ) : null}
+      </GlassCard>
     </section>
   );
 }
@@ -687,7 +975,7 @@ export function TestPhase({
           </p>
           <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
             {final.passed
-              ? "Topic complete, next topic unlocked"
+              ? "Topic complete"
               : "Not yet, review and retry"}
           </h2>
           <div className="mt-4 grid grid-cols-3 gap-2 text-center">
@@ -795,7 +1083,7 @@ export function TestPhase({
           <button
             type="button"
             onClick={start}
-            className="mt-5 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text)] text-[15px] font-semibold text-[var(--bg)] active:opacity-90"
+            className="cta-neon mt-5 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl text-[15px] font-bold"
           >
             <PlayIcon className="h-5 w-5" />
             Start quiz
@@ -826,8 +1114,20 @@ export function TestPhase({
 
       {q && mcq ? (
         <GlassCard>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <TagPill tagBase={q.tagBase} years={q.years} />
+            {session.current != null ? (
+              <BookmarkButton
+                key={`q-${session.current}-${session.roundNumber}`}
+                target={questionBookmarkRef(
+                  short,
+                  num,
+                  topicTitle,
+                  session.current,
+                )}
+                label="question"
+              />
+            ) : null}
           </div>
           <p className="mt-3 text-[18px] font-semibold leading-[1.6] text-[var(--text)]">
             {q.q}
@@ -881,23 +1181,31 @@ export function TestPhase({
           {answered ? (
             <>
               <p
-                className="mt-4 text-center text-[15px] font-semibold text-[var(--text)]"
+                className={`mt-4 text-center text-[15px] font-semibold ${
+                  mcq && picked === mcq.correctIndex
+                    ? "text-[var(--neon-soft)]"
+                    : "text-[var(--text)]"
+                }`}
                 role="status"
               >
                 {feedback}
               </p>
-              <div className="mt-4 rounded-2xl bg-[var(--track)] p-4">
-                <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
-                  Full answer
-                </p>
-                <div className="mt-2">
-                  <AnswerBlock lines={q.a} />
+              {/* Wrong = they need to learn it: full answer auto-shown.
+                  Correct = brief success only, no answer dump. */}
+              {mcq && picked !== mcq.correctIndex ? (
+                <div className="mt-4 rounded-2xl bg-[var(--track)] p-4">
+                  <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
+                    Full answer
+                  </p>
+                  <div className="mt-2">
+                    <AnswerBlock lines={q.a} />
+                  </div>
                 </div>
-              </div>
+              ) : null}
               <button
                 type="button"
                 onClick={nextQuestion}
-                className="mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text)] text-[15px] font-semibold text-[var(--bg)] active:opacity-90"
+                className="cta-neon mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl text-[15px] font-bold"
               >
                 Next question
                 <ArrowIcon className="h-5 w-5" />
@@ -918,6 +1226,8 @@ interface FlashCard {
   frontSub: string;
   back: string[];
   tag: string;
+  /** Index into the topic's questions for question-derived cards, else null. */
+  qIndex: number | null;
 }
 
 export function RevisePhase({
@@ -951,6 +1261,7 @@ export function RevisePhase({
         frontSub: `Key point ${i + 1} of ${topic.points.length} · recall it`,
         back: [pt],
         tag: "THEORY",
+        qIndex: null,
       });
     });
     // SURE MARK and IMPORTANT questions become Q&A cards.
@@ -962,18 +1273,20 @@ export function RevisePhase({
         frontSub: `${q.tagBase}${q.years ? ` · ${q.years}` : ""}`,
         back: q.a,
         tag: q.tagBase,
+        qIndex: i,
       });
     });
     const entries = cards
       .map((c) => ({ ...c, card: loadCard(c.key) }))
       .filter((e) => !hasReviews(e.card) || isCardDue(e.card, now))
       .sort((a, b) => a.card.due.getTime() - b.card.due.getTime())
-      .map(({ key, front, frontSub, back, tag }) => ({
+      .map(({ key, front, frontSub, back, tag, qIndex }) => ({
         key,
         front,
         frontSub,
         back,
         tag,
+        qIndex,
       }));
     setDeck(entries);
     setPos(0);
@@ -1018,14 +1331,24 @@ export function RevisePhase({
             <ClockIcon className="h-4 w-4" />
             Spaced repetition keeps them coming back right on time.
           </p>
-          <button
-            type="button"
-            onClick={buildDeck}
-            className="mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-          >
-            <RefreshIcon className="h-5 w-5" />
-            Check again
-          </button>
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => setPos(deck.length - 1)}
+              className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+            >
+              <BackNavIcon className="h-5 w-5" />
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={buildDeck}
+              className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+            >
+              <RefreshIcon className="h-5 w-5" />
+              Check again
+            </button>
+          </div>
         </GlassCard>
       </section>
     );
@@ -1039,6 +1362,30 @@ export function RevisePhase({
     setPos((p) => p + 1);
   };
 
+  const goFlip = () => setFlip((f) => ((f + 1) % 3) as 0 | 1 | 2);
+  const goNext = () => {
+    setFlip(0);
+    setPos((p) => Math.min(p + 1, deck.length));
+  };
+  const goBack = () => {
+    setFlip(0);
+    setPos((p) => Math.max(p - 1, 0));
+  };
+
+  // Swipe left/right to move through the deck without grading.
+  const touchX = useRef<number | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchX.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    touchX.current = null;
+    if (Math.abs(dx) < 48) return;
+    if (dx < 0) goNext();
+    else goBack();
+  };
+
   return (
     <section aria-label="Revise" className="flex flex-col gap-4">
       <h2 className="text-[20px] font-bold text-[var(--text)]">
@@ -1048,12 +1395,24 @@ export function RevisePhase({
         <span>
           Card {pos + 1} of {deck.length}
         </span>
-        <span>{entry.tag}</span>
+        <span className="flex items-center gap-2">
+          <span>{entry.tag}</span>
+          {entry.qIndex != null ? (
+            <BookmarkButton
+              key={entry.key}
+              target={questionBookmarkRef(short, num, topic.title, entry.qIndex)}
+              label="question"
+              className="-mr-2"
+            />
+          ) : null}
+        </span>
       </div>
 
       <button
         type="button"
-        onClick={() => setFlip((f) => ((f + 1) % 3) as 0 | 1 | 2)}
+        onClick={goFlip}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         aria-label={flip === 0 ? "Flip card" : "Show more of the answer"}
         className="block w-full text-left"
       >
@@ -1105,6 +1464,37 @@ export function RevisePhase({
           ))}
         </div>
       ) : null}
+
+      <div className="grid grid-cols-3 gap-2" role="group" aria-label="Card navigation">
+        <button
+          type="button"
+          onClick={goBack}
+          disabled={pos === 0}
+          className="flex min-h-[52px] items-center justify-center gap-1 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80 disabled:opacity-40"
+        >
+          <BackNavIcon className="h-5 w-5" />
+          Back
+        </button>
+        <button
+          type="button"
+          onClick={goFlip}
+          className="flex min-h-[52px] items-center justify-center gap-1 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+        >
+          <FlipIcon className="h-5 w-5" />
+          Flip
+        </button>
+        <button
+          type="button"
+          onClick={goNext}
+          className="cta-neon flex min-h-[52px] items-center justify-center gap-1 rounded-2xl text-[15px] font-bold"
+        >
+          Next
+          <ArrowIcon className="h-5 w-5" />
+        </button>
+      </div>
+      <p className="text-center text-[12px] text-[var(--text-faint)]">
+        Swipe left or right to move through the deck
+      </p>
     </section>
   );
 }
@@ -1122,7 +1512,7 @@ export function NextButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text)] text-[16px] font-semibold text-[var(--bg)] active:opacity-90"
+      className="cta-neon flex min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl text-[16px] font-bold"
     >
       {label}
       <ArrowIcon className="h-5 w-5" />
