@@ -12,6 +12,7 @@ import {
   GlassCard,
   ProgressBar,
   SegmentedTabs,
+  UserIcon,
 } from "../../components/ui";
 import { StatCard } from "../../components/dashboard/StatCard";
 import { AchievementBadge } from "../../components/dashboard/AchievementBadge";
@@ -229,12 +230,12 @@ export default function ProfilePage() {
     <main className="flex flex-col gap-5">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--text)] text-[18px] font-bold text-[var(--bg)]">
-            R
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--track)] text-[var(--text)]">
+            <UserIcon className="h-6 w-6" />
           </span>
           <div>
             <h1 className="text-[20px] font-bold leading-tight text-[var(--text)]">
-              RayZer
+              Student
             </h1>
             <p className="text-[12px] text-[var(--text-faint)]">
               MGU BCA 3rd Sem
@@ -242,14 +243,14 @@ export default function ProfilePage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="flex min-h-[36px] items-center gap-1.5 rounded-full border border-[var(--glass-border)] bg-[var(--glass)] px-3">
-            <CoinIcon className="h-4 w-4 text-[var(--text-dim)]" />
+          <span className="flex min-h-[36px] items-center gap-1.5 rounded-full border border-[var(--neon)]/30 bg-[var(--neon)]/10 px-3">
+            <CoinIcon className="h-4 w-4 text-[var(--neon-soft)]" />
             <span className="text-[13px] font-bold tabular-nums text-[var(--text)]">
               {stats?.totalXP ?? 0}
             </span>
           </span>
-          <span className="flex min-h-[36px] items-center gap-1.5 rounded-full border border-[var(--glass-border)] bg-[var(--glass)] px-3">
-            <FlameIcon className="h-4 w-4 text-[var(--text-dim)]" />
+          <span className="flex min-h-[36px] items-center gap-1.5 rounded-full border border-[var(--neon)]/30 bg-[var(--neon)]/10 px-3">
+            <FlameIcon className="h-4 w-4 text-[var(--neon-soft)]" />
             <span className="text-[13px] font-bold tabular-nums text-[var(--text)]">
               {streak}
             </span>
