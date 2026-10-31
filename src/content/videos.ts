@@ -7,7 +7,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Numerical problems (Karl Pearson, Spearman rank, regression equations)",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "QT",
@@ -15,7 +16,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Bayes theorem applications and theorems",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DBMS",
@@ -23,7 +25,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Normalization (1NF to BCNF with examples)",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DBMS",
@@ -31,7 +34,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "SQL joins and complex queries",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DBMS",
@@ -39,7 +43,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "ER diagrams",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "SF",
@@ -47,7 +52,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "UML diagrams (class, sequence, use case)",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "SF",
@@ -55,7 +61,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Black box vs white box testing",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "SF",
@@ -63,7 +70,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "RMMM plan",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DAA",
@@ -71,7 +79,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Quick sort / merge sort analysis",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DAA",
@@ -79,7 +88,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Strassen's",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DAA",
@@ -87,7 +97,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Prim's/Kruskal's/Dijkstra's worked examples",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DAA",
@@ -95,7 +106,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "N-Queens",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DAA",
@@ -103,7 +115,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Sum of subsets",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DAA",
@@ -111,7 +124,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Hamiltonian circuit",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "DAA",
@@ -119,7 +133,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Asymptotic notations",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "PYTHON",
@@ -127,7 +142,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Recursion/lambda/scope",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "PYTHON",
@@ -135,7 +151,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Numpy",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "PYTHON",
@@ -143,7 +160,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Exception hierarchy",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "PYTHON",
@@ -151,7 +169,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "File handling programs",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "PYTHON",
@@ -159,7 +178,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "All 14 practical programs with code",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "FE",
@@ -167,7 +187,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "PCA",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "FE",
@@ -175,7 +196,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "One-hot vs label encoding",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "FE",
@@ -183,7 +205,8 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "Filter/wrapper selection",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   },
   {
     "subject": "FE",
@@ -191,6 +214,7 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "topicHint": "EDA and preprocessing code",
     "youtubeId": null,
     "videoUrl": null,
-    "videoSource": null
+    "videoSource": null,
+    "duration": null
   }
 ];

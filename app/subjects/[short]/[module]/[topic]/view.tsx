@@ -7,6 +7,7 @@
 
 import Link from "next/link";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { EmptyState, Pill, ProgressBar } from "../../../../../components/ui";
 import { getDB } from "../../../../../lib/db";
 import {
@@ -52,7 +53,15 @@ function TopicContent({
   num: string;
   slug: string;
 }) {
-  const [stage, setStage] = useState(0);
+  const searchParams = useSearchParams();
+  const initialStage = (() => {
+    const p = searchParams.get("phase");
+    if (p === "practice") return 1;
+    if (p === "test") return 2;
+    if (p === "revise") return 3;
+    return 0;
+  })();
+  const [stage, setStage] = useState(initialStage);
   const [fractions, setFractions] = useState<[number, number, number, number]>([
     0, 0, 0, 0,
   ]);

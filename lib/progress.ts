@@ -101,6 +101,68 @@ export async function computeModuleProgress(
   };
 }
 
+/**
+ * Module (chapter) unlock rule: the first module is always unlocked; module
+ * N+1 unlocks when module N is fully completed (every topic done).
+ */
+export async function isModuleUnlocked(
+  short: string,
+  moduleIndex: number,
+): Promise<boolean> {
+  if (moduleIndex <= 0) return true;
+  const subject = getSubject(short);
+  const prev = subject?.modules[moduleIndex - 1];
+  if (!subject || !prev) return false;
+  const p = await computeModuleProgress(subject.short, prev.num);
+  return Boolean(
+    p && p.totalTopics > 0 && p.completedTopics >= p.totalTopics,
+  );
+}
+
+export interface SubjectAbility {
+  short: string;
+  name: string;
+  /** 0-100. Mean over topics of 0.6 * quizBest + 0.4 * percent. */
+  ability: number;
+  completedTopics: number;
+  totalTopics: number;
+}
+
+/**
+ * Per-subject ability scores, computed from real topic data only:
+ * quiz scores blended with completion percent. 0 when nothing is done yet.
+ */
+export async function subjectAbilities(): Promise<SubjectAbility[]> {
+  const db = getDB();
+  return Promise.all(
+    subjects.map(async (s) => {
+      const perTopic = await Promise.all(
+        s.modules.flatMap((m) =>
+          m.topics.map(async (t) => {
+            const p = await db.getTopicProgress(s.short, m.num, t.title);
+            const quiz = p?.quizBest ?? 0;
+            const pct = p?.percent ?? 0;
+            return {
+              score: 0.6 * quiz + 0.4 * pct,
+              done: p?.completed ?? pct >= 100,
+            };
+          }),
+        ),
+      );
+      const n = perTopic.length;
+      const ability =
+        n === 0 ? 0 : Math.round(perTopic.reduce((a, b) => a + b.score, 0) / n);
+      return {
+        short: s.short,
+        name: s.name,
+        ability: Math.max(0, Math.min(100, ability)),
+        completedTopics: perTopic.filter((t) => t.done).length,
+        totalTopics: n,
+      };
+    }),
+  );
+}
+
 export interface OverallStats {
   totalTopics: number;
   completedTopics: number;
