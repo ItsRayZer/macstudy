@@ -12,10 +12,7 @@ import {
   GlassCard,
   ProgressBar,
 } from "../../../components/ui";
-import {
-  computeModuleProgress,
-  isModuleUnlocked,
-} from "../../../lib/progress";
+import { computeModuleProgress } from "../../../lib/progress";
 import { EXAMS } from "../../../lib/exams";
 import { getSubjectLocal, summarizeExamPattern } from "../../../lib/study";
 import { subjects } from "@/src/content/subjects";
@@ -43,15 +40,6 @@ function Icon({
   );
 }
 
-function LockIcon({ className }: { className?: string }) {
-  return (
-    <Icon className={className}>
-      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </Icon>
-  );
-}
-
 function BackIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
@@ -65,7 +53,6 @@ interface ModuleRow {
   done: number;
   total: number;
   percent: number;
-  unlocked: boolean;
 }
 
 export function SubjectView({ short }: { short: string }) {
@@ -77,17 +64,13 @@ export function SubjectView({ short }: { short: string }) {
     (async () => {
       const entries = await Promise.all(
         subject.modules.map(async (m, i) => {
-          const [p, unlocked] = await Promise.all([
-            computeModuleProgress(subject.short, m.num),
-            isModuleUnlocked(subject.short, i),
-          ]);
+          const p = await computeModuleProgress(subject.short, m.num);
           return [
             m.num,
             {
               done: p?.completedTopics ?? 0,
               total: p?.totalTopics ?? 0,
               percent: p?.percent ?? 0,
-              unlocked,
             },
           ] as const;
         }),
@@ -137,17 +120,12 @@ export function SubjectView({ short }: { short: string }) {
 
       <div className="flex flex-col gap-2">
         {subject.modules.map((m, i) => {
-          const r = rows[m.num] ?? {
-            done: 0,
-            total: 0,
-            percent: 0,
-            unlocked: i === 0,
-          };
+          const r = rows[m.num] ?? { done: 0, total: 0, percent: 0 };
           const row = (
-            <div className="flex items-center gap-4 px-2 py-3">
+            <div className="glass flex items-center gap-4 rounded-3xl p-4">
               <span
                 className={`w-9 shrink-0 text-[30px] font-bold tabular-nums leading-none ${
-                  r.unlocked ? "text-[var(--text)]" : "text-[var(--text-faint)]"
+                  "text-[var(--text)]"
                 }`}
                 aria-hidden="true"
               >
@@ -156,7 +134,7 @@ export function SubjectView({ short }: { short: string }) {
               <span className="min-w-0 flex-1">
                 <span
                   className={`block truncate text-[16px] font-semibold ${
-                    r.unlocked ? "text-[var(--text)]" : "text-[var(--text-faint)]"
+                    "text-[var(--text)]"
                   }`}
                 >
                   {m.title}
@@ -166,38 +144,22 @@ export function SubjectView({ short }: { short: string }) {
                   {r.done}/{r.total} Completed
                 </span>
               </span>
-              {r.unlocked ? (
-                <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--text)]" aria-hidden="true" />
-              ) : (
-                <LockIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-              )}
+              <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--text)]" aria-hidden="true" />
             </div>
           );
-          return r.unlocked ? (
+          return (
             <Link
               key={m.num}
               href={`/subjects/${subject.short}/${m.num}`}
-              className="block min-h-[44px] rounded-2xl active:bg-[var(--track)]"
+              className="block min-h-[44px] rounded-3xl transition-transform active:scale-[0.99]"
               aria-label={`Chapter ${i + 1}, ${m.title}, ${r.done} of ${r.total} completed`}
             >
               {row}
             </Link>
-          ) : (
-            <div
-              key={m.num}
-              className="rounded-2xl opacity-60"
-              aria-label={`Chapter ${i + 1}, ${m.title}, locked`}
-              aria-disabled="true"
-            >
-              {row}
-            </div>
           );
         })}
       </div>
 
-      <p className="px-2 text-[12px] text-[var(--text-faint)]">
-        Finish a chapter to unlock the next one.
-      </p>
     </main>
   );
 }

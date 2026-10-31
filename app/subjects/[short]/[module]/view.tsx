@@ -19,7 +19,6 @@ import { getDB } from "../../../../lib/db";
 import {
   getModuleLocal,
   getSubjectLocal,
-  isTopicUnlocked,
   matchVideoSlot,
   QUIZ_PASS_SCORE,
   summarizeExamPattern,
@@ -48,15 +47,6 @@ function Icon({
     >
       {children}
     </svg>
-  );
-}
-
-function LockIcon({ className }: { className?: string }) {
-  return (
-    <Icon className={className}>
-      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </Icon>
   );
 }
 
@@ -114,7 +104,6 @@ function ChevronDownIcon({ className }: { className?: string }) {
 }
 
 interface TopicRowState {
-  unlocked: boolean;
   completed: boolean;
   percent: number;
   quizBest: number;
@@ -125,12 +114,12 @@ type ItemKey = "video" | "learn" | "practice" | "test";
 function StartHereBubble() {
   return (
     <span className="pointer-events-none absolute -top-3 right-3 z-10">
-      <span className="block rounded-full bg-[var(--text)] px-3 py-1 text-[11px] font-bold text-[var(--bg)] shadow-lg">
+      <span className="block rounded-full bg-[var(--neon)] px-3 py-1 text-[11px] font-bold text-[#04140a] shadow-[0_8px_24px_var(--neon-dim)]">
         Start here
       </span>
       <span
         aria-hidden="true"
-        className="mx-auto block h-2 w-2 rotate-45 bg-[var(--text)]"
+        className="mx-auto block h-2 w-2 rotate-45 bg-[var(--neon)]"
         style={{ marginTop: -4, marginLeft: "auto", marginRight: 18 }}
       />
     </span>
@@ -149,14 +138,10 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
       const db = getDB();
       const entries = await Promise.all(
         mod.topics.map(async (t, i) => {
-          const [unlocked, p] = await Promise.all([
-            isTopicUnlocked(subject.short, mod, i),
-            db.getTopicProgress(subject.short, mod.num, t.title),
-          ]);
+          const p = await db.getTopicProgress(subject.short, mod.num, t.title);
           return [
             i,
             {
-              unlocked,
               completed: p?.completed ?? false,
               percent: p?.percent ?? 0,
               quizBest: p?.quizBest ?? 0,
@@ -176,10 +161,8 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
     (_, i) => rows[i]?.completed,
   ).length;
 
-  // First unlocked, uncompleted topic = where the student should begin.
-  const startIndex = mod.topics.findIndex(
-    (_, i) => (rows[i]?.unlocked ?? i === 0) && !rows[i]?.completed,
-  );
+  // First uncompleted topic = the recommended next item (no gating).
+  const startIndex = mod.topics.findIndex((_, i) => !rows[i]?.completed);
 
   const nextItem = (topic: Topic, r: TopicRowState): ItemKey => {
     if (r.percent <= 0) return "learn";
@@ -233,7 +216,6 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
       <div className="flex flex-col gap-2">
         {mod.topics.map((t, i) => {
           const r = rows[i] ?? {
-            unlocked: i === 0,
             completed: false,
             percent: 0,
             quizBest: 0,
@@ -245,22 +227,16 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
           const item = nextItem(t, r);
 
           const topicRow = (
-            <div className="relative flex items-center gap-4 px-2 py-3">
+            <div className="glass relative flex items-center gap-4 rounded-3xl p-4">
               {isStart && !isOpen ? <StartHereBubble /> : null}
               <span
-                className={`w-9 shrink-0 text-[26px] font-bold tabular-nums leading-none ${
-                  r.unlocked ? "text-[var(--text)]" : "text-[var(--text-faint)]"
-                }`}
+                className="w-9 shrink-0 text-[26px] font-bold tabular-nums leading-none text-[var(--text)]"
                 aria-hidden="true"
               >
                 {i + 1}
               </span>
               <span className="min-w-0 flex-1">
-                <span
-                  className={`block truncate text-[16px] font-semibold ${
-                    r.unlocked ? "text-[var(--text)]" : "text-[var(--text-faint)]"
-                  }`}
-                >
+                <span className="block truncate text-[16px] font-semibold text-[var(--text)]">
                   {t.title}
                 </span>
                 <span className="mt-1 block text-[12px] text-[var(--text-faint)]">
@@ -273,9 +249,7 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
                         : `${t.questions.length} questions`}
                 </span>
               </span>
-              {!r.unlocked ? (
-                <LockIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-              ) : isOpen ? (
+              {isOpen ? (
                 <ChevronDownIcon className="h-5 w-5 shrink-0 text-[var(--text-dim)]" />
               ) : (
                 <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
@@ -315,29 +289,17 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
 
           return (
             <div key={t.title}>
-              {r.unlocked ? (
-                <button
-                  type="button"
-                  onClick={() => setExpanded(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  aria-label={`${t.title}${r.completed ? ", completed" : ""}`}
-                  className="block w-full rounded-2xl text-left active:bg-[var(--track)]"
-                >
-                  {topicRow}
-                </button>
-              ) : (
-                <div
-                  className="rounded-2xl opacity-60"
-                  aria-label={`${t.title}, locked`}
-                >
-                  {topicRow}
-                  <p className="px-2 pb-2 pl-[52px] text-[12px] text-[var(--text-faint)]">
-                    Finish the previous topic to unlock.
-                  </p>
-                </div>
-              )}
+              <button
+                type="button"
+                onClick={() => setExpanded(isOpen ? null : i)}
+                aria-expanded={isOpen}
+                aria-label={`${t.title}${r.completed ? ", completed" : ""}`}
+                className="block w-full rounded-2xl text-left active:bg-[var(--track)]"
+              >
+                {topicRow}
+              </button>
 
-              {isOpen && r.unlocked ? (
+              {isOpen ? (
                 <div className="ml-[52px] flex flex-col gap-1 border-l border-[var(--glass-border)] py-2 pl-2">
                   {slot ? (
                     <>
@@ -361,7 +323,7 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
                     <BookOpenIcon className="h-5 w-5" />,
                     "Learn",
                     r.percent > 0 ? "Continue reading" : "Start the chapter",
-                    `${href}?phase=learn`,
+                    `${href}/learn`,
                     isStart && item === "learn",
                   )}
                   {entryRow(
@@ -369,7 +331,7 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
                     <TargetIcon className="h-5 w-5" />,
                     "Practice",
                     `${t.questions.length} questions`,
-                    `${href}?phase=practice`,
+                    `${href}/practice`,
                     isStart && item === "practice",
                   )}
                   {entryRow(
@@ -377,7 +339,7 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
                     <CheckSquareIcon className="h-5 w-5" />,
                     "Test",
                     r.quizBest > 0 ? `Best ${r.quizBest}%` : "Self-check quiz",
-                    `${href}?phase=test`,
+                    `${href}/test`,
                     isStart && item === "test",
                   )}
                 </div>

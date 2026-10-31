@@ -1,6 +1,6 @@
 // app/subjects/[short]/[module]/[topic]/page.tsx
-// Topic page (server): resolves subject + module + topic slug, prerenders
-// every topic page at build time, hands off to the client view.
+// Topic landing: renders the Learn phase directly (phases are separate
+// pages; the bottom tab menu stays hidden on all of them).
 
 import { notFound } from "next/navigation";
 import { subjects } from "@/src/content/subjects";
@@ -10,7 +10,7 @@ import {
   getTopicBySlug,
   slugify,
 } from "../../../../../lib/study";
-import { TopicView } from "./view";
+import { LearnClient } from "./learn/client";
 
 export async function generateStaticParams() {
   return subjects.flatMap((s) =>
@@ -34,5 +34,5 @@ export default async function TopicPage({
   const mod = subject ? getModuleLocal(subject, module) : undefined;
   const top = mod ? getTopicBySlug(mod, topic) : undefined;
   if (!subject || !mod || !top) notFound();
-  return <TopicView short={subject.short} num={mod.num} slug={topic} />;
+  return <LearnClient short={subject.short} num={mod.num} slug={topic} />;
 }
