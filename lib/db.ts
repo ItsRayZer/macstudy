@@ -1,5 +1,5 @@
 // lib/db.ts
-// BcaEasy shared progress database.
+// BcaAce shared progress database.
 //
 // WORKER CONTRACT (stable API - do not rename methods or change signatures):
 //   getDB(): ProgressDB   singleton. Returns SupabaseDB only when

@@ -1,5 +1,5 @@
 // lib/gamify.ts
-// BcaEasy gamification: weighted XP for quizzes, streak touches, daily XP
+// BcaAce gamification: weighted XP for quizzes, streak touches, daily XP
 // goal storage, and the achievement engine.
 //
 // XP RULES

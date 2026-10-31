@@ -251,7 +251,6 @@ export default function HomePage() {
   const refreshFromDB = useAppStore((s) => s.refreshFromDB);
 
   const [totalXP, setTotalXP] = useState(0);
-  const [logoOk, setLogoOk] = useState(true);
   const [progresses, setProgresses] = useState<SubjectProgress[]>([]);
   const [continueTarget, setContinueTarget] =
     useState<ContinueTarget | null>(null);
@@ -358,19 +357,9 @@ export default function HomePage() {
     <main className="flex flex-col gap-5">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          {logoOk ? (
-            <img
-              src="/wordmark.jpg"
-              alt="BcaEasy"
-              fetchPriority="high"
-              className="h-10 w-auto rounded-lg"
-              onError={() => setLogoOk(false)}
-            />
-          ) : (
-            <span className="text-[22px] font-bold tracking-tight text-[var(--text)]">
-              BcaEasy
-            </span>
-          )}
+          <span className="text-[24px] font-extrabold tracking-tight text-[var(--neon)] drop-shadow-[0_0_12px_var(--neon)]">
+            BcaAce
+          </span>
           <p className="text-[12px] text-[var(--text-faint)]">
             MGU BCA 3rd Sem
           </p>

@@ -1,5 +1,5 @@
 // components/ui.tsx
-// BcaEasy shared UI kit (liquid glass, mobile-first, thumb-friendly).
+// BcaAce shared UI kit (liquid glass, mobile-first, thumb-friendly).
 //
 // WORKER CONTRACT (stable API - do not rename):
 //   GlassCard({ className, children })
