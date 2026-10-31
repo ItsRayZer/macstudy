@@ -6,7 +6,19 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PhaseShell } from "../phase-shell";
-import { PracticePhase } from "../flow";
+import dynamic from "next/dynamic";
+
+const PracticePhase = dynamic(() => import("../phases/practice").then((m) => ({ default: m.PracticePhase } )), {
+  loading: () => (
+    <div className="flex flex-col gap-4" aria-label="Loading">
+  <div className="h-7 w-40 animate-pulse rounded-xl bg-[var(--track)]" />
+  <div className="glass rounded-3xl p-6">
+    <div className="h-5 w-3/4 animate-pulse rounded-lg bg-[var(--track)]" />
+    <div className="mt-3 h-5 w-1/2 animate-pulse rounded-lg bg-[var(--track)]" />
+  </div>
+</div>
+  ),
+});
 import {
   getModuleLocal,
   getSubjectLocal,

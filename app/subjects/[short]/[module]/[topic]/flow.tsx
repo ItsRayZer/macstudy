@@ -1,18 +1,30 @@
 // app/subjects/[short]/[module]/[topic]/flow.tsx
-// Single continuous topic flow: LEARN -> PRACTICE -> TEST -> REVISE on one
-// page with "Next" advancement (client).
+// Topic flow shared module: icons, answer view, tag pills, exam footnote,
+// the smart YouTube video section, Learn-phase course structure, LearnPhase,
+// PyqOnlyToggle, and NextButton.
+//
+// PRACTICE / TEST / REVISE live in ./phases/ and are lazy-loaded by their
+// pages via next/dynamic so Learn paints fast and the initial bundle stays
+// lean.
 //
 // LEARN    course-style chapter: video section, structured theory (definition
 //          callout, lead, key points, examples), ultra-minimal exam footnote.
-// PRACTICE typed answers in the learner's own words, auto-graded against
-//          key terms from the model answer, tap-to-reveal full-mark answers,
-//          tag pills, bookmarks. Wrong/skipped repeat at the end.
+//          Finishing Learn persists a 25% milestone for the topic.
+// PRACTICE typed answers in the learner's own words (QT: stepped working pad
+//          or table pad; Python programs: code pad with in-browser run),
+//          auto-graded against key terms from the model answer, tap-to-reveal
+//          full-mark answers, tag pills, bookmarks. Queue: SURE MARK first,
+//          then REPEATED, then IMPORTANT, filler last; "PYQ only" toggle
+//          limits the session to tagged questions. Wrong/skipped repeat at
+//          the end. Finishing Practice persists a 50% milestone.
 // TEST     EXAM MODE: single pass of 4-option MCQs, no skip, no repeats.
 //          Optional 30s per-question timer (thin ring), instant right/wrong
-//          flash, correct option highlighted. Results: score %, XP earned
-//          (IMPORTANT 10 / REPEATED 15 / SURE MARK 20), pass/fail vs 60%,
-//          and a review list of misses WITH full answers.
-// REVISE   ts-fsrs flashcards, card state local-only.
+//          flash, correct option highlighted. Same PYQ priority queue as
+//          Practice. Results: score %, XP earned (IMPORTANT 10 / REPEATED 15
+//          / SURE MARK 20), pass/fail vs 60%, and a review list of misses
+//          WITH full answers. Passing persists 100% + completed.
+// REVISE   ts-fsrs flashcards, card state local-only. Reviewing the deck
+//          persists a 75% milestone.
 //
 // Monochrome AMOLED theme, big readable type, zero emojis.
 
@@ -37,6 +49,7 @@ import {
   QUIZ_PASS_SCORE,
   summarizeExamPattern,
 } from "../../../../../lib/study";
+import { markPhaseProgress } from "../../../../../lib/progress";
 import { QuizSession, xpForTag, type QuizFinal } from "../../../../../lib/quiz";
 import { buildMcq, type Mcq } from "../../../../../lib/mcq";
 import {
@@ -106,7 +119,7 @@ function ExternalIcon({ className }: { className?: string }) {
   );
 }
 
-function BookmarkIcon({
+export function BookmarkIcon({
   className,
   filled,
 }: {
@@ -123,7 +136,7 @@ function BookmarkIcon({
   );
 }
 
-function PlayIcon({ className }: { className?: string }) {
+export function PlayIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
       <polygon points="6 3 20 12 6 21 6 3" />
@@ -131,7 +144,7 @@ function PlayIcon({ className }: { className?: string }) {
   );
 }
 
-function ClockIcon({ className }: { className?: string }) {
+export function ClockIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
       <circle cx="12" cy="12" r="10" />
@@ -140,7 +153,7 @@ function ClockIcon({ className }: { className?: string }) {
   );
 }
 
-function RefreshIcon({ className }: { className?: string }) {
+export function RefreshIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
       <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
@@ -149,7 +162,7 @@ function RefreshIcon({ className }: { className?: string }) {
   );
 }
 
-function ArrowIcon({ className }: { className?: string }) {
+export function ArrowIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
       <path d="M5 12h14" />
@@ -158,7 +171,7 @@ function ArrowIcon({ className }: { className?: string }) {
   );
 }
 
-function BackNavIcon({ className }: { className?: string }) {
+export function BackNavIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
       <path d="M19 12H5" />
@@ -167,7 +180,7 @@ function BackNavIcon({ className }: { className?: string }) {
   );
 }
 
-function FlipIcon({ className }: { className?: string }) {
+export function FlipIcon({ className }: { className?: string }) {
   return (
     <Icon className={className}>
       <rect width="18" height="18" x="3" y="3" rx="2" />
@@ -241,11 +254,191 @@ function youtubeEmbedId(url: string): string | null {
 }
 
 /**
- * Learn-phase video section. YouTube renders a tap-to-watch card (embeds are
- * blocked by video owners) with thumbnail, title, duration and a
- * "Watch on YouTube" button. NotebookLM renders a link-out (no embed code
- * exists). Null/empty renders an honest quiet "coming soon" row.
- * Never invents URLs.
+ * Smart YouTube player: tries the in-app iframe embed first (fullscreen
+ * allowed). When the video owner disabled embedding, the player API reports
+ * an error and we automatically swap to the tap-to-watch card. A load
+ * timeout also falls back to the card, so a dead iframe never stays on
+ * screen. Never invents URLs.
+ */
+function SmartYoutube({
+  id,
+  url,
+  title,
+  duration,
+}: {
+  id: string;
+  url: string;
+  title: string;
+  duration: string | null;
+}) {
+  const mountRef = useRef<HTMLDivElement | null>(null);
+  const [blocked, setBlocked] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    let player: { destroy?: () => void } | null = null;
+    const timer = setTimeout(() => {
+      if (!cancelled && !ready) setBlocked(true);
+    }, 9000);
+
+    const mount = () => {
+      if (cancelled || !mountRef.current) return;
+      const YT = (window as unknown as { YT?: any }).YT;
+      if (!YT?.Player) {
+        setBlocked(true);
+        return;
+      }
+      try {
+        player = new YT.Player(mountRef.current, {
+          videoId: id,
+          playerVars: { rel: 0, modestbranding: 1 },
+          events: {
+            onReady: () => {
+              if (!cancelled) {
+                clearTimeout(timer);
+                setReady(true);
+              }
+            },
+            onError: () => {
+              if (!cancelled) {
+                clearTimeout(timer);
+                setBlocked(true);
+              }
+            },
+          },
+        });
+      } catch {
+        if (!cancelled) {
+          clearTimeout(timer);
+          setBlocked(true);
+        }
+      }
+    };
+
+    const w = window as unknown as {
+      YT?: any;
+      onYouTubeIframeAPIReady?: () => void;
+    };
+    if (w.YT?.Player) {
+      mount();
+    } else {
+      const prev = w.onYouTubeIframeAPIReady;
+      w.onYouTubeIframeAPIReady = () => {
+        if (prev) prev();
+        mount();
+      };
+      if (!document.querySelector("script[data-yt-iframe-api]")) {
+        const s = document.createElement("script");
+        s.src = "https://www.youtube.com/iframe_api";
+        s.dataset.ytIframeApi = "1";
+        s.onerror = () => {
+          if (!cancelled) {
+            clearTimeout(timer);
+            setBlocked(true);
+          }
+        };
+        document.head.appendChild(s);
+      }
+    }
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+      try {
+        player?.destroy?.();
+      } catch {
+        // player teardown is best-effort
+      }
+    };
+  }, [id, ready]);
+
+  if (blocked) {
+    return <YoutubeTapCard url={url} id={id} title={title} duration={duration} />;
+  }
+
+  return (
+    <div className="glass overflow-hidden rounded-3xl">
+      <div className="relative aspect-video w-full bg-black">
+        {!ready ? (
+          <div className="absolute inset-0 animate-pulse bg-[var(--track)]" />
+        ) : null}
+        <div ref={mountRef} className="absolute inset-0 h-full w-full" />
+      </div>
+      <div className="flex items-center justify-between gap-3 p-4">
+        <p className="min-w-0 flex-1 truncate text-[15px] font-semibold text-[var(--text)]">
+          {title}
+        </p>
+        {duration ? (
+          <span className="shrink-0 rounded-md bg-[var(--track)] px-2 py-0.5 text-[12px] font-semibold tabular-nums text-[var(--text-dim)]">
+            {duration}
+          </span>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+/** Tap-to-watch fallback card (used when embedding is blocked). */
+function YoutubeTapCard({
+  url,
+  id,
+  title,
+  duration,
+}: {
+  url: string;
+  id: string;
+  title: string;
+  duration: string | null;
+}) {
+  return (
+    <div className="glass overflow-hidden rounded-3xl">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="relative block aspect-video w-full bg-black"
+        aria-label={`Watch video: ${title}, opens in YouTube`}
+      >
+        <img
+          src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+          alt=""
+          loading="lazy"
+          className="h-full w-full object-cover"
+        />
+        <span className="absolute inset-0 flex items-center justify-center">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--neon)] text-black shadow-[0_8px_30px_rgba(57,255,20,0.35)] transition-transform active:scale-95">
+            <PlayIcon className="ml-0.5 h-6 w-6" />
+          </span>
+        </span>
+        {duration ? (
+          <span className="absolute bottom-2 right-2 rounded-md bg-black/80 px-2 py-0.5 text-[12px] font-semibold text-white">
+            {duration}
+          </span>
+        ) : null}
+      </a>
+      <div className="flex items-center justify-between gap-3 p-4">
+        <p className="min-w-0 flex-1 truncate text-[15px] font-semibold text-[var(--text)]">
+          {title}
+        </p>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-2xl bg-[var(--neon)] px-5 text-[14px] font-bold text-black active:opacity-80"
+        >
+          Watch on YouTube
+          <ExternalIcon className="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Learn-phase video section. YouTube renders the smart player (in-app embed
+ * with automatic fallback to a tap-to-watch card when the owner blocks
+ * embedding). NotebookLM renders a link-out (no embed code exists).
+ * Null/empty renders an honest quiet "coming soon" row. Never invents URLs.
  */
 export function VideoSection({ slot }: { slot: VideoSlot | undefined }) {
   const url = slot?.videoUrl ?? null;
@@ -256,46 +449,12 @@ export function VideoSection({ slot }: { slot: VideoSlot | undefined }) {
     if (id) {
       const title = slot?.topicTitle ?? slot?.topicHint ?? "Video lesson";
       return (
-        <div className="glass overflow-hidden rounded-3xl">
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative block aspect-video w-full bg-black"
-            aria-label={`Watch video: ${title}, opens in YouTube`}
-          >
-            <img
-              src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
-              alt=""
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-            <span className="absolute inset-0 flex items-center justify-center">
-              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--neon)] text-black shadow-[0_8px_30px_rgba(57,255,20,0.35)] transition-transform active:scale-95">
-                <PlayIcon className="ml-0.5 h-6 w-6" />
-              </span>
-            </span>
-            {slot?.duration ? (
-              <span className="absolute bottom-2 right-2 rounded-md bg-black/80 px-2 py-0.5 text-[12px] font-semibold text-white">
-                {slot.duration}
-              </span>
-            ) : null}
-          </a>
-          <div className="flex items-center justify-between gap-3 p-4">
-            <p className="min-w-0 flex-1 truncate text-[15px] font-semibold text-[var(--text)]">
-              {title}
-            </p>
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-2xl bg-[var(--neon)] px-5 text-[14px] font-bold text-black active:opacity-80"
-            >
-              Watch on YouTube
-              <ExternalIcon className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
+        <SmartYoutube
+          id={id}
+          url={url}
+          title={title}
+          duration={slot?.duration ?? null}
+        />
       );
     }
   }
@@ -413,7 +572,7 @@ function paginateLearn(blocks: PointBlock[]): PointBlock[][] {
 /**
  * Full theory for a topic: structured points plus a deep-dive Q&A section
  * built from the topic's own exam questions and their full-mark answers.
- * Only existing repo data is used — nothing is invented. This guarantees
+ * Only existing repo data is used - nothing is invented. This guarantees
  * every practice/test question is answerable from the Learn theory.
  */
 function structureLearn(topic: Topic): PointBlock[] {
@@ -553,6 +712,18 @@ export function LearnPhase({
     onProgress(totalPages === 0 ? 1 : (page + 1) / totalPages);
   }, [page, totalPages, onProgress]);
 
+  // Reaching the last Learn page counts as finishing Learn: persist the 25%
+  // milestone so progress survives a reload. Never downgrades.
+  const learnSaved = useRef(false);
+  useEffect(() => {
+    if (isLast && !learnSaved.current) {
+      learnSaved.current = true;
+      markPhaseProgress(subject.short, mod.num, topic.title, 25).catch(
+        () => {},
+      );
+    }
+  }, [isLast, subject.short, mod.num, topic.title]);
+
   return (
     <section aria-label="Learn" className="flex flex-col gap-6">
       <VideoSection slot={slot} />
@@ -594,1326 +765,45 @@ export function LearnPhase({
   );
 }
 
-// ---------------------------------------------------------------- PRACTICE ---
-// TYPED-ANSWER MODE: the learner types the answer in their own words.
-// "Check answer" auto-grades by matching key terms extracted from the model
-// answer (case-insensitive, light stemming); "Show answer" reveals the model
-// answer directly. After grading/reveal the full formatted answer is shown
-// next to what they wrote, then [I got it | Skip]. Wrong/skipped questions
-// repeat at the end. No multiple-choice options here — those live in TEST.
+// --------------------------------------------------------------- next button ---
 
-export function PracticePhase({
-  short,
-  num,
-  topicTitle,
-  topic,
-  questions,
-  onProgress,
-  onNext,
+/**
+ * Small "PYQ only" switch for Practice/Test intros. When on, the session is
+ * limited to tagged questions (SURE MARK / REPEATED / IMPORTANT); when off,
+ * tagged questions still come first and untagged filler goes last.
+ */
+export function PyqOnlyToggle({
+  value,
+  onChange,
 }: {
-  short: string;
-  num: string;
-  topicTitle: string;
-  topic: Topic;
-  questions: Question[];
-  onProgress: (fraction: number) => void;
-  onNext: () => void;
+  value: boolean;
+  onChange: (v: boolean) => void;
 }) {
-  const total = questions.length;
-  const [queue, setQueue] = useState<number[]>(() =>
-    questions.map((_, i) => i),
-  );
-  const [pos, setPos] = useState(0);
-  const [round, setRound] = useState(1);
-  const [repeat, setRepeat] = useState<number[]>([]);
-  const [step, setStep] = useState<"answer" | "graded" | "revealed">("answer");
-  const [draft, setDraft] = useState("");
-  const [graded, setGraded] = useState<GradedTerm[] | null>(null);
-  const [verdictOk, setVerdictOk] = useState(false);
-  const [finished, setFinished] = useState(false);
-  const [bookmarked, setBookmarked] = useState<Record<number, boolean>>({});
-
-  const qIdx = queue[pos];
-  const q = qIdx != null ? questions[qIdx] : null;
-
-  // Key terms for the current question, from the model answer only.
-  const keyTerms = useMemo(
-    () => (q ? extractKeyTerms(q.a) : []),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [qIdx],
-  );
-
-  useEffect(() => {
-    let live = true;
-    getDB()
-      .getBookmarks(short)
-      .then((all) => {
-        if (!live) return;
-        const map: Record<number, boolean> = {};
-        for (const b of all) {
-          if (b.module === num && b.topic === topicTitle) map[b.qIndex] = true;
-        }
-        setBookmarked(map);
-      })
-      .catch(() => {});
-    return () => {
-      live = false;
-    };
-  }, [short, num, topicTitle]);
-
-  const reportProgress = (p: number, r: number) => {
-    if (total === 0) {
-      onProgress(1);
-      return;
-    }
-    if (r === 1) onProgress(0.85 * (p / total));
-    else onProgress(1);
-  };
-
-  const resetStep = () => {
-    setStep("answer");
-    setDraft("");
-    setGraded(null);
-    setVerdictOk(false);
-  };
-
-  const enqueueRepeat = (idx: number) => {
-    setRepeat((r) => (r.includes(idx) ? r : [...r, idx]));
-  };
-
-  const dequeueRepeat = (idx: number) => {
-    setRepeat((r) => r.filter((x) => x !== idx));
-  };
-
-  const toggleBookmark = async () => {
-    if (qIdx == null) return;
-    try {
-      const now = await getDB().toggleBookmark(short, num, topicTitle, qIdx);
-      setBookmarked((m) => ({ ...m, [qIdx]: now }));
-    } catch {
-      // keep the UI usable when storage fails
-    }
-  };
-
-  const onCheck = () => {
-    if (qIdx == null || draft.trim().length === 0) return;
-    const g = gradeAnswer(keyTerms, draft);
-    const ok = gradeScore(g) >= 0.6;
-    setGraded(g);
-    setVerdictOk(ok);
-    if (!ok) enqueueRepeat(qIdx);
-    setStep("graded");
-  };
-
-  const onShowAnswer = () => {
-    // Skipped the attempt: queue for the repeat round.
-    if (qIdx != null) enqueueRepeat(qIdx);
-    setStep("revealed");
-  };
-
-  const onNextQ = () => {
-    const np = pos + 1;
-    if (np < queue.length) {
-      setPos(np);
-      resetStep();
-      reportProgress(np, round);
-      return;
-    }
-    // End of this pass: repeat the missed/skipped ones, else finish.
-    setRepeat((rep) => {
-      if (rep.length > 0) {
-        setQueue(rep);
-        setPos(0);
-        setRound((r) => r + 1);
-        resetStep();
-        reportProgress(0, 2);
-      } else {
-        setFinished(true);
-        onProgress(1);
-      }
-      return [];
-    });
-  };
-
-  if (total === 0) {
-    return (
-      <section aria-label="Practice" className="flex flex-col gap-4">
-        <h2 className="text-[20px] font-bold text-[var(--text)]">Practice</h2>
-        <p className="text-[15px] text-[var(--text-dim)]">
-          No practice questions for this topic yet. Head to the test.
-        </p>
-        <NextButton label="Take the test" onClick={onNext} />
-      </section>
-    );
-  }
-
-  if (finished) {
-    return (
-      <section aria-label="Practice complete" className="flex flex-col gap-4">
-        <GlassCard>
-          <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-            Practice complete
-          </p>
-          <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
-            Nice, you worked through every question
-          </h2>
-          <p className="mt-2 text-[15px] leading-[1.7] text-[var(--text-dim)]">
-            {round > 1
-              ? `Including a review round for the tricky ones.`
-              : `Clean pass, nothing needed a second look.`}{" "}
-            Practice is safe to fail — the test is where you prove it.
-          </p>
-          <div className="mt-5">
-            <NextButton label="Take the test" onClick={onNext} />
-          </div>
-        </GlassCard>
-      </section>
-    );
-  }
-
-  if (!q || qIdx == null) return null;
-
-  const hits = graded?.filter((g) => g.hit).length ?? 0;
-  const totalTerms = graded?.length ?? 0;
-
   return (
-    <section aria-label="Practice" className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-[20px] font-bold text-[var(--text)]">Practice</h2>
-        <span className="text-[13px] tabular-nums text-[var(--text-dim)]">
-          {round > 1
-            ? `Review round · ${pos + 1} of ${queue.length}`
-            : `Question ${pos + 1} of ${total}`}
-        </span>
-      </div>
-      <p className="-mt-2 text-[13px] text-[var(--text-faint)]">
-        Type the answer in your own words — no options here.
-      </p>
-
-      <GlassCard>
-        <div className="flex items-start justify-between gap-2">
-          <div className="flex flex-wrap gap-2">
-            <TagPill tagBase={q.tagBase} years={q.years} />
-          </div>
-          <button
-            type="button"
-            onClick={toggleBookmark}
-            aria-label={bookmarked[qIdx] ? "Remove bookmark" : "Bookmark question"}
-            aria-pressed={Boolean(bookmarked[qIdx])}
-            className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-2xl text-[var(--text-dim)] active:bg-[var(--track)]"
-          >
-            <BookmarkIcon className="h-5 w-5" filled={Boolean(bookmarked[qIdx])} />
-          </button>
-        </div>
-        <p className="mt-3 text-[18px] font-semibold leading-[1.6] text-[var(--text)]">
-          {q.q}
-        </p>
-
-        {step === "answer" ? (
-          <>
-            <label
-              htmlFor="practice-answer"
-              className="mt-4 block text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]"
-            >
-              Your answer
-            </label>
-            <textarea
-              id="practice-answer"
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              rows={5}
-              placeholder="Explain it the way you'd write it in the exam…"
-              className="mt-2 min-h-[130px] w-full rounded-2xl border border-[var(--glass-border)] bg-[var(--glass)] p-4 text-[15px] leading-[1.7] text-[var(--text)] placeholder:text-[var(--text-faint)] outline-none focus:border-[var(--text-dim)]"
-            />
-            <div className="mt-3 flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={onCheck}
-                disabled={draft.trim().length === 0}
-                className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold disabled:opacity-40"
-              >
-                Check answer
-              </button>
-              <button
-                type="button"
-                onClick={onShowAnswer}
-                className="flex min-h-[48px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-semibold text-[var(--text-dim)] active:opacity-80"
-              >
-                Show answer
-              </button>
-            </div>
-          </>
-        ) : null}
-
-        {step === "graded" && graded ? (
-          <>
-            <div
-              className={`mt-4 rounded-2xl p-4 ${
-                verdictOk
-                  ? "bg-[var(--neon)]/10"
-                  : "bg-[var(--track)]"
-              }`}
-              role="status"
-            >
-              <p
-                className={`text-[15px] font-bold ${
-                  verdictOk
-                    ? "text-[var(--neon-soft)]"
-                    : "text-[var(--text)]"
-                }`}
-              >
-                {verdictOk
-                  ? `Solid — you hit ${hits} of ${totalTerms} key points`
-                  : `Almost — you hit ${hits} of ${totalTerms} key points`}
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {graded.map((g) => (
-                  <span
-                    key={g.term}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-semibold ${
-                      g.hit
-                        ? "bg-[var(--neon)]/15 text-[var(--neon-soft)]"
-                        : "bg-[var(--glass)] text-[var(--text-faint)] line-through decoration-[var(--text-faint)]/50"
-                    }`}
-                  >
-                    {g.hit ? (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={3}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-3.5 w-3.5"
-                        aria-hidden="true"
-                      >
-                        <path d="M20 6 9 17l-5-5" />
-                      </svg>
-                    ) : null}
-                    {g.term}
-                  </span>
-                ))}
-              </div>
-              {!verdictOk ? (
-                <p className="mt-3 text-[13px] text-[var(--text-dim)]">
-                  Compare with the model answer below, then try it again in
-                  the review round.
-                </p>
-              ) : null}
-            </div>
-
-            {draft.trim() ? (
-              <div className="mt-4">
-                <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
-                  What you wrote
-                </p>
-                <p className="mt-2 rounded-2xl bg-[var(--glass)] p-4 text-[14px] leading-[1.7] text-[var(--text-dim)]">
-                  {draft.trim()}
-                </p>
-              </div>
-            ) : null}
-
-            <div className="mt-4 rounded-2xl bg-[var(--track)] p-4">
-              <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
-                Model answer
-              </p>
-              <div className="mt-2">
-                <AnswerBlock lines={q.a} />
-              </div>
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  if (qIdx != null) dequeueRepeat(qIdx);
-                  onNextQ();
-                }}
-                className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold"
-              >
-                I got it
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (qIdx != null) enqueueRepeat(qIdx);
-                  onNextQ();
-                }}
-                className="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-              >
-                Skip
-              </button>
-            </div>
-          </>
-        ) : null}
-
-        {step === "revealed" ? (
-          <>
-            {draft.trim() ? (
-              <div className="mt-4">
-                <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
-                  What you wrote
-                </p>
-                <p className="mt-2 rounded-2xl bg-[var(--glass)] p-4 text-[14px] leading-[1.7] text-[var(--text-dim)]">
-                  {draft.trim()}
-                </p>
-              </div>
-            ) : null}
-            <div className="mt-4 rounded-2xl bg-[var(--track)] p-4">
-              <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
-                Model answer
-              </p>
-              <div className="mt-2">
-                <AnswerBlock lines={q.a} />
-              </div>
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  if (qIdx != null) dequeueRepeat(qIdx);
-                  onNextQ();
-                }}
-                className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold"
-              >
-                I got it
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (qIdx != null) enqueueRepeat(qIdx);
-                  onNextQ();
-                }}
-                className="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-              >
-                Skip
-              </button>
-            </div>
-          </>
-        ) : null}
-      </GlassCard>
-    </section>
-  );
-}
-
-// -------------------------------------------------------------------- TEST ---
-// EXAM MODE: single pass over all questions as 4-option MCQs. No skip, no
-// repeats, no mid-test full answers. Optional 30s per-question timer shown
-// as a thin ring; time-out counts as wrong. Instant right/wrong flash with
-// the correct option highlighted. The last question shows a prominent
-// "Finish Test" button leading to results: score %, XP earned
-// (IMPORTANT 10 / REPEATED 15 / SURE MARK 20), pass/fail vs 60%, and a
-// review list of misses WITH their full answers.
-
-const EXAM_SECONDS_PER_QUESTION = 30;
-
-function formatTime(totalSeconds: number): string {
-  const m = Math.floor(totalSeconds / 60);
-  const s = totalSeconds % 60;
-  return `${m}:${String(s).padStart(2, "0")}`;
-}
-
-function TimerRing({ seconds, total }: { seconds: number; total: number }) {
-  const r = 13;
-  const c = 2 * Math.PI * r;
-  const frac = Math.max(0, Math.min(1, seconds / total));
-  const urgent = seconds <= 10;
-  return (
-    <span
-      className="relative flex h-11 w-11 shrink-0 items-center justify-center"
-      role="timer"
-      aria-label={`${seconds} seconds left`}
+    <button
+      type="button"
+      role="switch"
+      aria-checked={value}
+      aria-label="PYQ only: limit the session to tagged questions"
+      onClick={() => onChange(!value)}
+      className="inline-flex min-h-[44px] items-center gap-2.5 rounded-full bg-[var(--track)] px-4 text-[13px] font-semibold text-[var(--text-dim)] active:opacity-80"
     >
-      <svg
-        viewBox="0 0 32 32"
-        className="absolute inset-0 h-full w-full -rotate-90"
-        aria-hidden="true"
-      >
-        <circle
-          cx="16"
-          cy="16"
-          r={r}
-          fill="none"
-          stroke="var(--track)"
-          strokeWidth="3"
-        />
-        <circle
-          cx="16"
-          cy="16"
-          r={r}
-          fill="none"
-          stroke={urgent ? "#f43f5e" : "var(--neon)"}
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeDasharray={c}
-          strokeDashoffset={c * (1 - frac)}
-          style={{
-            transition: "stroke-dashoffset 1s linear, stroke 0.3s ease",
-          }}
-        />
-      </svg>
       <span
-        className={`text-[11px] font-bold tabular-nums ${
-          urgent ? "text-rose-400" : "text-[var(--text)]"
+        aria-hidden="true"
+        className={`flex h-6 w-11 shrink-0 items-center rounded-full p-0.5 transition-colors ${
+          value ? "bg-[var(--neon)]" : "bg-[var(--glass-border)]"
         }`}
       >
-        {seconds}
-      </span>
-    </span>
-  );
-}
-
-function ScoreRing({ pct, passed }: { pct: number; passed: boolean }) {
-  const r = 34;
-  const c = 2 * Math.PI * r;
-  const frac = Math.max(0, Math.min(1, pct / 100));
-  return (
-    <span
-      className="relative flex h-28 w-28 shrink-0 items-center justify-center"
-      role="img"
-      aria-label={`Score ${pct} percent${passed ? ", passed" : ", not passed"}`}
-    >
-      <svg
-        viewBox="0 0 84 84"
-        className="absolute inset-0 h-full w-full -rotate-90"
-        aria-hidden="true"
-      >
-        <circle
-          cx="42"
-          cy="42"
-          r={r}
-          fill="none"
-          stroke="var(--track)"
-          strokeWidth="7"
-        />
-        <circle
-          cx="42"
-          cy="42"
-          r={r}
-          fill="none"
-          stroke={passed ? "var(--neon)" : "#f43f5e"}
-          strokeWidth="7"
-          strokeLinecap="round"
-          strokeDasharray={c}
-          strokeDashoffset={c * (1 - frac)}
-          style={{ transition: "stroke-dashoffset 0.8s ease" }}
-        />
-      </svg>
-      <span className="text-center">
-        <span className="block text-[24px] font-bold tabular-nums text-[var(--text)]">
-          {pct}%
-        </span>
         <span
-          className={`block text-[10px] font-bold uppercase tracking-widest ${
-            passed ? "text-[var(--neon-soft)]" : "text-rose-400"
+          className={`h-5 w-5 rounded-full bg-white shadow transition-transform ${
+            value ? "translate-x-5" : "translate-x-0"
           }`}
-        >
-          {passed ? "Pass" : "Fail"}
-        </span>
+        />
       </span>
-    </span>
+      PYQ only
+    </button>
   );
 }
-
-export function TestPhase({
-  short,
-  num,
-  topicTitle,
-  topic,
-  questions,
-  onProgress,
-  onNext,
-}: {
-  short: string;
-  num: string;
-  topicTitle: string;
-  topic: Topic;
-  questions: Question[];
-  onProgress: (fraction: number) => void;
-  onNext: () => void;
-}) {
-  const [session, setSession] = useState<QuizSession | null>(null);
-  const [final, setFinal] = useState<QuizFinal | null>(null);
-  const [picked, setPicked] = useState<number | null>(null);
-  const [timedOut, setTimedOut] = useState(false);
-  const [feedback, setFeedback] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-  const [finishing, setFinishing] = useState(false);
-  const [finishError, setFinishError] = useState<string | null>(null);
-  const [tick, setTick] = useState(0);
-  const [timerOn, setTimerOn] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(EXAM_SECONDS_PER_QUESTION);
-  const [flash, setFlash] = useState<{
-    kind: "right" | "wrong";
-    key: number;
-  } | null>(null);
-  // Snapshot of the last answered card so the screen never goes blank while
-  // the result is being computed.
-  const [lastCard, setLastCard] = useState<{
-    q: Question;
-    mcq: Mcq;
-    qi: number;
-  } | null>(null);
-  const answeredRef = useRef(false);
-
-  const mcq = useMemo(() => {
-    const qq = session?.currentQuestion;
-    const qi = session?.current;
-    if (!session || qq == null || qi == null) return null;
-    return buildMcq(qq, topic, qi);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session, tick]);
-
-  const start = () => {
-    if (questions.length === 0) return;
-    setFinal(null);
-    setPicked(null);
-    setTimedOut(false);
-    setFeedback(null);
-    setBusy(false);
-    setFinishing(false);
-    setFinishError(null);
-    setFlash(null);
-    setLastCard(null);
-    setTick(0);
-    answeredRef.current = false;
-    setSession(
-      new QuizSession(
-        questions,
-        {
-          subject: short,
-          module: num,
-          topic: topicTitle,
-        },
-        { examMode: true },
-      ),
-    );
-    onProgress(0);
-  };
-
-  const doFinish = async () => {
-    if (!session || finishing) return;
-    setFinishing(true);
-    setFinishError(null);
-    try {
-      const f = await session.finalize();
-      setFinal(f);
-    } catch {
-      setFinishError(
-        "Could not save your result. Check your connection and try again.",
-      );
-    } finally {
-      setFinishing(false);
-    }
-    onProgress(1);
-    // Keep the global XP / streak displays fresh.
-    useAppStore.getState().refreshFromDB().catch(() => {});
-  };
-
-  const recordAnswer = async (oi: number | null) => {
-    // oi === null means the per-question timer ran out.
-    if (!session || !mcq || busy || finishing) return;
-    if (answeredRef.current) return;
-    answeredRef.current = true;
-    const qq = session.currentQuestion;
-    const qi = session.current;
-    if (qq && qi != null) setLastCard({ q: qq, mcq, qi });
-    setBusy(true);
-    const correct = oi != null && oi === mcq.correctIndex;
-    const { xp } = await session.answerOption(correct);
-    setPicked(oi);
-    setTimedOut(oi == null);
-    setFlash({ kind: correct ? "right" : "wrong", key: Date.now() });
-    setFeedback(
-      oi == null
-        ? "Time's up · the right answer is highlighted"
-        : correct
-          ? xp > 0
-            ? `Correct · +${xp} XP`
-            : "Correct"
-          : "Wrong · the right answer is highlighted",
-    );
-    setBusy(false);
-    onProgress(session.done ? 1 : session.progressPct / 100);
-    window.setTimeout(() => setFlash(null), 700);
-  };
-
-  const choose = (oi: number) => {
-    void recordAnswer(oi);
-  };
-
-  // Re-arm the answered guard whenever the question changes.
-  useEffect(() => {
-    answeredRef.current = false;
-  }, [session, tick]);
-
-  // Per-question countdown. Clears the moment the question is answered.
-  useEffect(() => {
-    if (!session || final || finishing || !timerOn) return;
-    if (picked != null || timedOut) return;
-    setTimeLeft(EXAM_SECONDS_PER_QUESTION);
-    const iv = window.setInterval(() => {
-      setTimeLeft((t) => (t <= 1 ? 0 : t - 1));
-    }, 1000);
-    const to = window.setTimeout(() => {
-      if (!answeredRef.current) void recordAnswer(null);
-    }, EXAM_SECONDS_PER_QUESTION * 1000);
-    return () => {
-      window.clearInterval(iv);
-      window.clearTimeout(to);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session, tick, final, finishing, timerOn, picked, timedOut]);
-
-  const nextQuestion = () => {
-    if (!session || finishing) return;
-    if (session.done) {
-      void doFinish();
-      return;
-    }
-    setPicked(null);
-    setTimedOut(false);
-    setFeedback(null);
-    setTick((t) => t + 1);
-  };
-
-  if (questions.length === 0) {
-    return (
-      <section aria-label="Test" className="flex flex-col gap-4">
-        <GlassCard>
-          <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-            Exam mode
-          </p>
-          <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
-            No test questions yet
-          </h2>
-          <p className="mt-2 text-[15px] text-[var(--text-dim)]">
-            This topic has no test questions. Move on to the flashcards.
-          </p>
-          <div className="mt-5">
-            <NextButton label="Revise flashcards" onClick={onNext} />
-          </div>
-        </GlassCard>
-      </section>
-    );
-  }
-
-  if (final) {
-    const s = final.summary;
-    return (
-      <section aria-label="Test results" className="flex flex-col gap-4">
-        <GlassCard>
-          <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--neon-soft)]">
-            Exam complete
-          </p>
-          <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
-            {s.passed ? "Passed · topic complete" : "Not yet · review and retry"}
-          </h2>
-
-          <div className="mt-5 flex items-center gap-4">
-            <ScoreRing pct={s.accuracy} passed={s.passed} />
-            <div className="grid flex-1 grid-cols-2 gap-2 text-center">
-              {[
-                { v: `+${s.xpEarned}`, l: "XP earned" },
-                { v: formatTime(s.seconds), l: "Time" },
-              ].map((stat) => (
-                <div
-                  key={stat.l}
-                  className="rounded-2xl bg-[var(--track)] px-2 py-3"
-                >
-                  <div className="text-[20px] font-bold tabular-nums text-[var(--text)]">
-                    {stat.v}
-                  </div>
-                  <div className="mt-1 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-                    {stat.l}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <p className="mt-3 text-[13px] text-[var(--text-dim)]">
-            {s.knownFirstTry} of {s.total} correct · pass mark{" "}
-            {QUIZ_PASS_SCORE}%
-          </p>
-
-          {s.weakIndices.length > 0 ? (
-            <div className="mt-5">
-              <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-                Review your misses
-              </p>
-              <div className="mt-2 flex flex-col gap-3">
-                {s.weakIndices.map((qi) => {
-                  const wq = questions[qi];
-                  if (!wq) return null;
-                  return (
-                    <div
-                      key={qi}
-                      className="rounded-2xl bg-[var(--track)] p-4"
-                    >
-                      <p className="text-[15px] font-semibold leading-[1.6] text-[var(--text)]">
-                        {wq.q}
-                      </p>
-                      <div className="mt-3 border-t border-[var(--glass-border)] pt-3">
-                        <p className="text-[11px] font-semibold uppercase tracking-widest text-[var(--text-faint)]">
-                          Full answer
-                        </p>
-                        <div className="mt-2">
-                          <AnswerBlock lines={wq.a} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ) : (
-            <p className="mt-4 text-[15px] font-semibold text-[var(--neon-soft)]">
-              Flawless run · nothing missed
-            </p>
-          )}
-
-          {final.newlyUnlocked.length > 0 ? (
-            <div className="mt-5">
-              <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-                Achievements unlocked
-              </p>
-              <div className="mt-2 flex flex-col gap-2">
-                {final.newlyUnlocked.map((a) => (
-                  <div
-                    key={a.id}
-                    className="rounded-2xl bg-[var(--track)] px-4 py-3"
-                  >
-                    <p className="text-[15px] font-semibold text-[var(--text)]">
-                      {a.name}
-                    </p>
-                    <p className="text-[13px] text-[var(--text-dim)]">
-                      {a.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
-
-          <div className="mt-5 flex flex-col gap-3">
-            <button
-              type="button"
-              onClick={start}
-              className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-            >
-              <RefreshIcon className="h-5 w-5" />
-              Retake test
-            </button>
-            <NextButton label="Revise flashcards" onClick={onNext} />
-          </div>
-        </GlassCard>
-      </section>
-    );
-  }
-
-  if (!session) {
-    return (
-      <section aria-label="Exam mode" className="flex flex-col gap-4">
-        <GlassCard>
-          <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--neon-soft)]">
-            Exam mode
-          </p>
-          <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
-            {questions.length} questions · one shot each
-          </h2>
-          <ul className="mt-3 flex list-disc flex-col gap-2 pl-5 text-[15px] leading-[1.7] text-[var(--text-dim)]">
-            <li>Pick the right option out of 4. No skipping, no repeats.</li>
-            <li>
-              {EXAM_SECONDS_PER_QUESTION} seconds per question — run out of
-              time and it counts as wrong.
-            </li>
-            <li>Score {QUIZ_PASS_SCORE}% or more to pass the topic.</li>
-            <li>
-              XP per correct answer: SURE MARK {xpForTag("SURE MARK")} ·
-              REPEATED {xpForTag("REPEATED")} · IMPORTANT{" "}
-              {xpForTag("IMPORTANT")}.
-            </li>
-            <li>Full answers for your misses appear in the review at the end.</li>
-          </ul>
-
-          <button
-            type="button"
-            role="switch"
-            aria-checked={timerOn}
-            onClick={() => setTimerOn((v) => !v)}
-            className="mt-4 flex min-h-[52px] w-full items-center justify-between rounded-2xl bg-[var(--track)] px-4 active:opacity-80"
-          >
-            <span className="text-[15px] font-semibold text-[var(--text)]">
-              {EXAM_SECONDS_PER_QUESTION}s timer per question
-            </span>
-            <span
-              aria-hidden="true"
-              className={`flex h-7 w-12 shrink-0 items-center rounded-full p-1 transition-colors ${
-                timerOn ? "bg-[var(--neon)]" : "bg-[var(--glass-border)]"
-              }`}
-            >
-              <span
-                className={`h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                  timerOn ? "translate-x-5" : "translate-x-0"
-                }`}
-              />
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={start}
-            className="cta-neon mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl text-[15px] font-bold"
-          >
-            <PlayIcon className="h-5 w-5" />
-            Start exam
-          </button>
-        </GlassCard>
-      </section>
-    );
-  }
-
-  // Active question. Falls back to the last answered card while the result
-  // is being computed so the screen never goes blank.
-  const q = session.currentQuestion ?? lastCard?.q ?? null;
-  const activeMcq = mcq ?? lastCard?.mcq ?? null;
-  const answered = picked != null || timedOut;
-  const isLast = session.done;
-  const pos = Math.min(session.roundPos, session.roundTotal);
-
-  return (
-    <section aria-label="Exam" className="flex flex-col gap-4">
-      <div className="flex items-center justify-between gap-3">
-        <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--neon-soft)]">
-            Exam mode
-          </p>
-          <p className="mt-1 text-[15px] font-bold tabular-nums text-[var(--text)]">
-            Question {pos} of {session.roundTotal}
-          </p>
-        </div>
-        {timerOn ? (
-          <TimerRing seconds={timeLeft} total={EXAM_SECONDS_PER_QUESTION} />
-        ) : null}
-      </div>
-      <ProgressBar
-        value={session.done ? 100 : session.progressPct}
-        className="h-1.5"
-      />
-
-      {q && activeMcq ? (
-        <div className="relative">
-          {flash ? (
-            <div
-              key={flash.key}
-              aria-hidden="true"
-              className={`exam-flash exam-flash-${flash.kind} pointer-events-none absolute inset-0 z-10 rounded-3xl`}
-            />
-          ) : null}
-          <GlassCard>
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <TagPill tagBase={q.tagBase} years={q.years} />
-              {session.current != null ? (
-                <BookmarkButton
-                  key={`q-${session.current}-${tick}`}
-                  target={questionBookmarkRef(
-                    short,
-                    num,
-                    topicTitle,
-                    session.current,
-                  )}
-                  label="question"
-                />
-              ) : null}
-            </div>
-            <p className="mt-3 text-[18px] font-semibold leading-[1.6] text-[var(--text)]">
-              {q.q}
-            </p>
-
-            <div
-              className="mt-4 flex flex-col gap-2"
-              role="radiogroup"
-              aria-label="Answer options"
-            >
-              {activeMcq.options.map((opt, oi) => {
-                const isCorrect = oi === activeMcq.correctIndex;
-                const isPicked = oi === picked;
-                const style = !answered
-                  ? "border-[var(--glass-border)] bg-[var(--glass)]"
-                  : isCorrect
-                    ? "border-emerald-500/60 bg-emerald-500/10"
-                    : isPicked
-                      ? "border-rose-500/60 bg-rose-500/10"
-                      : "border-[var(--glass-border)] opacity-50";
-                return (
-                  <button
-                    key={oi}
-                    type="button"
-                    role="radio"
-                    aria-checked={isPicked}
-                    disabled={answered || busy || finishing}
-                    onClick={() => choose(oi)}
-                    className={`flex min-h-[56px] w-full items-center gap-3 rounded-2xl border p-3 text-left transition-colors active:opacity-80 disabled:cursor-default ${style}`}
-                  >
-                    <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-[13px] font-bold ${
-                        answered && isCorrect
-                          ? "bg-emerald-500 text-white"
-                          : answered && isPicked
-                            ? "bg-rose-500 text-white"
-                            : "bg-[var(--track)] text-[var(--text)]"
-                      }`}
-                      aria-hidden="true"
-                    >
-                      {String.fromCharCode(65 + oi)}
-                    </span>
-                    <span className="text-[15px] leading-[1.6] text-[var(--text)]">
-                      {opt}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {answered ? (
-              <>
-                <p
-                  className={`mt-4 text-center text-[15px] font-semibold ${
-                    activeMcq && picked === activeMcq.correctIndex
-                      ? "text-[var(--neon-soft)]"
-                      : "text-[var(--text)]"
-                  }`}
-                  role="status"
-                >
-                  {feedback}
-                </p>
-                {/* Exam mode: no full answer mid-test. Misses are reviewed
-                    with full answers on the results screen. */}
-                {finishError ? (
-                  <p
-                    className="mt-3 rounded-2xl bg-rose-500/10 px-4 py-3 text-center text-[14px] font-medium text-rose-300"
-                    role="alert"
-                  >
-                    {finishError}
-                  </p>
-                ) : null}
-                <button
-                  type="button"
-                  onClick={nextQuestion}
-                  disabled={finishing}
-                  className="cta-neon mt-4 flex min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl text-[16px] font-bold disabled:opacity-60"
-                >
-                  {finishing ? (
-                    <>
-                      <span
-                        className="h-5 w-5 animate-spin rounded-full border-2 border-black/30 border-t-black"
-                        aria-hidden="true"
-                      />
-                      Checking your answers…
-                    </>
-                  ) : isLast ? (
-                    <>
-                      Finish Test · See Results
-                      <ArrowIcon className="h-5 w-5" />
-                    </>
-                  ) : (
-                    <>
-                      Next
-                      <ArrowIcon className="h-5 w-5" />
-                    </>
-                  )}
-                </button>
-              </>
-            ) : null}
-          </GlassCard>
-        </div>
-      ) : null}
-    </section>
-  );
-}
-
-// ------------------------------------------------------------------ REVISE ---
-
-interface FlashCard {
-  key: string;
-  front: string;
-  frontSub: string;
-  back: string[];
-  tag: string;
-  /** Index into the topic's questions for question-derived cards, else null. */
-  qIndex: number | null;
-}
-
-export function RevisePhase({
-  short,
-  num,
-  slug,
-  topic,
-  questions,
-  onProgress,
-}: {
-  short: string;
-  num: string;
-  slug: string;
-  topic: Topic;
-  questions: Question[];
-  onProgress: (fraction: number) => void;
-}) {
-  const [deck, setDeck] = useState<FlashCard[] | null>(null);
-  const [pos, setPos] = useState(0);
-  // 0 = front, 1 = preview (first 3 back lines), 2 = full back.
-  const [flip, setFlip] = useState<0 | 1 | 2>(0);
-
-  const buildDeck = () => {
-    const now = new Date();
-    const cards: FlashCard[] = [];
-    // Every theory point becomes a recall card.
-    topic.points.forEach((pt, i) => {
-      cards.push({
-        key: srsKey(short, num, `${slug}-pt`, i),
-        front: topic.title,
-        frontSub: `Key point ${i + 1} of ${topic.points.length} · recall it`,
-        back: [pt],
-        tag: "THEORY",
-        qIndex: null,
-      });
-    });
-    // SURE MARK and IMPORTANT questions become Q&A cards.
-    questions.forEach((q, i) => {
-      if (q.tagBase !== "SURE MARK" && q.tagBase !== "IMPORTANT") return;
-      cards.push({
-        key: srsKey(short, num, `${slug}-q`, i),
-        front: q.q,
-        frontSub: `${q.tagBase}${q.years ? ` · ${q.years}` : ""}`,
-        back: q.a,
-        tag: q.tagBase,
-        qIndex: i,
-      });
-    });
-    const entries = cards
-      .map((c) => ({ ...c, card: loadCard(c.key) }))
-      .filter((e) => !hasReviews(e.card) || isCardDue(e.card, now))
-      .sort((a, b) => a.card.due.getTime() - b.card.due.getTime())
-      .map(({ key, front, frontSub, back, tag, qIndex }) => ({
-        key,
-        front,
-        frontSub,
-        back,
-        tag,
-        qIndex,
-      }));
-    setDeck(entries);
-    setPos(0);
-    setFlip(0);
-    onProgress(entries.length === 0 ? 1 : 0);
-  };
-
-  useEffect(buildDeck, [short, num, slug, topic, questions, onProgress]);
-
-  useEffect(() => {
-    if (deck) onProgress(deck.length === 0 ? 1 : pos / deck.length);
-  }, [deck, pos, onProgress]);
-
-  if (deck === null) {
-    return (
-      <GlassCard>
-        <div className="h-24 animate-pulse rounded-2xl bg-[var(--track)]" />
-      </GlassCard>
-    );
-  }
-
-  if (deck.length === 0) {
-    return (
-      <EmptyState
-        title="All caught up"
-        subtitle="No flashcards are due for this topic right now. Come back later for spaced review."
-      />
-    );
-  }
-
-  if (pos >= deck.length) {
-    return (
-      <section aria-label="Flashcards done" className="flex flex-col gap-4">
-        <GlassCard>
-          <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-            Flashcards done
-          </p>
-          <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
-            Reviewed {deck.length} card{deck.length === 1 ? "" : "s"}
-          </h2>
-          <p className="mt-2 flex items-center gap-2 text-[15px] text-[var(--text-dim)]">
-            <ClockIcon className="h-4 w-4" />
-            Spaced repetition keeps them coming back right on time.
-          </p>
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => setPos(deck.length - 1)}
-              className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-            >
-              <BackNavIcon className="h-5 w-5" />
-              Back
-            </button>
-            <button
-              type="button"
-              onClick={buildDeck}
-              className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-            >
-              <RefreshIcon className="h-5 w-5" />
-              Check again
-            </button>
-          </div>
-        </GlassCard>
-      </section>
-    );
-  }
-
-  const entry = deck[pos];
-
-  const grade = (rating: Rating) => {
-    reviewCard(entry.key, rating);
-    setFlip(0);
-    setPos((p) => p + 1);
-  };
-
-  const goFlip = () => setFlip((f) => ((f + 1) % 3) as 0 | 1 | 2);
-  const goNext = () => {
-    setFlip(0);
-    setPos((p) => Math.min(p + 1, deck.length));
-  };
-  const goBack = () => {
-    setFlip(0);
-    setPos((p) => Math.max(p - 1, 0));
-  };
-
-  // Swipe left/right to move through the deck without grading.
-  const touchX = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchX.current = e.touches[0].clientX;
-  };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchX.current == null) return;
-    const dx = e.changedTouches[0].clientX - touchX.current;
-    touchX.current = null;
-    if (Math.abs(dx) < 48) return;
-    if (dx < 0) goNext();
-    else goBack();
-  };
-
-  return (
-    <section aria-label="Revise" className="flex flex-col gap-4">
-      <h2 className="text-[20px] font-bold text-[var(--text)]">
-        Revise flashcards
-      </h2>
-      <div className="flex items-center justify-between text-[13px] text-[var(--text-dim)]">
-        <span>
-          Card {pos + 1} of {deck.length}
-        </span>
-        <span className="flex items-center gap-2">
-          <span>{entry.tag}</span>
-          {entry.qIndex != null ? (
-            <BookmarkButton
-              key={entry.key}
-              target={questionBookmarkRef(short, num, topic.title, entry.qIndex)}
-              label="question"
-              className="-mr-2"
-            />
-          ) : null}
-        </span>
-      </div>
-
-      <button
-        type="button"
-        onClick={goFlip}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-        aria-label={flip === 0 ? "Flip card" : "Show more of the answer"}
-        className="block w-full text-left"
-      >
-        <GlassCard className="min-h-[220px] transition-transform active:scale-[0.99]">
-          {flip === 0 ? (
-            <div className="flex min-h-[188px] flex-col justify-center gap-3">
-              <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-                {entry.tag === "THEORY" ? "Recall" : "Question"}
-              </p>
-              <p className="text-[18px] font-semibold leading-[1.6] text-[var(--text)]">
-                {entry.front}
-              </p>
-              <p className="text-[13px] text-[var(--text-faint)]">
-                {entry.frontSub} · Tap to flip
-              </p>
-            </div>
-          ) : flip === 1 ? (
-            <div className="flex flex-col gap-3">
-              <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-                Answer
-              </p>
-              <AnswerBlock lines={entry.back.slice(0, 3)} />
-              <p className="text-[13px] font-medium text-[var(--text-faint)]">
-                Tap for the full answer
-              </p>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-3">
-              <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-                Full answer
-              </p>
-              <AnswerBlock lines={entry.back} />
-            </div>
-          )}
-        </GlassCard>
-      </button>
-
-      {flip >= 1 ? (
-        <div className="grid grid-cols-4 gap-2" role="group" aria-label="Grade this card">
-          {GRADE_BUTTONS.map((g) => (
-            <button
-              key={g.label}
-              type="button"
-              onClick={() => grade(g.rating)}
-              className="glass flex min-h-[52px] flex-col items-center justify-center rounded-2xl text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-            >
-              {g.label}
-            </button>
-          ))}
-        </div>
-      ) : null}
-
-      <div className="grid grid-cols-3 gap-2" role="group" aria-label="Card navigation">
-        <button
-          type="button"
-          onClick={goBack}
-          disabled={pos === 0}
-          className="flex min-h-[52px] items-center justify-center gap-1 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80 disabled:opacity-40"
-        >
-          <BackNavIcon className="h-5 w-5" />
-          Back
-        </button>
-        <button
-          type="button"
-          onClick={goFlip}
-          className="flex min-h-[52px] items-center justify-center gap-1 rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-        >
-          <FlipIcon className="h-5 w-5" />
-          Flip
-        </button>
-        <button
-          type="button"
-          onClick={goNext}
-          className="cta-neon flex min-h-[52px] items-center justify-center gap-1 rounded-2xl text-[15px] font-bold"
-        >
-          Next
-          <ArrowIcon className="h-5 w-5" />
-        </button>
-      </div>
-      <p className="text-center text-[12px] text-[var(--text-faint)]">
-        Swipe left or right to move through the deck
-      </p>
-    </section>
-  );
-}
-
-// --------------------------------------------------------------- next button ---
 
 export function NextButton({
   label,
