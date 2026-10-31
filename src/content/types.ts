@@ -31,6 +31,8 @@ export interface VideoSlot {
   subject: string;
   module: string;
   topicHint: string;
+  /** Exact topic title match. When set, the slot binds only to this topic. */
+  topicTitle?: string | null;
   youtubeId: null;
   /** Drop-in video for the Learn phase. Null = "Video coming soon". */
   videoUrl: string | null;

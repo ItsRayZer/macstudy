@@ -74,6 +74,7 @@ function TopicContent({
   const practiceRef = useRef<HTMLDivElement>(null);
   const testRef = useRef<HTMLDivElement>(null);
   const reviseRef = useRef<HTMLDivElement>(null);
+  const learnRef = useRef<HTMLDivElement>(null);
 
   const subject = getSubjectLocal(short);
   const mod = subject ? getModuleLocal(subject, num) : undefined;
@@ -121,6 +122,19 @@ function TopicContent({
     if (nextStage === 1) scrollTo(practiceRef);
     else if (nextStage === 2) scrollTo(testRef);
     else if (nextStage === 3) scrollTo(reviseRef);
+  };
+
+  // Free navigation: the user can jump between phases at any time via the
+  // pinned steps. Jumping forward reveals everything up to that phase.
+  const jumpTo = (idx: number) => {
+    setStage((prev) => {
+      const next = Math.max(prev, idx);
+      if (idx === 0) scrollTo(learnRef);
+      else if (idx === 1) scrollTo(practiceRef);
+      else if (idx === 2) scrollTo(testRef);
+      else scrollTo(reviseRef);
+      return next;
+    });
   };
 
   if (!subject || !mod || !topic) {
@@ -174,19 +188,24 @@ function TopicContent({
   return (
     <main className="flex flex-col gap-6">
       <div className="sticky top-0 z-40 -mx-4 bg-[var(--bg)]/95 px-4 pb-3 pt-4 backdrop-blur">
-        <div className="flex items-center justify-between text-[12px] font-medium text-[var(--text-dim)]">
+        <div className="flex items-center justify-between">
           {PHASES.map((p, i) => (
-            <span
+            <button
               key={p}
-              className={
+              type="button"
+              onClick={() => jumpTo(i)}
+              aria-label={`Go to ${p}`}
+              className={`flex min-h-[36px] items-center text-[12px] font-medium ${
                 i <= stage ? "text-[var(--text)]" : "text-[var(--text-faint)]"
-              }
+              }`}
             >
-              {p}
-            </span>
+              <span className={i === stage ? "font-bold underline underline-offset-4" : ""}>
+                {p}
+              </span>
+            </button>
           ))}
         </div>
-        <ProgressBar value={overall} className="mt-2 h-1.5" />
+        <ProgressBar value={overall} className="mt-1 h-1.5" />
       </div>
 
       <header>
@@ -211,12 +230,14 @@ function TopicContent({
         </div>
       </header>
 
-      <LearnPhase
-        subject={subject}
-        mod={mod}
-        topic={topic}
-        onNext={() => advanceTo(1)}
-      />
+      <div ref={learnRef} className="scroll-mt-24">
+        <LearnPhase
+          subject={subject}
+          mod={mod}
+          topic={topic}
+          onNext={() => advanceTo(1)}
+        />
+      </div>
 
       {stage >= 1 ? (
         <div ref={practiceRef} className="scroll-mt-24">
@@ -237,6 +258,7 @@ function TopicContent({
             short={subject.short}
             num={mod.num}
             topicTitle={topic.title}
+            topic={topic}
             questions={topic.questions}
             onProgress={(f) => setFraction(2, f)}
             onNext={() => advanceTo(3)}
@@ -250,6 +272,7 @@ function TopicContent({
             short={subject.short}
             num={mod.num}
             slug={slug}
+            topic={topic}
             questions={topic.questions}
             onProgress={(f) => setFraction(3, f)}
           />

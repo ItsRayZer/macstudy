@@ -216,5 +216,15 @@ export const VIDEO_SLOTS: VideoSlot[] = [
     "videoUrl": null,
     "videoSource": null,
     "duration": null
+  },
+  {
+    "subject": "QT",
+    "module": "1",
+    "topicHint": "Introduction to statistics chapter 1",
+    "topicTitle": "What is Statistics?",
+    "youtubeId": null,
+    "videoUrl": "https://youtu.be/C1gGr-ur2HM",
+    "videoSource": "youtube",
+    "duration": null
   }
 ];

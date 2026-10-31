@@ -140,6 +140,8 @@ export function matchVideoSlot(
   const titleTokens = new Set(tokens(topic.title));
   return VIDEO_SLOTS.find((v) => {
     if (v.subject !== short || v.module !== moduleNum) return false;
+    // Exact title binding wins when present.
+    if (v.topicTitle != null) return v.topicTitle === topic.title;
     const hint = v.topicHint.toLowerCase();
     return (
       tokens(v.topicHint).some((w) => titleTokens.has(w)) ||

@@ -14,7 +14,7 @@
 
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   EmptyState,
   GlassCard,
@@ -29,6 +29,7 @@ import {
   summarizeExamPattern,
 } from "../../../../../lib/study";
 import { QuizSession, xpForTag, type QuizFinal } from "../../../../../lib/quiz";
+import { buildMcq } from "../../../../../lib/mcq";
 import {
   GRADE_BUTTONS,
   Rating,
@@ -592,6 +593,7 @@ export function TestPhase({
   short,
   num,
   topicTitle,
+  topic,
   questions,
   onProgress,
   onNext,
@@ -599,23 +601,33 @@ export function TestPhase({
   short: string;
   num: string;
   topicTitle: string;
+  topic: Topic;
   questions: Question[];
   onProgress: (fraction: number) => void;
   onNext: () => void;
 }) {
   const [session, setSession] = useState<QuizSession | null>(null);
   const [final, setFinal] = useState<QuizFinal | null>(null);
+  const [picked, setPicked] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [, setTick] = useState(0);
+  const [tick, setTick] = useState(0);
 
-  const rerender = () => setTick((t) => t + 1);
+  const mcq = useMemo(() => {
+    const qq = session?.currentQuestion;
+    const qi = session?.current;
+    if (!session || qq == null || qi == null) return null;
+    return buildMcq(qq, topic, qi);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, tick]);
 
   const start = () => {
     if (questions.length === 0) return;
     setFinal(null);
+    setPicked(null);
     setFeedback(null);
     setBusy(false);
+    setTick(0);
     setSession(
       new QuizSession(questions, {
         subject: short,
@@ -629,39 +641,40 @@ export function TestPhase({
   const finish = async (s: QuizSession) => {
     const f = await s.finalize();
     setFinal(f);
+    setPicked(null);
     setFeedback(null);
     setBusy(false);
     onProgress(1);
     // Keep the global XP / streak displays fresh.
     useAppStore.getState().refreshFromDB().catch(() => {});
-    rerender();
   };
 
-  const onKnown = async () => {
-    if (!session || busy || !session.isRevealed) return;
+  const choose = async (oi: number) => {
+    if (!session || !mcq || picked != null || busy) return;
+    setPicked(oi);
     setBusy(true);
-    const { xp } = await session.markKnown();
-    setFeedback(xp > 0 ? `Correct · +${xp} XP` : "Correct");
+    const correct = oi === mcq.correctIndex;
+    const { xp } = await session.answerOption(correct);
+    setFeedback(
+      correct
+        ? xp > 0
+          ? `Correct · +${xp} XP`
+          : "Correct"
+        : "Wrong · the right answer is highlighted",
+    );
     setBusy(false);
     onProgress(session.done ? 1 : session.progressPct / 100);
-    rerender();
   };
 
-  const onMissed = async () => {
-    if (!session || busy || !session.isRevealed) return;
-    setBusy(true);
-    await session.markMissed();
-    setFeedback("Wrong · added to mistake deck, it will repeat");
-    setBusy(false);
-    onProgress(session.done ? 1 : session.progressPct / 100);
-    rerender();
-  };
-
-  const onNextQuestion = () => {
+  const nextQuestion = () => {
     if (!session) return;
+    setPicked(null);
     setFeedback(null);
-    if (session.done) void finish(session);
-    else rerender();
+    if (session.done) {
+      void finish(session);
+    } else {
+      setTick((t) => t + 1);
+    }
   };
 
   if (final) {
@@ -767,7 +780,7 @@ export function TestPhase({
             {questions.length} questions
           </h2>
           <ul className="mt-3 flex list-disc flex-col gap-2 pl-5 text-[15px] leading-[1.7] text-[var(--text-dim)]">
-            <li>Read each question, show the answer, then mark honestly.</li>
+            <li>Pick the right option out of 4 for each question.</li>
             <li>
               Pass at {QUIZ_PASS_SCORE}% to complete the topic and unlock the
               next one.
@@ -793,6 +806,7 @@ export function TestPhase({
   }
 
   const q = session.currentQuestion;
+  const answered = picked != null;
 
   return (
     <section aria-label="Quiz" className="flex flex-col gap-4">
@@ -810,7 +824,7 @@ export function TestPhase({
         <ProgressBar value={session.progressPct} className="mt-2" />
       </div>
 
-      {q ? (
+      {q && mcq ? (
         <GlassCard>
           <div className="flex flex-wrap gap-2">
             <TagPill tagBase={q.tagBase} years={q.years} />
@@ -819,61 +833,77 @@ export function TestPhase({
             {q.q}
           </p>
 
-          {!session.isRevealed ? (
-            <button
-              type="button"
-              onClick={() => {
-                session.revealAnswer();
-                rerender();
-              }}
-              className="mt-4 flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[var(--text)] text-[15px] font-semibold text-[var(--bg)] active:opacity-90"
-            >
-              Show answer
-            </button>
-          ) : (
-            <>
-              <div className="mt-4">
-                <AnswerBlock lines={q.a} />
-              </div>
-              {feedback ? (
-                <p
-                  className="mt-3 text-center text-[15px] font-semibold text-[var(--text)]"
-                  role="status"
-                >
-                  {feedback}
-                </p>
-              ) : (
-                <div className="mt-4 grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={onMissed}
-                    disabled={busy}
-                    className="flex min-h-[52px] items-center justify-center rounded-2xl border border-rose-500/30 bg-rose-500/10 px-3 text-[15px] font-semibold text-rose-600 disabled:opacity-50 dark:text-rose-300"
-                  >
-                    I got it wrong
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onKnown}
-                    disabled={busy}
-                    className="flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--text)] px-3 text-[15px] font-semibold text-[var(--bg)] disabled:opacity-50"
-                  >
-                    I got it right
-                  </button>
-                </div>
-              )}
-              {feedback ? (
+          <div
+            className="mt-4 flex flex-col gap-2"
+            role="radiogroup"
+            aria-label="Answer options"
+          >
+            {mcq.options.map((opt, oi) => {
+              const isCorrect = oi === mcq.correctIndex;
+              const isPicked = oi === picked;
+              const style = !answered
+                ? "border-[var(--glass-border)] bg-[var(--glass)]"
+                : isCorrect
+                  ? "border-emerald-500/60 bg-emerald-500/10"
+                  : isPicked
+                    ? "border-rose-500/60 bg-rose-500/10"
+                    : "border-[var(--glass-border)] opacity-50";
+              return (
                 <button
+                  key={oi}
                   type="button"
-                  onClick={onNextQuestion}
-                  className="mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text)] text-[15px] font-semibold text-[var(--bg)] active:opacity-90"
+                  role="radio"
+                  aria-checked={isPicked}
+                  disabled={answered || busy}
+                  onClick={() => choose(oi)}
+                  className={`flex min-h-[56px] w-full items-center gap-3 rounded-2xl border p-3 text-left transition-colors active:opacity-80 disabled:cursor-default ${style}`}
                 >
-                  Next question
-                  <ArrowIcon className="h-5 w-5" />
+                  <span
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-[13px] font-bold ${
+                      answered && isCorrect
+                        ? "bg-emerald-500 text-white"
+                        : answered && isPicked
+                          ? "bg-rose-500 text-white"
+                          : "bg-[var(--track)] text-[var(--text)]"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    {String.fromCharCode(65 + oi)}
+                  </span>
+                  <span className="text-[15px] leading-[1.6] text-[var(--text)]">
+                    {opt}
+                  </span>
                 </button>
-              ) : null}
+              );
+            })}
+          </div>
+
+          {answered ? (
+            <>
+              <p
+                className="mt-4 text-center text-[15px] font-semibold text-[var(--text)]"
+                role="status"
+              >
+                {feedback}
+              </p>
+              <div className="mt-4 rounded-2xl bg-[var(--track)] p-4">
+                <p className="text-[12px] font-semibold uppercase tracking-widest text-[var(--text-dim)]">
+                  Full answer
+                </p>
+                <div className="mt-2">
+                  <AnswerBlock lines={q.a} />
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={nextQuestion}
+                className="mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text)] text-[15px] font-semibold text-[var(--bg)] active:opacity-90"
+              >
+                Next question
+                <ArrowIcon className="h-5 w-5" />
+              </button>
             </>
-          )}
+          ) : null}
         </GlassCard>
       ) : null}
     </section>
@@ -882,46 +912,76 @@ export function TestPhase({
 
 // ------------------------------------------------------------------ REVISE ---
 
-interface DeckEntry {
-  index: number;
+interface FlashCard {
   key: string;
+  front: string;
+  frontSub: string;
+  back: string[];
+  tag: string;
 }
 
 export function RevisePhase({
   short,
   num,
   slug,
+  topic,
   questions,
   onProgress,
 }: {
   short: string;
   num: string;
   slug: string;
+  topic: Topic;
   questions: Question[];
   onProgress: (fraction: number) => void;
 }) {
-  const [deck, setDeck] = useState<DeckEntry[] | null>(null);
+  const [deck, setDeck] = useState<FlashCard[] | null>(null);
   const [pos, setPos] = useState(0);
-  // 0 = front, 1 = preview (first 3 answer lines), 2 = full answer.
+  // 0 = front, 1 = preview (first 3 back lines), 2 = full back.
   const [flip, setFlip] = useState<0 | 1 | 2>(0);
 
   const buildDeck = () => {
     const now = new Date();
-    const entries = questions
-      .map((_, i) => {
-        const key = srsKey(short, num, slug, i);
-        return { index: i, key, card: loadCard(key) };
-      })
+    const cards: FlashCard[] = [];
+    // Every theory point becomes a recall card.
+    topic.points.forEach((pt, i) => {
+      cards.push({
+        key: srsKey(short, num, `${slug}-pt`, i),
+        front: topic.title,
+        frontSub: `Key point ${i + 1} of ${topic.points.length} · recall it`,
+        back: [pt],
+        tag: "THEORY",
+      });
+    });
+    // SURE MARK and IMPORTANT questions become Q&A cards.
+    questions.forEach((q, i) => {
+      if (q.tagBase !== "SURE MARK" && q.tagBase !== "IMPORTANT") return;
+      cards.push({
+        key: srsKey(short, num, `${slug}-q`, i),
+        front: q.q,
+        frontSub: `${q.tagBase}${q.years ? ` · ${q.years}` : ""}`,
+        back: q.a,
+        tag: q.tagBase,
+      });
+    });
+    const entries = cards
+      .map((c) => ({ ...c, card: loadCard(c.key) }))
       .filter((e) => !hasReviews(e.card) || isCardDue(e.card, now))
       .sort((a, b) => a.card.due.getTime() - b.card.due.getTime())
-      .map(({ index, key }) => ({ index, key }));
+      .map(({ key, front, frontSub, back, tag }) => ({
+        key,
+        front,
+        frontSub,
+        back,
+        tag,
+      }));
     setDeck(entries);
     setPos(0);
     setFlip(0);
     onProgress(entries.length === 0 ? 1 : 0);
   };
 
-  useEffect(buildDeck, [short, num, slug, questions, onProgress]);
+  useEffect(buildDeck, [short, num, slug, topic, questions, onProgress]);
 
   useEffect(() => {
     if (deck) onProgress(deck.length === 0 ? 1 : pos / deck.length);
@@ -972,7 +1032,6 @@ export function RevisePhase({
   }
 
   const entry = deck[pos];
-  const q = questions[entry.index];
 
   const grade = (rating: Rating) => {
     reviewCard(entry.key, rating);
@@ -989,7 +1048,7 @@ export function RevisePhase({
         <span>
           Card {pos + 1} of {deck.length}
         </span>
-        <span>{q.tagBase}</span>
+        <span>{entry.tag}</span>
       </div>
 
       <button
@@ -1002,13 +1061,13 @@ export function RevisePhase({
           {flip === 0 ? (
             <div className="flex min-h-[188px] flex-col justify-center gap-3">
               <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-                Question
+                {entry.tag === "THEORY" ? "Recall" : "Question"}
               </p>
               <p className="text-[18px] font-semibold leading-[1.6] text-[var(--text)]">
-                {q.q}
+                {entry.front}
               </p>
               <p className="text-[13px] text-[var(--text-faint)]">
-                Tap to flip
+                {entry.frontSub} · Tap to flip
               </p>
             </div>
           ) : flip === 1 ? (
@@ -1016,7 +1075,7 @@ export function RevisePhase({
               <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
                 Answer
               </p>
-              <AnswerBlock lines={q.a.slice(0, 3)} />
+              <AnswerBlock lines={entry.back.slice(0, 3)} />
               <p className="text-[13px] font-medium text-[var(--text-faint)]">
                 Tap for the full answer
               </p>
@@ -1026,7 +1085,7 @@ export function RevisePhase({
               <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
                 Full answer
               </p>
-              <AnswerBlock lines={q.a} />
+              <AnswerBlock lines={entry.back} />
             </div>
           )}
         </GlassCard>

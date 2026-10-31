@@ -150,6 +150,19 @@ export class QuizSession {
     this.advance();
   }
 
+  /**
+   * MCQ answer path: no separate reveal step. A correct pick banks XP
+   * exactly like markKnown; a wrong pick records a mistake and re-queues
+   * exactly like markMissed.
+   */
+  async answerOption(correct: boolean): Promise<{ xp: number }> {
+    if (this.current == null) return { xp: 0 };
+    this.revealed = true;
+    if (correct) return this.markKnown();
+    await this.markMissed();
+    return { xp: 0 };
+  }
+
   private advance(): void {
     this.revealed = false;
     this.pos += 1;
