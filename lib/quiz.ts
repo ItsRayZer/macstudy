@@ -1,12 +1,14 @@
 // lib/quiz.ts
 // Quiz engine for the topic TEST tab (owned by the study/topic worker).
 //
-// Self-check flow: for each question the learner reveals the answer, then
-// marks "I knew it" or "I missed it". Missed questions are re-queued and
-// repeat at the end of the round until answered correctly.
+// Two modes:
+// - Guided mode (default): missed questions are re-queued and repeat at the
+//   end of the round until answered correctly.
+// - Exam mode (opts.examMode): single pass, no repeats, no skips. A wrong
+//   pick records a mistake and moves on. Used by the TEST phase's exam mode.
 //
 // XP RULES (match lib/gamify.ts): IMPORTANT = 10, REPEATED = 15,
-// SURE MARK = 20. XP is awarded for first-attempt "I knew it" marks only,
+// SURE MARK = 20. XP is awarded for first-attempt correct answers only,
 // computed here and banked at finalize through the gamification worker's
 // recordQuizResult(), which persists via getDB().addXP(), touches the streak,
 // bumps quiz counters, and evaluates achievements. Missed marks are recorded
@@ -66,10 +68,16 @@ export class QuizSession {
   private everMissed = new Set<number>();
   private startedAt = Date.now();
   private revealed = false;
+  private readonly examMode: boolean;
 
-  constructor(questions: Question[], meta: QuizMeta) {
+  constructor(
+    questions: Question[],
+    meta: QuizMeta,
+    opts?: { examMode?: boolean },
+  ) {
     this.questions = questions;
     this.meta = meta;
+    this.examMode = opts?.examMode ?? false;
     this.total = questions.length;
     this.queue = questions.map((_, i) => i);
     this.firstAttempt = questions.map(() => true);
@@ -135,7 +143,8 @@ export class QuizSession {
     return { xp };
   }
 
-  /** Mark the current question missed: mistake recorded, re-queued at round end. */
+  /** Mark the current question missed: mistake recorded; re-queued at round
+   * end in guided mode, single pass in exam mode. */
   async markMissed(): Promise<void> {
     const idx = this.current;
     if (idx == null || !this.revealed) return;
@@ -146,7 +155,7 @@ export class QuizSession {
       this.meta.topic,
       idx,
     );
-    this.requeue.push(idx);
+    if (!this.examMode) this.requeue.push(idx);
     this.advance();
   }
 
@@ -166,8 +175,13 @@ export class QuizSession {
   private advance(): void {
     this.revealed = false;
     this.pos += 1;
-    if (this.pos >= this.queue.length && this.requeue.length > 0) {
-      // Missed questions repeat at the end until answered correctly.
+    if (
+      !this.examMode &&
+      this.pos >= this.queue.length &&
+      this.requeue.length > 0
+    ) {
+      // Guided mode: missed questions repeat at the end until answered
+      // correctly. Exam mode never re-queues: one pass, then done.
       this.queue = this.requeue;
       this.requeue = [];
       this.firstAttempt = this.queue.map(() => false);

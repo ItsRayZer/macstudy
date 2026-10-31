@@ -195,3 +195,24 @@
     outline-offset: 2px;
   }
 }
+
+/* ---------- exam-mode right/wrong flash ---------- */
+@keyframes exam-flash {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.exam-flash {
+  animation: exam-flash 0.65s ease-out forwards;
+}
+.exam-flash-right {
+  background: rgba(57, 255, 20, 0.22);
+  box-shadow: inset 0 0 0 2px rgba(57, 255, 20, 0.55);
+}
+.exam-flash-wrong {
+  background: rgba(244, 63, 94, 0.22);
+  box-shadow: inset 0 0 0 2px rgba(244, 63, 94, 0.55);
+}
