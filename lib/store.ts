@@ -1,5 +1,5 @@
 // lib/store.ts
-// BcaAce global UI store (zustand).
+// BcaEasy global UI store (zustand).
 //
 // WORKER CONTRACT (stable API - do not rename):
 //   useAppStore((s) => s.theme)            'dark' | 'light' (persisted)

@@ -42,7 +42,7 @@ async function tryProvider(
         "Content-Type": "application/json",
         Authorization: `Bearer ${key}`,
         "HTTP-Referer": "https://easybca.vercel.app",
-        "X-Title": "BcaAce",
+        "X-Title": "BcaEasy",
       },
       body: JSON.stringify({
         model,
