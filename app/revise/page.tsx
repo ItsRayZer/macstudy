@@ -28,6 +28,8 @@ import {
 import { subjects } from "@/src/content/subjects";
 import type { Question } from "@/src/content/types";
 import { TagPill } from "../subjects/[short]/[module]/[topic]/flow";
+import { useWindowed, WindowSentinel } from "../../components/windowed";
+import { modulesWithFormulas } from "@/src/content/formulas";
 
 interface DeckRow {
   key: string;
@@ -90,6 +92,8 @@ function DeckList({
   emptyTitle: string;
   emptySubtitle: string;
 }) {
+  // Windowed rendering: long decks mount in pages as you scroll.
+  const { visible, sentinelRef, hasMore } = useWindowed(rows);
   return (
     <section className="flex flex-col gap-3">
       <header className="flex items-baseline justify-between">
@@ -102,7 +106,7 @@ function DeckList({
       {rows.length === 0 ? (
         <EmptyState title={emptyTitle} subtitle={emptySubtitle} />
       ) : (
-        rows.map((r) => {
+        visible.map((r) => {
           const subj = subjects.find((s) => s.short === r.short);
           const mod = subj?.modules.find((m) => m.num === r.num);
           const topic = mod?.topics.find((t) => t.title === r.topicTitle);
@@ -144,6 +148,7 @@ function DeckList({
           );
         })
       )}
+      <WindowSentinel sentinelRef={sentinelRef} hasMore={hasMore} />
     </section>
   );
 }
@@ -226,6 +231,42 @@ export default function RevisePage() {
         </div>
       </section>
 
+      <section aria-label="Formula charts" className="flex flex-col gap-3">
+        <h2 className="text-lg font-bold text-[var(--text)]">Formula charts</h2>
+        <div className="flex flex-col gap-2">
+          {modulesWithFormulas().map(({ short, num }) => {
+            const subj = subjects.find((s) => s.short === short);
+            const mod = subj?.modules.find((m) => m.num === num);
+            if (!subj || !mod) return null;
+            return (
+              <Link
+                key={`${short}-${num}`}
+                href={`/subjects/${short}/${num}/formulas`}
+                className="block min-h-[44px]"
+                aria-label={`Formula chart: ${subj.name} chapter ${num}`}
+              >
+                <GlassCard className="transition-transform active:scale-[0.99]">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon)]/15 font-mono text-[15px] font-bold text-[var(--neon-soft)]">
+                      fx
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[15px] font-semibold text-[var(--text)]">
+                        {subj.name}
+                      </p>
+                      <p className="truncate text-xs text-[var(--text-dim)]">
+                        Chapter {num} · {mod.title}
+                      </p>
+                    </div>
+                    <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
+                  </div>
+                </GlassCard>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
       {!loaded ? (
         <div className="flex flex-col gap-3">
           <div className="h-24 animate-pulse rounded-3xl bg-[var(--track)]" />
@@ -273,6 +314,7 @@ function PaperBookmarkList({
   emptyTitle: string;
   emptySubtitle: string;
 }) {
+  const { visible, sentinelRef, hasMore } = useWindowed(rows);
   return (
     <section className="flex flex-col gap-3">
       <header className="flex items-baseline justify-between">
@@ -285,7 +327,7 @@ function PaperBookmarkList({
       {rows.length === 0 ? (
         <EmptyState title={emptyTitle} subtitle={emptySubtitle} />
       ) : (
-        rows.map((r) => (
+        visible.map((r) => (
           <a
             key={r.key}
             href={r.paper.file}
@@ -311,6 +353,7 @@ function PaperBookmarkList({
           </a>
         ))
       )}
+      <WindowSentinel sentinelRef={sentinelRef} hasMore={hasMore} />
     </section>
   );
 }

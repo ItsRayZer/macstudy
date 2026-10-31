@@ -362,6 +362,7 @@ export default function HomePage() {
             <img
               src="/wordmark.jpg"
               alt="BcaEasy"
+              fetchPriority="high"
               className="h-10 w-auto rounded-lg"
               onError={() => setLogoOk(false)}
             />

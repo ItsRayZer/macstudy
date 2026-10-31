@@ -57,6 +57,7 @@ export function MockRunner({ short }: { short: string }) {
   const [xpGained, setXpGained] = useState(0);
   const [newAchievements, setNewAchievements] = useState<AchievementDef[]>([]);
   const [deckAdded, setDeckAdded] = useState(false);
+  const [deckBusy, setDeckBusy] = useState(false);
   const deadlineRef = useRef(0);
 
   const maxScore = useMemo(
@@ -137,12 +138,19 @@ export function MockRunner({ short }: { short: string }) {
   }
 
   async function addWeakToDeck() {
-    const db = getDB();
-    for (const i of wrongIndices) {
-      const q = paper[i];
-      await db.addMistake(q.subject, q.module, q.topic, q.qIndex);
+    // Busy guard: a rapid double-tap must not record every mistake twice.
+    if (deckBusy || deckAdded) return;
+    setDeckBusy(true);
+    try {
+      const db = getDB();
+      for (const i of wrongIndices) {
+        const q = paper[i];
+        await db.addMistake(q.subject, q.module, q.topic, q.qIndex);
+      }
+      setDeckAdded(true);
+    } finally {
+      setDeckBusy(false);
     }
-    setDeckAdded(true);
   }
 
   if (!config) {
@@ -494,7 +502,7 @@ export function MockRunner({ short }: { short: string }) {
             <button
               type="button"
               onClick={addWeakToDeck}
-              disabled={deckAdded}
+              disabled={deckAdded || deckBusy}
               className="flex min-h-[48px] items-center justify-center rounded-2xl border border-[var(--glass-border)] bg-[var(--track)] text-sm font-semibold disabled:opacity-50"
             >
               {deckAdded
