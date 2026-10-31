@@ -98,37 +98,37 @@ export default function ProfilePage() {
         <div className="grid grid-cols-2 gap-3">
           <StatCard
             icon={<span className="text-lg font-bold text-white">XP</span>}
-            iconClassName="bg-gradient-to-br from-[#7C3AED] to-[#06B6D4]"
+            iconClassName="bg-[var(--text)] text-[var(--bg)]"
             value={stats?.totalXP ?? 0}
             label="total XP"
           />
           <StatCard
             icon={<span className="text-lg font-bold text-white">D</span>}
-            iconClassName="bg-gradient-to-br from-[#f59e0b] to-[#ef4444]"
+            iconClassName="bg-[var(--track)] text-[var(--text)]"
             value={streakInfo?.current ?? 0}
             label="day streak"
           />
           <StatCard
             icon={<span className="text-lg font-bold text-white">B</span>}
-            iconClassName="bg-gradient-to-br from-[#06b6d4] to-[#3b82f6]"
+            iconClassName="bg-[var(--track)] text-[var(--text)]"
             value={streakInfo?.longest ?? 0}
             label="best streak (days)"
           />
           <StatCard
             icon={<span className="text-lg font-bold text-white">T</span>}
-            iconClassName="bg-gradient-to-br from-[#10b981] to-[#06b6d4]"
+            iconClassName="bg-[var(--track)] text-[var(--text)]"
             value={`${stats?.completedTopics ?? 0}/${stats?.totalTopics ?? 0}`}
             label="topics done"
           />
           <StatCard
             icon={<span className="text-lg font-bold text-white">Q</span>}
-            iconClassName="bg-gradient-to-br from-[#8b5cf6] to-[#ec4899]"
+            iconClassName="bg-[var(--track)] text-[var(--text)]"
             value={quizCount}
             label="quizzes taken"
           />
           <StatCard
             icon={<span className="text-lg font-bold text-white">S</span>}
-            iconClassName="bg-gradient-to-br from-[#eab308] to-[#f59e0b]"
+            iconClassName="bg-[var(--track)] text-[var(--text)]"
             value={sureCorrect}
             label="sure marks correct"
           />
@@ -157,7 +157,7 @@ export default function ProfilePage() {
             <button
               type="button"
               onClick={saveGoal}
-              className="flex min-h-[48px] shrink-0 items-center rounded-2xl bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] px-6 text-sm font-semibold text-white"
+              className="flex min-h-[48px] shrink-0 items-center rounded-2xl bg-[var(--text)] text-[var(--bg)] px-6 text-sm font-semibold text-white"
             >
               {goalSaved ? "Saved" : "Set goal"}
             </button>

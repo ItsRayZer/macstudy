@@ -139,7 +139,7 @@ export default function HomePage() {
               {totalXP}
             </span>
           }
-          iconClassName="bg-gradient-to-br from-[#7C3AED] to-[#06B6D4]"
+          iconClassName="bg-[var(--text)] text-[var(--bg)]"
           value={`${xpToday} XP`}
           label="earned today"
         />
@@ -186,7 +186,7 @@ export default function HomePage() {
             action={
               <Link
                 href="/mocks"
-                className="flex min-h-[44px] items-center rounded-2xl bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] px-6 text-sm font-semibold text-white"
+                className="flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] text-[var(--bg)] px-6 text-sm font-semibold text-white"
               >
                 Open mock tests
               </Link>

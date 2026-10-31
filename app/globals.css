@@ -7,39 +7,39 @@
     "Segoe UI", Roboto, sans-serif;
 }
 
-/* ---------- MacStudy theme tokens (dark default, Apple-like light) ---------- */
+/* ---------- MacStudy theme tokens: monochrome AMOLED premium ---------- */
 :root,
 [data-theme="dark"] {
-  --bg: #0d0d14;
-  --bg-elev: #16161f;
-  --text: #f5f5fa;
-  --text-dim: rgba(245, 245, 250, 0.62);
-  --text-faint: rgba(245, 245, 250, 0.36);
-  --glass: rgba(255, 255, 255, 0.055);
-  --glass-strong: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
-  --accent-a: #7c3aed;
-  --accent-b: #06b6d4;
+  --bg: #000000;
+  --bg-elev: #0b0b0d;
+  --text: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.62);
+  --text-faint: rgba(255, 255, 255, 0.38);
+  --glass: rgba(255, 255, 255, 0.045);
+  --glass-strong: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.11);
+  --shadow: 0 10px 34px rgba(0, 0, 0, 0.55);
+  --accent-a: #ffffff;
+  --accent-b: #ffffff;
   --gold: #e3b341;
   --track: rgba(255, 255, 255, 0.09);
   color-scheme: dark;
 }
 
 [data-theme="light"] {
-  --bg: #f3f3f8;
+  --bg: #ffffff;
   --bg-elev: #ffffff;
-  --text: #14141d;
-  --text-dim: rgba(20, 20, 29, 0.64);
-  --text-faint: rgba(20, 20, 29, 0.4);
-  --glass: rgba(255, 255, 255, 0.62);
-  --glass-strong: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(20, 20, 29, 0.09);
-  --shadow: 0 10px 30px rgba(98, 88, 170, 0.14);
-  --accent-a: #7c3aed;
-  --accent-b: #0891b2;
+  --text: #0a0a0c;
+  --text-dim: rgba(10, 10, 12, 0.62);
+  --text-faint: rgba(10, 10, 12, 0.4);
+  --glass: rgba(10, 10, 12, 0.03);
+  --glass-strong: rgba(10, 10, 12, 0.06);
+  --glass-border: rgba(10, 10, 12, 0.1);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --accent-a: #0a0a0c;
+  --accent-b: #0a0a0c;
   --gold: #a16207;
-  --track: rgba(20, 20, 29, 0.08);
+  --track: rgba(10, 10, 12, 0.08);
   color-scheme: light;
 }
 
@@ -58,25 +58,14 @@
   border: 1px solid var(--glass-border);
 }
 
+/* Monochrome: formerly a violet-cyan gradient, now plain text color. */
 @utility text-gradient {
-  background: linear-gradient(120deg, #a78bfa 0%, #22d3ee 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--text);
 }
 
+/* Monochrome: background glow disabled, pure AMOLED black. */
 @utility app-glow {
-  background:
-    radial-gradient(
-      420px 320px at 12% -4%,
-      rgba(124, 58, 237, 0.16),
-      transparent 65%
-    ),
-    radial-gradient(
-      420px 320px at 88% 6%,
-      rgba(6, 182, 212, 0.12),
-      transparent 65%
-    );
+  display: none;
 }
 
 @layer base {
@@ -94,11 +83,11 @@
   }
 
   ::selection {
-    background: rgba(124, 58, 237, 0.35);
+    background: rgba(255, 255, 255, 0.28);
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent-b);
+    outline: 2px solid var(--text-dim);
     outline-offset: 2px;
   }
 }

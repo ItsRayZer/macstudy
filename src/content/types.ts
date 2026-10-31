@@ -32,4 +32,8 @@ export interface VideoSlot {
   module: string;
   topicHint: string;
   youtubeId: null;
+  /** Drop-in video for the Learn phase. Null = "Video coming soon". */
+  videoUrl: string | null;
+  /** 'youtube' renders an embed; 'notebooklm' renders a tap-to-watch link-out (no embed code exists). */
+  videoSource: "youtube" | "notebooklm" | null;
 }

@@ -142,7 +142,7 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
                   r.completed
                     ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-300"
                     : r.unlocked
-                      ? "bg-gradient-to-br from-[#7C3AED] to-[#06B6D4] text-white"
+                      ? "bg-[var(--text)] text-[var(--bg)]"
                       : "bg-[var(--track)] text-[var(--text-faint)]"
                 }`}
               >

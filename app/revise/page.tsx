@@ -22,7 +22,7 @@ import {
 } from "../../lib/study";
 import { subjects } from "@/src/content/subjects";
 import type { Question } from "@/src/content/types";
-import { TagPill } from "../subjects/[short]/[module]/[topic]/tabs";
+import { TagPill } from "../subjects/[short]/[module]/[topic]/flow";
 
 interface DeckRow {
   key: string;

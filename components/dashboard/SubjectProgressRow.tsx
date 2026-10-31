@@ -30,7 +30,7 @@ export function SubjectProgressRow({
       aria-label={`${name}, ${percent}% complete`}
     >
       <div className="flex items-center gap-3">
-        <span className="shrink-0 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#06B6D4] px-2.5 py-1 text-xs font-bold text-white">
+        <span className="shrink-0 rounded-xl bg-[var(--text)] text-[var(--bg)] px-2.5 py-1 text-xs font-bold text-white">
           {short}
         </span>
         <span className="min-w-0 flex-1">

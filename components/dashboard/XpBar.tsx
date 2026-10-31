@@ -1,5 +1,5 @@
 // components/dashboard/XpBar.tsx
-// XP earned today against the daily goal, with a gradient progress bar.
+// XP earned today against the daily goal, with a monochrome progress bar.
 
 "use client";
 
@@ -11,7 +11,7 @@ export function XpBar({ today, goal }: { today: number; goal: number }) {
     <GlassCard className="p-4">
       <div className="flex items-center justify-between gap-2">
         <span className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#06B6D4]">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--text)] text-[var(--bg)]">
             <ZapIcon className="h-4 w-4 text-white" />
           </span>
           <span className="text-sm font-semibold">XP today</span>

@@ -1,13 +1,13 @@
 // app/subjects/[short]/[module]/[topic]/view.tsx
-// Topic page shell (client): header, unlock gate, and the LEARN / PRACTICE /
-// TEST / REVISE segmented tabs. Tab content lives in ./tabs.tsx.
+// Topic page shell (client): header, unlock gate, and the single continuous
+// LEARN -> PRACTICE -> TEST -> REVISE flow with a pinned progress bar.
+// The bottom tab menu hides automatically on topic pages (see BottomNav).
 
 "use client";
 
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { EmptyState, Pill, SegmentedTabs } from "../../../../../components/ui";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { EmptyState, Pill, ProgressBar } from "../../../../../components/ui";
 import { getDB } from "../../../../../lib/db";
 import {
   getModuleLocal,
@@ -16,21 +16,9 @@ import {
   isTopicUnlocked,
   QUIZ_PASS_SCORE,
 } from "../../../../../lib/study";
-import { LearnTab, PracticeTab, ReviseTab, TestTab } from "./tabs";
+import { LearnPhase, PracticePhase, RevisePhase, TestPhase } from "./flow";
 
-const TAB_IDS = ["learn", "practice", "test", "revise"] as const;
-type TabId = (typeof TAB_IDS)[number];
-
-const TAB_OPTIONS = [
-  { id: "learn" as TabId, label: "Learn" },
-  { id: "practice" as TabId, label: "Practice" },
-  { id: "test" as TabId, label: "Test" },
-  { id: "revise" as TabId, label: "Revise" },
-];
-
-function isTabId(v: string | null): v is TabId {
-  return (TAB_IDS as readonly string[]).includes(v ?? "");
-}
+const PHASES = ["Learn", "Practice", "Test", "Revise"] as const;
 
 export function TopicView({
   short,
@@ -64,15 +52,19 @@ function TopicContent({
   num: string;
   slug: string;
 }) {
-  const searchParams = useSearchParams();
-  const [tab, setTab] = useState<TabId>(() =>
-    isTabId(searchParams.get("tab")) ? (searchParams.get("tab") as TabId) : "learn",
-  );
+  const [stage, setStage] = useState(0);
+  const [fractions, setFractions] = useState<[number, number, number, number]>([
+    0, 0, 0, 0,
+  ]);
   const [gate, setGate] = useState<{
     unlocked: boolean;
     completed: boolean;
     quizBest: number;
   } | null>(null);
+
+  const practiceRef = useRef<HTMLDivElement>(null);
+  const testRef = useRef<HTMLDivElement>(null);
+  const reviseRef = useRef<HTMLDivElement>(null);
 
   const subject = getSubjectLocal(short);
   const mod = subject ? getModuleLocal(subject, num) : undefined;
@@ -99,6 +91,29 @@ function TopicContent({
     };
   }, [subject, mod, topic]);
 
+  const setFraction = useCallback((i: number, f: number) => {
+    setFractions((prev) => {
+      if (prev[i] === f) return prev;
+      const next = [...prev] as [number, number, number, number];
+      next[i] = Math.max(0, Math.min(1, f));
+      return next;
+    });
+  }, []);
+
+  const scrollTo = (ref: React.RefObject<HTMLDivElement | null>) => {
+    window.setTimeout(() => {
+      ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+  };
+
+  const advanceTo = (nextStage: number) => {
+    setFraction(nextStage - 1, 1);
+    setStage(nextStage);
+    if (nextStage === 1) scrollTo(practiceRef);
+    else if (nextStage === 2) scrollTo(testRef);
+    else if (nextStage === 3) scrollTo(reviseRef);
+  };
+
   if (!subject || !mod || !topic) {
     return (
       <main className="flex flex-col gap-4">
@@ -108,7 +123,7 @@ function TopicContent({
           action={
             <Link
               href="/subjects"
-              className="inline-flex min-h-[44px] items-center rounded-2xl bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] px-6 font-semibold text-white"
+              className="inline-flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] px-6 font-semibold text-[var(--bg)]"
             >
               Back to subjects
             </Link>
@@ -124,7 +139,7 @@ function TopicContent({
         <header>
           <Link
             href={`/subjects/${subject.short}/${mod.num}`}
-            className="inline-flex min-h-[44px] items-center text-sm font-medium text-[var(--text-dim)]"
+            className="inline-flex min-h-[44px] items-center text-[15px] font-medium text-[var(--text-dim)]"
           >
             ← Module {mod.num}
           </Link>
@@ -135,7 +150,7 @@ function TopicContent({
           action={
             <Link
               href={`/subjects/${subject.short}/${mod.num}`}
-              className="inline-flex min-h-[44px] items-center rounded-2xl bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] px-6 font-semibold text-white"
+              className="inline-flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] px-6 font-semibold text-[var(--bg)]"
             >
               Back to topics
             </Link>
@@ -145,18 +160,36 @@ function TopicContent({
     );
   }
 
+  const overall = (fractions[0] + fractions[1] + fractions[2] + fractions[3]) / 4 * 100;
+
   return (
-    <main className="flex flex-col gap-4">
+    <main className="flex flex-col gap-6">
+      <div className="sticky top-0 z-40 -mx-4 bg-[var(--bg)]/95 px-4 pb-3 pt-4 backdrop-blur">
+        <div className="flex items-center justify-between text-[12px] font-medium text-[var(--text-dim)]">
+          {PHASES.map((p, i) => (
+            <span
+              key={p}
+              className={
+                i <= stage ? "text-[var(--text)]" : "text-[var(--text-faint)]"
+              }
+            >
+              {p}
+            </span>
+          ))}
+        </div>
+        <ProgressBar value={overall} className="mt-2 h-1.5" />
+      </div>
+
       <header>
         <Link
           href={`/subjects/${subject.short}/${mod.num}`}
-          className="inline-flex min-h-[44px] items-center text-sm font-medium text-[var(--text-dim)]"
+          className="inline-flex min-h-[44px] items-center text-[15px] font-medium text-[var(--text-dim)]"
         >
           ← Module {mod.num} · {mod.title}
         </Link>
-        <div className="mt-1 flex flex-wrap items-center gap-2">
-          <h1 className="text-[24px] font-bold leading-tight">{topic.title}</h1>
-        </div>
+        <h1 className="mt-1 text-[26px] font-bold leading-tight text-[var(--text)]">
+          {topic.title}
+        </h1>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <Pill>{topic.questions.length} questions</Pill>
           {gate?.completed ? (
@@ -169,37 +202,50 @@ function TopicContent({
         </div>
       </header>
 
-      <SegmentedTabs<TabId>
-        ariaLabel="Topic study tabs"
-        options={TAB_OPTIONS}
-        value={tab}
-        onChange={setTab}
+      <LearnPhase
+        subject={subject}
+        mod={mod}
+        topic={topic}
+        onNext={() => advanceTo(1)}
       />
 
-      {tab === "learn" ? (
-        <LearnTab subject={subject} mod={mod} topic={topic} />
-      ) : tab === "practice" ? (
-        <PracticeTab
-          short={subject.short}
-          num={mod.num}
-          topicTitle={topic.title}
-          questions={topic.questions}
-        />
-      ) : tab === "test" ? (
-        <TestTab
-          short={subject.short}
-          num={mod.num}
-          topicTitle={topic.title}
-          questions={topic.questions}
-        />
-      ) : (
-        <ReviseTab
-          short={subject.short}
-          num={mod.num}
-          slug={slug}
-          questions={topic.questions}
-        />
-      )}
+      {stage >= 1 ? (
+        <div ref={practiceRef} className="scroll-mt-24">
+          <PracticePhase
+            short={subject.short}
+            num={mod.num}
+            topicTitle={topic.title}
+            questions={topic.questions}
+            onProgress={(f) => setFraction(1, f)}
+            onNext={() => advanceTo(2)}
+          />
+        </div>
+      ) : null}
+
+      {stage >= 2 ? (
+        <div ref={testRef} className="scroll-mt-24">
+          <TestPhase
+            short={subject.short}
+            num={mod.num}
+            topicTitle={topic.title}
+            questions={topic.questions}
+            onProgress={(f) => setFraction(2, f)}
+            onNext={() => advanceTo(3)}
+          />
+        </div>
+      ) : null}
+
+      {stage >= 3 ? (
+        <div ref={reviseRef} className="scroll-mt-24">
+          <RevisePhase
+            short={subject.short}
+            num={mod.num}
+            slug={slug}
+            questions={topic.questions}
+            onProgress={(f) => setFraction(3, f)}
+          />
+        </div>
+      ) : null}
     </main>
   );
 }

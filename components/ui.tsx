@@ -6,7 +6,8 @@
 //   Pill({ variant, children })            variant: 'sure' | 'repeated' | 'important' | 'default'
 //   ProgressBar({ value, className })      value: 0-100
 //   SegmentedTabs({ options, value, onChange })
-//   BottomNav()                            fixed bottom tab bar (Home, Subjects, Revise, Profile)
+//   BottomNav()                            fixed bottom tab bar (Home, Subjects, Mock Test, Revise, Profile);
+//                                          hidden automatically on topic pages (the topic flow hides the menu)
 //   Countdown({ target, label })           target: Date | ISO string
 //   EmptyState({ title, subtitle, action })
 //
@@ -112,6 +113,16 @@ export function SparkleIcon({ className }: { className?: string }) {
   );
 }
 
+export function MockTestIcon({ className }: { className?: string }) {
+  return (
+    <Icon className={className}>
+      <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+      <path d="m9 14 2 2 4-4" />
+    </Icon>
+  );
+}
+
 // --------------------------------------------------------------- GlassCard ---
 
 export function GlassCard({
@@ -136,9 +147,8 @@ const PILL_STYLES: Record<PillVariant, string> = {
   sure: "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
   repeated:
     "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-  important: "border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-  default:
-    "border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300",
+  important: "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+  default: "border-white/20 bg-white/5 text-[var(--text-dim)]",
 };
 
 export function Pill({
@@ -178,7 +188,7 @@ export function ProgressBar({
       aria-valuemax={100}
     >
       <div
-        className="h-full rounded-full bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] transition-[width] duration-500"
+        className="h-full rounded-full bg-[var(--text)] transition-[width] duration-500"
         style={{ width: `${v}%` }}
       />
     </div>
@@ -215,7 +225,7 @@ export function SegmentedTabs<T extends string>({
             onClick={() => onChange(o.id)}
             className={`min-h-[44px] flex-1 rounded-xl px-3 text-sm font-medium transition-all ${
               active
-                ? "bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] text-white shadow-lg shadow-violet-900/30"
+                ? "bg-[var(--text)] text-[var(--bg)]"
                 : "text-[var(--text-dim)] active:bg-[var(--track)]"
             }`}
           >
@@ -232,12 +242,17 @@ export function SegmentedTabs<T extends string>({
 const TABS = [
   { href: "/", label: "Home", Icon: HomeIcon },
   { href: "/subjects", label: "Subjects", Icon: BookIcon },
+  { href: "/mocks", label: "Mock Test", Icon: MockTestIcon },
   { href: "/revise", label: "Revise", Icon: ReviseIcon },
   { href: "/profile", label: "Profile", Icon: UserIcon },
 ];
 
+/** Topic pages (subject/module/topic) hide the bottom menu while open. */
+const TOPIC_PAGE_RE = /^\/subjects\/[^/]+\/[^/]+\/[^/]+/;
+
 export function BottomNav() {
   const pathname = usePathname();
+  if (TOPIC_PAGE_RE.test(pathname)) return null;
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50" aria-label="Primary">
       <div className="mx-auto w-full max-w-[480px] px-4 pb-[max(0.9rem,env(safe-area-inset-bottom))] pt-2">
@@ -250,19 +265,19 @@ export function BottomNav() {
                 key={href}
                 href={href}
                 aria-current={active ? "page" : undefined}
-                className="flex min-h-[60px] min-w-[64px] flex-1 flex-col items-center justify-center gap-1 rounded-2xl"
+                className="flex min-h-[60px] min-w-[52px] flex-1 flex-col items-center justify-center gap-1 rounded-2xl"
               >
                 <span
-                  className={`flex h-9 w-14 items-center justify-center rounded-full transition-all ${
+                  className={`flex h-9 w-12 items-center justify-center rounded-full transition-all ${
                     active
-                      ? "bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] text-white shadow-lg shadow-violet-900/40"
+                      ? "bg-[var(--text)] text-[var(--bg)]"
                       : "text-[var(--text-faint)]"
                   }`}
                 >
                   <TabIcon className="h-5 w-5" />
                 </span>
                 <span
-                  className={`text-[11px] leading-none ${
+                  className={`text-[10px] leading-none ${
                     active
                       ? "font-semibold text-[var(--text)]"
                       : "text-[var(--text-faint)]"

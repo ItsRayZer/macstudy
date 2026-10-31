@@ -41,8 +41,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0D0D14" },
-    { media: "(prefers-color-scheme: light)", color: "#F3F3F8" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
 };
 
@@ -61,10 +61,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       <body className="min-h-dvh">
         <ThemeSync />
-        <div
-          className="app-glow pointer-events-none fixed inset-0"
-          aria-hidden="true"
-        />
         <div className="relative mx-auto flex min-h-dvh w-full max-w-[480px] flex-col px-4 pb-32 pt-6">
           {children}
         </div>
