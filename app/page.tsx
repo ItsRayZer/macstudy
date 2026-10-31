@@ -128,6 +128,19 @@ function BookmarkRowIcon({ className }: { className?: string }) {
   );
 }
 
+function MindMapRowIcon({ className }: { className?: string }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="12" r="2.5" />
+      <circle cx="5" cy="5" r="1.8" />
+      <circle cx="19" cy="5" r="1.8" />
+      <circle cx="5" cy="19" r="1.8" />
+      <circle cx="19" cy="19" r="1.8" />
+      <path d="m6.3 6.3 4-4M17.7 6.3l-4-4M6.3 17.7l4 4M17.7 17.7l-4 4" />
+    </Icon>
+  );
+}
+
 // Minimal monochrome line icons, one per subject.
 function SubjectGlyph({ short, className }: { short: string; className?: string }) {
   switch (short) {
@@ -334,6 +347,12 @@ export default function HomePage() {
       title: "Bookmarks",
       sub: "Saved questions & papers",
       href: "/revise",
+    },
+    {
+      icon: <MindMapRowIcon className="h-6 w-6" />,
+      title: "Mind Maps",
+      sub: "Syllabus at a glance",
+      href: "/mindmap",
     },
   ];
 

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import {
   BookIcon,
+  ChevronRightIcon,
   GlassCard,
   ProgressBar,
 } from "../../../components/ui";
@@ -37,6 +38,19 @@ function Icon({
     >
       {children}
     </svg>
+  );
+}
+
+function MindMapIcon({ className }: { className?: string }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="12" r="2.5" />
+      <circle cx="5" cy="5" r="1.8" />
+      <circle cx="19" cy="5" r="1.8" />
+      <circle cx="5" cy="19" r="1.8" />
+      <circle cx="19" cy="19" r="1.8" />
+      <path d="m6.3 6.3 4-4M17.7 6.3l-4-4M6.3 17.7l4 4M17.7 17.7l-4 4" />
+    </Icon>
   );
 }
 
@@ -116,6 +130,24 @@ export function SubjectView({ short }: { short: string }) {
             </>
           ) : null}
         </p>
+        <Link
+          href={`/subjects/${subject.short}/mindmap`}
+          className="glass mt-4 flex min-h-[56px] items-center gap-3 rounded-3xl px-4 transition-transform active:scale-[0.99]"
+          aria-label={`${subject.name} mind map`}
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+            <MindMapIcon className="h-5 w-5" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[15px] font-bold text-[var(--text)]">
+              Mind map
+            </span>
+            <span className="block truncate text-[12px] text-[var(--text-faint)]">
+              Full syllabus at a glance
+            </span>
+          </span>
+          <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
+        </Link>
       </header>
 
       <div className="flex flex-col gap-2">

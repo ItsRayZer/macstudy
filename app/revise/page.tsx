@@ -210,6 +210,22 @@ export default function RevisePage() {
         </p>
       </header>
 
+      <section aria-label="Mind maps" className="flex flex-col gap-3">
+        <h2 className="text-lg font-bold text-[var(--text)]">Mind maps</h2>
+        <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {subjects.map((s) => (
+            <Link
+              key={s.short}
+              href={`/subjects/${s.short}/mindmap`}
+              className="flex min-h-[44px] shrink-0 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--glass)] px-5 text-[14px] font-semibold text-[var(--text)] active:opacity-80"
+              aria-label={`${s.name} mind map`}
+            >
+              {s.short}
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {!loaded ? (
         <div className="flex flex-col gap-3">
           <div className="h-24 animate-pulse rounded-3xl bg-[var(--track)]" />
