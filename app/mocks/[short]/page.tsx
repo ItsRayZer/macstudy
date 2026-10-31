@@ -29,7 +29,7 @@ export default async function MockSubjectPage({
           action={
             <Link
               href="/mocks"
-              className="flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] text-[var(--bg)] px-6 text-sm font-semibold text-white"
+              className="flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] text-[var(--bg)] px-6 text-sm font-semibold"
             >
               Back to mocks
             </Link>

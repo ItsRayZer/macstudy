@@ -51,7 +51,7 @@ export default function MocksPage() {
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-xl bg-[var(--text)] text-[var(--bg)] px-2.5 py-1 text-xs font-bold text-white">
+                    <span className="rounded-xl bg-[var(--text)] text-[var(--bg)] px-2.5 py-1 text-xs font-bold">
                       {c.short}
                     </span>
                     {c.estimate ? (
@@ -76,7 +76,7 @@ export default function MocksPage() {
                   </Pill>
                 ))}
               </div>
-              <span className="mt-4 flex min-h-[44px] items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)] text-sm font-semibold text-white">
+              <span className="mt-4 flex min-h-[44px] items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)] text-sm font-semibold">
                 Start mock
               </span>
             </GlassCard>

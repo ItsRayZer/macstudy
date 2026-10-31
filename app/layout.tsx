@@ -61,7 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       <body className="min-h-dvh">
         <ThemeSync />
-        <div className="relative mx-auto flex min-h-dvh w-full max-w-[480px] flex-col px-4 pb-32 pt-6">
+        <div className="relative mx-auto flex min-h-dvh w-full max-w-[480px] flex-col px-4 pb-24 pt-6">
           {children}
         </div>
         <BottomNav />

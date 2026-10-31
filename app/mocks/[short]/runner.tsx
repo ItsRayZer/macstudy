@@ -154,7 +154,7 @@ export function MockRunner({ short }: { short: string }) {
           action={
             <Link
               href="/mocks"
-              className="flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] text-[var(--bg)] px-6 text-sm font-semibold text-white"
+              className="flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] text-[var(--bg)] px-6 text-sm font-semibold"
             >
               Back to mocks
             </Link>
@@ -225,7 +225,7 @@ export function MockRunner({ short }: { short: string }) {
         <button
           type="button"
           onClick={startMock}
-          className="flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)] text-base font-semibold text-white active:scale-[0.98]"
+          className="flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)] text-base font-semibold active:scale-[0.98]"
         >
           Start timed mock
         </button>
@@ -257,7 +257,7 @@ export function MockRunner({ short }: { short: string }) {
             <button
               type="button"
               onClick={() => setPhase("marking")}
-              className="flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] text-[var(--bg)] px-5 text-sm font-semibold text-white"
+              className="flex min-h-[44px] items-center rounded-2xl bg-[var(--text)] text-[var(--bg)] px-5 text-sm font-semibold"
             >
               Finish and mark
             </button>
@@ -404,7 +404,7 @@ export function MockRunner({ short }: { short: string }) {
           type="button"
           onClick={finishMarking}
           disabled={markedCount < paper.length}
-          className="flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)] text-base font-semibold text-white disabled:opacity-40 active:scale-[0.98]"
+          className="flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)] text-base font-semibold disabled:opacity-40 active:scale-[0.98]"
         >
           See my score ({markedCount}/{paper.length})
         </button>
@@ -518,7 +518,7 @@ export function MockRunner({ short }: { short: string }) {
         </button>
         <Link
           href="/mocks"
-          className="flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)] text-sm font-semibold text-white"
+          className="flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)] text-sm font-semibold"
         >
           All mocks
         </Link>

@@ -7,35 +7,45 @@
     "Segoe UI", Roboto, sans-serif;
 }
 
-/* ---------- MacStudy theme tokens: monochrome AMOLED premium ---------- */
+/* ---------- MacStudy theme tokens: Apple black + neon green ---------- */
 :root,
 [data-theme="dark"] {
   --bg: #000000;
-  --bg-elev: #0b0b0d;
+  --bg-elev: #1c1c1e;
+  --bg-sunk: #0a0a0c;
   --text: #ffffff;
-  --text-dim: rgba(255, 255, 255, 0.62);
+  --text-dim: rgba(255, 255, 255, 0.6);
   --text-faint: rgba(255, 255, 255, 0.38);
-  --glass: rgba(255, 255, 255, 0.045);
-  --glass-strong: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.11);
-  --shadow: 0 10px 34px rgba(0, 0, 0, 0.55);
+  --neon: #39ff14;
+  --neon-soft: #4dff5c;
+  --neon-dim: rgba(57, 255, 20, 0.14);
+  --glass: rgba(28, 28, 30, 0.62);
+  --glass-strong: rgba(28, 28, 30, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hi: rgba(255, 255, 255, 0.12);
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.6);
   --accent-a: #ffffff;
   --accent-b: #ffffff;
   --gold: #e3b341;
-  --track: rgba(255, 255, 255, 0.09);
+  --track: rgba(255, 255, 255, 0.08);
   color-scheme: dark;
 }
 
 [data-theme="light"] {
   --bg: #ffffff;
-  --bg-elev: #ffffff;
+  --bg-elev: #f2f2f7;
+  --bg-sunk: #e9e9ee;
   --text: #0a0a0c;
-  --text-dim: rgba(10, 10, 12, 0.62);
+  --text-dim: rgba(10, 10, 12, 0.6);
   --text-faint: rgba(10, 10, 12, 0.4);
-  --glass: rgba(10, 10, 12, 0.03);
-  --glass-strong: rgba(10, 10, 12, 0.06);
-  --glass-border: rgba(10, 10, 12, 0.1);
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --neon: #00c853;
+  --neon-soft: #009444;
+  --neon-dim: rgba(0, 200, 83, 0.12);
+  --glass: rgba(242, 242, 247, 0.66);
+  --glass-strong: rgba(242, 242, 247, 0.82);
+  --glass-border: rgba(10, 10, 12, 0.08);
+  --glass-hi: rgba(255, 255, 255, 0.7);
+  --shadow: 0 18px 44px rgba(0, 0, 0, 0.1);
   --accent-a: #0a0a0c;
   --accent-b: #0a0a0c;
   --gold: #a16207;
@@ -43,19 +53,88 @@
   color-scheme: light;
 }
 
-/* ---------- liquid glass utilities ---------- */
+/* ---------- liquid glass utilities (Apple black + neon) ---------- */
 @utility glass {
   background: var(--glass);
-  -webkit-backdrop-filter: blur(20px) saturate(1.5);
-  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(26px) saturate(1.7);
+  backdrop-filter: blur(26px) saturate(1.7);
   border: 1px solid var(--glass-border);
+  /* specular top-edge highlight + soft deep shadow: the liquid signature */
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 18px 48px rgba(0, 0, 0, 0.45);
 }
 
 @utility glass-strong {
   background: var(--glass-strong);
-  -webkit-backdrop-filter: blur(24px) saturate(1.6);
-  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  backdrop-filter: blur(30px) saturate(1.8);
   border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 22px 56px rgba(0, 0, 0, 0.5);
+}
+
+/* Neon progress fill: glossy, premium, high-contrast on black. */
+@utility gloss-fill {
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.06) 55%,
+    rgba(255, 255, 255, 0.24)
+  );
+  background-color: var(--neon);
+  box-shadow: 0 0 12px var(--neon-dim);
+}
+
+/* Subtle shine for glassy primary buttons; overlay only, keeps contrast. */
+@layer components {
+  .btn-glass {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.32),
+      rgba(255, 255, 255, 0) 48%
+    );
+    pointer-events: none;
+  }
+  .btn-glass > * {
+    position: relative;
+    z-index: 1;
+  }
+  /* Glassy primary CTAs (white fill in dark, black fill in light): a subtle
+     top shine baked into the background so it sits under the text and can
+     never hurt contrast. */
+  [class*="bg-[var(--text)]"],
+  [class*="bg-[var(--neon)]"] {
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0) 52%
+    );
+  }
+
+  /* Neon key CTA: vivid green fill, near-black text, soft neon glow.
+     Contrast-safe in both themes (dark #39FF14, light #00C853). */
+  .cta-neon {
+    background-color: var(--neon);
+    color: #04140a;
+    box-shadow:
+      0 10px 28px var(--neon-dim),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+  .cta-neon:active {
+    opacity: 0.88;
+  }
 }
 
 /* Monochrome: formerly a violet-cyan gradient, now plain text color. */
@@ -80,6 +159,31 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Depth: a faint neon aura breathing at the top over a gentle vertical
+     gradient, so the black feels deep like a Pro display, never a flat void.
+     Fixed attachment keeps it cheap on mobile (no repaint on scroll). */
+  [data-theme="dark"] body {
+    background:
+      radial-gradient(
+        130% 55% at 50% -12%,
+        rgba(57, 255, 20, 0.07),
+        transparent 62%
+      ),
+      linear-gradient(180deg, #000000 0%, #0a0a0c 100%);
+    background-attachment: fixed;
+  }
+
+  [data-theme="light"] body {
+    background:
+      radial-gradient(
+        130% 55% at 50% -12%,
+        rgba(0, 200, 83, 0.05),
+        transparent 62%
+      ),
+      linear-gradient(180deg, #ffffff 0%, #f2f2f7 100%);
+    background-attachment: fixed;
   }
 
   ::selection {
