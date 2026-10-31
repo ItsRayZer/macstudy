@@ -26,6 +26,7 @@ import {
 } from "../../../../lib/study";
 import { subjects } from "@/src/content/subjects";
 import type { Topic } from "@/src/content/types";
+import { getModuleFormulas } from "@/src/content/formulas";
 
 function Icon({
   children,
@@ -212,6 +213,31 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
           </p>
         ) : null}
       </header>
+
+      {getModuleFormulas(subject.short, mod.num) ? (
+        <Link
+          href={`/subjects/${subject.short}/${mod.num}/formulas`}
+          className="block min-h-[44px]"
+          aria-label={`Formula chart for ${mod.title}`}
+        >
+          <GlassCard className="transition-transform active:scale-[0.99]">
+            <div className="flex items-center gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon)]/15 font-mono text-[18px] font-bold text-[var(--neon-soft)]">
+                fx
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-[16px] font-semibold text-[var(--text)]">
+                  Formula chart
+                </span>
+                <span className="block text-[12px] text-[var(--text-faint)]">
+                  Every formula in this chapter, one sheet
+                </span>
+              </span>
+              <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
+            </div>
+          </GlassCard>
+        </Link>
+      ) : null}
 
       <div className="flex flex-col gap-2">
         {mod.topics.map((t, i) => {

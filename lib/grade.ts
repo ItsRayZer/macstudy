@@ -104,3 +104,46 @@ export function gradeScore(graded: GradedTerm[]): number {
   if (graded.length === 0) return 0;
   return graded.filter((g) => g.hit).length / graded.length;
 }
+
+// ------------------------------------------------------------- numbers ---
+
+/** Extract every number (int or decimal, optional sign) from free text. */
+export function extractNumbers(text: string): number[] {
+  const m = text.match(/-?\d+(?:\.\d+)?/g) ?? [];
+  return m.map(Number).filter((n) => Number.isFinite(n));
+}
+
+/**
+ * Deduplicated numbers from the model answer, capped at `max`. These are the
+ * expected figures for numerical questions (final results and key steps).
+ */
+export function expectedNumbers(answerLines: string[], max = 10): number[] {
+  const seen = new Set<string>();
+  const out: number[] = [];
+  for (const n of extractNumbers(answerLines.join(" "))) {
+    const k = String(n);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(n);
+    if (out.length >= max) break;
+  }
+  return out;
+}
+
+/**
+ * Fraction of expected numbers present in the user's working, within a small
+ * relative tolerance (1%) or an absolute 0.011 for tiny values, so rounding
+ * differences do not fail a correct solution. Returns 0 when there is
+ * nothing to compare.
+ */
+export function gradeNumbers(expected: number[], userText: string): number {
+  if (expected.length === 0) return 0;
+  const userNums = extractNumbers(userText);
+  if (userNums.length === 0) return 0;
+  let hits = 0;
+  for (const e of expected) {
+    const tol = Math.max(Math.abs(e) * 0.01, 0.011);
+    if (userNums.some((u) => Math.abs(u - e) <= tol)) hits += 1;
+  }
+  return hits / expected.length;
+}

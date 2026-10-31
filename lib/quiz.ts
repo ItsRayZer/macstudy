@@ -73,13 +73,19 @@ export class QuizSession {
   constructor(
     questions: Question[],
     meta: QuizMeta,
-    opts?: { examMode?: boolean },
+    opts?: { examMode?: boolean; order?: number[] },
   ) {
     this.questions = questions;
     this.meta = meta;
     this.examMode = opts?.examMode ?? false;
     this.total = questions.length;
-    this.queue = questions.map((_, i) => i);
+    // Custom queue order (e.g. PYQ tag priority). Falls back to the natural
+    // order; indices always refer to the questions array.
+    const order = opts?.order;
+    this.queue =
+      order && order.length > 0
+        ? order.filter((i) => i >= 0 && i < questions.length)
+        : questions.map((_, i) => i);
     this.firstAttempt = questions.map(() => true);
     this.known = questions.map(() => false);
   }
@@ -222,7 +228,8 @@ export class QuizSession {
     );
     await db.setTopicProgress(this.meta.subject, this.meta.module, this.meta.topic, {
       completed: summary.passed ? true : undefined,
-      quizBest: summary.accuracy,
+      // Keep the all-time best: a worse retake must not overwrite it.
+      quizBest: Math.max(prev?.quizBest ?? 0, summary.accuracy),
       percent: summary.passed
         ? 100
         : Math.max(prev?.percent ?? 0, summary.accuracy),

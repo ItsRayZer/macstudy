@@ -122,27 +122,41 @@ export async function collectStats(): Promise<GamifyStats> {
   let modulesCompleted = 0;
   let subjectsFullyDone = 0;
 
-  for (const subject of subjects) {
+  const subjectJobs = subjects.map(async (subject) => {
+    const flags = await Promise.all(
+      subject.modules.flatMap((mod) =>
+        mod.topics.map(async (topic) => {
+          const p = await db.getTopicProgress(
+            subject.short,
+            mod.num,
+            topic.title,
+          );
+          return p != null && (p.completed || p.percent >= 100);
+        }),
+      ),
+    );
+    let ti = 0;
+    let moduleDoneCount = 0;
     let subjectDone = true;
     for (const mod of subject.modules) {
       let moduleDone = true;
-      for (const topic of mod.topics) {
-        const p = await db.getTopicProgress(
-          subject.short,
-          mod.num,
-          topic.title,
-        );
-        const done = p != null && (p.completed || p.percent >= 100);
-        if (done) {
+      for (let k = 0; k < mod.topics.length; k += 1) {
+        if (flags[ti]) {
           topicsCompleted += 1;
         } else {
           moduleDone = false;
           subjectDone = false;
         }
+        ti += 1;
       }
-      if (moduleDone) modulesCompleted += 1;
+      if (moduleDone) moduleDoneCount += 1;
     }
-    if (subjectDone) subjectsFullyDone += 1;
+    return { moduleDoneCount, subjectDone };
+  });
+  const subjectResults = await Promise.all(subjectJobs);
+  for (const r of subjectResults) {
+    modulesCompleted += r.moduleDoneCount;
+    if (r.subjectDone) subjectsFullyDone += 1;
   }
 
   return {

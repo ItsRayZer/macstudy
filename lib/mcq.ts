@@ -88,10 +88,16 @@ export function buildMcq(
     seen.add(n);
     distractors.push(cand);
   }
-  // Last-resort generic option; only reachable on tiny topics.
-  while (distractors.length < 3) {
-    const fallback = "None of the other statements fits this question.";
-    if (seen.has(norm(fallback))) break;
+  // Last-resort generic options; only reachable on tiny topics. Three
+  // distinct fallbacks so the pad always reaches 4 options.
+  const fallbacks = [
+    "None of the other statements fits this question.",
+    "All of the other statements are incorrect here.",
+    "The question cannot be answered from the given statements.",
+  ];
+  for (const fallback of fallbacks) {
+    if (distractors.length >= 3) break;
+    if (seen.has(norm(fallback))) continue;
     seen.add(norm(fallback));
     distractors.push(fallback);
   }

@@ -58,15 +58,15 @@ export async function computeSubjectProgress(
   const subject = getSubject(short);
   if (!subject) return null;
   const db = getDB();
-  let total = 0;
-  let done = 0;
+  const jobs: Promise<{ completed: boolean }>[] = [];
   for (const mod of subject.modules) {
     for (const topic of mod.topics) {
-      total += 1;
-      const t = await topicDone(db, subject.short, mod.num, topic.title);
-      if (t.completed) done += 1;
+      jobs.push(topicDone(db, subject.short, mod.num, topic.title));
     }
   }
+  const results = await Promise.all(jobs);
+  const total = results.length;
+  const done = results.filter((t) => t.completed).length;
   return {
     short: subject.short,
     name: subject.name,
@@ -85,11 +85,10 @@ export async function computeModuleProgress(
   const mod = subject?.modules.find((m) => m.num === num);
   if (!subject || !mod) return null;
   const db = getDB();
-  let done = 0;
-  for (const topic of mod.topics) {
-    const t = await topicDone(db, subject.short, mod.num, topic.title);
-    if (t.completed) done += 1;
-  }
+  const results = await Promise.all(
+    mod.topics.map((topic) => topicDone(db, subject.short, mod.num, topic.title)),
+  );
+  const done = results.filter((t) => t.completed).length;
   const total = mod.topics.length;
   return {
     short: subject.short,
@@ -252,23 +251,43 @@ export async function topicStates(short: string): Promise<TopicState[]> {
   const subject = getSubject(short);
   if (!subject) return [];
   const db = getDB();
-  const out: TopicState[] = [];
+  const jobs: Promise<TopicState>[] = [];
   for (const mod of subject.modules) {
     for (const topic of mod.topics) {
-      const t = await topicDone(db, subject.short, mod.num, topic.title);
-      out.push({
-        moduleNum: mod.num,
-        moduleTitle: mod.title,
-        topicTitle: topic.title,
-        percent: t.percent,
-        completed: t.completed,
-        status: t.completed
-          ? "done"
-          : t.percent > 0
-            ? "in-progress"
-            : "todo",
-      });
+      jobs.push(
+        topicDone(db, subject.short, mod.num, topic.title).then((t) => ({
+          moduleNum: mod.num,
+          moduleTitle: mod.title,
+          topicTitle: topic.title,
+          percent: t.percent,
+          completed: t.completed,
+          status: (t.completed
+            ? "done"
+            : t.percent > 0
+              ? "in-progress"
+              : "todo") as TopicStatus,
+        })),
+      );
     }
   }
-  return out;
+  return Promise.all(jobs);
+}
+
+/**
+ * Record a phase milestone for a topic: Learn = 25, Practice = 50,
+ * Revise = 75 (the Test writes 100 + completed itself on a pass).
+ * Bumps the stored percent up to the milestone but never downgrades it,
+ * so a reload always restores the furthest real progress.
+ */
+export async function markPhaseProgress(
+  short: string,
+  num: string,
+  title: string,
+  percent: number,
+): Promise<void> {
+  const db = getDB();
+  const prev = await db.getTopicProgress(short, num, title);
+  const next = Math.max(prev?.percent ?? 0, percent);
+  if (prev && prev.percent >= next) return;
+  await db.setTopicProgress(short, num, title, { percent: next });
 }

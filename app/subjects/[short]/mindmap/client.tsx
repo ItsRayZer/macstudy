@@ -1,5 +1,5 @@
 // app/subjects/[short]/mindmap/client.tsx
-// Subject mind map: one expandable tree per subject — Subject (root) ->
+// Subject mind map: one expandable tree per subject - Subject (root) ->
 // Modules (branches) -> Topics (leaves). Every topic shows its real status
 // from the progress store; tapping a topic jumps to its Learn page.
 // Monochrome + neon green, liquid glass, zero emojis.
