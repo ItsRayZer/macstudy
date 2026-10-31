@@ -36,7 +36,7 @@ export interface VideoSlot {
   youtubeId: null;
   /** Drop-in video for the Learn phase. Null = "Video coming soon". */
   videoUrl: string | null;
-  /** 'youtube' renders an embed; 'notebooklm' renders a tap-to-watch link-out (no embed code exists). */
+  /** 'youtube' renders a tap-to-watch card (embeds get blocked by owners); 'notebooklm' renders a tap-to-watch link-out (no embed code exists). */
   videoSource: "youtube" | "notebooklm" | null;
   /** Display duration like "12:03". Null = unknown / coming soon. */
   duration: string | null;

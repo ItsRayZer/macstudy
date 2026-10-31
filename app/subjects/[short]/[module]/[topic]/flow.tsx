@@ -231,9 +231,11 @@ function youtubeEmbedId(url: string): string | null {
 }
 
 /**
- * Learn-phase video section. Supports YouTube embeds and NotebookLM
- * link-outs (NotebookLM offers no embed code). Null/empty renders an honest
- * quiet "coming soon" row. Never invents URLs.
+ * Learn-phase video section. YouTube renders a tap-to-watch card (embeds are
+ * blocked by video owners) with thumbnail, title, duration and a
+ * "Watch on YouTube" button. NotebookLM renders a link-out (no embed code
+ * exists). Null/empty renders an honest quiet "coming soon" row.
+ * Never invents URLs.
  */
 export function VideoSection({ slot }: { slot: VideoSlot | undefined }) {
   const url = slot?.videoUrl ?? null;
@@ -242,16 +244,46 @@ export function VideoSection({ slot }: { slot: VideoSlot | undefined }) {
   if (url && source === "youtube") {
     const id = youtubeEmbedId(url);
     if (id) {
+      const title = slot?.topicTitle ?? slot?.topicHint ?? "Video lesson";
       return (
-        <div className="overflow-hidden rounded-3xl border border-[var(--glass-border)] bg-black">
-          <div className="aspect-video w-full">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${id}`}
-              title="Topic video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="h-full w-full"
+        <div className="glass overflow-hidden rounded-3xl">
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative block aspect-video w-full bg-black"
+            aria-label={`Watch video: ${title}, opens in YouTube`}
+          >
+            <img
+              src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+              alt=""
+              loading="lazy"
+              className="h-full w-full object-cover"
             />
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--neon)] text-black shadow-[0_8px_30px_rgba(57,255,20,0.35)] transition-transform active:scale-95">
+                <PlayIcon className="ml-0.5 h-6 w-6" />
+              </span>
+            </span>
+            {slot?.duration ? (
+              <span className="absolute bottom-2 right-2 rounded-md bg-black/80 px-2 py-0.5 text-[12px] font-semibold text-white">
+                {slot.duration}
+              </span>
+            ) : null}
+          </a>
+          <div className="flex items-center justify-between gap-3 p-4">
+            <p className="min-w-0 flex-1 truncate text-[15px] font-semibold text-[var(--text)]">
+              {title}
+            </p>
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-2xl bg-[var(--neon)] px-5 text-[14px] font-bold text-black active:opacity-80"
+            >
+              Watch on YouTube
+              <ExternalIcon className="h-4 w-4" />
+            </a>
           </div>
         </div>
       );

@@ -61,6 +61,12 @@ export function PhaseShell({
 
   const base = `/subjects/${short}/${num}/${slug}`;
 
+  // Phase progress reflects real progress across ALL phases (Learn 0-25%,
+  // Practice 25-50%, Test 50-75%, Revise 75-100%). It must never show full
+  // before the topic is complete.
+  const clamped = Math.min(1, Math.max(0, progress));
+  const overall = ((phase + clamped) / PHASES.length) * 100;
+
   if (!subject || !mod || !topic) {
     return (
       <main className="flex flex-col gap-4">
@@ -119,7 +125,7 @@ export function PhaseShell({
               );
             })}
           </div>
-          <ProgressBar value={progress * 100} className="mt-1 h-1.5" />
+          <ProgressBar value={overall} className="mt-1 h-1.5" />
         </div>
       </div>
 
