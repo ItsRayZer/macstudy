@@ -3,7 +3,6 @@
 
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { PhaseShell } from "../phase-shell";
 import dynamic from "next/dynamic";
@@ -52,6 +51,7 @@ export function ReviseClient({
       backHref={`${base}/test`}
       backLabel="Test"
       progress={progress}
+      topicsHref={`/subjects/${short}/${num}`}
     >
       <RevisePhase
         short={subject.short}
@@ -61,12 +61,6 @@ export function ReviseClient({
         questions={topic.questions}
         onProgress={setProgress}
       />
-      <Link
-        href={`/subjects/${short}/${num}`}
-        className="inline-flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-      >
-        Back to topics
-      </Link>
     </PhaseShell>
   );
 }

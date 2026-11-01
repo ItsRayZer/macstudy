@@ -47,6 +47,7 @@ export function PhaseShell({
   progress,
   children,
   hideBottomSkip,
+  topicsHref,
 }: {
   short: string;
   num: string;
@@ -58,6 +59,8 @@ export function PhaseShell({
   children: ReactNode;
   /** Hide the bottom next-topic button (e.g. Practice has its own in-flow Skip). */
   hideBottomSkip?: boolean;
+  /** When set, the bottom nav shows "Back to topics" side by side with "Next topic". */
+  topicsHref?: string;
 }) {
   const subject = getSubjectLocal(short);
   const mod = subject ? getModuleLocal(subject, num) : undefined;
@@ -155,7 +158,37 @@ export function PhaseShell({
         aria-label="Phase exits"
         className="flex flex-col gap-2 border-t border-[var(--glass-border)] pt-4"
       >
-        {nextHref && !hideBottomSkip ? (
+        {topicsHref ? (
+          <div className="grid grid-cols-2 gap-2">
+            <Link
+              href={topicsHref}
+              className="flex min-h-[52px] items-center justify-center rounded-2xl bg-[var(--track)] px-4 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+            >
+              Back to topics
+            </Link>
+            {nextHref && !hideBottomSkip ? (
+              <Link
+                href={nextHref}
+                className="flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[var(--track)] px-4 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+              >
+                Next topic
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-5 w-5"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </Link>
+            ) : null}
+          </div>
+        ) : nextHref && !hideBottomSkip ? (
           <Link
             href={nextHref}
             className="flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
