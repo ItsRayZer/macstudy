@@ -138,10 +138,10 @@ export const qtModulesB: Module[] = [
                 "When mid-values are given, first reconstruct the classes; the gap between mid-values is 10, so classes are 110-120, 120-130, up to 190-200.",
                 "Total frequency N = 6+25+48+72+116+60+38+22+3 = 390, so N/2 = 195.",
                 "Cumulative frequencies: 6, 31, 79, 151, 267, 327, 365, 387, 390.",
-                "The median class is the first class whose cumulative frequency reaches 195, which is 140-150.",
-                "Here l = 140, previous cf = 151, f = 116, class width h = 10.",
-                "Median = l + ((N/2 - cf)/f) x h = 140 + ((195-151)/116) x 10 = 140 + 3.79 = 143.79.",
-                "Answer: the median is 143.79."
+                "The median class is the first class whose cumulative frequency reaches 195, which is 150-160.",
+                "Here l = 150, previous cf = 151, f = 116, class width h = 10.",
+                "Median = l + ((N/2 - cf)/f) x h = 150 + ((195-151)/116) x 10 = 150 + 3.79 = 153.79.",
+                "Answer: the median is 153.79."
               ]
             },
             {
