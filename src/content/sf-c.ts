@@ -8,6 +8,14 @@ export const sfModulesC: Module[] = [
       "topics": [
         {
           "title": "Design Process",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/sf-6-design-process.svg",
+              "caption": "Software design process: six steps from requirements to review",
+              "alt": "Design process block diagram with inputs and outputs"
+            }
+          ],
           "points": [
             "Design turns requirements into a blueprint the coders can build.",
             "Software design is the process of planning how the software will be built before coding starts. It answers: how will the software be built, before any coding starts.",
@@ -46,6 +54,12 @@ export const sfModulesC: Module[] = [
             },
             {
               "q": "Explain the software design process.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/sf-6-design-process.svg",
+              "caption": "Software design process: six steps from requirements to review",
+              "alt": "Design process block diagram with inputs and outputs"
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -1042,6 +1056,14 @@ export const sfModulesC: Module[] = [
         },
         {
           "title": "Black Box vs White Box Testing",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/sf-5-flow-graph.svg",
+              "caption": "Flow graph for the pass/fail if-else: V(G) = 2",
+              "alt": "Flow graph with four nodes and cyclomatic complexity 2"
+            }
+          ],
           "points": [
             "Black box testing checks behaviour without seeing the code.",
             "White box testing checks the internal code logic and paths.",
@@ -1164,6 +1186,12 @@ export const sfModulesC: Module[] = [
             },
             {
               "q": "Explain flow graph with an example.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/sf-5-flow-graph.svg",
+              "caption": "Flow graph for the pass/fail if-else: V(G) = 2",
+              "alt": "Flow graph with four nodes and cyclomatic complexity 2"
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -1178,29 +1206,6 @@ export const sfModulesC: Module[] = [
                 "Each independent path becomes a test case in path testing.",
                 "Example: for a simple if-else that checks pass or fail marks, the flow graph has 4 nodes and the complexity is 2, so two test cases cover both paths.",
                 "In short, a flow graph turns code structure into a map that tells testers exactly which paths to test."
-              ]
-            },
-            {
-              "q": "Explain: (a) Path testing (b) Data flow testing.",
-              "tags": [
-                "REPEATED"
-              ],
-              "tagBase": "REPEATED",
-              "years": "May 2019, Aug 2022",
-              "a": [
-                "(a) Path testing executes every independent route through the program's logic; (b) data flow testing checks how each variable is defined and used along those routes.",
-                "(a) Path testing is a white-box technique: every independent path through the code is run at least once.",
-                "A path is independent if it introduces at least one new edge not covered by earlier paths.",
-                "The number of independent paths equals the cyclomatic complexity, computed as edges minus nodes plus 2.",
-                "Each independent path becomes one test case, so the tester knows exactly how many tests are needed.",
-                "Example: a simple if-else has 2 independent paths, so 2 test cases cover both.",
-                "It is the strongest white-box coverage, but the number of paths can explode in programs with many loops.",
-                "(b) Data flow testing is also white-box: it tracks the life of every variable, where it is defined (given a value) and where it is used.",
-                "A def-use chain links a variable's definition to each later use of that value.",
-                "A c-use (computation use) is a variable used in a calculation or output, like total = price * qty.",
-                "A p-use (predicate use) is a variable used in a decision, like if (marks > 40).",
-                "Anomalies reveal bugs: using a variable before it is defined, defining it twice with no use in between, or never using a defined variable.",
-                "In short, path testing covers the routes and data flow testing watches the variables travelling on them."
               ]
             }
           ]

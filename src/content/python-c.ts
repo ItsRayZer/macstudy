@@ -8,6 +8,59 @@ export const pythonModulesC: Module[] = [
       "topics": [
         {
           "title": "Files: Types and Basic Operations",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Python file opening modes",
+              "table": {
+                "headers": [
+                  "Mode",
+                  "Meaning",
+                  "File must exist?",
+                  "Old content"
+                ],
+                "rows": [
+                  [
+                    "r",
+                    "Read text",
+                    "Yes",
+                    "Kept"
+                  ],
+                  [
+                    "w",
+                    "Write text",
+                    "No, it is created",
+                    "Erased"
+                  ],
+                  [
+                    "a",
+                    "Append text",
+                    "No, it is created",
+                    "Kept, new writes go to the end"
+                  ],
+                  [
+                    "x",
+                    "Exclusive create",
+                    "Must NOT exist, errors if it does",
+                    "Nothing is written"
+                  ],
+                  [
+                    "b",
+                    "Binary modifier, e.g. rb, wb",
+                    "Same as the base mode",
+                    "Same as the base mode"
+                  ],
+                  [
+                    "+",
+                    "Read and write, e.g. r+",
+                    "Same as the base mode",
+                    "Same as the base mode"
+                  ]
+                ],
+                "note": "w silently erases. x refuses to overwrite. Binary files need b."
+              }
+            }
+          ],
           "points": [
             "Text files store readable characters (.txt); binary files store raw bytes (images, .dat).",
             "open(\"a.txt\", \"r\") reads; \"w\" writes and erases old content; \"a\" adds at the end; \"b\" means binary mode.",
@@ -38,6 +91,57 @@ export const pythonModulesC: Module[] = [
             },
             {
               "q": "Explain the different file opening modes in Python.",
+            "figure": {
+              "kind": "table",
+              "caption": "Python file opening modes",
+              "table": {
+                "headers": [
+                  "Mode",
+                  "Meaning",
+                  "File must exist?",
+                  "Old content"
+                ],
+                "rows": [
+                  [
+                    "r",
+                    "Read text",
+                    "Yes",
+                    "Kept"
+                  ],
+                  [
+                    "w",
+                    "Write text",
+                    "No, it is created",
+                    "Erased"
+                  ],
+                  [
+                    "a",
+                    "Append text",
+                    "No, it is created",
+                    "Kept, new writes go to the end"
+                  ],
+                  [
+                    "x",
+                    "Exclusive create",
+                    "Must NOT exist, errors if it does",
+                    "Nothing is written"
+                  ],
+                  [
+                    "b",
+                    "Binary modifier, e.g. rb, wb",
+                    "Same as the base mode",
+                    "Same as the base mode"
+                  ],
+                  [
+                    "+",
+                    "Read and write, e.g. r+",
+                    "Same as the base mode",
+                    "Same as the base mode"
+                  ]
+                ],
+                "note": "w silently erases. x refuses to overwrite. Binary files need b."
+              }
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -277,6 +381,14 @@ export const pythonModulesC: Module[] = [
         },
         {
           "title": "Exception Handling",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/py-5-try-except.svg",
+              "caption": "try / except / else / finally: the two paths",
+              "alt": "Exception handling flow diagram with error and success paths"
+            }
+          ],
           "points": [
             "An exception is a runtime error like dividing by zero or opening a missing file.",
             "An exception is a runtime error, such as dividing by zero or converting bad input, that crashes the program if unhandled.",
@@ -296,6 +408,12 @@ export const pythonModulesC: Module[] = [
           "questions": [
             {
               "q": "Explain try-except-else-finally with an example.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/py-5-try-except.svg",
+              "caption": "try / except / else / finally: the two paths",
+              "alt": "Exception handling flow diagram with error and success paths"
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -391,6 +509,14 @@ export const pythonModulesC: Module[] = [
         },
         {
           "title": "Data Visualization",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/py-6-bar-charts.svg",
+              "caption": "Grouped vs stacked bar chart, same data",
+              "alt": "Grouped and stacked bar charts side by side"
+            }
+          ],
           "points": [
             "matplotlib.pyplot, imported as plt, draws charts in Python.",
             "plt.plot(x, y) draws a line graph; plt.show() displays the figure.",
@@ -475,6 +601,12 @@ export const pythonModulesC: Module[] = [
             },
             {
               "q": "Differentiate between a stacked bar chart and a grouped bar chart.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/py-6-bar-charts.svg",
+              "caption": "Grouped vs stacked bar chart, same data",
+              "alt": "Grouped and stacked bar charts side by side"
+            },
               "tags": [
                 "IMPORTANT"
               ],

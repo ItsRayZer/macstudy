@@ -223,6 +223,52 @@ export const feModulesA: Module[] = [
         },
         {
           "title": "Handling Missing Data",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Handling missing data: six options",
+              "table": {
+                "headers": [
+                  "Method",
+                  "What it does",
+                  "When to use"
+                ],
+                "rows": [
+                  [
+                    "Mean imputation",
+                    "Fill with the column mean",
+                    "Normal numeric data"
+                  ],
+                  [
+                    "Median imputation",
+                    "Fill with the column median",
+                    "Skewed numeric data"
+                  ],
+                  [
+                    "Mode imputation",
+                    "Fill with the most common value",
+                    "Categorical data"
+                  ],
+                  [
+                    "Sensible constant",
+                    "Fill with 0 or 'Unknown'",
+                    "Missingness itself means something"
+                  ],
+                  [
+                    "Drop column",
+                    "Delete the column",
+                    "Mostly empty, over 50-60% missing"
+                  ],
+                  [
+                    "Drop row",
+                    "Delete the row",
+                    "Rarely, only a few rows affected"
+                  ]
+                ],
+                "note": "Dropping is the last resort, it throws away data."
+              }
+            }
+          ],
           "points": [
             "Missing data means some values are absent, shown as NaN or blank cells.",
             "Small gaps can be filled; columns that are mostly empty may be dropped.",
@@ -232,6 +278,50 @@ export const feModulesA: Module[] = [
           "questions": [
             {
               "q": "What is missing data? How is it handled?",
+            "figure": {
+              "kind": "table",
+              "caption": "Handling missing data: six options",
+              "table": {
+                "headers": [
+                  "Method",
+                  "What it does",
+                  "When to use"
+                ],
+                "rows": [
+                  [
+                    "Mean imputation",
+                    "Fill with the column mean",
+                    "Normal numeric data"
+                  ],
+                  [
+                    "Median imputation",
+                    "Fill with the column median",
+                    "Skewed numeric data"
+                  ],
+                  [
+                    "Mode imputation",
+                    "Fill with the most common value",
+                    "Categorical data"
+                  ],
+                  [
+                    "Sensible constant",
+                    "Fill with 0 or 'Unknown'",
+                    "Missingness itself means something"
+                  ],
+                  [
+                    "Drop column",
+                    "Delete the column",
+                    "Mostly empty, over 50-60% missing"
+                  ],
+                  [
+                    "Drop row",
+                    "Delete the row",
+                    "Rarely, only a few rows affected"
+                  ]
+                ],
+                "note": "Dropping is the last resort, it throws away data."
+              }
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -738,6 +828,45 @@ export const feModulesA: Module[] = [
         },
         {
           "title": "One-Hot vs Label Encoding",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "One-hot vs label encoding on a Colour column",
+              "table": {
+                "headers": [
+                  "Colour",
+                  "Colour_Red",
+                  "Colour_Green",
+                  "Colour_Blue",
+                  "Label code"
+                ],
+                "rows": [
+                  [
+                    "Red",
+                    "1",
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "Green",
+                    "0",
+                    "1",
+                    "0",
+                    "1"
+                  ],
+                  [
+                    "Blue",
+                    "0",
+                    "0",
+                    "1",
+                    "2"
+                  ]
+                ],
+                "note": "One-hot is safe but wide. Label encoding is compact but pretends an order (0 < 1 < 2) that colours do not have."
+              }
+            }
+          ],
           "points": [
             "One-hot creates many 0/1 columns; label encoding creates one numbered column.",
             "Use one-hot for nominal data with few categories; label encoding for ordinal data.",
@@ -747,6 +876,43 @@ export const feModulesA: Module[] = [
           "questions": [
             {
               "q": "Compare one-hot encoding and label encoding.",
+            "figure": {
+              "kind": "table",
+              "caption": "One-hot vs label encoding on a Colour column",
+              "table": {
+                "headers": [
+                  "Colour",
+                  "Colour_Red",
+                  "Colour_Green",
+                  "Colour_Blue",
+                  "Label code"
+                ],
+                "rows": [
+                  [
+                    "Red",
+                    "1",
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "Green",
+                    "0",
+                    "1",
+                    "0",
+                    "1"
+                  ],
+                  [
+                    "Blue",
+                    "0",
+                    "0",
+                    "1",
+                    "2"
+                  ]
+                ],
+                "note": "One-hot is safe but wide. Label encoding is compact but pretends an order (0 < 1 < 2) that colours do not have."
+              }
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -785,6 +951,42 @@ export const feModulesA: Module[] = [
         },
         {
           "title": "Feature Extraction vs Feature Selection",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Feature extraction vs feature selection",
+              "table": {
+                "headers": [
+                  "",
+                  "Feature selection",
+                  "Feature extraction"
+                ],
+                "rows": [
+                  [
+                    "What it does",
+                    "Picks the best existing features",
+                    "Invents new compact features"
+                  ],
+                  [
+                    "Example",
+                    "Keep age and income from 20 columns",
+                    "PCA merges 20 columns into 3"
+                  ],
+                  [
+                    "Keeps original meaning?",
+                    "Yes",
+                    "No, the new axes are blends"
+                  ],
+                  [
+                    "Best for",
+                    "Interpretability, fewer columns",
+                    "Compression, killing redundancy"
+                  ]
+                ],
+                "note": "Selection picks the best old features. Extraction invents new compact ones."
+              }
+            }
+          ],
           "points": [
             "Feature selection picks the best existing features and drops the rest.",
             "Feature extraction creates new smaller features from old ones, like PCA.",
@@ -801,6 +1003,40 @@ export const feModulesA: Module[] = [
           "questions": [
             {
               "q": "Distinguish between feature extraction and feature selection. (FE model paper; MCA ML Oct 2025)",
+            "figure": {
+              "kind": "table",
+              "caption": "Feature extraction vs feature selection",
+              "table": {
+                "headers": [
+                  "",
+                  "Feature selection",
+                  "Feature extraction"
+                ],
+                "rows": [
+                  [
+                    "What it does",
+                    "Picks the best existing features",
+                    "Invents new compact features"
+                  ],
+                  [
+                    "Example",
+                    "Keep age and income from 20 columns",
+                    "PCA merges 20 columns into 3"
+                  ],
+                  [
+                    "Keeps original meaning?",
+                    "Yes",
+                    "No, the new axes are blends"
+                  ],
+                  [
+                    "Best for",
+                    "Interpretability, fewer columns",
+                    "Compression, killing redundancy"
+                  ]
+                ],
+                "note": "Selection picks the best old features. Extraction invents new compact ones."
+              }
+            },
               "tags": [
                 "REPEATED"
               ],
@@ -914,6 +1150,53 @@ export const feModulesA: Module[] = [
         },
         {
           "title": "Filter, Wrapper and Hybrid Methods",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Filter vs wrapper vs hybrid feature selection",
+              "table": {
+                "headers": [
+                  "",
+                  "Filter",
+                  "Wrapper",
+                  "Hybrid (embedded)"
+                ],
+                "rows": [
+                  [
+                    "How features are judged",
+                    "Statistics like correlation, chi-square",
+                    "The real model scores each subset",
+                    "Selection happens during training"
+                  ],
+                  [
+                    "Example",
+                    "Chi-square test",
+                    "RFE (recursive feature elimination)",
+                    "Lasso, tree feature importance"
+                  ],
+                  [
+                    "Speed",
+                    "Fast",
+                    "Slow",
+                    "Medium"
+                  ],
+                  [
+                    "Accuracy",
+                    "Good",
+                    "Best",
+                    "Good"
+                  ],
+                  [
+                    "Best use",
+                    "Large data, quick shortlist",
+                    "Small data, final accuracy",
+                    "When the model trains anyway"
+                  ]
+                ],
+                "note": "RFE is the wrapper example the model paper asks about."
+              }
+            }
+          ],
           "points": [
             "Filter methods score features with statistics like correlation or chi-square, without any model; they are fast.",
             "Wrapper methods try feature subsets with the actual model, like forward selection and RFE; accurate but slow.",
@@ -923,6 +1206,51 @@ export const feModulesA: Module[] = [
           "questions": [
             {
               "q": "Explain filter, wrapper and hybrid feature selection methods. (IMCA DS Dec 2025, asked twice; MCA ML Oct 2025)",
+            "figure": {
+              "kind": "table",
+              "caption": "Filter vs wrapper vs hybrid feature selection",
+              "table": {
+                "headers": [
+                  "",
+                  "Filter",
+                  "Wrapper",
+                  "Hybrid (embedded)"
+                ],
+                "rows": [
+                  [
+                    "How features are judged",
+                    "Statistics like correlation, chi-square",
+                    "The real model scores each subset",
+                    "Selection happens during training"
+                  ],
+                  [
+                    "Example",
+                    "Chi-square test",
+                    "RFE (recursive feature elimination)",
+                    "Lasso, tree feature importance"
+                  ],
+                  [
+                    "Speed",
+                    "Fast",
+                    "Slow",
+                    "Medium"
+                  ],
+                  [
+                    "Accuracy",
+                    "Good",
+                    "Best",
+                    "Good"
+                  ],
+                  [
+                    "Best use",
+                    "Large data, quick shortlist",
+                    "Small data, final accuracy",
+                    "When the model trains anyway"
+                  ]
+                ],
+                "note": "RFE is the wrapper example the model paper asks about."
+              }
+            },
               "tags": [
                 "SURE MARK"
               ],
@@ -1016,6 +1344,14 @@ export const feModulesA: Module[] = [
         },
         {
           "title": "PCA - Introduction and Application",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/fe-12-pca.svg",
+              "caption": "PCA: the first principal component is the direction of maximum spread",
+              "alt": "PCA maximum variance projection diagram"
+            }
+          ],
           "points": [
             "PCA (Principal Component Analysis) reduces dimensions by finding new axes called principal components.",
             "Dimensionality reduction is the process of reducing the number of features in a dataset while keeping as much information as possible.",
@@ -1057,6 +1393,12 @@ export const feModulesA: Module[] = [
             },
             {
               "q": "What is PCA? Explain its steps. (IMCA DS Dec 2025; MCA ML Oct 2025)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/fe-12-pca.svg",
+              "caption": "PCA: the first principal component is the direction of maximum spread",
+              "alt": "PCA maximum variance projection diagram"
+            },
               "tags": [
                 "REPEATED"
               ],

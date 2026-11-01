@@ -222,6 +222,52 @@ export const pythonModulesA: Module[] = [
         },
         {
           "title": "Operators and Precedence",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Truth tables for and, or, not",
+              "table": {
+                "headers": [
+                  "A",
+                  "B",
+                  "A and B",
+                  "A or B",
+                  "not A"
+                ],
+                "rows": [
+                  [
+                    "True",
+                    "True",
+                    "True",
+                    "True",
+                    "False"
+                  ],
+                  [
+                    "True",
+                    "False",
+                    "False",
+                    "True",
+                    "False"
+                  ],
+                  [
+                    "False",
+                    "True",
+                    "False",
+                    "True",
+                    "True"
+                  ],
+                  [
+                    "False",
+                    "False",
+                    "False",
+                    "False",
+                    "True"
+                  ]
+                ],
+                "note": "and is True only when both are True. or is False only when both are False."
+              }
+            }
+          ],
           "points": [
             "Arithmetic operators: +  -  *  /  // (floor division)  % (remainder)  ** (power).",
             "/ is normal division and always returns a float, even for whole results: 7 / 2 gives 3.5. // is floor division: it divides and drops the fractional part, rounding down: 7 // 2 gives 3. Note the rounding direction: -7 // 2 gives -4, because floor means the next lower whole number.",
@@ -352,6 +398,50 @@ export const pythonModulesA: Module[] = [
             },
             {
               "q": "Explain the truth tables of and, or and not in Python with examples.",
+            "figure": {
+              "kind": "table",
+              "caption": "Truth tables for and, or, not",
+              "table": {
+                "headers": [
+                  "A",
+                  "B",
+                  "A and B",
+                  "A or B",
+                  "not A"
+                ],
+                "rows": [
+                  [
+                    "True",
+                    "True",
+                    "True",
+                    "True",
+                    "False"
+                  ],
+                  [
+                    "True",
+                    "False",
+                    "False",
+                    "True",
+                    "False"
+                  ],
+                  [
+                    "False",
+                    "True",
+                    "False",
+                    "True",
+                    "True"
+                  ],
+                  [
+                    "False",
+                    "False",
+                    "False",
+                    "False",
+                    "True"
+                  ]
+                ],
+                "note": "and is True only when both are True. or is False only when both are False."
+              }
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -517,6 +607,14 @@ export const pythonModulesA: Module[] = [
         },
         {
           "title": "Strings",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/py-1-slicing.svg",
+              "caption": "String slicing indexes for s = 'Python', positive and negative",
+              "alt": "String slicing index diagram for the word Python"
+            }
+          ],
           "points": [
             "A string is text in single, double or triple quotes; triple quotes allow many lines.",
             "Indexing starts at 0: s[0] is the first character, s[-1] is the last.",
@@ -528,6 +626,12 @@ export const pythonModulesA: Module[] = [
           "questions": [
             {
               "q": "Explain string slicing with examples. (Model Paper, MG2DSCCSC100, Mar 2024)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/py-1-slicing.svg",
+              "caption": "String slicing indexes for s = 'Python', positive and negative",
+              "alt": "String slicing index diagram for the word Python"
+            },
               "tags": [
                 "SURE MARK"
               ],
@@ -953,27 +1057,6 @@ export const pythonModulesA: Module[] = [
                 "        i += 1",
                 "    print(\"Factorial:\", fact)",
                 "Both versions multiply 1 to n; for manages the counter while while needs a manual i += 1."
-              ]
-            },
-            {
-              "q": "Explain for loops with a suitable program.",
-              "tags": [
-                "REPEATED"
-              ],
-              "tagBase": "REPEATED",
-              "years": "Nov 2025",
-              "a": [
-                "A for loop repeats a block of code once for each item in a sequence, like a list or a range.",
-                "Syntax: for variable in sequence: followed by the indented body.",
-                "range(n) gives 0 to n-1; range(1, 6) gives 1, 2, 3, 4, 5.",
-                "The loop variable takes each value in turn, and the indented body runs once per value.",
-                "    total = 0",
-                "    for i in range(1, 6):",
-                "        total = total + i",
-                "    print(\"Sum:\", total)",
-                "Trace: i takes 1, 2, 3, 4, 5, so total becomes 1, 3, 6, 10, 15.",
-                "Output: Sum: 15.",
-                "for loops suit a known number of repetitions; while loops suit counts decided while running."
               ]
             }
           ]

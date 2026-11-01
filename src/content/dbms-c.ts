@@ -252,6 +252,42 @@ export const dbmsModulesC: Module[] = [
         },
         {
           "title": "First Normal Form (1NF)",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Normalization ladder: one running example, three fixes",
+              "table": {
+                "headers": [
+                  "Step",
+                  "Student table",
+                  "What was fixed"
+                ],
+                "rows": [
+                  [
+                    "Unnormalised",
+                    "rollno | name | phones\n1 | Arun | 98470, 98471",
+                    "One cell holds two phone numbers."
+                  ],
+                  [
+                    "1NF",
+                    "rollno | name | phone\n1 | Arun | 98470\n1 | Arun | 98471",
+                    "Every cell now holds one atomic value."
+                  ],
+                  [
+                    "2NF",
+                    "Student(rollno, name)\nMarks(rollno, subject, marks)",
+                    "name depended on only part of the key (rollno), so it moved out."
+                  ],
+                  [
+                    "3NF",
+                    "Student(rollno, city)\nCityPin(city, state)",
+                    "state depended on city, not on rollno (transitive), so it moved out."
+                  ]
+                ],
+                "note": "Each step removes one kind of bad dependency."
+              }
+            }
+          ],
           "points": [
             "1NF: every cell holds a single atomic value; no repeating groups or lists in one cell.",
             "Example violation: one row storing two phone numbers in a single phone column.",
@@ -261,6 +297,40 @@ export const dbmsModulesC: Module[] = [
           "questions": [
             {
               "q": "What is 1NF? Convert an unnormalised table to 1NF with an example. (Dec 2021)",
+            "figure": {
+              "kind": "table",
+              "caption": "Normalization ladder: one running example, three fixes",
+              "table": {
+                "headers": [
+                  "Step",
+                  "Student table",
+                  "What was fixed"
+                ],
+                "rows": [
+                  [
+                    "Unnormalised",
+                    "rollno | name | phones\n1 | Arun | 98470, 98471",
+                    "One cell holds two phone numbers."
+                  ],
+                  [
+                    "1NF",
+                    "rollno | name | phone\n1 | Arun | 98470\n1 | Arun | 98471",
+                    "Every cell now holds one atomic value."
+                  ],
+                  [
+                    "2NF",
+                    "Student(rollno, name)\nMarks(rollno, subject, marks)",
+                    "name depended on only part of the key (rollno), so it moved out."
+                  ],
+                  [
+                    "3NF",
+                    "Student(rollno, city)\nCityPin(city, state)",
+                    "state depended on city, not on rollno (transitive), so it moved out."
+                  ]
+                ],
+                "note": "Each step removes one kind of bad dependency."
+              }
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -299,6 +369,42 @@ export const dbmsModulesC: Module[] = [
         },
         {
           "title": "Second Normal Form (2NF)",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Normalization ladder: one running example, three fixes",
+              "table": {
+                "headers": [
+                  "Step",
+                  "Student table",
+                  "What was fixed"
+                ],
+                "rows": [
+                  [
+                    "Unnormalised",
+                    "rollno | name | phones\n1 | Arun | 98470, 98471",
+                    "One cell holds two phone numbers."
+                  ],
+                  [
+                    "1NF",
+                    "rollno | name | phone\n1 | Arun | 98470\n1 | Arun | 98471",
+                    "Every cell now holds one atomic value."
+                  ],
+                  [
+                    "2NF",
+                    "Student(rollno, name)\nMarks(rollno, subject, marks)",
+                    "name depended on only part of the key (rollno), so it moved out."
+                  ],
+                  [
+                    "3NF",
+                    "Student(rollno, city)\nCityPin(city, state)",
+                    "state depended on city, not on rollno (transitive), so it moved out."
+                  ]
+                ],
+                "note": "Each step removes one kind of bad dependency."
+              }
+            }
+          ],
           "points": [
             "2NF: the table is in 1NF and has no partial dependency.",
             "Partial dependency: a non-key attribute depending on only part of a composite key.",
@@ -316,6 +422,40 @@ export const dbmsModulesC: Module[] = [
           "questions": [
             {
               "q": "Explain 2NF with an example. What is partial dependency? (Model paper, Mar 2021)",
+            "figure": {
+              "kind": "table",
+              "caption": "Normalization ladder: one running example, three fixes",
+              "table": {
+                "headers": [
+                  "Step",
+                  "Student table",
+                  "What was fixed"
+                ],
+                "rows": [
+                  [
+                    "Unnormalised",
+                    "rollno | name | phones\n1 | Arun | 98470, 98471",
+                    "One cell holds two phone numbers."
+                  ],
+                  [
+                    "1NF",
+                    "rollno | name | phone\n1 | Arun | 98470\n1 | Arun | 98471",
+                    "Every cell now holds one atomic value."
+                  ],
+                  [
+                    "2NF",
+                    "Student(rollno, name)\nMarks(rollno, subject, marks)",
+                    "name depended on only part of the key (rollno), so it moved out."
+                  ],
+                  [
+                    "3NF",
+                    "Student(rollno, city)\nCityPin(city, state)",
+                    "state depended on city, not on rollno (transitive), so it moved out."
+                  ]
+                ],
+                "note": "Each step removes one kind of bad dependency."
+              }
+            },
               "tags": [
                 "REPEATED"
               ],
@@ -355,6 +495,42 @@ export const dbmsModulesC: Module[] = [
         },
         {
           "title": "Third Normal Form (3NF)",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Normalization ladder: one running example, three fixes",
+              "table": {
+                "headers": [
+                  "Step",
+                  "Student table",
+                  "What was fixed"
+                ],
+                "rows": [
+                  [
+                    "Unnormalised",
+                    "rollno | name | phones\n1 | Arun | 98470, 98471",
+                    "One cell holds two phone numbers."
+                  ],
+                  [
+                    "1NF",
+                    "rollno | name | phone\n1 | Arun | 98470\n1 | Arun | 98471",
+                    "Every cell now holds one atomic value."
+                  ],
+                  [
+                    "2NF",
+                    "Student(rollno, name)\nMarks(rollno, subject, marks)",
+                    "name depended on only part of the key (rollno), so it moved out."
+                  ],
+                  [
+                    "3NF",
+                    "Student(rollno, city)\nCityPin(city, state)",
+                    "state depended on city, not on rollno (transitive), so it moved out."
+                  ]
+                ],
+                "note": "Each step removes one kind of bad dependency."
+              }
+            }
+          ],
           "points": [
             "3NF: the table is in 2NF and has no transitive dependency.",
             "Transitive dependency: a non-key attribute depending on another non-key attribute.",
@@ -372,6 +548,40 @@ export const dbmsModulesC: Module[] = [
           "questions": [
             {
               "q": "Explain 3NF with an example. What is transitive dependency? (Oct 2019, Mar 2021)",
+            "figure": {
+              "kind": "table",
+              "caption": "Normalization ladder: one running example, three fixes",
+              "table": {
+                "headers": [
+                  "Step",
+                  "Student table",
+                  "What was fixed"
+                ],
+                "rows": [
+                  [
+                    "Unnormalised",
+                    "rollno | name | phones\n1 | Arun | 98470, 98471",
+                    "One cell holds two phone numbers."
+                  ],
+                  [
+                    "1NF",
+                    "rollno | name | phone\n1 | Arun | 98470\n1 | Arun | 98471",
+                    "Every cell now holds one atomic value."
+                  ],
+                  [
+                    "2NF",
+                    "Student(rollno, name)\nMarks(rollno, subject, marks)",
+                    "name depended on only part of the key (rollno), so it moved out."
+                  ],
+                  [
+                    "3NF",
+                    "Student(rollno, city)\nCityPin(city, state)",
+                    "state depended on city, not on rollno (transitive), so it moved out."
+                  ]
+                ],
+                "note": "Each step removes one kind of bad dependency."
+              }
+            },
               "tags": [
                 "REPEATED"
               ],
@@ -612,6 +822,14 @@ export const dbmsModulesC: Module[] = [
         },
         {
           "title": "Transactions, Schedules and Concurrency Problems",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/dbms-11-transaction-states.svg",
+              "caption": "Transaction states: the success path and the failure path",
+              "alt": "Transaction state diagram"
+            }
+          ],
           "points": [
             "A transaction is a set of operations treated as one unit, e.g. a fund transfer.",
             "Precisely: a transaction is a logical unit of work, a sequence of database operations that must either complete fully or have no effect at all. Example: a fund transfer is a debit plus a credit as one transaction.",
@@ -634,6 +852,12 @@ export const dbmsModulesC: Module[] = [
           "questions": [
             {
               "q": "Briefly describe the states of a transaction. (Oct 2019, Mar 2021)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/dbms-11-transaction-states.svg",
+              "caption": "Transaction states: the success path and the failure path",
+              "alt": "Transaction state diagram"
+            },
               "tags": [
                 "REPEATED"
               ],

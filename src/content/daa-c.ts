@@ -76,6 +76,37 @@ export const daaModulesC: Module[] = [
         },
         {
           "title": "Floyd Warshall Algorithm",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Floyd-Warshall on 3 vertices: D[0] to D[3]",
+              "table": {
+                "headers": [
+                  "Step",
+                  "Distance matrix"
+                ],
+                "rows": [
+                  [
+                    "D[0], initial",
+                    "0   3   10\ninf 0   2\ninf inf 0"
+                  ],
+                  [
+                    "k = 1, via vertex 1",
+                    "0   3   10\ninf 0   2\ninf inf 0\nNo improvement."
+                  ],
+                  [
+                    "k = 2, via vertex 2",
+                    "0   3   5\ninf 0   2\ninf inf 0\nD[1][3]: min(10, 3+2) = 5"
+                  ],
+                  [
+                    "k = 3, via vertex 3",
+                    "0   3   5\ninf 0   2\ninf inf 0\nNo improvement."
+                  ]
+                ],
+                "note": "Each k asks: is the path through vertex k shorter?"
+              }
+            }
+          ],
           "points": [
             "Floyd Warshall finds shortest paths between ALL pairs of vertices: all-pairs shortest path.",
             "It computes the shortest path between EVERY pair of vertices in one run.",
@@ -121,6 +152,35 @@ export const daaModulesC: Module[] = [
             },
             {
               "q": "Trace Floyd Warshall on a small graph.",
+            "figure": {
+              "kind": "table",
+              "caption": "Floyd-Warshall on 3 vertices: D[0] to D[3]",
+              "table": {
+                "headers": [
+                  "Step",
+                  "Distance matrix"
+                ],
+                "rows": [
+                  [
+                    "D[0], initial",
+                    "0   3   10\ninf 0   2\ninf inf 0"
+                  ],
+                  [
+                    "k = 1, via vertex 1",
+                    "0   3   10\ninf 0   2\ninf inf 0\nNo improvement."
+                  ],
+                  [
+                    "k = 2, via vertex 2",
+                    "0   3   5\ninf 0   2\ninf inf 0\nD[1][3]: min(10, 3+2) = 5"
+                  ],
+                  [
+                    "k = 3, via vertex 3",
+                    "0   3   5\ninf 0   2\ninf inf 0\nNo improvement."
+                  ]
+                ],
+                "note": "Each k asks: is the path through vertex k shorter?"
+              }
+            },
               "tags": [
                 "SURE MARK (May 2019, Oct 2021, Oct 2025 H)"
               ],
@@ -502,6 +562,14 @@ export const daaModulesC: Module[] = [
         },
         {
           "title": "N-Queens Problem",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/daa-4-queens-tree.svg",
+              "caption": "4-queens state space tree: first solution (2, 4, 1, 3)",
+              "alt": "Four queens state space tree with pruning"
+            }
+          ],
           "points": [
             "Place N queens on an N x N board so no two attack each other: different rows, columns and diagonals.",
             "The N-Queens problem asks for placements of N queens on an N x N board so that no two queens attack each other. Attack rule: no two queens may share a row, a column, or a diagonal.",
@@ -562,6 +630,12 @@ export const daaModulesC: Module[] = [
             },
             {
               "q": "Draw the state space tree concept for 4-queens.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/daa-4-queens-tree.svg",
+              "caption": "4-queens state space tree: first solution (2, 4, 1, 3)",
+              "alt": "Four queens state space tree with pruning"
+            },
               "tags": [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
@@ -664,6 +738,14 @@ export const daaModulesC: Module[] = [
         },
         {
           "title": "Hamiltonian Circuit Problem",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/daa-7-hamiltonian.svg",
+              "caption": "Hamiltonian circuit A-B-C-D-A in visit order",
+              "alt": "Graph with a highlighted Hamiltonian circuit"
+            }
+          ],
           "points": [
             "A Hamiltonian circuit visits every vertex exactly once and returns to the start.",
             "A Hamiltonian circuit is a cycle that visits every vertex exactly once and returns to the start vertex.",
@@ -684,6 +766,12 @@ export const daaModulesC: Module[] = [
           "questions": [
             {
               "q": "Explain the Hamiltonian circuit problem and its backtracking solution.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/daa-7-hamiltonian.svg",
+              "caption": "Hamiltonian circuit A-B-C-D-A in visit order",
+              "alt": "Graph with a highlighted Hamiltonian circuit"
+            },
               "tags": [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],

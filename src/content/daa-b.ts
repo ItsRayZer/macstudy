@@ -205,6 +205,14 @@ export const daaModulesB: Module[] = [
         },
         {
           "title": "Merge Sort",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/daa-2-mergesort-tree.svg",
+              "caption": "Merge sort recursion tree for 10 elements",
+              "alt": "Merge sort recursion tree"
+            }
+          ],
           "points": [
             "Divide the array into halves, sort each half recursively, then merge the two sorted halves.",
             "Pseudocode: mergesort(a): if len(a) <= 1: return a; mid = len(a) // 2; left = mergesort(a[:mid]); right = mergesort(a[mid:]); return merge(left, right), where merge is a linear scan taking the smaller front element.",
@@ -277,6 +285,12 @@ export const daaModulesB: Module[] = [
             },
             {
               "q": "Illustrate the recursion tree of merge sort for 10 elements.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/daa-2-mergesort-tree.svg",
+              "caption": "Merge sort recursion tree for 10 elements",
+              "alt": "Merge sort recursion tree"
+            },
               "tags": [
                 "IMPORTANT (Oct 2021)"
               ],
@@ -575,6 +589,62 @@ export const daaModulesB: Module[] = [
         },
         {
           "title": "Knapsack Problem",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "0/1 knapsack DP table: weights (2, 3, 4), profits (3, 4, 5), capacity 5",
+              "table": {
+                "headers": [
+                  "Item",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5"
+                ],
+                "rows": [
+                  [
+                    "None",
+                    "0",
+                    "0",
+                    "0",
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "A (2, 3)",
+                    "0",
+                    "0",
+                    "3",
+                    "3",
+                    "3",
+                    "3"
+                  ],
+                  [
+                    "B (3, 4)",
+                    "0",
+                    "0",
+                    "3",
+                    "4",
+                    "4",
+                    "7"
+                  ],
+                  [
+                    "C (4, 5)",
+                    "0",
+                    "0",
+                    "3",
+                    "4",
+                    "5",
+                    "7"
+                  ]
+                ],
+                "note": "Cell = max(skip the item, take the item). Trace back from 7: take B, take A, skip C. Optimal profit 7."
+              }
+            }
+          ],
           "points": [
             "Knapsack: n items with profit p and weight w, capacity M; maximise profit without exceeding M.",
             "Fractional knapsack: items can be split; greedy by profit/weight ratio is optimal, O(n log n).",
@@ -612,6 +682,60 @@ export const daaModulesB: Module[] = [
             },
             {
               "q": "Differentiate fractional and 0/1 knapsack.",
+            "figure": {
+              "kind": "table",
+              "caption": "0/1 knapsack DP table: weights (2, 3, 4), profits (3, 4, 5), capacity 5",
+              "table": {
+                "headers": [
+                  "Item",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5"
+                ],
+                "rows": [
+                  [
+                    "None",
+                    "0",
+                    "0",
+                    "0",
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "A (2, 3)",
+                    "0",
+                    "0",
+                    "3",
+                    "3",
+                    "3",
+                    "3"
+                  ],
+                  [
+                    "B (3, 4)",
+                    "0",
+                    "0",
+                    "3",
+                    "4",
+                    "4",
+                    "7"
+                  ],
+                  [
+                    "C (4, 5)",
+                    "0",
+                    "0",
+                    "3",
+                    "4",
+                    "5",
+                    "7"
+                  ]
+                ],
+                "note": "Cell = max(skip the item, take the item). Trace back from 7: take B, take A, skip C. Optimal profit 7."
+              }
+            },
               "tags": [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
@@ -649,6 +773,14 @@ export const daaModulesB: Module[] = [
         },
         {
           "title": "Prim's Algorithm",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/daa-3-prims.svg",
+              "caption": "Prim's algorithm on the triangle A-B 1, B-C 2, A-C 3",
+              "alt": "Prim's algorithm worked example"
+            }
+          ],
           "points": [
             "Prim's finds the Minimum Spanning Tree: cheapest set of edges connecting all vertices, no cycles.",
             "Grow one tree: start anywhere, repeatedly add the cheapest edge joining the tree to an outside vertex.",
@@ -657,6 +789,12 @@ export const daaModulesB: Module[] = [
           "questions": [
             {
               "q": "Explain Prim's algorithm step by step with an example.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/daa-3-prims.svg",
+              "caption": "Prim's algorithm on the triangle A-B 1, B-C 2, A-C 3",
+              "alt": "Prim's algorithm worked example"
+            },
               "tags": [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],

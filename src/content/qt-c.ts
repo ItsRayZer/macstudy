@@ -74,6 +74,14 @@ export const qtModulesC: Module[] = [
         },
         {
           "title": "Operations with Events",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/qt-6-venn.svg",
+              "caption": "Venn diagrams: A union B, A intersect B, A complement",
+              "alt": "Venn diagrams for union, intersection and complement"
+            }
+          ],
           "points": [
             "Union (A union B): A or B or both happen.",
             "Intersection (A intersect B): both A and B happen together.",
@@ -101,6 +109,12 @@ export const qtModulesC: Module[] = [
             },
             {
               "q": "Represent the following by means of a Venn Diagram: A union B, A intersection B and A-complement. (2024)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/qt-6-venn.svg",
+              "caption": "Venn diagrams: A union B, A intersect B, A complement",
+              "alt": "Venn diagrams for union, intersection and complement"
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -206,8 +220,9 @@ export const qtModulesC: Module[] = [
               ],
               "tagBase": "IMPORTANT",
               "years": null,
-              "hint": "This is a combination problem: choose the required players from each category and multiply.",
-              "a": [                "3 batsmen from 10: C(10,3) = 120 ways.",
+              "a": [
+                "This is a combination problem: choose the required players from each category and multiply.",
+                "3 batsmen from 10: C(10,3) = 120 ways.",
                 "3 all-rounders from 5: C(5,3) = 10 ways.",
                 "2 bowlers from 8: C(8,2) = 28 ways.",
                 "1 wicketkeeper from 2: C(2,1) = 2 ways.",
@@ -287,8 +302,9 @@ export const qtModulesC: Module[] = [
               ],
               "tagBase": "IMPORTANT",
               "years": null,
-              "hint": "This is a direct application of the addition theorem: P(A union B) = P(A) + P(B) - P(A intersection B).",
-              "a": [                "Numbers from 1 to 100 divisible by 3: 33 numbers, so P(divisible by 3) = 33/100.",
+              "a": [
+                "This is a direct application of the addition theorem: P(A union B) = P(A) + P(B) - P(A intersection B).",
+                "Numbers from 1 to 100 divisible by 3: 33 numbers, so P(divisible by 3) = 33/100.",
                 "Numbers divisible by 5: 20 numbers, so P(divisible by 5) = 20/100.",
                 "Numbers divisible by both 3 and 5, that is by 15: 6 numbers, so P(both) = 6/100.",
                 "P(either) = 33/100 + 20/100 - 6/100 = 47/100.",
@@ -445,6 +461,14 @@ export const qtModulesC: Module[] = [
         },
         {
           "title": "Bayes Theorem and Applications",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/qt-7-bayes-tree.svg",
+              "caption": "Bayes theorem as a probability tree: the bolt-factory problem",
+              "alt": "Bayes theorem probability tree"
+            }
+          ],
           "points": [
             "Bayes theorem reverses the condition: P(Ai|B) = [P(Ai)*P(B|Ai)] / [sum over j of P(Aj)*P(B|Aj)].",
             "Use it when we know the effect (B happened) and want the probable cause (which Ai).",
@@ -453,6 +477,12 @@ export const qtModulesC: Module[] = [
           "questions": [
             {
               "q": "A factory has Machine A making 60% of items (2% defective) and Machine B making 40% (5% defective). An item is defective; find P(it came from A). (Apr 2022, May 2022)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/qt-7-bayes-tree.svg",
+              "caption": "Bayes theorem as a probability tree: the bolt-factory problem",
+              "alt": "Bayes theorem probability tree"
+            },
               "tags": [
                 "REPEATED"
               ],
@@ -513,30 +543,13 @@ export const qtModulesC: Module[] = [
               ],
               "tagBase": "IMPORTANT",
               "years": null,
-              "hint": "This is a Bayes theorem problem: turn the observed effect (he acceded) back into the probable cause (he was happy).",
-              "a": [                "P(Happy) = 0.6 and P(Not happy) = 0.4.",
+              "a": [
+                "This is a Bayes theorem problem: turn the observed effect (he acceded) back into the probable cause (he was happy).",
+                "P(Happy) = 0.6 and P(Not happy) = 0.4.",
                 "P(Accede | Happy) = 0.4 and P(Accede | Not happy) = 0.1.",
                 "Total P(Accede) = 0.6x0.4 + 0.4x0.1 = 0.24 + 0.04 = 0.28.",
                 "By Bayes: P(Happy | Accede) = (0.6 x 0.4) / 0.28 = 0.24/0.28 = 0.857.",
                 "Answer: the probability he was happy is 0.86 (exactly 6/7)."
-              ]
-            },
-            {
-              "q": "In a bolt factory, machines M1, M2 and M3 manufacture 25%, 35% and 40% of the total output. Of their outputs, 5%, 4% and 2% respectively are defective. If a bolt drawn at random is defective, find the probability it was made by M1.",
-              "tags": [
-                "SURE MARK"
-              ],
-              "tagBase": "SURE MARK",
-              "years": "P6 2022",
-              "hint": "This is a Bayes theorem problem: work backwards from the defective bolt to the machine.",
-              "a": [
-                "The probability the defective bolt came from M1 is 0.362, about 36.2%.",
-                "Let D mean defective. P(M1) = 0.25, P(M2) = 0.35, P(M3) = 0.40.",
-                "P(D|M1) = 0.05, P(D|M2) = 0.04, P(D|M3) = 0.02.",
-                "Total probability of a defective bolt: P(D) = 0.25 x 0.05 + 0.35 x 0.04 + 0.40 x 0.02.",
-                "That is 0.0125 + 0.014 + 0.008 = 0.0345.",
-                "Bayes theorem: P(M1|D) = P(D|M1) x P(M1) / P(D) = 0.0125 / 0.0345 = 0.362.",
-                "Answer: about 0.36, so roughly a 36% chance the defective bolt was made by M1."
               ]
             }
           ]

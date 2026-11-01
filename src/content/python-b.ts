@@ -96,6 +96,14 @@ export const pythonModulesB: Module[] = [
         },
         {
           "title": "Function Definition, Call, Scope and Default Parameters",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/py-7-recursion.svg",
+              "caption": "factorial(4): calls go down, returns unwind up",
+              "alt": "Recursion call stack diagram for factorial of 4"
+            }
+          ],
           "points": [
             "def name(parameters): defines a function; calling name(values) runs it.",
             "return sends a result back to the caller; without return the function gives None.",
@@ -126,6 +134,12 @@ export const pythonModulesB: Module[] = [
             },
             {
               "q": "What is recursion? Explain how a recursive function works with a program. (Nov 2025, Mar 2024)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/py-7-recursion.svg",
+              "caption": "factorial(4): calls go down, returns unwind up",
+              "alt": "Recursion call stack diagram for factorial of 4"
+            },
               "tags": [
                 "REPEATED"
               ],
@@ -474,6 +488,59 @@ export const pythonModulesB: Module[] = [
         },
         {
           "title": "Lists, Tuples and Dictionaries",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "List vs tuple vs dictionary",
+              "table": {
+                "headers": [
+                  "",
+                  "List",
+                  "Tuple",
+                  "Dictionary"
+                ],
+                "rows": [
+                  [
+                    "Syntax",
+                    "[1, 2, 3]",
+                    "(1, 2, 3)",
+                    "{'a': 1}"
+                  ],
+                  [
+                    "Ordered?",
+                    "Yes",
+                    "Yes",
+                    "Yes, insertion order"
+                  ],
+                  [
+                    "Mutable?",
+                    "Yes",
+                    "No",
+                    "Yes"
+                  ],
+                  [
+                    "Access",
+                    "By index: l[0]",
+                    "By index: t[0]",
+                    "By key: d['a']"
+                  ],
+                  [
+                    "Duplicates?",
+                    "Allowed",
+                    "Allowed",
+                    "Keys unique, values may repeat"
+                  ],
+                  [
+                    "Typical use",
+                    "Changing collections",
+                    "Fixed records",
+                    "Labelled data"
+                  ]
+                ],
+                "note": "Tuples are the immutable option. Dicts map keys to values."
+              }
+            }
+          ],
           "points": [
             "Lists are ordered and changeable: [1, 2, 3]; tuples are ordered but fixed: (1, 2, 3).",
             "Dictionaries store key-value pairs: {\"name\": \"Arun\", \"age\": 20}.",
@@ -506,6 +573,57 @@ export const pythonModulesB: Module[] = [
             },
             {
               "q": "Distinguish between lists, tuples and dictionaries.",
+            "figure": {
+              "kind": "table",
+              "caption": "List vs tuple vs dictionary",
+              "table": {
+                "headers": [
+                  "",
+                  "List",
+                  "Tuple",
+                  "Dictionary"
+                ],
+                "rows": [
+                  [
+                    "Syntax",
+                    "[1, 2, 3]",
+                    "(1, 2, 3)",
+                    "{'a': 1}"
+                  ],
+                  [
+                    "Ordered?",
+                    "Yes",
+                    "Yes",
+                    "Yes, insertion order"
+                  ],
+                  [
+                    "Mutable?",
+                    "Yes",
+                    "No",
+                    "Yes"
+                  ],
+                  [
+                    "Access",
+                    "By index: l[0]",
+                    "By index: t[0]",
+                    "By key: d['a']"
+                  ],
+                  [
+                    "Duplicates?",
+                    "Allowed",
+                    "Allowed",
+                    "Keys unique, values may repeat"
+                  ],
+                  [
+                    "Typical use",
+                    "Changing collections",
+                    "Fixed records",
+                    "Labelled data"
+                  ]
+                ],
+                "note": "Tuples are the immutable option. Dicts map keys to values."
+              }
+            },
               "tags": [
                 "IMPORTANT"
               ],

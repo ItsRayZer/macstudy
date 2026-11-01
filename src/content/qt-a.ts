@@ -476,6 +476,14 @@ export const qtModulesA: Module[] = [
         },
         {
           "title": "Classification and Tabulation",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/qt-1-table-parts.svg",
+              "caption": "Parts of a statistical table, labelled",
+              "alt": "Labelled schematic of the parts of a statistical table"
+            }
+          ],
           "points": [
             "Classification groups data by common features: geographical, chronological, qualitative or quantitative.",
             "Qualitative classification can be simple (two classes, like literate and illiterate) or manifold (many classes); quantitative classification produces a frequency distribution.",
@@ -491,6 +499,12 @@ export const qtModulesA: Module[] = [
           "questions": [
             {
               "q": "What is tabulation? Explain the parts of a statistical table. (2024, 2018, 2019)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/qt-1-table-parts.svg",
+              "caption": "Parts of a statistical table, labelled",
+              "alt": "Labelled schematic of the parts of a statistical table"
+            },
               "tags": [
                 "SURE MARK"
               ],
@@ -606,8 +620,9 @@ export const qtModulesA: Module[] = [
               ],
               "tagBase": "IMPORTANT",
               "years": null,
-              "hint": "This is a 'more than' cumulative frequency table; first convert it into ordinary class frequencies.",
-              "a": [                "500-1000: 600-550 = 50; 1000-1500: 550-425 = 125; 1500-2000: 425-275 = 150.",
+              "a": [
+                "This is a 'more than' cumulative frequency table; first convert it into ordinary class frequencies.",
+                "500-1000: 600-550 = 50; 1000-1500: 550-425 = 125; 1500-2000: 425-275 = 150.",
                 "2000-2500: 275-100 = 175; 2500-3000: 100-25 = 75; above 3000: 25.",
                 "We need businessmen paying more than 1200 but not more than 2400.",
                 "From class 1000-1500 (125 persons), the part above 1200 is (1500-1200)/500 = 0.6, giving 0.6 x 125 = 75.",
@@ -621,6 +636,14 @@ export const qtModulesA: Module[] = [
         },
         {
           "title": "Diagrams and Graphs",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/qt-2-histogram-bar.svg",
+              "caption": "Histogram (touching bars) vs bar diagram (gapped bars)",
+              "alt": "Histogram and bar diagram side by side"
+            }
+          ],
           "points": [
             "Bar diagrams compare values with bars: simple, multiple or subdivided.",
             "Pie diagram: a circle split into sectors; sector angle = 360 x (component value / total).",
@@ -667,6 +690,12 @@ export const qtModulesA: Module[] = [
             },
             {
               "q": "Distinguish between a histogram and a bar diagram.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/qt-2-histogram-bar.svg",
+              "caption": "Histogram (touching bars) vs bar diagram (gapped bars)",
+              "alt": "Histogram and bar diagram side by side"
+            },
               "tags": [
                 "IMPORTANT"
               ],

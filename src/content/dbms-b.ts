@@ -123,6 +123,20 @@ export const dbmsModulesB: Module[] = [
         },
         {
           "title": "ER Diagrams, Key Constraints, Weak Entity Sets",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/dbms-7-er-notation.svg",
+              "caption": "ER diagram notation: the ten symbols",
+              "alt": "ER notation symbols reference"
+            },
+            {
+              "kind": "svg",
+              "src": "/diagrams/dbms-8-company-er.svg",
+              "caption": "COMPANY database ER schema: employees, departments, projects, dependents",
+              "alt": "COMPANY database ER schema diagram"
+            }
+          ],
           "points": [
             "ER diagram symbols: rectangle for entity, ellipse for attribute, diamond for relationship, line for links.",
             "Key attribute is underlined in the diagram, e.g. rollno.",
@@ -134,6 +148,12 @@ export const dbmsModulesB: Module[] = [
           "questions": [
             {
               "q": "Construct an ER diagram for the COMPANY database with departments, projects, employees and dependants. (Oct 2019, Mar 2021)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/dbms-8-company-er.svg",
+              "caption": "COMPANY database ER schema: employees, departments, projects, dependents",
+              "alt": "COMPANY database ER schema diagram"
+            },
               "tags": [
                 "SURE MARK"
               ],
@@ -155,6 +175,12 @@ export const dbmsModulesB: Module[] = [
             },
             {
               "q": "Explain an ER diagram with the symbols used. (Model paper)",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/dbms-7-er-notation.svg",
+              "caption": "ER diagram notation: the ten symbols",
+              "alt": "ER notation symbols reference"
+            },
               "tags": [
                 "REPEATED"
               ],
@@ -756,6 +782,37 @@ export const dbmsModulesB: Module[] = [
         },
         {
           "title": "Joins in SQL",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "LEFT and RIGHT OUTER JOIN on customers and orders",
+              "table": {
+                "headers": [
+                  "Table",
+                  "Rows"
+                ],
+                "rows": [
+                  [
+                    "customers",
+                    "cid | cname\n1 | Arun\n2 | Bala\n3 | Chetan"
+                  ],
+                  [
+                    "orders",
+                    "oid | cid | amount\n101 | 1 | 500\n102 | 2 | 700\n103 | 5 | 900"
+                  ],
+                  [
+                    "customers LEFT JOIN orders",
+                    "cid | cname | oid | amount\n1 | Arun | 101 | 500\n2 | Bala | 102 | 700\n3 | Chetan | NULL | NULL"
+                  ],
+                  [
+                    "customers RIGHT JOIN orders",
+                    "cid | cname | oid | amount\n1 | Arun | 101 | 500\n2 | Bala | 102 | 700\nNULL | NULL | 103 | 900"
+                  ]
+                ],
+                "note": "LEFT keeps every customer, RIGHT keeps every order. Unmatched sides fill with NULL."
+              }
+            }
+          ],
           "points": [
             "INNER JOIN: only rows that match in both tables.",
             "LEFT OUTER JOIN: all rows from the left table plus matches from the right.",
@@ -776,6 +833,35 @@ export const dbmsModulesB: Module[] = [
           "questions": [
             {
               "q": "Explain the different types of joins with examples. (Model paper)",
+            "figure": {
+              "kind": "table",
+              "caption": "LEFT and RIGHT OUTER JOIN on customers and orders",
+              "table": {
+                "headers": [
+                  "Table",
+                  "Rows"
+                ],
+                "rows": [
+                  [
+                    "customers",
+                    "cid | cname\n1 | Arun\n2 | Bala\n3 | Chetan"
+                  ],
+                  [
+                    "orders",
+                    "oid | cid | amount\n101 | 1 | 500\n102 | 2 | 700\n103 | 5 | 900"
+                  ],
+                  [
+                    "customers LEFT JOIN orders",
+                    "cid | cname | oid | amount\n1 | Arun | 101 | 500\n2 | Bala | 102 | 700\n3 | Chetan | NULL | NULL"
+                  ],
+                  [
+                    "customers RIGHT JOIN orders",
+                    "cid | cname | oid | amount\n1 | Arun | 101 | 500\n2 | Bala | 102 | 700\nNULL | NULL | 103 | 900"
+                  ]
+                ],
+                "note": "LEFT keeps every customer, RIGHT keeps every order. Unmatched sides fill with NULL."
+              }
+            },
               "tags": [
                 "IMPORTANT"
               ],

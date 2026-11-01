@@ -184,6 +184,41 @@ export const sfModulesA: Module[] = [
         },
         {
           "title": "Process Framework",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Framework activities vs umbrella activities",
+              "table": {
+                "headers": [
+                  "Framework activity",
+                  "Umbrella activity"
+                ],
+                "rows": [
+                  [
+                    "Communication",
+                    "Project tracking and control"
+                  ],
+                  [
+                    "Planning",
+                    "Risk management"
+                  ],
+                  [
+                    "Modeling",
+                    "Quality assurance"
+                  ],
+                  [
+                    "Construction",
+                    "Configuration management"
+                  ],
+                  [
+                    "Deployment",
+                    "Runs across the whole process"
+                  ]
+                ],
+                "note": "The five framework activities are the main phases. Umbrella activities run across all of them."
+              }
+            }
+          ],
           "points": [
             "A process framework is the skeleton every software project follows.",
             "A process framework is the common skeleton of activities that every software project follows, whatever model it uses.",
@@ -267,6 +302,39 @@ export const sfModulesA: Module[] = [
             },
             {
               "q": "Distinguish between framework activities, actions and tasks.",
+            "figure": {
+              "kind": "table",
+              "caption": "Framework activities vs umbrella activities",
+              "table": {
+                "headers": [
+                  "Framework activity",
+                  "Umbrella activity"
+                ],
+                "rows": [
+                  [
+                    "Communication",
+                    "Project tracking and control"
+                  ],
+                  [
+                    "Planning",
+                    "Risk management"
+                  ],
+                  [
+                    "Modeling",
+                    "Quality assurance"
+                  ],
+                  [
+                    "Construction",
+                    "Configuration management"
+                  ],
+                  [
+                    "Deployment",
+                    "Runs across the whole process"
+                  ]
+                ],
+                "note": "The five framework activities are the main phases. Umbrella activities run across all of them."
+              }
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -307,6 +375,14 @@ export const sfModulesA: Module[] = [
         },
         {
           "title": "Waterfall Model",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/sf-1-waterfall.svg",
+              "caption": "Waterfall model: six stages, each flowing into the next",
+              "alt": "Waterfall model stage diagram with a costly rework arrow"
+            }
+          ],
           "points": [
             "Waterfall is the oldest model: work flows down in fixed stages, one after another.",
             "Stages: requirements, design, implementation, testing, deployment, maintenance.",
@@ -364,6 +440,12 @@ export const sfModulesA: Module[] = [
             },
             {
               "q": "Explain the waterfall model with its stages.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/sf-1-waterfall.svg",
+              "caption": "Waterfall model: six stages, each flowing into the next",
+              "alt": "Waterfall model stage diagram with a costly rework arrow"
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -440,28 +522,6 @@ export const sfModulesA: Module[] = [
                 "Example: picking waterfall for a hospital system whose rules keep changing risks delivering a system nobody wants.",
                 "In short, model selection must weigh requirement, technical, schedule and people risks before the project starts."
               ]
-            },
-            {
-              "q": "Write the advantages and disadvantages of waterfall model.",
-              "tags": [
-                "REPEATED"
-              ],
-              "tagBase": "REPEATED",
-              "years": "Feb 2025, Mar 2021, Aug 2022",
-              "a": [
-                "The waterfall model is simple and easy to manage when requirements are fixed, but it fails badly when requirements change.",
-                "Advantage 1: simple and easy to understand, each stage flows naturally into the next.",
-                "Advantage 2: easy to manage, because stages are fixed and progress is easy to track.",
-                "Advantage 3: clear milestones and deliverables at the end of every stage.",
-                "Advantage 4: good documentation, since every stage is fully documented before moving on.",
-                "Advantage 5: works well for small projects with clear, stable requirements, like an ATM system.",
-                "Disadvantage 1: real projects rarely have fixed requirements at the start.",
-                "Disadvantage 2: any change after a stage is done is very expensive to make.",
-                "Disadvantage 3: the customer sees working software only at the very end.",
-                "Disadvantage 4: no early feedback, so misunderstandings are found very late.",
-                "Disadvantage 5: testing happens only near the end, so risks pile up unseen.",
-                "In short, waterfall suits stable requirements and fails wherever change is expected."
-              ]
             }
           ]
         },
@@ -516,6 +576,14 @@ export const sfModulesA: Module[] = [
         },
         {
           "title": "Evolutionary Models: Prototyping and Spiral",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/sf-2-spiral.svg",
+              "caption": "Spiral model: four quadrants repeated in growing loops",
+              "alt": "Spiral model quadrant diagram"
+            }
+          ],
           "points": [
             "Evolutionary models accept that software grows and changes over time.",
             "They build the software in versions that improve with customer feedback.",
@@ -599,6 +667,12 @@ export const sfModulesA: Module[] = [
             },
             {
               "q": "Explain the spiral model and its advantages.",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/sf-2-spiral.svg",
+              "caption": "Spiral model: four quadrants repeated in growing loops",
+              "alt": "Spiral model quadrant diagram"
+            },
               "tags": [
                 "IMPORTANT"
               ],
@@ -800,6 +874,46 @@ export const sfModulesA: Module[] = [
         },
         {
           "title": "Agile Methods: XP and Scrum",
+          "figures": [
+            {
+              "kind": "table",
+              "caption": "Scrum vs XP: side-by-side comparison",
+              "table": {
+                "headers": [
+                  "Aspect",
+                  "Scrum",
+                  "XP"
+                ],
+                "rows": [
+                  [
+                    "Process type",
+                    "Sprint-based agile method",
+                    "Disciplined, engineering-focused agile method"
+                  ],
+                  [
+                    "Iterations",
+                    "Fixed-length sprints",
+                    "Very short cycles with continuous feedback"
+                  ],
+                  [
+                    "Roles",
+                    "Product Owner, Scrum Master, Development Team",
+                    "Whole team: programmers, customer, testers"
+                  ],
+                  [
+                    "Practices",
+                    "Sprint planning, daily standup, review, retrospective",
+                    "Pair programming, continuous testing, simple design"
+                  ],
+                  [
+                    "Strengths",
+                    "Clear roles and a steady sprint rhythm",
+                    "Catches defects early through constant testing"
+                  ]
+                ]
+              }
+            }
+          ],
           "points": [
             "Agile methods are practical ways of working in an agile style.",
             "Extreme Programming (XP): very short cycles, pair programming, continuous testing, simple design.",
@@ -831,6 +945,44 @@ export const sfModulesA: Module[] = [
             },
             {
               "q": "Compare Extreme Programming with Scrum.",
+            "figure": {
+              "kind": "table",
+              "caption": "Scrum vs XP: side-by-side comparison",
+              "table": {
+                "headers": [
+                  "Aspect",
+                  "Scrum",
+                  "XP"
+                ],
+                "rows": [
+                  [
+                    "Process type",
+                    "Sprint-based agile method",
+                    "Disciplined, engineering-focused agile method"
+                  ],
+                  [
+                    "Iterations",
+                    "Fixed-length sprints",
+                    "Very short cycles with continuous feedback"
+                  ],
+                  [
+                    "Roles",
+                    "Product Owner, Scrum Master, Development Team",
+                    "Whole team: programmers, customer, testers"
+                  ],
+                  [
+                    "Practices",
+                    "Sprint planning, daily standup, review, retrospective",
+                    "Pair programming, continuous testing, simple design"
+                  ],
+                  [
+                    "Strengths",
+                    "Clear roles and a steady sprint rhythm",
+                    "Catches defects early through constant testing"
+                  ]
+                ]
+              }
+            },
               "tags": [
                 "REPEATED"
               ],

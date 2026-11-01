@@ -402,7 +402,7 @@ export function TestPhase({
                           Full answer
                         </p>
                         <div className="mt-2">
-                          <AnswerBlock lines={wq.a} mode="collapsed" hint={wq.hint} />
+                          <AnswerBlock lines={wq.a} mode="collapsed" figure={wq.figure} />
                         </div>
                       </div>
                     </div>

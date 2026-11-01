@@ -212,6 +212,14 @@ export const daaModulesA: Module[] = [
         },
         {
           "title": "Asymptotic Notations: Big-O, Omega, Theta",
+          "figures": [
+            {
+              "kind": "svg",
+              "src": "/diagrams/daa-1-bigo-curves.svg",
+              "caption": "Growth rates: O(1) to O(2^n)",
+              "alt": "Big-O growth rate comparison curves"
+            }
+          ],
           "points": [
             "Asymptotic notations describe growth rates ignoring constants and small inputs.",
             "Big-O, O(g(n)): upper bound. f(n) = O(g(n)) if f(n) <= c*g(n) for all n >= n0, for some c > 0.",
@@ -284,6 +292,12 @@ export const daaModulesA: Module[] = [
             },
             {
               "q": "Arrange in increasing order of growth: O(n^2), O(1), O(n log n), O(2^n), O(log n), O(n).",
+            "figure": {
+              "kind": "svg",
+              "src": "/diagrams/daa-1-bigo-curves.svg",
+              "caption": "Growth rates: O(1) to O(2^n)",
+              "alt": "Big-O growth rate comparison curves"
+            },
               "tags": [
                 "IMPORTANT"
               ],
