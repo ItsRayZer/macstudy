@@ -206,23 +206,6 @@ export function SubjectView({ short }: { short: string }) {
             </span>
           </Link>
           <Link
-            href={`/cram/${subject.short}`}
-            className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
-            aria-label={`${subject.name} cram mode`}
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
-              <ZapIcon className="h-5 w-5" />
-            </span>
-            <span className="min-w-0">
-              <span className="block text-[13px] font-bold text-[var(--text)]">
-                Cram Mode
-              </span>
-              <span className="block truncate text-[11px] tabular-nums text-[var(--text-faint)]">
-                Hot questions only
-              </span>
-            </span>
-          </Link>
-          <Link
             href={`/subjects/${subject.short}/library`}
             className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
             aria-label={`${subject.name} library`}
