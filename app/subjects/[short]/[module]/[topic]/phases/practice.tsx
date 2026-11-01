@@ -167,16 +167,31 @@ export function PracticePhase({
   // Answer mode for the current question.
   const isQT = short === "QT";
   const isTableQ = isQT && q != null && /form a|construct|prepare|draw up|complete the|fill in the|make a|frequency distribution from/i.test(q.q);
-  // Working pad only for numerical QT questions: a digit in the question, or a
-  // numerical keyword. Pure theory questions get the normal answer textarea.
+  // Working pad only for numerical QT questions: the question must contain
+  // actual numbers to work with. Year markers like (2024) are stripped first.
+  // Pure theory questions ("Define...", "Explain...", "What is...") get the
+  // normal answer textarea even when they mention words like mean/correlation.
   const isNumericalQ =
     isQT &&
     !isTableQ &&
     q != null &&
-    (/\d/.test(q.q) ||
-      /calculat|comput|find|determin|mean|median|mode|deviation|variance|regression|correlation|probab/i.test(
-        q.q,
-      ));
+    (() => {
+      const text = q.q.replace(/\(\d{4}(,\s*\d{4})*\)/g, "").trim();
+      if (/\d/.test(text)) return true;
+      if (
+        /^(define|explain|what is|what are|write a note|distinguish|compare|discuss|describe|state)\b/i.test(
+          text,
+        )
+      )
+        return false;
+      if (
+        /\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|hundred|thousand)\b/i.test(
+          text,
+        )
+      )
+        return true;
+      return /calculat|comput|find|determin|estimat/i.test(text);
+    })();
   const isCodeQ =
     short === "PYTHON" && q != null && isProgrammingQuestion(q.q, q.a);
 

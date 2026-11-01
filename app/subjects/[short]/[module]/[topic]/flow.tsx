@@ -52,7 +52,6 @@ import { getModuleFormulas } from "@/src/content/formulas";
 import { FormulaCard } from "../../../../../components/formula-card";
 import { useAppStore } from "../../../../../lib/store";
 import {
-  matchVideoSlot,
   QUIZ_PASS_SCORE,
   summarizeExamPattern,
 } from "../../../../../lib/study";
@@ -80,7 +79,6 @@ import type {
   Question,
   Subject,
   Topic,
-  VideoSlot,
 } from "@/src/content/types";
 import { Figure } from "@/components/figure";
 
@@ -328,258 +326,6 @@ export function ExamFootnote({ pattern }: { pattern: string | null }) {
   );
 }
 
-// ------------------------------------------------------------ video section ---
-
-function youtubeEmbedId(url: string): string | null {
-  const m = url.match(
-    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/i,
-  );
-  return m?.[1] ?? null;
-}
-
-/**
- * Smart YouTube player: tries the in-app iframe embed first (fullscreen
- * allowed). When the video owner disabled embedding, the player API reports
- * an error and we automatically swap to the tap-to-watch card. A load
- * timeout also falls back to the card, so a dead iframe never stays on
- * screen. Never invents URLs.
- */
-function SmartYoutube({
-  id,
-  url,
-  title,
-  duration,
-}: {
-  id: string;
-  url: string;
-  title: string;
-  duration: string | null;
-}) {
-  const mountRef = useRef<HTMLDivElement | null>(null);
-  const [blocked, setBlocked] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    let player: { destroy?: () => void } | null = null;
-    const timer = setTimeout(() => {
-      if (!cancelled && !ready) setBlocked(true);
-    }, 9000);
-
-    const mount = () => {
-      if (cancelled || !mountRef.current) return;
-      const YT = (window as unknown as { YT?: any }).YT;
-      if (!YT?.Player) {
-        setBlocked(true);
-        return;
-      }
-      try {
-        player = new YT.Player(mountRef.current, {
-          videoId: id,
-          playerVars: { rel: 0, modestbranding: 1 },
-          events: {
-            onReady: () => {
-              if (!cancelled) {
-                clearTimeout(timer);
-                setReady(true);
-              }
-            },
-            onError: () => {
-              if (!cancelled) {
-                clearTimeout(timer);
-                setBlocked(true);
-              }
-            },
-          },
-        });
-      } catch {
-        if (!cancelled) {
-          clearTimeout(timer);
-          setBlocked(true);
-        }
-      }
-    };
-
-    const w = window as unknown as {
-      YT?: any;
-      onYouTubeIframeAPIReady?: () => void;
-    };
-    if (w.YT?.Player) {
-      mount();
-    } else {
-      const prev = w.onYouTubeIframeAPIReady;
-      w.onYouTubeIframeAPIReady = () => {
-        if (prev) prev();
-        mount();
-      };
-      if (!document.querySelector("script[data-yt-iframe-api]")) {
-        const s = document.createElement("script");
-        s.src = "https://www.youtube.com/iframe_api";
-        s.dataset.ytIframeApi = "1";
-        s.onerror = () => {
-          if (!cancelled) {
-            clearTimeout(timer);
-            setBlocked(true);
-          }
-        };
-        document.head.appendChild(s);
-      }
-    }
-    return () => {
-      cancelled = true;
-      clearTimeout(timer);
-      try {
-        player?.destroy?.();
-      } catch {
-        // player teardown is best-effort
-      }
-    };
-  }, [id, ready]);
-
-  if (blocked) {
-    return <YoutubeTapCard url={url} id={id} title={title} duration={duration} />;
-  }
-
-  return (
-    <div className="glass overflow-hidden rounded-3xl">
-      <div className="relative aspect-video w-full bg-black">
-        {!ready ? (
-          <div className="absolute inset-0 animate-pulse bg-[var(--track)]" />
-        ) : null}
-        <div ref={mountRef} className="absolute inset-0 h-full w-full" />
-      </div>
-      <div className="flex items-center justify-between gap-3 p-4">
-        <p className="min-w-0 flex-1 truncate text-[15px] font-semibold text-[var(--text)]">
-          {title}
-        </p>
-        {duration ? (
-          <span className="shrink-0 rounded-md bg-[var(--track)] px-2 py-0.5 text-[12px] font-semibold tabular-nums text-[var(--text-dim)]">
-            {duration}
-          </span>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
-/** Tap-to-watch fallback card (used when embedding is blocked). */
-function YoutubeTapCard({
-  url,
-  id,
-  title,
-  duration,
-}: {
-  url: string;
-  id: string;
-  title: string;
-  duration: string | null;
-}) {
-  return (
-    <div className="glass overflow-hidden rounded-3xl">
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="relative block aspect-video w-full bg-black"
-        aria-label={`Watch video: ${title}, opens in YouTube`}
-      >
-        <img
-          src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
-          alt=""
-          loading="lazy"
-          className="h-full w-full object-cover"
-        />
-        <span className="absolute inset-0 flex items-center justify-center">
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--neon)] text-black shadow-[0_8px_30px_rgba(57,255,20,0.35)] transition-transform active:scale-95">
-            <PlayIcon className="ml-0.5 h-6 w-6" />
-          </span>
-        </span>
-        {duration ? (
-          <span className="absolute bottom-2 right-2 rounded-md bg-black/80 px-2 py-0.5 text-[12px] font-semibold text-white">
-            {duration}
-          </span>
-        ) : null}
-      </a>
-      <div className="flex items-center justify-between gap-3 p-4">
-        <p className="min-w-0 flex-1 truncate text-[15px] font-semibold text-[var(--text)]">
-          {title}
-        </p>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-2xl bg-[var(--neon)] px-5 text-[14px] font-bold text-black active:opacity-80"
-        >
-          Watch on YouTube
-          <ExternalIcon className="h-4 w-4" />
-        </a>
-      </div>
-    </div>
-  );
-}
-
-/**
- * Learn-phase video section. YouTube renders the smart player (in-app embed
- * with automatic fallback to a tap-to-watch card when the owner blocks
- * embedding). NotebookLM renders a link-out (no embed code exists).
- * Null/empty renders an honest quiet "coming soon" row. Never invents URLs.
- */
-export function VideoSection({ slot }: { slot: VideoSlot | undefined }) {
-  const url = slot?.videoUrl ?? null;
-  const source = slot?.videoSource ?? null;
-
-  if (url && source === "youtube") {
-    const id = youtubeEmbedId(url);
-    if (id) {
-      const title = slot?.topicTitle ?? slot?.topicHint ?? "Video lesson";
-      return (
-        <SmartYoutube
-          id={id}
-          url={url}
-          title={title}
-          duration={slot?.duration ?? null}
-        />
-      );
-    }
-  }
-
-  if (url) {
-    return (
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="glass flex min-h-[64px] items-center gap-4 rounded-3xl p-4 active:opacity-80"
-        aria-label={`Watch video overview${source === "notebooklm" ? ", opens in NotebookLM" : ""}`}
-      >
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--text)] text-[var(--bg)]">
-          <PlayIcon className="h-5 w-5" />
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block text-[16px] font-semibold text-[var(--text)]">
-            Watch video overview
-          </span>
-          <span className="block truncate text-[13px] text-[var(--text-dim)]">
-            {source === "notebooklm" ? "Opens in NotebookLM" : "Opens in YouTube"}
-          </span>
-        </span>
-        <ExternalIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-      </a>
-    );
-  }
-
-  return (
-    <div className="flex items-center gap-3 rounded-2xl px-1 py-2">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--track)] text-[var(--text-dim)]">
-        <VideoIcon className="h-5 w-5" />
-      </span>
-      <p className="text-[13px] text-[var(--text-faint)]">
-        Video coming soon
-        {slot?.topicHint ? ` · ${slot.topicHint}` : ""}
-      </p>
-    </div>
-  );
-}
 
 // ------------------------------------------------------- learn: structure ---
 
@@ -851,7 +597,6 @@ export function LearnPhase({
   onProgress: (fraction: number) => void;
   onNext: () => void;
 }) {
-  const slot = matchVideoSlot(subject.short, mod.num, topic);
   const pattern = mod.examPattern ?? subject.examPattern;
   const pages = useMemo(
     () => paginateLearn(structureLearn(topic)),
@@ -886,8 +631,6 @@ export function LearnPhase({
 
   return (
     <section aria-label="Learn" className="flex flex-col gap-6">
-      <VideoSection slot={slot} />
-
       <LearnBlocks
         blocks={pages[page] ?? []}
         formulaHref={

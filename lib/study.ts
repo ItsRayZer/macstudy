@@ -10,8 +10,7 @@
 // getTopicBySlug().
 
 import { subjects } from "@/src/content/subjects";
-import { VIDEO_SLOTS } from "@/src/content/videos";
-import type { Module, Topic, VideoSlot } from "@/src/content/types";
+import type { Module, Topic } from "@/src/content/types";
 import { getDB } from "./db";
 
 /** Quiz score (percent) needed to pass a topic and unlock the next one. */
@@ -130,51 +129,6 @@ export function nextTopicHref(
     return `${topicHref(short, nextMod.num, nextMod.topics[0])}/learn`;
   }
   return null;
-}
-
-// -------------------------------------------------------------- video slot ---
-
-const STOP_WORDS = new Set([
-  "and",
-  "are",
-  "for",
-  "from",
-  "its",
-  "the",
-  "with",
-  "your",
-]);
-
-function tokens(s: string): string[] {
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .split(" ")
-    .filter((w) => w.length >= 3 && !STOP_WORDS.has(w));
-}
-
-/**
- * Match a VIDEO_SLOTS entry by subject + module + significant word overlap
- * between the slot's topicHint and the topic title. Returns the slot metadata
- * as-is; youtubeId is null for every slot right now, so callers must render
- * an honest "coming soon" placeholder and never invent a video ID.
- */
-export function matchVideoSlot(
-  short: string,
-  moduleNum: string,
-  topic: Topic,
-): VideoSlot | undefined {
-  const titleTokens = new Set(tokens(topic.title));
-  return VIDEO_SLOTS.find((v) => {
-    if (v.subject !== short || v.module !== moduleNum) return false;
-    // Exact title binding wins when present.
-    if (v.topicTitle != null) return v.topicTitle === topic.title;
-    const hint = v.topicHint.toLowerCase();
-    return (
-      tokens(v.topicHint).some((w) => titleTokens.has(w)) ||
-      [...titleTokens].some((w) => hint.includes(w))
-    );
-  });
 }
 
 // -------------------------------------------------------------- unlock rule ---

@@ -20,7 +20,6 @@ import { getDB } from "../../../../lib/db";
 import {
   getModuleLocal,
   getSubjectLocal,
-  matchVideoSlot,
   QUIZ_PASS_SCORE,
   summarizeExamPattern,
   topicHref,
@@ -111,7 +110,7 @@ interface TopicRowState {
   quizBest: number;
 }
 
-type ItemKey = "video" | "learn" | "practice" | "test";
+type ItemKey = "learn" | "practice" | "test";
 
 function StartHereBubble() {
   return (
@@ -284,7 +283,6 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
           };
           const isOpen = expanded === i;
           const isStart = i === startIndex && startIndex !== -1;
-          const slot = matchVideoSlot(subject.short, mod.num, t);
           const href = topicHref(subject.short, mod.num, t);
           const item = nextItem(t, r);
 
@@ -363,23 +361,6 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
 
               {isOpen ? (
                 <div className="ml-[52px] flex flex-col gap-1 border-l border-[var(--glass-border)] py-2 pl-2">
-                  {slot ? (
-                    <>
-                      {entryRow(
-                        "video",
-                        <PlayIcon className="h-5 w-5" />,
-                        "Video overview",
-                        slot.topicHint,
-                        href,
-                        false,
-                      )}
-                      <div className="flex items-center gap-2 px-3">
-                        <span className="rounded-full border border-[var(--glass-border)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--text-faint)]">
-                          {slot.duration ?? "soon"}
-                        </span>
-                      </div>
-                    </>
-                  ) : null}
                   {entryRow(
                     "learn",
                     <BookOpenIcon className="h-5 w-5" />,
