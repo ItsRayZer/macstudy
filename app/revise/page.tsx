@@ -114,7 +114,7 @@ function PracticeTab() {
               aria-expanded={isOpen}
               aria-label={`${s.name} practice modules`}
             >
-              <GlassCard className="flex items-center gap-3 p-4! transition-transform active:scale-[0.99]">
+              <div className="glass flex items-center gap-3 rounded-3xl p-4 shadow-[var(--shadow)] transition-transform active:scale-[0.99]">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[14px] font-bold text-[var(--neon-soft)]">
                   {s.short.slice(0, 2)}
                 </span>
@@ -122,16 +122,14 @@ function PracticeTab() {
                   <span className="block truncate text-[14px] font-bold text-[var(--text)]">
                     {s.name}
                   </span>
-                  <span className="block text-[12px] text-[var(--text-faint)]">
+                  <span className="block truncate text-[12px] text-[var(--text-faint)]">
                     {modules.length} modules
                   </span>
                 </span>
-                <span
-                  className={`text-[var(--text-faint)] transition-transform ${isOpen ? "rotate-90" : ""}`}
-                >
-                  ›
-                </span>
-              </GlassCard>
+                <ChevronRightIcon
+                  className={`h-5 w-5 shrink-0 text-[var(--text-faint)] transition-transform ${isOpen ? "rotate-90" : ""}`}
+                />
+              </div>
             </button>
             {isOpen && (
               <div className="mt-2 flex flex-col gap-2 pl-4">
@@ -215,7 +213,7 @@ function FormulasTab() {
               aria-expanded={isOpen}
               aria-label={`${s.name} formula charts`}
             >
-              <GlassCard className="flex items-center gap-3 p-4! transition-transform active:scale-[0.99]">
+              <div className="glass flex items-center gap-3 rounded-3xl p-4 shadow-[var(--shadow)] transition-transform active:scale-[0.99]">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] font-mono text-[14px] font-bold text-[var(--neon-soft)]">
                   fx
                 </span>
@@ -223,16 +221,14 @@ function FormulasTab() {
                   <span className="block truncate text-[14px] font-bold text-[var(--text)]">
                     {s.name}
                   </span>
-                  <span className="block text-[12px] text-[var(--text-faint)]">
+                  <span className="block truncate text-[12px] text-[var(--text-faint)]">
                     {mods.length} formula chart{mods.length === 1 ? "" : "s"}
                   </span>
                 </span>
-                <span
-                  className={`text-[var(--text-faint)] transition-transform ${isOpen ? "rotate-90" : ""}`}
-                >
-                  ›
-                </span>
-              </GlassCard>
+                <ChevronRightIcon
+                  className={`h-5 w-5 shrink-0 text-[var(--text-faint)] transition-transform ${isOpen ? "rotate-90" : ""}`}
+                />
+              </div>
             </button>
             {isOpen && (
               <div className="mt-2 flex flex-col gap-2 pl-4">
