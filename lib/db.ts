@@ -647,7 +647,13 @@ export class SupabaseDB implements ProgressDB {
           .select("amount")
           .eq("user_id", uid);
         if (error) throw error;
-        return (data ?? []).reduce((sum, r) => sum + (r.amount ?? 0), 0);
+        const cloudTotal = (data ?? []).reduce(
+          (sum, r) => sum + (r.amount ?? 0),
+          0,
+        );
+        // Never lose local XP: take the higher of cloud and local.
+        const localTotal = await this.fallback.getXP();
+        return Math.max(cloudTotal, localTotal);
       },
       () => this.fallback.getXP(),
     );
@@ -660,6 +666,8 @@ export class SupabaseDB implements ProgressDB {
           .from("xp_history")
           .insert({ user_id: uid, amount, reason });
         if (error) throw error;
+        // Keep local in sync so XP survives sign-out and offline.
+        await this.fallback.addXP(amount, reason);
         const total = await this.getXP();
         return total;
       },

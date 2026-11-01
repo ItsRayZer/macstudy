@@ -75,9 +75,9 @@ export default async function PracticeHubPage({
     <div className="mx-auto max-w-2xl px-4 pb-32 pt-6">
       <Link
         href={`/subjects/${subject.short}`}
-        className="mb-4 inline-flex items-center gap-2 text-[14px] text-[var(--text-dim)]"
+        className="mb-4 flex min-h-[48px] w-full items-center gap-2 rounded-2xl bg-[var(--track)] px-4 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
       >
-        ← Back to {subject.name}
+        <span className="text-[18px]">←</span> Back to {subject.name}
       </Link>
 
       <h1 className="text-[24px] font-bold text-[var(--text)]">Practice</h1>
@@ -89,14 +89,14 @@ export default async function PracticeHubPage({
         {options.map((o) => (
           <Link key={o.href} href={o.href}>
             <GlassCard className="flex items-center gap-3 p-4! transition-transform active:scale-[0.99]">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
                 {o.icon}
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-[15px] font-bold text-[var(--text)]">
+                <span className="block text-[14px] font-bold text-[var(--text)]">
                   {o.title}
                 </span>
-                <span className="block text-[13px] text-[var(--text-faint)]">
+                <span className="block text-[12px] text-[var(--text-faint)]">
                   {o.sub}
                 </span>
               </span>

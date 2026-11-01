@@ -31,9 +31,13 @@ export function LearnClient({
 
   useEffect(() => {
     // Check saved phase BEFORE overwriting. If user was on practice/test/revise,
-    // offer Continue/Restart.
+    // offer Continue/Restart. But NOT if they just clicked back from a phase
+    // of this same topic (referrer check) — that's intentional back navigation.
     const prev = getTopicPhase(short, num, slug);
-    if (prev && prev !== "learn") {
+    const referrer = typeof document !== "undefined" ? document.referrer : "";
+    const topicBase = `/subjects/${short}/${num}/${slug}`;
+    const cameFromSameTopic = referrer.includes(topicBase);
+    if (prev && prev !== "learn" && !cameFromSameTopic) {
       setSavedPhase(prev);
       setShowResume(true);
     } else {
@@ -62,8 +66,8 @@ export function LearnClient({
   if (showResume && savedPhase) {
     const phaseLabel = savedPhase.charAt(0).toUpperCase() + savedPhase.slice(1);
     return (
-      <div className="mx-auto max-w-2xl px-4 pb-32 pt-12">
-        <div className="glass rounded-3xl p-6 text-center">
+      <div className="mx-auto flex min-h-[80vh] max-w-2xl items-center justify-center px-4 pb-32">
+        <div className="glass w-full rounded-3xl p-6 text-center">
           <h2 className="text-[20px] font-bold text-[var(--text)]">
             Welcome back
           </h2>
