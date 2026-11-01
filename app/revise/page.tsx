@@ -101,7 +101,7 @@ function PracticeTab() {
   const [openSubject, setOpenSubject] = useState<string | null>(null);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       {subjects.map((s) => {
         const subj = getSubjectLocal(s.short);
         const modules = subj?.modules ?? [];
@@ -117,7 +117,7 @@ function PracticeTab() {
               ariaLabel={`${s.name} practice modules`}
             />
             {isOpen && (
-              <div className="mt-2 flex flex-col gap-2 pl-4">
+              <div className="mt-2 flex flex-col gap-3">
                 {modules.map((m) => (
                   <Link
                     key={m.num}
@@ -147,7 +147,7 @@ function PracticeTab() {
 
 function FlashcardsTab({ dueFlash }: { dueFlash: Record<string, number> }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       {subjects.map((s) => {
         const total = countSubjectFlashcards(s.short);
         const due = dueFlash[s.short] ?? total;
@@ -184,7 +184,7 @@ function FormulasTab() {
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       {subjects.map((s) => {
         const mods = bySubject.get(s.short) ?? [];
         if (mods.length === 0) return null;
@@ -200,7 +200,7 @@ function FormulasTab() {
               ariaLabel={`${s.name} formula charts`}
             />
             {isOpen && (
-              <div className="mt-2 flex flex-col gap-2 pl-4">
+              <div className="mt-2 flex flex-col gap-3">
                 {mods.map(({ short, num }) => {
                   const subj = subjects.find((x) => x.short === short);
                   const mod = subj?.modules.find((m) => m.num === num);
@@ -489,8 +489,8 @@ export default function RevisePage() {
         {tab === "mistakes" &&
           (!loaded ? (
             <div className="flex flex-col gap-3">
-              <div className="h-24 animate-pulse rounded-3xl bg-[var(--track)]" />
-              <div className="h-24 animate-pulse rounded-3xl bg-[var(--track)]" />
+              <div className="h-[72px] animate-pulse rounded-3xl bg-[var(--track)]" />
+              <div className="h-[72px] animate-pulse rounded-3xl bg-[var(--track)]" />
             </div>
           ) : (
             <DeckList
@@ -504,8 +504,8 @@ export default function RevisePage() {
         {tab === "saved" &&
           (!loaded ? (
             <div className="flex flex-col gap-3">
-              <div className="h-24 animate-pulse rounded-3xl bg-[var(--track)]" />
-              <div className="h-24 animate-pulse rounded-3xl bg-[var(--track)]" />
+              <div className="h-[72px] animate-pulse rounded-3xl bg-[var(--track)]" />
+              <div className="h-[72px] animate-pulse rounded-3xl bg-[var(--track)]" />
             </div>
           ) : (
             <div className="flex flex-col gap-6">

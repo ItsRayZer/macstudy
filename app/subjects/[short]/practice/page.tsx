@@ -87,7 +87,7 @@ export default async function PracticeHubPage({
 
       <div className="mt-6 flex flex-col gap-3">
         {options.map((o) => (
-          <Link key={o.href} href={o.href}>
+          <Link key={o.href} href={o.href} className="block">
             <RowCard icon={o.icon} title={o.title} subtitle={o.sub} />
           </Link>
         ))}
