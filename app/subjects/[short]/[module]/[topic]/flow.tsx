@@ -200,13 +200,43 @@ export function FlipIcon({ className }: { className?: string }) {
 // -------------------------------------------------------------- answer view ---
 
 /**
- * Renders an answer (string array) as paragraphs. Lines indented with 4
- * spaces are code and render as monospace blocks.
+ * Renders an answer (string array) in the study-friendly format: ONLY the
+ * first line (the main full-mark answer) shows, rendered BOLD (the bold
+ * styling alone carries it, no label). Below it, a small subtle button
+ * toggles the remaining lines (normal weight) open or closed. Single-line
+ * answers render bold with no button. Applies everywhere AnswerBlock is
+ * used: Learn deep-dive Q&A, Practice reveal, Test full-answer,
+ * flashcards, mistake review.
  */
 export function AnswerBlock({ lines }: { lines: string[] }) {
-  // Rich structured rendering everywhere answers appear: Practice reveal,
-  // Test full-answer, flashcards, mistake review.
-  return <RichText lines={lines} />;
+  const [open, setOpen] = useState(false);
+  const firstIdx = lines.findIndex((l) => l.trim().length > 0);
+  if (firstIdx === -1) return null;
+  const main = [lines[firstIdx]];
+  const rest = lines.slice(firstIdx + 1).filter((l) => l.trim().length > 0);
+  if (rest.length === 0) {
+    return (
+      <div className="font-semibold text-[var(--text)]">
+        <RichText lines={main} />
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="font-semibold text-[var(--text)]">
+        <RichText lines={main} />
+      </div>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="self-start rounded-full border border-[var(--neon)]/30 px-3 py-1.5 text-[12px] font-medium text-[var(--neon)] transition-colors active:scale-95"
+        aria-expanded={open}
+      >
+        {open ? "Hide explanation" : "Show full explanation"}
+      </button>
+      {open && <RichText lines={rest} />}
+    </div>
+  );
 }
 
 // ---------------------------------------------------------------- tag pill ---
