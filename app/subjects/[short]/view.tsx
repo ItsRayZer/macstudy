@@ -153,95 +153,91 @@ export function SubjectView({ short }: { short: string }) {
             </>
           ) : null}
         </p>
-        <Link
-          href={`/subjects/${subject.short}/mindmap`}
-          className="glass mt-4 flex min-h-[56px] items-center gap-3 rounded-3xl px-4 transition-transform active:scale-[0.99]"
-          aria-label={`${subject.name} mind map`}
-        >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
-            <MindMapIcon className="h-5 w-5" />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-[15px] font-bold text-[var(--text)]">
-              Mind map
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <Link
+            href={`/subjects/${subject.short}/mindmap`}
+            className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
+            aria-label={`${subject.name} mind map`}
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+              <MindMapIcon className="h-5 w-5" />
             </span>
-            <span className="block truncate text-[12px] text-[var(--text-faint)]">
-              Full syllabus at a glance
+            <span className="min-w-0">
+              <span className="block text-[13px] font-bold text-[var(--text)]">
+                Mind map
+              </span>
+              <span className="block truncate text-[11px] text-[var(--text-faint)]">
+                Syllabus at a glance
+              </span>
             </span>
-          </span>
-          <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-        </Link>
-        <Link
-          href={`/subjects/${subject.short}/pyq-practice`}
-          className="glass mt-3 flex min-h-[56px] items-center gap-3 rounded-3xl px-4 transition-transform active:scale-[0.99]"
-          aria-label={`${subject.name} PYQ practice`}
-        >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
-            <ZapIcon className="h-5 w-5" />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-[15px] font-bold text-[var(--text)]">
-              Practice PYQs
+          </Link>
+          <Link
+            href={`/subjects/${subject.short}/pyq-practice`}
+            className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
+            aria-label={`${subject.name} PYQ practice`}
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+              <ZapIcon className="h-5 w-5" />
             </span>
-            <span className="block truncate text-[12px] text-[var(--text-faint)]">
-              {pyqCount} PYQ questions
-              {pyqPercent > 0 ? ` · ${pyqPercent}% done` : ""}
+            <span className="min-w-0">
+              <span className="block text-[13px] font-bold text-[var(--text)]">
+                Practice PYQs
+              </span>
+              <span className="block truncate text-[11px] tabular-nums text-[var(--text-faint)]">
+                {pyqCount} PYQs{pyqPercent > 0 ? ` · ${pyqPercent}%` : ""}
+              </span>
             </span>
-          </span>
-          <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-        </Link>
-        <Link
-          href={`/subjects/${subject.short}/flashcards`}
-          className="glass mt-3 flex min-h-[56px] items-center gap-3 rounded-3xl px-4 transition-transform active:scale-[0.99]"
-          aria-label={`${subject.name} flashcards`}
-        >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
-            <CardDeckIcon className="h-5 w-5" />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-[15px] font-bold text-[var(--text)]">
-              Flashcards
+          </Link>
+          <Link
+            href={`/subjects/${subject.short}/flashcards`}
+            className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
+            aria-label={`${subject.name} flashcards`}
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+              <CardDeckIcon className="h-5 w-5" />
             </span>
-            <span className="block truncate text-[12px] tabular-nums text-[var(--text-faint)]">
-              {flashCount} cards · every topic
+            <span className="min-w-0">
+              <span className="block text-[13px] font-bold text-[var(--text)]">
+                Flashcards
+              </span>
+              <span className="block truncate text-[11px] tabular-nums text-[var(--text-faint)]">
+                {flashCount} cards
+              </span>
             </span>
-          </span>
-          <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-        </Link>
-        <GlassCard className="mt-3 flex flex-col gap-3">
-          <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+          </Link>
+          <GlassCard className="flex flex-col gap-2 p-3!">
+            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
               <BookIcon className="h-5 w-5" />
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-[15px] font-bold text-[var(--text)]">
-                Complete notes PDF
+            <span className="min-w-0">
+              <span className="block text-[13px] font-bold text-[var(--text)]">
+                Notes PDF
               </span>
-              <span className="block truncate text-[12px] text-[var(--text-faint)]">
+              <span className="block truncate text-[11px] text-[var(--text-faint)]">
                 Full subject notes
               </span>
             </span>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            <a
-              href={`/pdfs/${subject.short}-Complete.pdf`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex min-h-[48px] items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-semibold text-[var(--text)] active:opacity-80"
-              aria-label={`Open complete notes PDF for ${subject.name}`}
-            >
-              Open
-            </a>
-            <a
-              href={`/pdfs/${subject.short}-Complete.pdf`}
-              download={`${subject.short}-Complete.pdf`}
-              className="cta-neon flex min-h-[48px] items-center justify-center rounded-2xl text-[14px] font-bold"
-              aria-label={`Download complete notes PDF for ${subject.name}`}
-            >
-              Download
-            </a>
-          </div>
-        </GlassCard>
+            <span className="grid grid-cols-2 gap-1.5">
+              <a
+                href={`/pdfs/${subject.short}-Complete.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-[36px] items-center justify-center rounded-xl bg-[var(--track)] text-[12px] font-semibold text-[var(--text)] active:opacity-80"
+                aria-label={`Open complete notes PDF for ${subject.name}`}
+              >
+                Open
+              </a>
+              <a
+                href={`/pdfs/${subject.short}-Complete.pdf`}
+                download={`${subject.short}-Complete.pdf`}
+                className="cta-neon flex min-h-[36px] items-center justify-center rounded-xl text-[12px] font-bold"
+                aria-label={`Download complete notes PDF for ${subject.name}`}
+              >
+                Save
+              </a>
+            </span>
+          </GlassCard>
+        </div>
       </header>
 
       <div className="flex flex-col gap-2">
