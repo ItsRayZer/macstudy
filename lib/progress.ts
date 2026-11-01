@@ -10,6 +10,7 @@
 import { getDB } from "./db";
 import { subjects, getSubject } from "./content";
 import { EXAMS } from "./exams";
+import { PYQ_MODULE, PYQ_TOPIC } from "./pyq";
 
 export interface SubjectProgress {
   short: string;
@@ -290,4 +291,16 @@ export async function markPhaseProgress(
   const next = Math.max(prev?.percent ?? 0, percent);
   if (prev && prev.percent >= next) return;
   await db.setTopicProgress(short, num, title, { percent: next });
+}
+
+/**
+ * Per-subject PYQ practice completion percent (0-100). Stored under the
+ * PYQ namespace in the same topic_progress store; finishing a full PYQ
+ * run writes 100 via markPhaseProgress, which never downgrades.
+ */
+export async function getPyqPracticeProgress(short: string): Promise<number> {
+  const db = getDB();
+  const p = await db.getTopicProgress(short, PYQ_MODULE, PYQ_TOPIC);
+  if (!p) return 0;
+  return Math.max(0, Math.min(100, Math.round(p.percent)));
 }

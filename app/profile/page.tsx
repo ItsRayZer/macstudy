@@ -12,6 +12,7 @@ import {
   GlassCard,
   ProgressBar,
   SegmentedTabs,
+  TabBarSpacer,
   UserIcon,
 } from "../../components/ui";
 import { StatCard } from "../../components/dashboard/StatCard";
@@ -464,6 +465,7 @@ export default function ProfilePage() {
           </span>
         </GlassCard>
       </section>
+      <TabBarSpacer />
     </main>
   );
 }

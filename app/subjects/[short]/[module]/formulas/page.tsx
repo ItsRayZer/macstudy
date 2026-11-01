@@ -8,7 +8,8 @@ import { notFound } from "next/navigation";
 import { subjects } from "@/src/content/subjects";
 import { getModuleFormulas } from "@/src/content/formulas";
 import { getModuleLocal, getSubjectLocal } from "../../../../../lib/study";
-import { GlassCard, TabBarSpacer } from "../../../../../components/ui";
+import { TabBarSpacer } from "../../../../../components/ui";
+import { FormulaCard } from "../../../../../components/formula-card";
 
 function BackIcon({ className }: { className?: string }) {
   return (
@@ -71,23 +72,38 @@ export default async function FormulasPage({
         </p>
       </header>
 
-      {chart.groups.map((g) => (
-        <section key={g.topic} aria-label={g.topic} className="flex flex-col gap-2">
-          <h2 className="text-[15px] font-bold text-[var(--text)]">
-            {g.topic}
-          </h2>
-          {g.items.map((item, i) => (
-            <GlassCard key={i}>
-              <p className="text-[13px] font-medium text-[var(--text-dim)]">
-                {item.label}
-              </p>
-              <p className="mt-2 overflow-x-auto whitespace-nowrap font-mono text-[15px] leading-[1.7] text-[var(--neon-soft)]">
-                {item.formula}
-              </p>
-            </GlassCard>
-          ))}
-        </section>
-      ))}
+      {(() => {
+        let n = 0;
+        return chart.groups.map((g) => (
+          <section
+            key={g.topic}
+            aria-label={g.topic}
+            className="flex flex-col gap-3"
+          >
+            <div className="flex items-center gap-3">
+              <h2 className="shrink-0 text-[15px] font-bold text-[var(--text)]">
+                {g.topic}
+              </h2>
+              <span
+                aria-hidden="true"
+                className="h-px flex-1 bg-[var(--glass-border)]"
+              />
+            </div>
+            {g.items.map((item) => {
+              n += 1;
+              return (
+                <FormulaCard
+                  key={n}
+                  index={n}
+                  label={item.label}
+                  formula={item.formula}
+                  where={item.where}
+                />
+              );
+            })}
+          </section>
+        ));
+      })()}
       <TabBarSpacer />
     </main>
   );

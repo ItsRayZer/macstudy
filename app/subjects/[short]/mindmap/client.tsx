@@ -8,7 +8,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { EmptyState, ProgressBar } from "../../../../components/ui";
+import { EmptyState, ProgressBar, TabBarSpacer } from "../../../../components/ui";
 import { getDB } from "../../../../lib/db";
 import {
   getSubjectLocal,
@@ -242,6 +242,7 @@ export function MindMapClient({ short }: { short: string }) {
           subtitle="This subject has no topics yet."
         />
       ) : null}
+      <TabBarSpacer />
     </main>
   );
 }

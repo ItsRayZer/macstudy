@@ -49,6 +49,8 @@ import {
 } from "../answer-pads";
 import type { Question, Topic } from "@/src/content/types";
 
+export type TagFilter = "ALL" | "SURE MARK" | "REPEATED" | "IMPORTANT";
+
 export function PracticePhase({
   short,
   num,
@@ -57,6 +59,7 @@ export function PracticePhase({
   questions,
   onProgress,
   onNext,
+  mode = "topic",
 }: {
   short: string;
   num: string;
@@ -65,18 +68,30 @@ export function PracticePhase({
   questions: Question[];
   onProgress: (fraction: number) => void;
   onNext: () => void;
+  /** "pyq": subject-wide PYQ mode - tag filter chips, 100% on finish. */
+  mode?: "topic" | "pyq";
 }) {
+  const isPyq = mode === "pyq";
   // Question priority: PYQ tags first, filler last. Toggle limits the
-  // session to tagged questions only.
+  // session to tagged questions only. In PYQ mode the chips filter by tag.
   const [pyqOnly, setPyqOnly] = useState(false);
+  const [tagFilter, setTagFilter] = useState<TagFilter>("ALL");
+
+  const computeOrder = (only: boolean, filter: TagFilter): number[] => {
+    const o = priorityOrder(questions, only);
+    if (filter === "ALL") return o;
+    return o.filter((i) => questions[i]?.tagBase === filter);
+  };
+
   const order = useMemo(
-    () => priorityOrder(questions, pyqOnly),
-    [questions, pyqOnly],
+    () => computeOrder(isPyq ? false : pyqOnly, isPyq ? tagFilter : "ALL"),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [questions, pyqOnly, tagFilter, isPyq],
   );
   const total = order.length;
 
   const [queue, setQueue] = useState<number[]>(() =>
-    priorityOrder(questions, false),
+    computeOrder(false, "ALL"),
   );
   const [pos, setPos] = useState(0);
   const [round, setRound] = useState(1);
@@ -127,14 +142,17 @@ export function PracticePhase({
     };
   }, [short, num, topicTitle]);
 
-  // Finishing Practice persists the 50% milestone (never downgrades).
+  // Finishing Practice persists the milestone (never downgrades): 50% for a
+  // topic session, 100% for a full subject-wide PYQ run.
   const practiceSaved = useRef(false);
   useEffect(() => {
     if (finished && !practiceSaved.current) {
       practiceSaved.current = true;
-      markPhaseProgress(short, num, topicTitle, 50).catch(() => {});
+      markPhaseProgress(short, num, topicTitle, isPyq ? 100 : 50).catch(
+        () => {},
+      );
     }
-  }, [finished, short, num, topicTitle]);
+  }, [finished, short, num, topicTitle, isPyq]);
 
   const reportProgress = (p: number, r: number, qLen: number) => {
     if (total === 0) {
@@ -158,8 +176,8 @@ export function PracticePhase({
     setChecking(false);
   };
 
-  const resetSession = (only: boolean) => {
-    const o = priorityOrder(questions, only);
+  const resetSession = (only: boolean, filter: TagFilter = "ALL") => {
+    const o = computeOrder(only, filter);
     setQueue(o);
     setPos(0);
     setRound(1);
@@ -173,7 +191,12 @@ export function PracticePhase({
   const togglePyqOnly = () => {
     const next = !pyqOnly;
     setPyqOnly(next);
-    resetSession(next);
+    resetSession(next, "ALL");
+  };
+
+  const changeTagFilter = (f: TagFilter) => {
+    setTagFilter(f);
+    resetSession(false, f);
   };
 
   const enqueueRepeat = (idx: number) => {
@@ -280,7 +303,7 @@ export function PracticePhase({
   };
 
   const onNextQ = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
     const np = pos + 1;
     if (np < queue.length) {
       setPos(np);
@@ -338,10 +361,12 @@ export function PracticePhase({
       <section aria-label="Practice complete" className="flex flex-col gap-4">
         <GlassCard>
           <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
-            Practice complete
+            {isPyq ? "PYQ Practice complete" : "Practice complete"}
           </p>
           <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
-            Nice, you worked through every question
+            {isPyq
+              ? "You worked through every PYQ"
+              : "Nice, you worked through every question"}
           </h2>
           <p className="mt-2 text-[15px] leading-[1.7] text-[var(--text-dim)]">
             {round > 1
@@ -350,7 +375,10 @@ export function PracticePhase({
             Practice is safe to fail - the test is where you prove it.
           </p>
           <div className="mt-5">
-            <NextButton label="Take the test" onClick={onNext} />
+            <NextButton
+              label={isPyq ? "Back to subject" : "Take the test"}
+              onClick={onNext}
+            />
           </div>
         </GlassCard>
       </section>
@@ -366,7 +394,9 @@ export function PracticePhase({
   return (
     <section aria-label="Practice" className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-[20px] font-bold text-[var(--text)]">Practice</h2>
+        <h2 className="text-[20px] font-bold text-[var(--text)]">
+          {isPyq ? "PYQ Practice" : "Practice"}
+        </h2>
         <span className="text-[13px] tabular-nums text-[var(--text-dim)]">
           {round > 1
             ? `Review round · ${pos + 1} of ${queue.length}`
@@ -377,13 +407,44 @@ export function PracticePhase({
         <p className="-mt-2 text-[13px] text-[var(--text-faint)]">
           {answerHint}
         </p>
-        <PyqOnlyToggle value={pyqOnly} onChange={togglePyqOnly} />
+        {isPyq ? (
+          <div
+            className="flex flex-wrap gap-2"
+            role="group"
+            aria-label="Filter questions by PYQ tag"
+          >
+            {(
+              [
+                ["ALL", "All"],
+                ["SURE MARK", "Sure mark"],
+                ["REPEATED", "Repeated"],
+                ["IMPORTANT", "Important"],
+              ] as [TagFilter, string][]
+            ).map(([f, label]) => (
+              <button
+                key={f}
+                type="button"
+                onClick={() => changeTagFilter(f)}
+                aria-pressed={tagFilter === f}
+                className={`flex min-h-[40px] items-center rounded-full px-4 text-[13px] font-semibold transition-colors active:opacity-80 ${
+                  tagFilter === f
+                    ? "bg-[var(--neon)] text-[#04140a]"
+                    : "bg-[var(--track)] text-[var(--text-dim)]"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <PyqOnlyToggle value={pyqOnly} onChange={togglePyqOnly} />
+        )}
       </div>
       <p className="-mt-2 text-[12px] text-[var(--text-faint)]">
         SURE MARK first, then REPEATED, then IMPORTANT.
       </p>
 
-      <GlassCard>
+      <GlassCard key={qIdx} className="rise-in">
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-wrap gap-2">
             <TagPill tagBase={q.tagBase} years={q.years} />

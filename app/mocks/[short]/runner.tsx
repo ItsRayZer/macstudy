@@ -14,6 +14,7 @@ import {
   EmptyState,
   GlassCard,
   Pill,
+  TabBarSpacer,
 } from "../../../components/ui";
 import { AchievementBadge } from "../../../components/dashboard/AchievementBadge";
 import { getDB } from "../../../lib/db";
@@ -237,6 +238,7 @@ export function MockRunner({ short }: { short: string }) {
         >
           Start timed mock
         </button>
+        <TabBarSpacer />
       </main>
     );
   }
@@ -306,6 +308,7 @@ export function MockRunner({ short }: { short: string }) {
             </section>
           );
         })}
+      <TabBarSpacer />
       </main>
     );
   }
@@ -416,6 +419,7 @@ export function MockRunner({ short }: { short: string }) {
         >
           See my score ({markedCount}/{paper.length})
         </button>
+        <TabBarSpacer />
       </main>
     );
   }

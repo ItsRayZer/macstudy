@@ -310,7 +310,7 @@ export function TestPhase({
 
   const nextQuestion = () => {
     if (!session || finishing) return;
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
     if (session.done) {
       void doFinish();
       return;

@@ -6,12 +6,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import {
   ChevronRightIcon,
   GlassCard,
   Pill,
   ProgressBar,
+  TabBarSpacer,
 } from "../../components/ui";
 import { computeSubjectProgress } from "../../lib/progress";
 import { EXAMS } from "../../lib/exams";
@@ -74,14 +75,17 @@ export default function SubjectsPage() {
       </header>
 
       <div className="flex flex-col gap-3">
-        {subjects.map((s) => {
+        {subjects.map((s, i) => {
           const p = progress[s.short] ?? EMPTY_ROW;
           const cd = p.countdown;
           return (
             <Link
               key={s.short}
               href={`/subjects/${s.short}`}
-              className="block min-h-[44px]"
+              className="rise-in block min-h-[44px]"
+              style={
+                { "--rise-delay": `${Math.min(i, 5) * 60}ms` } as CSSProperties
+              }
               aria-label={`${s.name}, ${p.percent}% complete`}
             >
               <GlassCard className="transition-transform active:scale-[0.99]">
@@ -109,6 +113,7 @@ export default function SubjectsPage() {
           );
         })}
       </div>
+      <TabBarSpacer />
     </main>
   );
 }

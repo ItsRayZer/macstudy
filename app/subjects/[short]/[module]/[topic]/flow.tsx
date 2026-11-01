@@ -49,6 +49,7 @@ import {
   looksLikeFormula,
 } from "../../../../../components/rich-text";
 import { getModuleFormulas } from "@/src/content/formulas";
+import { FormulaCard } from "../../../../../components/formula-card";
 import { useAppStore } from "../../../../../lib/store";
 import {
   matchVideoSlot,
@@ -603,9 +604,7 @@ function TheoryFormula({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="w-full overflow-x-auto whitespace-nowrap rounded-2xl bg-[var(--track)] px-4 py-3 text-center font-mono text-[15px] leading-[1.7] tracking-wide text-[var(--text)]">
-        {text}
-      </p>
+      <FormulaCard formula={text} />
       {formulaHref ? (
         <Link
           href={formulaHref}
@@ -771,9 +770,10 @@ export function LearnPhase({
     onProgress(totalPages === 0 ? 1 : (page + 1) / totalPages);
   }, [page, totalPages, onProgress]);
 
-  // New page = new content: bring the user back to the top.
+  // New page = new content: bring the user back to the top, instantly
+  // (CSS smooth-scroll stays for the rest of the app).
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   }, [page]);
 
   // Reaching the last Learn page counts as finishing Learn: persist the 25%

@@ -4,10 +4,12 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import {
   ChevronRightIcon,
   GlassCard,
   Pill,
+  TabBarSpacer,
 } from "../../components/ui";
 import { MOCK_CONFIGS } from "./build-paper";
 
@@ -40,11 +42,14 @@ export default function MocksPage() {
       </header>
 
       <div className="flex flex-col gap-3">
-        {configs.map((c) => (
+        {configs.map((c, i) => (
           <Link
             key={c.short}
             href={`/mocks/${c.short.toLowerCase()}`}
-            className="block"
+            className="rise-in block"
+            style={
+              { "--rise-delay": `${Math.min(i, 5) * 60}ms` } as CSSProperties
+            }
             aria-label={`Start ${c.name} mock test`}
           >
             <GlassCard className="p-5 transition-transform active:scale-[0.98]">
@@ -83,6 +88,7 @@ export default function MocksPage() {
           </Link>
         ))}
       </div>
+      <TabBarSpacer />
     </main>
   );
 }

@@ -10,6 +10,7 @@
 
 import { useRef, useState, type ReactNode } from "react";
 import { runPython } from "../lib/pyodide-run";
+import { FormulaCard } from "./formula-card";
 
 export type RichBlock =
   | { kind: "p"; text: string }
@@ -392,10 +393,6 @@ function RichBlockView({ block }: { block: RichBlock }) {
     case "code":
       return <RunnableCode code={block.text} />;
     case "formula":
-      return (
-        <p className="w-full overflow-x-auto whitespace-nowrap rounded-2xl bg-[var(--track)] px-4 py-3 text-center font-mono text-[15px] leading-[1.7] tracking-wide text-[var(--text)]">
-          {block.text}
-        </p>
-      );
+      return <FormulaCard formula={block.text} />;
   }
 }

@@ -4,12 +4,19 @@
 
 "use client";
 
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import Link from "next/link";
 import {
   ChevronRightIcon,
   FlameIcon,
   ProgressBar,
+  TabBarSpacer,
 } from "../components/ui";
 import { useAppStore } from "../lib/store";
 import { getDB } from "../lib/db";
@@ -457,13 +464,18 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              {subjects.map((s) => {
+              {subjects.map((s, i) => {
                 const p = progresses.find((x) => x.short === s.short);
                 return (
                   <Link
                     key={s.short}
                     href={`/subjects/${s.short}`}
-                    className="glass block rounded-3xl p-4 transition-transform active:scale-[0.98]"
+                    className="glass rise-in block rounded-3xl p-4 transition-transform active:scale-[0.98]"
+                    style={
+                      {
+                        "--rise-delay": `${Math.min(i, 5) * 60}ms`,
+                      } as CSSProperties
+                    }
                     aria-label={`${s.name}, ${p?.percent ?? 0}% complete`}
                   >
                     <SubjectGlyph
@@ -566,6 +578,7 @@ export default function HomePage() {
           </section>
         </>
       )}
+      <TabBarSpacer />
     </main>
   );
 }

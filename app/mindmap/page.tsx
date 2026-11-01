@@ -2,7 +2,7 @@
 // Mind map subject picker: choose a subject to open its syllabus mind map.
 
 import Link from "next/link";
-import { ChevronRightIcon } from "../../components/ui";
+import { ChevronRightIcon, TabBarSpacer } from "../../components/ui";
 import { subjects } from "@/src/content/subjects";
 
 export default function MindMapIndexPage() {
@@ -45,6 +45,7 @@ export default function MindMapIndexPage() {
           );
         })}
       </div>
+      <TabBarSpacer />
     </main>
   );
 }

@@ -13,10 +13,15 @@ import {
   GlassCard,
   ProgressBar,
   TabBarSpacer,
+  ZapIcon,
 } from "../../../components/ui";
-import { computeModuleProgress } from "../../../lib/progress";
+import {
+  computeModuleProgress,
+  getPyqPracticeProgress,
+} from "../../../lib/progress";
 import { EXAMS } from "../../../lib/exams";
 import { getSubjectLocal, summarizeExamPattern } from "../../../lib/study";
+import { countSubjectPyq } from "../../../lib/pyq";
 import { subjects } from "@/src/content/subjects";
 
 function Icon({
@@ -73,6 +78,8 @@ interface ModuleRow {
 export function SubjectView({ short }: { short: string }) {
   const subject = getSubjectLocal(short) ?? subjects[0];
   const [rows, setRows] = useState<Record<string, ModuleRow>>({});
+  const [pyqPercent, setPyqPercent] = useState(0);
+  const pyqCount = countSubjectPyq(subject.short);
 
   useEffect(() => {
     let live = true;
@@ -90,7 +97,11 @@ export function SubjectView({ short }: { short: string }) {
           ] as const;
         }),
       );
-      if (live) setRows(Object.fromEntries(entries));
+      const pyq = await getPyqPracticeProgress(subject.short);
+      if (live) {
+        setRows(Object.fromEntries(entries));
+        setPyqPercent(pyq);
+      }
     })().catch(() => {});
     return () => {
       live = false;
@@ -145,6 +156,25 @@ export function SubjectView({ short }: { short: string }) {
             </span>
             <span className="block truncate text-[12px] text-[var(--text-faint)]">
               Full syllabus at a glance
+            </span>
+          </span>
+          <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
+        </Link>
+        <Link
+          href={`/subjects/${subject.short}/pyq-practice`}
+          className="glass mt-3 flex min-h-[56px] items-center gap-3 rounded-3xl px-4 transition-transform active:scale-[0.99]"
+          aria-label={`${subject.name} PYQ practice`}
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+            <ZapIcon className="h-5 w-5" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[15px] font-bold text-[var(--text)]">
+              Practice PYQs
+            </span>
+            <span className="block truncate text-[12px] text-[var(--text-faint)]">
+              {pyqCount} PYQ questions
+              {pyqPercent > 0 ? ` · ${pyqPercent}% done` : ""}
             </span>
           </span>
           <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
