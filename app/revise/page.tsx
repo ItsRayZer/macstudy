@@ -12,6 +12,7 @@ import {
   GlassCard,
   Pill,
   RowCard,
+  RowCardButton,
   TabBarSpacer,
 } from "../../components/ui";
 import { getDB, type Bookmark, type MistakeEntry } from "../../lib/db";
@@ -107,30 +108,14 @@ function PracticeTab() {
         const isOpen = openSubject === s.short;
         return (
           <div key={s.short}>
-            <button
-              type="button"
+            <RowCardButton
+              icon={<span className="text-[14px] font-bold">{s.short.slice(0, 2)}</span>}
+              title={s.name}
+              subtitle={`${modules.length} modules`}
+              expanded={isOpen}
               onClick={() => setOpenSubject(isOpen ? null : s.short)}
-              className="w-full"
-              aria-expanded={isOpen}
-              aria-label={`${s.name} practice modules`}
-            >
-              <div className="glass flex items-center gap-3 rounded-3xl p-4 shadow-[var(--shadow)] transition-transform active:scale-[0.99]">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[14px] font-bold text-[var(--neon-soft)]">
-                  {s.short.slice(0, 2)}
-                </span>
-                <span className="min-w-0 flex-1 text-left">
-                  <span className="block truncate text-[14px] font-bold text-[var(--text)]">
-                    {s.name}
-                  </span>
-                  <span className="block truncate text-[12px] text-[var(--text-faint)]">
-                    {modules.length} modules
-                  </span>
-                </span>
-                <ChevronRightIcon
-                  className={`h-5 w-5 shrink-0 text-[var(--text-faint)] transition-transform ${isOpen ? "rotate-90" : ""}`}
-                />
-              </div>
-            </button>
+              ariaLabel={`${s.name} practice modules`}
+            />
             {isOpen && (
               <div className="mt-2 flex flex-col gap-2 pl-4">
                 {modules.map((m) => (
@@ -206,30 +191,14 @@ function FormulasTab() {
         const isOpen = openSubject === s.short;
         return (
           <div key={s.short}>
-            <button
-              type="button"
+            <RowCardButton
+              icon={<span className="font-mono text-[14px] font-bold">fx</span>}
+              title={s.name}
+              subtitle={`${mods.length} formula chart${mods.length === 1 ? "" : "s"}`}
+              expanded={isOpen}
               onClick={() => setOpenSubject(isOpen ? null : s.short)}
-              className="w-full"
-              aria-expanded={isOpen}
-              aria-label={`${s.name} formula charts`}
-            >
-              <div className="glass flex items-center gap-3 rounded-3xl p-4 shadow-[var(--shadow)] transition-transform active:scale-[0.99]">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] font-mono text-[14px] font-bold text-[var(--neon-soft)]">
-                  fx
-                </span>
-                <span className="min-w-0 flex-1 text-left">
-                  <span className="block truncate text-[14px] font-bold text-[var(--text)]">
-                    {s.name}
-                  </span>
-                  <span className="block truncate text-[12px] text-[var(--text-faint)]">
-                    {mods.length} formula chart{mods.length === 1 ? "" : "s"}
-                  </span>
-                </span>
-                <ChevronRightIcon
-                  className={`h-5 w-5 shrink-0 text-[var(--text-faint)] transition-transform ${isOpen ? "rotate-90" : ""}`}
-                />
-              </div>
-            </button>
+              ariaLabel={`${s.name} formula charts`}
+            />
             {isOpen && (
               <div className="mt-2 flex flex-col gap-2 pl-4">
                 {mods.map(({ short, num }) => {

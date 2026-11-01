@@ -139,6 +139,59 @@ export function GlassCard({
   );
 }
 
+// RowCardButton: identical to RowCard but renders as a <button> for accordion
+// toggles. The chevron rotates 90deg when expanded.
+export function RowCardButton({
+  icon,
+  title,
+  subtitle,
+  iconBg = "neon",
+  expanded = false,
+  onClick,
+  ariaLabel,
+}: {
+  icon: ReactNode;
+  title: string;
+  subtitle: string;
+  iconBg?: "neon" | "track";
+  expanded?: boolean;
+  onClick: () => void;
+  ariaLabel?: string;
+}) {
+  const bg =
+    iconBg === "neon"
+      ? "bg-[var(--neon-dim)] text-[var(--neon-soft)]"
+      : "bg-[var(--track)] text-[var(--text)]";
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="w-full"
+      aria-expanded={expanded}
+      aria-label={ariaLabel}
+    >
+      <div className="glass flex items-center gap-3 rounded-3xl p-4 shadow-[var(--shadow)] transition-transform active:scale-[0.99]">
+        <span
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${bg}`}
+        >
+          {icon}
+        </span>
+        <span className="min-w-0 flex-1 text-left">
+          <span className="block truncate text-[14px] font-bold text-[var(--text)]">
+            {title}
+          </span>
+          <span className="block truncate text-[12px] text-[var(--text-faint)]">
+            {subtitle}
+          </span>
+        </span>
+        <ChevronRightIcon
+          className={`h-5 w-5 shrink-0 text-[var(--text-faint)] transition-transform ${expanded ? "rotate-90" : ""}`}
+        />
+      </div>
+    </button>
+  );
+}
+
 // -------------------------------------------------------------------- Pill ---
 
 export type PillVariant = "sure" | "repeated" | "important" | "default";
