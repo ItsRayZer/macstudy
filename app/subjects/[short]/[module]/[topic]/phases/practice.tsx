@@ -538,6 +538,17 @@ export function PracticePhase({
               >
                 Show answer
               </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const nr = qIdx != null && !repeat.includes(qIdx) ? [...repeat, qIdx] : repeat;
+                  setRepeat(nr);
+                  onNextQ(nr);
+                }}
+                className="flex min-h-[48px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-semibold text-[var(--text-dim)] active:opacity-80"
+              >
+                Skip question
+              </button>
             </div>
           </>
         ) : null}
