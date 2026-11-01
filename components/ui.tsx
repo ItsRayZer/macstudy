@@ -391,3 +391,42 @@ export function EmptyState({
     </div>
   );
 }
+
+// --------------------------------------------------------------- RowCard ---
+// Standard list row card: icon + title + subtitle + chevron.
+// Used by Practice, Library, Revise, NotebookLM for identical ratios.
+
+export function RowCard({
+  icon,
+  title,
+  subtitle,
+  iconBg = "neon",
+}: {
+  icon: ReactNode;
+  title: string;
+  subtitle: string;
+  iconBg?: "neon" | "track";
+}) {
+  const bg =
+    iconBg === "neon"
+      ? "bg-[var(--neon-dim)] text-[var(--neon-soft)]"
+      : "bg-[var(--track)] text-[var(--text)]";
+  return (
+    <div className="glass flex items-center gap-3 rounded-3xl p-4 shadow-[var(--shadow)] transition-transform active:scale-[0.99]">
+      <span
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${bg}`}
+      >
+        {icon}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[14px] font-bold text-[var(--text)]">
+          {title}
+        </span>
+        <span className="block truncate text-[12px] text-[var(--text-faint)]">
+          {subtitle}
+        </span>
+      </span>
+      <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
+    </div>
+  );
+}

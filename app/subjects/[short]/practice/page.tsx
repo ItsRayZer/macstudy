@@ -4,7 +4,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { subjects } from "@/src/content/subjects";
-import { GlassCard, TabBarSpacer } from "../../../../components/ui";
+import { RowCard, TabBarSpacer } from "../../../../components/ui";
 
 export async function generateStaticParams() {
   return subjects.map((s) => ({ short: s.short }));
@@ -88,20 +88,7 @@ export default async function PracticeHubPage({
       <div className="mt-6 flex flex-col gap-3">
         {options.map((o) => (
           <Link key={o.href} href={o.href}>
-            <GlassCard className="flex items-center gap-3 p-4! transition-transform active:scale-[0.99]">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
-                {o.icon}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-[14px] font-bold text-[var(--text)]">
-                  {o.title}
-                </span>
-                <span className="block text-[12px] text-[var(--text-faint)]">
-                  {o.sub}
-                </span>
-              </span>
-              <span className="text-[var(--text-faint)]">›</span>
-            </GlassCard>
+            <RowCard icon={o.icon} title={o.title} subtitle={o.sub} />
           </Link>
         ))}
       </div>
