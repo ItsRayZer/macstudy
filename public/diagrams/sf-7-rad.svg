@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 560" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#39FF14"/>
+    </marker>
+  </defs>
+  <text x="180" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">RAD Model</text>
+  <text x="180" y="50" text-anchor="middle" font-size="12" fill="#A1A1AA">Rapid Application Development</text>
+  <rect x="92" y="62" width="176" height="28" rx="14" fill="none" stroke="#39FF14" stroke-width="1.5"/>
+  <text x="180" y="80" text-anchor="middle" font-size="11.5" font-weight="600" fill="#39FF14">60–90 day timeline</text>
+  <rect x="50" y="104" width="260" height="56" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="80" cy="132" r="13" fill="#39FF14"/><text x="80" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">1</text>
+  <text x="185" y="126" text-anchor="middle" font-size="13.5" font-weight="700" fill="#FFFFFF">Business Modeling</text>
+  <text x="185" y="144" text-anchor="middle" font-size="11" fill="#A1A1AA">Business processes &amp; info flow</text>
+  <line x1="180" y1="160" x2="180" y2="170" stroke="#39FF14" stroke-width="2" marker-end="url(#arr1)"/>
+  <rect x="50" y="176" width="260" height="56" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="80" cy="204" r="13" fill="#39FF14"/><text x="80" y="209" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">2</text>
+  <text x="185" y="198" text-anchor="middle" font-size="13.5" font-weight="700" fill="#FFFFFF">Data Modeling</text>
+  <text x="185" y="216" text-anchor="middle" font-size="11" fill="#A1A1AA">Data objects &amp; relationships</text>
+  <line x1="180" y1="232" x2="180" y2="242" stroke="#39FF14" stroke-width="2" marker-end="url(#arr1)"/>
+  <rect x="50" y="248" width="260" height="56" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="80" cy="276" r="13" fill="#39FF14"/><text x="80" y="281" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">3</text>
+  <text x="185" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#FFFFFF">Process Modeling</text>
+  <text x="185" y="288" text-anchor="middle" font-size="11" fill="#A1A1AA">Data flow &amp; transformations</text>
+  <line x1="180" y1="304" x2="180" y2="314" stroke="#39FF14" stroke-width="2" marker-end="url(#arr1)"/>
+  <rect x="50" y="320" width="260" height="56" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="80" cy="348" r="13" fill="#39FF14"/><text x="80" y="353" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">4</text>
+  <text x="185" y="342" text-anchor="middle" font-size="13.5" font-weight="700" fill="#FFFFFF">Application Generation</text>
+  <text x="185" y="360" text-anchor="middle" font-size="11" fill="#A1A1AA">Components built in parallel</text>
+  <text x="180" y="398" text-anchor="middle" font-size="11" fill="#A1A1AA">built by parallel teams</text>
+  <rect x="55" y="408" width="80" height="28" rx="14" fill="none" stroke="#39FF14" stroke-width="1.5"/>
+  <text x="95" y="426" text-anchor="middle" font-size="11" font-weight="600" fill="#39FF14">Team A</text>
+  <rect x="140" y="408" width="80" height="28" rx="14" fill="none" stroke="#39FF14" stroke-width="1.5"/>
+  <text x="180" y="426" text-anchor="middle" font-size="11" font-weight="600" fill="#39FF14">Team B</text>
+  <rect x="225" y="408" width="80" height="28" rx="14" fill="none" stroke="#39FF14" stroke-width="1.5"/>
+  <text x="265" y="426" text-anchor="middle" font-size="11" font-weight="600" fill="#39FF14">Team C</text>
+  <line x1="180" y1="436" x2="180" y2="444" stroke="#39FF14" stroke-width="2" marker-end="url(#arr1)"/>
+  <rect x="50" y="450" width="260" height="56" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="80" cy="478" r="13" fill="#39FF14"/><text x="80" y="483" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">5</text>
+  <text x="185" y="472" text-anchor="middle" font-size="13.5" font-weight="700" fill="#FFFFFF">Testing &amp; Turnover</text>
+  <text x="185" y="490" text-anchor="middle" font-size="11" fill="#A1A1AA">Test, integrate &amp; deliver</text>
+  <text x="180" y="532" text-anchor="middle" font-size="11.5" fill="#A1A1AA">Time-boxed • Reusable components • User-driven</text>
+</svg>

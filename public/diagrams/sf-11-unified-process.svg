@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 460" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#39FF14"/>
+    </marker>
+  </defs>
+  <text x="180" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#FFFFFF">Unified Process</text>
+  <text x="180" y="50" text-anchor="middle" font-size="11" fill="#A1A1AA">Iterative • Use-case driven • Architecture-centric</text>
+  <rect x="30" y="64" width="300" height="74" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="58" cy="101" r="13" fill="#39FF14"/><text x="58" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">1</text>
+  <text x="82" y="94" font-size="14" font-weight="700" fill="#FFFFFF">Inception</text>
+  <text x="82" y="116" font-size="11.5" fill="#A1A1AA">Define scope, vision &amp; business case</text>
+  <line x1="180" y1="138" x2="180" y2="146" stroke="#39FF14" stroke-width="2" marker-end="url(#arr5)"/>
+  <rect x="30" y="152" width="300" height="74" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="58" cy="189" r="13" fill="#39FF14"/><text x="58" y="194" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">2</text>
+  <text x="82" y="182" font-size="14" font-weight="700" fill="#FFFFFF">Elaboration</text>
+  <text x="82" y="204" font-size="11.5" fill="#A1A1AA">Architecture baseline, major risks cut</text>
+  <line x1="180" y1="226" x2="180" y2="234" stroke="#39FF14" stroke-width="2" marker-end="url(#arr5)"/>
+  <rect x="30" y="240" width="300" height="74" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="58" cy="277" r="13" fill="#39FF14"/><text x="58" y="282" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">3</text>
+  <text x="82" y="270" font-size="14" font-weight="700" fill="#FFFFFF">Construction</text>
+  <text x="82" y="292" font-size="11.5" fill="#A1A1AA">Build the complete system iteratively</text>
+  <line x1="180" y1="314" x2="180" y2="322" stroke="#39FF14" stroke-width="2" marker-end="url(#arr5)"/>
+  <rect x="30" y="328" width="300" height="74" rx="10" fill="#0d0d0f" stroke="#39FF14" stroke-width="1.5"/>
+  <circle cx="58" cy="365" r="13" fill="#39FF14"/><text x="58" y="370" text-anchor="middle" font-size="13" font-weight="700" fill="#0d0d0f">4</text>
+  <text x="82" y="358" font-size="14" font-weight="700" fill="#FFFFFF">Transition</text>
+  <text x="82" y="380" font-size="11.5" fill="#A1A1AA">Deploy, train users &amp; release</text>
+  <text x="180" y="430" text-anchor="middle" font-size="11" fill="#A1A1AA">Each phase ends with a milestone</text>
+</svg>
