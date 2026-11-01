@@ -53,6 +53,7 @@ export function PracticeClient({
       backHref={`${base}/learn`}
       backLabel="Learn"
       progress={progress}
+      hideBottomSkip
     >
       <PracticePhase
         short={subject.short}

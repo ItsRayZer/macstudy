@@ -202,30 +202,46 @@ export function FlipIcon({ className }: { className?: string }) {
 /**
  * Renders an answer (string array) in the study-friendly format: ONLY the
  * first line (the main full-mark answer) shows, rendered BOLD (the bold
- * styling alone carries it, no label). Below it, a small subtle button
- * toggles the remaining lines (normal weight) open or closed. Single-line
- * answers render bold with no button. Applies everywhere AnswerBlock is
- * used: Learn deep-dive Q&A, Practice reveal, Test full-answer,
- * flashcards, mistake review.
+ * styling alone carries it, no label).
+ *
+ * mode="collapsed" (default): a small subtle "Show full explanation" button
+ * below toggles the remaining lines (normal weight) open or closed. Used in
+ * Practice, Test, flashcards, and mistake review.
+ * mode="full": the full detailed explanation renders directly below the
+ * bold main answer, always visible, no button. Used in Learn theory
+ * deep-dive Q&A blocks.
+ *
+ * Single-line answers render bold with no button in both modes.
  */
-export function AnswerBlock({ lines }: { lines: string[] }) {
+export function AnswerBlock({
+  lines,
+  mode = "collapsed",
+}: {
+  lines: string[];
+  mode?: "full" | "collapsed";
+}) {
   const [open, setOpen] = useState(false);
   const firstIdx = lines.findIndex((l) => l.trim().length > 0);
   if (firstIdx === -1) return null;
   const main = [lines[firstIdx]];
   const rest = lines.slice(firstIdx + 1).filter((l) => l.trim().length > 0);
-  if (rest.length === 0) {
+  const mainView = (
+    <div className="font-semibold text-[var(--text)]">
+      <RichText lines={main} />
+    </div>
+  );
+  if (rest.length === 0) return mainView;
+  if (mode === "full") {
     return (
-      <div className="font-semibold text-[var(--text)]">
-        <RichText lines={main} />
+      <div className="flex flex-col gap-3">
+        {mainView}
+        <RichText lines={rest} />
       </div>
     );
   }
   return (
     <div className="flex flex-col gap-3">
-      <div className="font-semibold text-[var(--text)]">
-        <RichText lines={main} />
-      </div>
+      {mainView}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -679,7 +695,7 @@ function LearnBlocks({
                   {b.q}
                 </p>
                 <div className="mt-3">
-                  <AnswerBlock lines={b.a} />
+                  <AnswerBlock lines={b.a} mode="full" />
                 </div>
               </div>
             </div>

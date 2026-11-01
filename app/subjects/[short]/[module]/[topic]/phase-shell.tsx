@@ -46,6 +46,7 @@ export function PhaseShell({
   backLabel,
   progress,
   children,
+  hideBottomSkip,
 }: {
   short: string;
   num: string;
@@ -55,6 +56,8 @@ export function PhaseShell({
   backLabel: string;
   progress: number;
   children: ReactNode;
+  /** Hide the bottom next-topic button (e.g. Practice has its own in-flow Skip). */
+  hideBottomSkip?: boolean;
 }) {
   const subject = getSubjectLocal(short);
   const mod = subject ? getModuleLocal(subject, num) : undefined;
@@ -152,12 +155,12 @@ export function PhaseShell({
         aria-label="Phase exits"
         className="flex flex-col gap-2 border-t border-[var(--glass-border)] pt-4"
       >
-        {nextHref ? (
+        {nextHref && !hideBottomSkip ? (
           <Link
             href={nextHref}
             className="flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
           >
-            Skip to next question
+            Next topic
             <svg
               viewBox="0 0 24 24"
               fill="none"

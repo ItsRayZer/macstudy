@@ -407,11 +407,28 @@ export function PracticePhase({
         <h2 className="text-[20px] font-bold text-[var(--text)]">
           {isPyq ? "PYQ Practice" : "Practice"}
         </h2>
-        <span className="text-[13px] tabular-nums text-[var(--text-dim)]">
-          {round > 1
-            ? `Review round · ${pos + 1} of ${queue.length}`
-            : `Question ${pos + 1} of ${total}`}
-        </span>
+        <div className="flex items-center gap-2">
+          {pos > 0 ? (
+            <button
+              type="button"
+              onClick={() => {
+                const np = pos - 1;
+                setPos(np);
+                resetStep();
+                reportProgress(np, round, queue.length);
+              }}
+              className="flex min-h-[32px] items-center rounded-full px-3 text-[12px] font-medium text-[var(--text-dim)] transition-colors active:opacity-70"
+              aria-label="Previous question"
+            >
+              Previous
+            </button>
+          ) : null}
+          <span className="text-[13px] tabular-nums text-[var(--text-dim)]">
+            {round > 1
+              ? `Review round · ${pos + 1} of ${queue.length}`
+              : `Question ${pos + 1} of ${total}`}
+          </span>
+        </div>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="-mt-2 text-[13px] text-[var(--text-faint)]">
@@ -593,7 +610,7 @@ export function PracticePhase({
                 Model answer
               </p>
               <div className="mt-2">
-                <AnswerBlock lines={q.a} />
+                <AnswerBlock lines={q.a} mode="collapsed" />
               </div>
             </div>
 
@@ -639,7 +656,7 @@ export function PracticePhase({
                 Model answer
               </p>
               <div className="mt-2">
-                <AnswerBlock lines={q.a} />
+                <AnswerBlock lines={q.a} mode="collapsed" />
               </div>
             </div>
             <div className="mt-4 grid grid-cols-2 gap-2">

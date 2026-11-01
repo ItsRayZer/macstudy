@@ -360,7 +360,7 @@ export function FlashDeck({
                   Answer
                 </p>
                 <div className="mt-4 flex-1">
-                  <AnswerBlock lines={entry.back} />
+                  <AnswerBlock lines={entry.back} mode="collapsed" />
                 </div>
                 <p className="mt-4 text-[12px] text-[var(--text-faint)]">
                   Swipe right if you got it, left if not
