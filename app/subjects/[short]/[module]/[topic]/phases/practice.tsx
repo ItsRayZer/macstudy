@@ -312,7 +312,7 @@ export function PracticePhase({
     setStep("revealed");
   };
 
-  const onNextQ = () => {
+  const onNextQ = (repeatAfter: number[]) => {
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
     const np = pos + 1;
     if (np < queue.length) {
@@ -322,14 +322,15 @@ export function PracticePhase({
       return;
     }
     // End of this pass: repeat the missed/skipped ones, else finish.
-    // (No nested setState: updaters must stay pure.)
-    if (repeat.length > 0) {
-      setQueue(repeat);
+    // (No nested setState: updaters must stay pure. repeatAfter is the
+    // post-click list passed by the caller, never a stale closure read.)
+    if (repeatAfter.length > 0) {
+      setQueue(repeatAfter);
       setRepeat([]);
       setPos(0);
       setRound((r) => r + 1);
       resetStep();
-      reportProgress(0, 2, repeat.length);
+      reportProgress(0, 2, repeatAfter.length);
     } else {
       setFinished(true);
       onProgress(1);
@@ -618,8 +619,9 @@ export function PracticePhase({
               <button
                 type="button"
                 onClick={() => {
-                  if (qIdx != null) dequeueRepeat(qIdx);
-                  onNextQ();
+                  const nr = qIdx != null ? repeat.filter((x) => x !== qIdx) : repeat;
+                  setRepeat(nr);
+                  onNextQ(nr);
                 }}
                 className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold"
               >
@@ -628,8 +630,9 @@ export function PracticePhase({
               <button
                 type="button"
                 onClick={() => {
-                  if (qIdx != null) enqueueRepeat(qIdx);
-                  onNextQ();
+                  const nr = qIdx != null && !repeat.includes(qIdx) ? [...repeat, qIdx] : repeat;
+                  setRepeat(nr);
+                  onNextQ(nr);
                 }}
                 className="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
               >
@@ -663,8 +666,9 @@ export function PracticePhase({
               <button
                 type="button"
                 onClick={() => {
-                  if (qIdx != null) dequeueRepeat(qIdx);
-                  onNextQ();
+                  const nr = qIdx != null ? repeat.filter((x) => x !== qIdx) : repeat;
+                  setRepeat(nr);
+                  onNextQ(nr);
                 }}
                 className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold"
               >
@@ -673,8 +677,9 @@ export function PracticePhase({
               <button
                 type="button"
                 onClick={() => {
-                  if (qIdx != null) enqueueRepeat(qIdx);
-                  onNextQ();
+                  const nr = qIdx != null && !repeat.includes(qIdx) ? [...repeat, qIdx] : repeat;
+                  setRepeat(nr);
+                  onNextQ(nr);
                 }}
                 className="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
               >
