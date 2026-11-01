@@ -114,6 +114,16 @@ export function PracticePhase({
   // Answer mode for the current question.
   const isQT = short === "QT";
   const isTableQ = isQT && q != null && /table|frequency distribution/i.test(q.q);
+  // Working pad only for numerical QT questions: a digit in the question, or a
+  // numerical keyword. Pure theory questions get the normal answer textarea.
+  const isNumericalQ =
+    isQT &&
+    !isTableQ &&
+    q != null &&
+    (/\d/.test(q.q) ||
+      /calculat|comput|find|determin|mean|median|mode|deviation|variance|regression|correlation|probab/i.test(
+        q.q,
+      ));
   const isCodeQ =
     short === "PYTHON" && q != null && isProgrammingQuestion(q.q, q.a);
 
@@ -222,7 +232,7 @@ export function PracticePhase({
     if (q == null) return "";
     if (isCodeQ) return code;
     if (isTableQ) return flattenTable(table);
-    if (isQT) return steps.filter((s) => s.trim()).join("\n");
+    if (isNumericalQ) return steps.filter((s) => s.trim()).join("\n");
     return draft;
   };
 
@@ -283,8 +293,8 @@ export function PracticePhase({
     const text = currentUserText();
     const g = gradeAnswer(keyTerms, text);
     let score = gradeScore(g);
-    if (isQT) {
-      // Numerical questions: numbers must match too (rounding-tolerant).
+    if (isNumericalQ || isTableQ) {
+      // Numerical/table questions: numbers must match too (rounding-tolerant).
       const nums = expectedNumbers(qq.a);
       if (nums.length > 0) score = 0.5 * score + 0.5 * gradeNumbers(nums, text);
     }
@@ -330,7 +340,7 @@ export function PracticePhase({
     ? "Write the program, run it, then check."
     : isTableQ
       ? "Fill the table the way you'd write it in the exam."
-      : isQT
+      : isNumericalQ
         ? "Show your working step by step."
         : "Type the answer in your own words - no options here.";
 
@@ -338,7 +348,7 @@ export function PracticePhase({
     ? "Your program"
     : isTableQ
       ? "Your table"
-      : isQT
+      : isNumericalQ
         ? "Your working"
         : "Your answer";
 
@@ -440,9 +450,11 @@ export function PracticePhase({
           <PyqOnlyToggle value={pyqOnly} onChange={togglePyqOnly} />
         )}
       </div>
-      <p className="-mt-2 text-[12px] text-[var(--text-faint)]">
-        SURE MARK first, then REPEATED, then IMPORTANT.
-      </p>
+      {isTableQ || isNumericalQ ? (
+        <p className="-mt-2 text-[12px] text-[var(--text-faint)]">
+          SURE MARK first, then REPEATED, then IMPORTANT.
+        </p>
+      ) : null}
 
       <GlassCard key={qIdx} className="rise-in">
         <div className="flex items-start justify-between gap-2">
@@ -479,10 +491,10 @@ export function PracticePhase({
             {isTableQ ? (
               <TablePad table={table} onChange={setTable} />
             ) : null}
-            {isQT && !isTableQ ? (
+            {isNumericalQ ? (
               <WorkingPad steps={steps} onChange={setSteps} />
             ) : null}
-            {!isQT && !isCodeQ ? (
+            {!isCodeQ && !isTableQ && !isNumericalQ ? (
               <textarea
                 id="practice-answer"
                 value={draft}

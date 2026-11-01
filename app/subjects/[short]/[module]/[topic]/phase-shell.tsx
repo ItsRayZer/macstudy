@@ -157,7 +157,7 @@ export function PhaseShell({
             href={nextHref}
             className="flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
           >
-            Skip to next topic
+            Skip to next question
             <svg
               viewBox="0 0 24 24"
               fill="none"
