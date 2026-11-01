@@ -172,19 +172,19 @@ export function SubjectView({ short }: { short: string }) {
             </span>
           </Link>
           <Link
-            href={`/subjects/${subject.short}/pyq-practice`}
+            href={`/subjects/${subject.short}/practice`}
             className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
-            aria-label={`${subject.name} PYQ practice`}
+            aria-label={`${subject.name} practice hub`}
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
               <ZapIcon className="h-5 w-5" />
             </span>
             <span className="min-w-0">
               <span className="block text-[13px] font-bold text-[var(--text)]">
-                Practice PYQs
+                Practice
               </span>
               <span className="block truncate text-[11px] tabular-nums text-[var(--text-faint)]">
-                {pyqCount} PYQs{pyqPercent > 0 ? ` · ${pyqPercent}%` : ""}
+                Mock, PYQs, cram
               </span>
             </span>
           </Link>
@@ -222,38 +222,23 @@ export function SubjectView({ short }: { short: string }) {
               </span>
             </span>
           </Link>
-          <GlassCard className="flex flex-col gap-2 p-3!">
+          <Link
+            href={`/subjects/${subject.short}/library`}
+            className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
+            aria-label={`${subject.name} library`}
+          >
             <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
               <BookIcon className="h-5 w-5" />
             </span>
             <span className="min-w-0">
               <span className="block text-[13px] font-bold text-[var(--text)]">
-                Notes PDF
+                Library
               </span>
               <span className="block truncate text-[11px] text-[var(--text-faint)]">
-                Full subject notes
+                Papers, notes, modules
               </span>
             </span>
-            <span className="grid grid-cols-2 gap-1.5">
-              <a
-                href={`/pdfs/${subject.short}-Complete.pdf`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-h-[36px] items-center justify-center rounded-xl bg-[var(--track)] text-[12px] font-semibold text-[var(--text)] active:opacity-80"
-                aria-label={`Open complete notes PDF for ${subject.name}`}
-              >
-                Open
-              </a>
-              <a
-                href={`/pdfs/${subject.short}-Complete.pdf`}
-                download={`${subject.short}-Complete.pdf`}
-                className="cta-neon flex min-h-[36px] items-center justify-center rounded-xl text-[12px] font-bold"
-                aria-label={`Download complete notes PDF for ${subject.name}`}
-              >
-                Save
-              </a>
-            </span>
-          </GlassCard>
+          </Link>
         </div>
       </header>
 

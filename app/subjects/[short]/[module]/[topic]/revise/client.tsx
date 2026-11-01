@@ -3,7 +3,8 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { saveTopicPhase } from "../../../../../../lib/topic-resume";
 import { PhaseShell } from "../phase-shell";
 import dynamic from "next/dynamic";
 

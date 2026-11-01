@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "../components/ui";
 import { ThemeSync } from "../components/theme-sync";
+import { PdfPrefetch } from "../components/pdf-prefetch";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,6 +68,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       <body className="min-h-dvh">
         <ThemeSync />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}`,
+          }}
+        />
+        <PdfPrefetch />
         <div className="relative mx-auto flex min-h-dvh w-full max-w-[480px] flex-col px-4 pb-24 pt-6">
           {children}
         </div>

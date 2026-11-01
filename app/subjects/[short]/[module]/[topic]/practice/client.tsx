@@ -4,7 +4,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { saveTopicPhase } from "../../../../../../lib/topic-resume";
 import { PhaseShell } from "../phase-shell";
 import dynamic from "next/dynamic";
 
@@ -35,6 +36,10 @@ export function PracticeClient({
   slug: string;
 }) {
   const router = useRouter();
+
+  useEffect(() => {
+    saveTopicPhase(short, num, slug, "practice");
+  }, [short, num, slug]);
   const [progress, setProgress] = useState(0);
 
   const subject = getSubjectLocal(short);
