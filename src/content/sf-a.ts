@@ -440,6 +440,28 @@ export const sfModulesA: Module[] = [
                 "Example: picking waterfall for a hospital system whose rules keep changing risks delivering a system nobody wants.",
                 "In short, model selection must weigh requirement, technical, schedule and people risks before the project starts."
               ]
+            },
+            {
+              "q": "Write the advantages and disadvantages of waterfall model.",
+              "tags": [
+                "REPEATED"
+              ],
+              "tagBase": "REPEATED",
+              "years": "Feb 2025, Mar 2021, Aug 2022",
+              "a": [
+                "The waterfall model is simple and easy to manage when requirements are fixed, but it fails badly when requirements change.",
+                "Advantage 1: simple and easy to understand, each stage flows naturally into the next.",
+                "Advantage 2: easy to manage, because stages are fixed and progress is easy to track.",
+                "Advantage 3: clear milestones and deliverables at the end of every stage.",
+                "Advantage 4: good documentation, since every stage is fully documented before moving on.",
+                "Advantage 5: works well for small projects with clear, stable requirements, like an ATM system.",
+                "Disadvantage 1: real projects rarely have fixed requirements at the start.",
+                "Disadvantage 2: any change after a stage is done is very expensive to make.",
+                "Disadvantage 3: the customer sees working software only at the very end.",
+                "Disadvantage 4: no early feedback, so misunderstandings are found very late.",
+                "Disadvantage 5: testing happens only near the end, so risks pile up unseen.",
+                "In short, waterfall suits stable requirements and fails wherever change is expected."
+              ]
             }
           ]
         },

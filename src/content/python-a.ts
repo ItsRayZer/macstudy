@@ -954,6 +954,27 @@ export const pythonModulesA: Module[] = [
                 "    print(\"Factorial:\", fact)",
                 "Both versions multiply 1 to n; for manages the counter while while needs a manual i += 1."
               ]
+            },
+            {
+              "q": "Explain for loops with a suitable program.",
+              "tags": [
+                "REPEATED"
+              ],
+              "tagBase": "REPEATED",
+              "years": "Nov 2025",
+              "a": [
+                "A for loop repeats a block of code once for each item in a sequence, like a list or a range.",
+                "Syntax: for variable in sequence: followed by the indented body.",
+                "range(n) gives 0 to n-1; range(1, 6) gives 1, 2, 3, 4, 5.",
+                "The loop variable takes each value in turn, and the indented body runs once per value.",
+                "    total = 0",
+                "    for i in range(1, 6):",
+                "        total = total + i",
+                "    print(\"Sum:\", total)",
+                "Trace: i takes 1, 2, 3, 4, 5, so total becomes 1, 3, 6, 10, 15.",
+                "Output: Sum: 15.",
+                "for loops suit a known number of repetitions; while loops suit counts decided while running."
+              ]
             }
           ]
         }

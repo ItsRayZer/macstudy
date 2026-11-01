@@ -112,6 +112,58 @@ export const qtModulesB: Module[] = [
                 "Corrected mean = 918 / 20 = 45.9.",
                 "Answer: the corrected mean is 45.9."
               ]
+            },
+            {
+              "q": "What is harmonic mean? Find the harmonic mean of 2, 3 and 4.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "hint": "This is a harmonic mean problem: flip each value, average, then flip back.",
+              "a": [
+                "Harmonic mean is the reciprocal of the arithmetic mean of the reciprocals; for 2, 3 and 4 it is 2.77.",
+                "Definition: HM = n / (1/x1 + 1/x2 + ... + 1/xn).",
+                "It is the right average for rates and speeds, where the simple mean gives a wrong answer.",
+                "Worked: reciprocals are 1/2, 1/3 and 1/4; their sum is 6/12 + 4/12 + 3/12 = 13/12.",
+                "HM = 3 / (13/12) = 36/13 = 2.77.",
+                "Answer: the harmonic mean of 2, 3 and 4 is 2.77."
+              ]
+            },
+            {
+              "q": "A motor car travels 60 km at 30 km/h and returns the same 60 km at 20 km/h. Find the average speed.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "hint": "This is an average-speed problem: use the harmonic mean, not the simple average.",
+              "a": [
+                "The average speed is 24 km/h.",
+                "Time for the forward trip = 60 / 30 = 2 hours; time for the return = 60 / 20 = 3 hours.",
+                "Total distance = 60 + 60 = 120 km; total time = 2 + 3 = 5 hours.",
+                "Average speed = total distance / total time = 120 / 5 = 24 km/h.",
+                "Check with the harmonic mean formula: 2 / (1/30 + 1/20) = 2 / (5/60) = 24.",
+                "Note: the simple average (30 + 20) / 2 = 25 is wrong, because more time is spent at the slower speed.",
+                "Answer: 24 km/h."
+              ]
+            },
+            {
+              "q": "Find the geometric mean of 3, 6, 24 and 48.",
+              "tags": [
+                "REPEATED"
+              ],
+              "tagBase": "REPEATED",
+              "years": "P3 2019, P1 2024",
+              "hint": "This is a geometric mean problem: multiply all values, then take the nth root.",
+              "a": [
+                "The geometric mean of 3, 6, 24 and 48 is 12.",
+                "Definition: GM = nth root of the product of n values; it suits growth rates and ratios.",
+                "Product = 3 x 6 x 24 x 48 = 20736.",
+                "GM = 4th root of 20736.",
+                "Since 12 x 12 x 12 x 12 = 20736, the 4th root is 12.",
+                "Answer: 12."
+              ]
             }
           ]
         },
@@ -616,6 +668,20 @@ export const qtModulesB: Module[] = [
                 "f|x-mean| values: 170.4, 92.0, 67.2, 24.0, 81.2, 129.6, 94.8; sum = 659.2.",
                 "Mean deviation = 659.2/50 = 13.18.",
                 "Answer: the mean deviation from mean is 13.18 years."
+              ]
+            },
+            {
+              "q": "Define dispersion.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "a": [
+                "Dispersion measures how spread out the data values are around the average.",
+                "An average alone can mislead: two classes can have the same mean marks but very different spreads.",
+                "Common measures of dispersion are range, quartile deviation, mean deviation and standard deviation.",
+                "Low dispersion means the data is consistent; high dispersion means it varies widely."
               ]
             }
           ]
@@ -1175,6 +1241,36 @@ export const qtModulesB: Module[] = [
                 "This point is the average of x and the average of y taken together.",
                 "If r = +1 or r = -1, that is perfect correlation, the two lines merge into a single line.",
                 "The smaller the angle between the two lines, the higher the correlation."
+              ]
+            },
+            {
+              "q": "What is a line of best fit?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "a": [
+                "The line of best fit is the straight line that passes closest to all the points in a scatter diagram.",
+                "It summarises the trend: a rising line means positive correlation, a falling line means negative correlation.",
+                "It is drawn so that the total distance of all points from the line is as small as possible (the least-squares line).",
+                "Its equation is the regression line, which is then used to predict one variable from another."
+              ]
+            },
+            {
+              "q": "The regression equation of rice yield (y) on rainfall (x) is y = 12 + 0.8x. Estimate the rice yield when rainfall is 29 cm.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "hint": "This is a regression estimate: put the given x into the regression equation to predict y.",
+              "a": [
+                "The estimated rice yield is 35.2 when rainfall is 29 cm.",
+                "Substitute x = 29 into y = 12 + 0.8x.",
+                "y = 12 + 0.8 x 29 = 12 + 23.2 = 35.2.",
+                "This is a regression estimate: predicting y from a given x using the line of best fit.",
+                "Answer: 35.2 (in the yield units)."
               ]
             }
           ]
