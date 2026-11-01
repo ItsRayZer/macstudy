@@ -129,7 +129,7 @@ export function SubjectView({ short }: { short: string }) {
           <Link
             href="/subjects"
             aria-label="Back to subjects"
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-2xl text-[var(--text)] active:bg-[var(--track)]"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center self-start rounded-2xl text-[var(--text)] active:bg-[var(--track)]"
           >
             <BackIcon className="h-6 w-6" />
           </Link>

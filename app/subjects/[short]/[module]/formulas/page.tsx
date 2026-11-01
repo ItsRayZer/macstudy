@@ -55,7 +55,7 @@ export default async function FormulasPage({
           <Link
             href={`/subjects/${subject.short}/${mod.num}`}
             aria-label={`Back to ${mod.title}`}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-2xl text-[var(--text)] active:bg-[var(--track)]"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center self-start rounded-2xl text-[var(--text)] active:bg-[var(--track)]"
           >
             <BackIcon className="h-6 w-6" />
           </Link>

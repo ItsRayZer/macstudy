@@ -180,7 +180,7 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
           <Link
             href={`/subjects/${subject.short}`}
             aria-label={`Back to ${subject.name}`}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-2xl text-[var(--text)] active:bg-[var(--track)]"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center self-start rounded-2xl text-[var(--text)] active:bg-[var(--track)]"
           >
             <BackIcon className="h-6 w-6" />
           </Link>
