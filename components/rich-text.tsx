@@ -11,6 +11,7 @@
 import { useRef, useState, type ReactNode } from "react";
 import { runPython } from "../lib/pyodide-run";
 import { FormulaCard } from "./formula-card";
+import { formatMath } from "../lib/math-format";
 
 export type RichBlock =
   | { kind: "p"; text: string }
@@ -238,7 +239,9 @@ function ExampleBox({ children }: { children: ReactNode }) {
 }
 
 export function RichText({ lines }: { lines: string[] }) {
-  const blocks = parseRichText(lines);
+  // Format math notation (superscripts, subscripts) for proper display.
+  const formatted = lines.map((l) => formatMath(l));
+  const blocks = parseRichText(formatted);
 
   const rendered: ReactNode[] = [];
   let i = 0;

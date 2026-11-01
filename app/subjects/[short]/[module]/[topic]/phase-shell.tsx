@@ -140,7 +140,7 @@ export function PhaseShell({
       <header>
         <Link
           href={backHref}
-          className="inline-flex min-h-[44px] items-center gap-2 text-[15px] font-medium text-[var(--text-dim)]"
+          className="mb-4 flex min-h-[48px] w-full items-center gap-2 rounded-2xl bg-[var(--track)] px-4 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
           aria-label={backLabel}
         >
           <BackArrowIcon />
