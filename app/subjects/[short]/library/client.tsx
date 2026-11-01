@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { GlassCard, TabBarSpacer } from "../../../../components/ui";
+import { RowCard, TabBarSpacer } from "../../../../components/ui";
 import { getSubjectLocal } from "../../../../lib/study";
 import { NOTEBOOK_LINKS } from "../../../../lib/notebooklm";
 
@@ -98,22 +98,7 @@ export function LibraryClient({ short, name }: { short: string; name: string }) 
           </h2>
           <div className="mt-3 flex flex-col gap-3">
             {pyqs.map((p) => (
-              <a key={p.url} href={p.url} target="_blank" rel="noopener">
-                <GlassCard className="flex items-center gap-3 p-4!">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
-                    <DocIcon className="h-5 w-5" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[14px] font-bold text-[var(--text)]">
-                      {p.title}
-                    </span>
-                    <span className="block text-[12px] text-[var(--text-faint)]">
-                      {p.sub}
-                    </span>
-                  </span>
-                  <span className="text-[var(--text-faint)]">›</span>
-                </GlassCard>
-              </a>
+              <a key={p.url} href={p.url} target="_blank" rel="noopener" className="block"><RowCard icon={<DocIcon className="h-5 w-5" />} title={p.title} subtitle={p.sub} /></a>
             ))}
           </div>
         </>
@@ -124,22 +109,7 @@ export function LibraryClient({ short, name }: { short: string; name: string }) 
         Complete Notes
       </h2>
       <div className="mt-3">
-        <a href={completeUrl} target="_blank" rel="noopener">
-          <GlassCard className="flex items-center gap-3 p-4!">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
-              <DocIcon className="h-5 w-5" />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-[14px] font-bold text-[var(--text)]">
-                {name} - Complete
-              </span>
-              <span className="block text-[12px] text-[var(--text-faint)]">
-                Full subject notes
-              </span>
-            </span>
-            <span className="text-[var(--text-faint)]">›</span>
-          </GlassCard>
-        </a>
+        <a href={completeUrl} target="_blank" rel="noopener" className="block"><RowCard icon={<DocIcon className="h-5 w-5" />} title={`${name} - Complete`} subtitle="Full subject notes" /></a>
       </div>
 
       {/* NotebookLM */}
@@ -151,22 +121,7 @@ export function LibraryClient({ short, name }: { short: string; name: string }) 
               NotebookLM
             </h2>
             <div className="mt-3">
-              <a href={nlm.url} target="_blank" rel="noopener noreferrer">
-                <GlassCard className="flex items-center gap-3 p-4!">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
-                    <NlmIcon className="h-5 w-5" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-[14px] font-bold text-[var(--text)]">
-                      {name} Notebook
-                    </span>
-                    <span className="block text-[12px] text-[var(--text-faint)]">
-                      Audio, mind map, chat
-                    </span>
-                  </span>
-                  <span className="text-[var(--text-faint)]">›</span>
-                </GlassCard>
-              </a>
+              <a href={nlm.url} target="_blank" rel="noopener noreferrer" className="block"><RowCard icon={<NlmIcon className="h-5 w-5" />} title={`${name} Notebook`} subtitle="Audio, mind map, chat" /></a>
             </div>
           </>
         ) : null;
@@ -178,27 +133,7 @@ export function LibraryClient({ short, name }: { short: string; name: string }) 
       </h2>
       <div className="mt-3 flex flex-col gap-3">
         {modules.map((m) => (
-          <a
-            key={m.num}
-            href={`/pdfs/${short}-M${m.num}.pdf`}
-            target="_blank"
-            rel="noopener"
-          >
-            <GlassCard className="flex items-center gap-3 p-4!">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--track)] text-[16px] font-bold text-[var(--text)]">
-                {m.num}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-[14px] font-bold text-[var(--text)]">
-                  {m.title}
-                </span>
-                <span className="block text-[12px] text-[var(--text-faint)]">
-                  Module {m.num} notes
-                </span>
-              </span>
-              <span className="text-[var(--text-faint)]">›</span>
-            </GlassCard>
-          </a>
+          <a key={m.num} href={`/pdfs/${short}-M${m.num}.pdf`} target="_blank" rel="noopener" className="block"><RowCard icon={<span className="text-[14px] font-bold">{m.num}</span>} title={m.title} subtitle={`Module ${m.num} notes`} iconBg="track" /></a>
         ))}
       </div>
 
