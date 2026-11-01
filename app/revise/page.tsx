@@ -11,6 +11,7 @@ import {
   EmptyState,
   GlassCard,
   Pill,
+  RowCard,
   TabBarSpacer,
 } from "../../components/ui";
 import { getDB, type Bookmark, type MistakeEntry } from "../../lib/db";
@@ -140,20 +141,12 @@ function PracticeTab() {
                     href={`/subjects/${s.short}/${m.num}`}
                     aria-label={`Practice ${s.name} module ${m.num}`}
                   >
-                    <GlassCard className="flex items-center gap-3 p-4! transition-transform active:scale-[0.99]">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-bold text-[var(--text)]">
-                        {m.num}
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[14px] font-bold text-[var(--text)]">
-                          {m.title}
-                        </span>
-                        <span className="block text-[12px] text-[var(--text-faint)]">
-                          Practice questions
-                        </span>
-                      </span>
-                      <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-                    </GlassCard>
+                    <RowCard
+                      icon={<span className="text-[14px] font-bold">{m.num}</span>}
+                      title={m.title}
+                      subtitle="Practice questions"
+                      iconBg="track"
+                    />
                   </Link>
                 ))}
               </div>
@@ -182,22 +175,11 @@ function FlashcardsTab({ dueFlash }: { dueFlash: Record<string, number> }) {
             className="block min-h-[44px]"
             aria-label={`${s.name} flashcards, ${total} cards, ${due} due`}
           >
-            <GlassCard className="transition-transform active:scale-[0.99]">
-              <div className="flex items-center gap-3 p-4!">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[14px] font-bold text-[var(--neon-soft)]">
-                  {s.short.slice(0, 2)}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-[14px] font-bold text-[var(--text)]">
-                    {s.name}
-                  </p>
-                  <p className="truncate text-[12px] tabular-nums text-[var(--text-faint)]">
-                    {total} cards{due > 0 ? ` · ${due} due` : " · all caught up"}
-                  </p>
-                </div>
-                <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-              </div>
-            </GlassCard>
+            <RowCard
+              icon={<span className="text-[14px] font-bold">{s.short.slice(0, 2)}</span>}
+              title={s.name}
+              subtitle={`${total} cards${due > 0 ? ` · ${due} due` : " · all caught up"}`}
+            />
           </Link>
         );
       })}
@@ -263,20 +245,12 @@ function FormulasTab() {
                       href={`/subjects/${short}/${num}/formulas`}
                       aria-label={`Formula chart: ${subj?.name} module ${num}`}
                     >
-                      <GlassCard className="flex items-center gap-3 p-4! transition-transform active:scale-[0.99]">
-                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-bold text-[var(--text)]">
-                          {num}
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate text-[14px] font-bold text-[var(--text)]">
-                            {mod?.title ?? `Module ${num}`}
-                          </span>
-                          <span className="block text-[12px] text-[var(--text-faint)]">
-                            Formula chart
-                          </span>
-                        </span>
-                        <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-                      </GlassCard>
+                      <RowCard
+                        icon={<span className="text-[14px] font-bold">{num}</span>}
+                        title={mod?.title ?? `Module ${num}`}
+                        subtitle="Formula chart"
+                        iconBg="track"
+                      />
                     </Link>
                   );
                 })}
