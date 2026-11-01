@@ -17,6 +17,7 @@ import {
   GlassCard,
   ProgressBar,
 } from "./ui";
+import { getDB } from "../lib/db";
 import {
   BookmarkButton,
   type BookmarkRef,
@@ -288,6 +289,8 @@ export function FlashDeck({
   const markKnown = () => {
     const e = entry;
     if (!e) return;
+    // Award XP for "Got it" (flashcard XP, user request).
+    void getDB().addXP(2, "flashcard");
     flyAndAdvance(1, () => reviewCard(e.key, Rating.Good));
   };
 

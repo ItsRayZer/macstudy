@@ -334,6 +334,7 @@ export function PracticePhase({
         setGraded(g);
         setVerdictOk(v.ok);
         if (!v.ok) enqueueRepeat(qi);
+        else void getDB().addXP(3, "practice");
         setStep("graded");
         void enhanceWithRemote(qi, qq, v.userText, v.ok);
       } finally {
@@ -354,6 +355,7 @@ export function PracticePhase({
     setGraded(g);
     setVerdictOk(ok);
     if (!ok) enqueueRepeat(qi);
+    else void getDB().addXP(3, "practice");
     setStep("graded");
     void enhanceWithRemote(qi, qq, text, ok);
   };
