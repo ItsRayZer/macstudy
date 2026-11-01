@@ -144,6 +144,7 @@ export function samplePart(
   count: number,
   prefer: TagBase[],
   used: Set<string>,
+  partMarks?: number,
 ): LocatedQuestion[] {
   const key = (q: LocatedQuestion) =>
     `${q.module}::${q.topic}::${q.qIndex}`;
@@ -155,8 +156,13 @@ export function samplePart(
 
   // Rank every available question, shuffle ties, then take round-robin
   // across modules so the paper spreads over the whole syllabus.
+  // Claude review fix: filter by explicit marks field when partMarks is given,
+  // so Part C gets real 15-mark questions, not 2-mark definitions.
   const ranked = pool
     .filter((q) => !used.has(key(q)))
+    .filter((q) =>
+      partMarks == null ? true : (q.question.marks ?? 0) === partMarks
+    )
     .map((q) => ({ q, r: rank(q) }))
     .sort((a, b) => a.r - b.r);
   const shuffledRanked: LocatedQuestion[] = [];
@@ -213,7 +219,7 @@ export function buildPaper(short: string): PaperQuestion[] | null {
   const used = new Set<string>();
   const paper: PaperQuestion[] = [];
   for (const part of config.parts) {
-    const sampled = samplePart(pool, part.count, part.prefer, used);
+    const sampled = samplePart(pool, part.count, part.prefer, used, part.marks);
     for (const q of sampled) {
       paper.push({ ...q, part: part.id, marks: part.marks });
     }

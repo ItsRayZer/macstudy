@@ -497,6 +497,189 @@ export const FORMULAS: ModuleFormulas[] = [
       },
     ],
   },
+  // ----------------------------------------------------- DBMS module 1 ---
+  {
+    subject: "DBMS",
+    module: "1",
+    groups: [
+      {
+        topic: "DBMS Basics",
+        items: [
+          { label: "ACID properties", formula: "Atomicity, Consistency, Isolation, Durability", where: "transaction guarantees" },
+          { label: "Three-schema architecture", formula: "External -> Conceptual -> Internal", where: "view, logical, physical levels" },
+          { label: "Data independence types", formula: "Logical + Physical", where: "change schema without affecting above" },
+        ],
+      },
+    ],
+  },
+  // ----------------------------------------------------- DBMS module 2 ---
+  {
+    subject: "DBMS",
+    module: "2",
+    groups: [
+      {
+        topic: "ER Model",
+        items: [
+          { label: "Entity -> Table", formula: "Each entity set becomes a table", where: "ER to relational mapping" },
+          { label: "1:N relationship", formula: "Foreign key on N side", where: "e.g. Dept (1) -> Emp (N)" },
+          { label: "M:N relationship", formula: "Separate junction table", where: "with FKs to both sides" },
+        ],
+      },
+      {
+        topic: "SQL Patterns",
+        items: [
+          { label: "Basic select", formula: "SELECT cols FROM table WHERE cond", where: "cols=* for all" },
+          { label: "Join", formula: "SELECT * FROM A JOIN B ON A.id = B.a_id", where: "inner join on FK" },
+          { label: "Aggregate with filter", formula: "SELECT COUNT(*) FROM t WHERE x > 5", where: "COUNT, SUM, AVG, MIN, MAX" },
+          { label: "Group by", formula: "SELECT dept, COUNT(*) FROM emp GROUP BY dept", where: "aggregate per group" },
+        ],
+      },
+    ],
+  },
+  // ----------------------------------------------------- DBMS module 3 ---
+  {
+    subject: "DBMS",
+    module: "3",
+    groups: [
+      {
+        topic: "Normalization",
+        items: [
+          { label: "1NF", formula: "Atomic values only, no repeating groups", where: "first normal form" },
+          { label: "2NF", formula: "1NF + no partial dependency", where: "non-key attrs depend on whole key" },
+          { label: "3NF", formula: "2NF + no transitive dependency", where: "non-key attrs depend only on key" },
+          { label: "BCNF", formula: "Every determinant is a candidate key", where: "stricter than 3NF" },
+        ],
+      },
+    ],
+  },
+  // ----------------------------------------------------- DBMS module 4 ---
+  {
+    subject: "DBMS",
+    module: "4",
+    groups: [
+      {
+        topic: "Transactions",
+        items: [
+          { label: "Transaction states", formula: "Active -> Partially Committed -> Committed / Failed -> Aborted", where: "state diagram" },
+          { label: "Serializability", formula: "Conflict-equivalent to a serial schedule", where: "correctness criterion" },
+        ],
+      },
+    ],
+  },
+  // -------------------------------------------------------- SF module 1 ---
+  {
+    subject: "SF",
+    module: "1",
+    groups: [
+      {
+        topic: "Process Models",
+        items: [
+          { label: "Waterfall phases", formula: "Req -> Design -> Code -> Test -> Maintain", where: "linear sequential" },
+          { label: "Spiral quadrants", formula: "Plan -> Risk -> Develop -> Evaluate", where: "iterative, risk-driven" },
+        ],
+      },
+    ],
+  },
+  // -------------------------------------------------------- SF module 2 ---
+  {
+    subject: "SF",
+    module: "2",
+    groups: [
+      {
+        topic: "Testing & Metrics",
+        items: [
+          { label: "Cyclomatic complexity", formula: "V(G) = E - N + 2P", where: "E=edges, N=nodes, P=components" },
+          { label: "Basis path testing", formula: "Test each independent path", where: "paths = V(G)" },
+        ],
+      },
+    ],
+  },
+  // -------------------------------------------------------- SF module 3 ---
+  {
+    subject: "SF",
+    module: "3",
+    groups: [
+      {
+        topic: "Estimation",
+        items: [
+          { label: "COCOMO basic", formula: "Effort = a x (KLOC)^b", where: "a,b depend on project mode" },
+          { label: "Function points", formula: "FP = UFC x TCF", where: "unadjusted x technical complexity" },
+        ],
+      },
+    ],
+  },
+  // ---------------------------------------------------- Python module 1 ---
+  {
+    subject: "PYTHON",
+    module: "1",
+    groups: [
+      {
+        topic: "Core Syntax",
+        items: [
+          { label: "List slicing", formula: "a[start:stop:step]", where: "stop exclusive, step optional" },
+          { label: "List comprehension", formula: "[x*2 for x in a if x > 0]", where: "compact loop+filter" },
+          { label: "Dict access", formula: "d.get(key, default)", where: "safe, no KeyError" },
+        ],
+      },
+    ],
+  },
+  // ---------------------------------------------------- Python module 2 ---
+  {
+    subject: "PYTHON",
+    module: "2",
+    groups: [
+      {
+        topic: "Functions & Files",
+        items: [
+          { label: "Function with defaults", formula: "def f(a, b=10, *args, **kw)", where: "*args tuple, **kw dict" },
+          { label: "File read", formula: "with open(f) as fh: data = fh.read()", where: "auto-closes file" },
+          { label: "Exception", formula: "try: ... except E as e: ... finally: ...", where: "finally always runs" },
+        ],
+      },
+    ],
+  },
+  // ---------------------------------------------------- Python module 3 ---
+  {
+    subject: "PYTHON",
+    module: "3",
+    groups: [
+      {
+        topic: "OOP & Libraries",
+        items: [
+          { label: "Class basics", formula: "class A(B): def __init__(self): ...", where: "B is parent, self is instance" },
+          { label: "NumPy array", formula: "np.array([1,2,3])", where: "vectorized ops" },
+        ],
+      },
+    ],
+  },
+  // -------------------------------------------------------- FE module 1 ---
+  {
+    subject: "FE",
+    module: "1",
+    groups: [
+      {
+        topic: "Feature Basics",
+        items: [
+          { label: "Standardization", formula: "z = (x - mean) / std", where: "zero mean, unit variance" },
+          { label: "Min-max scaling", formula: "x' = (x - min) / (max - min)", where: "range [0,1]" },
+        ],
+      },
+    ],
+  },
+  // -------------------------------------------------------- FE module 2 ---
+  {
+    subject: "FE",
+    module: "2",
+    groups: [
+      {
+        topic: "Dimensionality",
+        items: [
+          { label: "PCA idea", formula: "Keep top-k eigenvectors of covariance", where: "max variance directions" },
+          { label: "Explained variance", formula: "sum(top-k eigenvalues) / sum(all)", where: "fraction retained" },
+        ],
+      },
+    ],
+  },
 ];
 
 /** Formula chart for a module, or undefined when the module has none. */
