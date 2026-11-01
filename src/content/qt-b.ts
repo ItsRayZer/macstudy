@@ -24,6 +24,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The arithmetic mean is the most common average. It is the sum of all the values divided by the number of values.",
@@ -45,6 +47,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The formula for an individual series is xbar = (sum of x) / N.",
@@ -67,6 +71,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The arithmetic mean is easy to calculate and simple to understand, even for a beginner.",
@@ -87,6 +93,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "For a continuous series the direct method uses class mid-points: Mean = sum(fx) / N.",
@@ -104,6 +112,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a corrected-mean problem: one wrong value must be replaced by the correct one.",
               "a": [
@@ -133,6 +143,8 @@ export const qtModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "numerical",
+              "marks": 6,
               "years": null,
               "a": [
                 "When mid-values are given, first reconstruct the classes; the gap between mid-values is 10, so classes are 110-120, 120-130, up to 190-200.",
@@ -150,6 +162,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The median is the middle value of a dataset when all values are arranged in ascending order.",
@@ -170,6 +184,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The data 4, 8, 10, 14 is already in ascending order.",
@@ -188,6 +204,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Income data is highly skewed because a few people earn very high incomes.",
@@ -217,6 +235,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The mode is the value that occurs most frequently in a dataset.",
@@ -235,6 +255,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The mode is the best average when we want the most common or most popular value.",
@@ -251,6 +273,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a 'marks above' cumulative table; first convert it to ordinary frequencies by subtraction.",
               "a": [
@@ -279,6 +303,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "For a moderately skewed distribution, the three averages are connected by an empirical formula.",
@@ -298,6 +324,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The empirical relationship is: Mode = 3*Median - 2*Mean.",
@@ -346,6 +374,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Draw the less-than ogive (cumulative frequency plotted against upper class limits).",
@@ -369,6 +399,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "First draw the histogram of the frequency distribution.",
@@ -400,6 +432,8 @@ export const qtModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "numerical",
+              "marks": 6,
               "years": null,
               "a": [
                 "The formula for weighted mean is xbar_w = (sum of w*x) / (sum of w).",
@@ -420,6 +454,8 @@ export const qtModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "numerical",
+              "marks": 6,
               "years": null,
               "hint": "This is a weighted-mean problem: first find the number of workers in each wage group.",
               "a": [
@@ -438,6 +474,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The combined mean merges two groups into one single average, giving each group's mean a weight equal to its size.",
@@ -457,6 +495,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The combined mean joins the means of two or more groups into one overall mean.",
@@ -476,6 +516,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a combined-mean problem solved backwards to find the missing group's mean.",
               "a": [
@@ -506,6 +548,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Quartiles divide the ordered data into 4 equal parts: Q1, Q2, Q3.",
@@ -525,6 +569,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The data 3, 7, 8, 12, 15, 18, 21 is already in ascending order.",
@@ -556,6 +602,8 @@ export const qtModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "numerical",
+              "marks": 6,
               "years": null,
               "a": [
                 "Range = maximum value - minimum value.",
@@ -577,6 +625,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The range is the simplest measure of dispersion.",
@@ -597,6 +647,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Mean deviation about the mean: MD = (sum of |x - xbar|) / N.",
@@ -624,6 +676,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Mean deviation about the mean = sum(f x |x - mean|) / N; first find the mean using mid-points.",
@@ -642,6 +696,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Dispersion measures how spread out the data values are around the average.",
@@ -656,6 +712,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "First find the mean with class mid-points 5, 15, 25, 35, 45, 55, 65 and frequencies 6, 5, 8, 15, 7, 6, 3; N = 50.",
@@ -686,6 +744,8 @@ export const qtModulesB: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "numerical",
+              "marks": 15,
               "years": null,
               "hint": "This is the most repeated QT numerical: combined mean, combined SD and coefficient of variation together.",
               "a": [
@@ -706,6 +766,8 @@ export const qtModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "numerical",
+              "marks": 6,
               "years": null,
               "a": [
                 "The coefficient of variation is a relative measure of dispersion.",
@@ -726,6 +788,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The standard deviation measures how far the values are spread from the mean.",
@@ -745,6 +809,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Step 1: find the mean.",
@@ -771,6 +837,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The coefficient of variation measures consistency: lower CV means less variation and more consistency.",
@@ -787,6 +855,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "When only the sums are given, use the formula SD = sqrt[(sum x-square / n) - (sum x / n)^2].",
@@ -823,6 +893,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Correlation is a statistical measure that shows how strongly two variables move together.",
@@ -840,6 +912,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Linear correlation exists when the two variables change in a constant ratio.",
@@ -857,6 +931,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Correlation measures the strength and direction of the linear relationship between two variables, with r lying between -1 and +1.",
@@ -901,6 +977,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A scatter diagram is a graph on which each pair of (x, y) values is plotted as a dot.",
@@ -918,6 +996,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Merits:",
@@ -951,6 +1031,8 @@ export const qtModulesB: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "numerical",
+              "marks": 15,
               "years": null,
               "a": [
                 "Formula: r = [N*sum(xy) - sum(x)*sum(y)] / sqrt([N*sum(x^2) - (sum(x))^2] * [N*sum(y^2) - (sum(y))^2])",
@@ -974,6 +1056,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Karl Pearson's coefficient of correlation is denoted by r and its formula is:",
@@ -994,6 +1078,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Karl Pearson's coefficient r is valid only when certain assumptions about the data hold.",
@@ -1012,6 +1098,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The shortcut formula is r = Cov(X,Y) / sqrt(VarX x VarY).",
@@ -1028,6 +1116,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "With assumed means Ax = 60 and Ay = 70, take dx = X - 60 and dy = Y - 70 for the 11 pairs.",
@@ -1056,6 +1146,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Probable error (PE) is a measure used to test whether an observed correlation is real or just accidental.",
@@ -1074,6 +1166,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Formula: PE = 0.6745 * (1 - r^2) / sqrt(N).",
@@ -1096,6 +1190,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The coefficient of determination is the square of the correlation coefficient, r^2.",
@@ -1124,6 +1220,8 @@ export const qtModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "Spearman's rank correlation coefficient is denoted by rho and its formula is:",
@@ -1142,6 +1240,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Formula: rho = 1 - [6 * sum(d^2)] / [n * (n^2 - 1)]",
@@ -1165,6 +1265,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A tie in ranks happens when two or more items have the same value, so they share the same rank.",
@@ -1183,6 +1285,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Merits: first, it is simple to understand and easy to calculate, simpler than Karl Pearson's method.",
@@ -1210,6 +1314,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Regression is a statistical method that studies the average relationship between variables for estimation and prediction.",
@@ -1228,6 +1334,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "There are two regression lines:",
@@ -1263,6 +1371,8 @@ export const qtModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "numerical",
+              "marks": 6,
               "years": null,
               "a": [
                 "Formula for the regression line of y on x: y - ybar = byx * (x - xbar).",
@@ -1293,6 +1403,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The two regression equations are:",
@@ -1313,6 +1425,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The least square method finds the regression line that fits the observed data best.",
@@ -1331,6 +1445,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The two regression coefficients byx and bxy have the following features.",
@@ -1348,6 +1464,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Let x = rainfall and y = yield. SDx = sqrt(9) = 3 and SDy = sqrt(36) = 6.",
@@ -1365,6 +1483,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Let x = Accounts marks (mean 30, SD 10) and y = Statistics marks (mean 35, SD 7), with r = 0.8.",
@@ -1381,6 +1501,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The line of best fit is the straight line that passes closest to all the points in a scatter diagram.",
@@ -1395,6 +1517,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a regression estimate: put the given x into the regression equation to predict y.",
               "a": [
@@ -1411,6 +1535,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a regression estimate: predict B's marks (y) from A's marks (x) using the y-on-x line.",
               "a": [
@@ -1439,6 +1565,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "The two regression coefficients are defined as:",
@@ -1459,6 +1587,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Formula: r^2 = byx * bxy.",
@@ -1475,6 +1605,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "We must decide which line is y on x and which is x on y, because r^2 = byx * bxy must be between 0 and 1.",
@@ -1508,6 +1640,8 @@ export const qtModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Correlation measures the strength and direction of the relationship between two variables; regression gives the exact equation to predict one from the other.",

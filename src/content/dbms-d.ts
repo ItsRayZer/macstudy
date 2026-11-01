@@ -21,6 +21,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "NoSQL stands for Not Only SQL. It is a family of database systems built to handle very large, fast-changing and unstructured data that traditional relational databases struggle with.",
@@ -37,6 +39,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "SQL and NoSQL databases differ in four main ways: data organisation, schema, scaling and consistency.",
@@ -73,6 +77,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "NoSQL systems organise data in four main models, and each model fits a different kind of problem.",
@@ -89,6 +95,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Choose a graph database over a document database when the relationships between items matter more than the items themselves.",
@@ -115,6 +123,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Document databases store data as flexible JSON-style documents grouped into collections, much like rows grouped into tables in SQL.",
@@ -131,6 +141,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Document databases fit online shopping sites because a store's data is varied, nested and constantly changing.",
@@ -160,6 +172,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The CAP theorem states that a distributed database system can fully guarantee only two of three properties at the same time: Consistency, Availability and Partition tolerance.",
@@ -177,6 +191,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "In the CAP theorem, partition tolerance must be kept because network partitions, where some servers cannot reach others, are unavoidable in any real distributed system.",
@@ -212,6 +228,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "ACID and BASE are two different philosophies for keeping data correct, used by SQL and NoSQL databases respectively.",
@@ -227,6 +245,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Eventually consistent means that after a write, all copies of the data will agree with each other after some delay, but not instantly.",
@@ -263,6 +283,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "CRUD stands for Create, Read, Update and Delete, the four basic operations every database supports. In MongoDB each is done with a simple command on a collection.",
@@ -279,6 +301,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "To find students with marks between 60 and 90, combine the $gte (greater than or equal) and $lte (less than or equal) operators in one find query.",
@@ -296,6 +320,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Update operators modify fields inside MongoDB documents without rewriting the whole document.",
@@ -324,6 +350,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Hadoop, MongoDB and Cassandra are three pillars of big data, each solving a different part of the problem.",
@@ -339,6 +367,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "For one crore sensor readings a day, Hadoop is the best fit for the storage and analysis part.",
@@ -355,6 +385,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Big Data means datasets so large, fast or varied that traditional databases cannot handle them.",
@@ -390,6 +422,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "This practical task is to draw an ER diagram for a college database with three entities: Student, Course and Teacher.",
@@ -410,6 +444,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A many-to-many relationship cannot be stored in either entity table directly, so it is converted into its own table.",
@@ -451,6 +487,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "This practical task is to create an Employee table with constraints using DDL and then add three rows using DML.",
@@ -476,6 +514,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "This practical task is to modify an existing Employee table: raise the salary of Ben and remove the row of Cia.",
@@ -512,6 +552,8 @@ export const dbmsModulesD: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "Set operators UNION, INTERSECT and EXCEPT combine the results of two queries into one result.",
@@ -532,6 +574,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "This practical task is to combine data from two tables, Student and Marks, so that each student appears with his subject and mark.",
@@ -550,6 +594,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "This practical task is to find departments whose average marks are above 70 and list them from the highest average to the lowest.",
@@ -581,6 +627,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "PL/SQL is Oracle procedural language that adds variables and logic to SQL.",
@@ -607,6 +655,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "This practical task is to write a PL/SQL block that prints \"Pass\" if marks are above 40, else prints \"Fail\".",
@@ -644,6 +694,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "This practical task is to build a small students database in MongoDB: create a collection, insert two documents, and find the toppers.",
@@ -669,6 +721,8 @@ export const dbmsModulesD: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "This practical task is to update several documents at once and then delete one specific document in MongoDB.",

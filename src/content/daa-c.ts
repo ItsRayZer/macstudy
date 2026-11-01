@@ -22,6 +22,8 @@ export const daaModulesC: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Dynamic programming solves problems whose subproblems overlap: each distinct subproblem is solved once, stored, and reused instead of being recomputed.",
@@ -40,6 +42,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both implement dynamic programming; they differ in direction and in which subproblems get computed.",
@@ -60,6 +64,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A problem suits dynamic programming only if it has two properties.",
@@ -131,6 +137,8 @@ export const daaModulesC: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Oct 2025 H",
               "a": [
                 "Floyd Warshall computes the shortest path between EVERY pair of vertices: the all-pairs shortest path problem.",
@@ -185,6 +193,8 @@ export const daaModulesC: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "trace",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Oct 2025 H",
               "a": [
                 "Graph: 1->2 weight 3, 2->3 weight 2, 1->3 weight 10.",
@@ -204,6 +214,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Scope: Floyd Warshall solves all-pairs shortest paths in one run; Dijkstra solves single-source, so it must be run V times for all pairs.",
@@ -232,6 +244,8 @@ export const daaModulesC: Module[] = [
                 "REPEATED (Oct 2021, Feb 2025)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Oct 2021, Feb 2025",
               "a": [
                 "Breadth First Search explores a graph level by level: all neighbours of the source first, then neighbours of neighbours, using a QUEUE.",
@@ -257,6 +271,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "In an unweighted graph, the shortest path means the fewest edges.",
@@ -273,6 +289,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Shortest path in unweighted graphs: fewest hops between two nodes, e.g. degrees of separation in a social network.",
@@ -300,6 +318,8 @@ export const daaModulesC: Module[] = [
                 "REPEATED (Oct 2021, Feb 2025)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Oct 2021, Feb 2025",
               "a": [
                 "Depth First Search explores a graph by going as deep as possible along each branch before backtracking, using recursion as an implicit stack.",
@@ -323,6 +343,8 @@ export const daaModulesC: Module[] = [
                 "REPEATED (Oct 2021, Feb 2025)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Oct 2021, Feb 2025",
               "a": [
                 "Data structure: BFS uses a queue (FIFO); DFS uses a stack or recursion (LIFO).",
@@ -340,6 +362,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "DFS stamps every vertex twice: discovery time when it is first visited, finish time when all its neighbours are done.",
@@ -367,6 +391,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A connected component is a maximal group of vertices all reachable from each other; maximal means no vertex can be added to it.",
@@ -387,6 +413,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A graph is connected if it has exactly one component, i.e. every vertex is reachable from every other vertex.",
@@ -427,6 +455,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "DFS of a directed graph classifies every edge by the state of its target vertex at the moment it is explored.",
@@ -444,6 +474,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A directed graph has a cycle if and only if DFS encounters a back edge - an edge to a vertex currently on the recursion stack.",
@@ -468,6 +500,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A topological ordering of a DAG lists vertices so that every directed edge u->v has u before v; it models task scheduling with prerequisites.",
@@ -509,6 +543,8 @@ export const daaModulesC: Module[] = [
                 "REPEATED (Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Feb 2025, Oct 2025 H",
               "a": [
                 "Backtracking solves constraint problems by building candidates one choice at a time, abandoning a partial candidate the moment it cannot lead to a valid answer.",
@@ -530,6 +566,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The state space tree is the tree of all partial candidates: the root is the empty answer, and each child adds one more choice.",
@@ -547,6 +585,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Brute force generates every complete candidate first and only then tests whether it satisfies the constraints.",
@@ -594,6 +634,8 @@ export const daaModulesC: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "The N-Queens problem asks for placements of N queens on an N x N board so that no two queens attack each other.",
@@ -617,6 +659,8 @@ export const daaModulesC: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Since queens are placed top to bottom, only earlier rows can threaten the new square.",
@@ -640,6 +684,8 @@ export const daaModulesC: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Level 0 is the root: the empty board.",
@@ -679,6 +725,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Problem: given n numbers (weights) and a target m, find all subsets whose elements sum to exactly m.",
@@ -706,6 +754,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Bounding functions prove a branch is hopeless so it can be pruned without exploration.",
@@ -724,6 +774,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "In the worst case the algorithm explores the include-or-skip choice for every weight: 2^n subsets, so O(2^n) time.",
@@ -776,6 +828,8 @@ export const daaModulesC: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "A Hamiltonian circuit is a cycle that visits every vertex exactly once and returns to the start vertex.",
@@ -801,6 +855,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Hamiltonian circuit: visits every VERTEX exactly once, then returns to the start; edges may be skipped.",
@@ -818,6 +874,8 @@ export const daaModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Only neighbours of the current last vertex are ever tried - non-adjacent vertices are pruned by construction.",

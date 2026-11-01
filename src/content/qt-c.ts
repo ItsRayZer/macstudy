@@ -21,6 +21,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A random experiment is an experiment whose outcome cannot be predicted in advance, but the set of all possible outcomes is known.",
@@ -40,6 +42,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Mutually exclusive events are events that cannot happen at the same time in one trial of the experiment.",
@@ -59,6 +63,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "When two dice are thrown together, each die shows 1 to 6, giving 6 x 6 = 36 equally likely outcomes.",
@@ -95,6 +101,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Union of events: A union B is the event that happens when at least one of A or B happens, that is A or B or both.",
@@ -119,6 +127,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A Venn diagram draws events as circles inside a rectangle that stands for the sample space.",
@@ -147,6 +157,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Probability is a number between 0 and 1 that measures how likely an event is to happen.",
@@ -169,6 +181,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Formula: P(A) = number of favourable outcomes / total number of equally likely outcomes.",
@@ -187,6 +201,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Use the classical definition: P(event) = favourable outcomes / total equally likely outcomes.",
@@ -203,6 +219,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Treat the 4 girls as one single block, since they must stay together.",
@@ -219,6 +237,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a combination problem: choose the required players from each category and multiply.",
               "a": [
@@ -247,6 +267,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Statement: For any two events A and B, P(A union B) = P(A) + P(B) - P(A intersect B).",
@@ -269,6 +291,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Formula: P(A union B) = P(A) + P(B) - P(A intersect B).",
@@ -285,6 +309,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Statement: For any three events A, B and C, P(A union B union C) = P(A) + P(B) + P(C) - P(A intersect B) - P(B intersect C) - P(A intersect C) + P(A intersect B intersect C).",
@@ -302,6 +328,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a direct application of the addition theorem: P(A union B) = P(A) + P(B) - P(A intersection B).",
               "a": [
@@ -331,6 +359,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Conditional probability is the probability of an event A given that another event B has already happened. It is written P(A|B).",
@@ -353,6 +383,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Two events A and B are independent if the happening of one does not affect the probability of the other.",
@@ -371,6 +403,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "Total balls = 7 + 12 + 4 = 23; the number of ways to draw 3 balls is C(23,3) = 1771.",
@@ -387,6 +421,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "For 'at least one' problems, use the complement: P(at least one) = 1 - P(getting none).",
@@ -414,6 +450,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "For two events: P(A intersect B) = P(A) * P(B|A).",
@@ -432,6 +470,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The three tosses are independent, and for each toss P(head) = 1/2.",
@@ -449,6 +489,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "a": [
                 "This applies the multiplication theorem for three independent attributes.",
@@ -489,6 +531,8 @@ export const qtModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "numerical",
+              "marks": 6,
               "years": null,
               "a": [
                 "Let A = item came from Machine A, B = item came from Machine B, D = item is defective.",
@@ -510,6 +554,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Bayes theorem reverses the condition: it finds P(Ai|B) from P(B|Ai).",
@@ -528,6 +574,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Application 1: Medical diagnosis. A doctor knows the accuracy of a blood test and uses Bayes theorem to find the probability that a patient actually has the disease given that the test result is positive.",
@@ -544,6 +592,8 @@ export const qtModulesC: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "numerical",
+              "marks": 15,
               "years": "P6 2022",
               "hint": "This is a Bayes theorem problem: work backwards from the defective bolt to the machine.",
               "a": [
@@ -562,6 +612,8 @@ export const qtModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a Bayes theorem problem: turn the observed effect (he acceded) back into the probable cause (he was happy).",
               "a": [

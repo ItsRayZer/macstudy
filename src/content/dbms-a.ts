@@ -21,6 +21,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Data means raw, unprocessed facts and figures that have no meaning by themselves, like a name, a mark or a price.",
@@ -39,6 +41,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A Database Management System (DBMS) is a software system that enables users to create, store, retrieve, update and manage data in databases in an organised and efficient way.",
@@ -69,6 +73,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Banking: a DBMS stores customer account details and records every deposit, withdrawal and ATM transaction safely.",
@@ -86,6 +92,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Banks and railways prefer a DBMS over plain files because thousands of users need to access and update the same data at the same time safely.",
@@ -116,6 +124,8 @@ export const dbmsModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "The traditional file system stores data in separate files for each application, while a DBMS stores it once in a central shared database, which gives many advantages.",
@@ -134,6 +144,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Data redundancy means the same data is stored again and again in different files, for example a student's address repeated in the admission file, the library file and the hostel file.",
@@ -161,6 +173,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "High cost: DBMS software licences, powerful hardware and training for staff make it expensive to set up and run.",
@@ -177,6 +191,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Organisations still use a DBMS because its benefits, like consistency, security, sharing and integrity, far outweigh its costs.",
@@ -205,6 +221,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Naive users are end users who interact with the database through ready-made application screens without knowing SQL, for example a bank clerk or a railway booking clerk.",
@@ -222,6 +240,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The DBA (Database Administrator) is the person responsible for managing the entire database system.",
@@ -240,6 +260,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A database designer is the person who plans the structure of the database before it is built.",
@@ -269,6 +291,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A data model is a way of structuring and organising data in a database, deciding how data is stored, linked and queried.",
@@ -285,6 +309,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Data models are important because they decide how data is organised and stored inside the database.",
@@ -315,6 +341,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A super key is any set of columns that can uniquely identify each row in a table, for example {rollno, name} or even {rollno, name, marks}.",
@@ -331,6 +359,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A foreign key is a column in one table that refers to the primary key of another table, creating a link between the two tables.",
@@ -347,6 +377,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A primary key uniquely identifies each row, and there can be only one primary key per table.",
@@ -364,6 +396,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A composite key is a primary key made of two or more columns taken together, used when no single column is unique.",
@@ -380,6 +414,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "No. A primary key can be neither NULL nor duplicate; both are forbidden by definition.",
@@ -410,6 +446,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Table constraints are rules enforced by the DBMS on the data stored in a table, keeping every entry valid.",
@@ -428,6 +466,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The CHECK constraint allows only those values in a column that satisfy a given condition, rejecting everything else.",
@@ -449,6 +489,8 @@ export const dbmsModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Referential integrity is the rule that a foreign key value must always match an existing primary key value in the referenced table, or be NULL.",

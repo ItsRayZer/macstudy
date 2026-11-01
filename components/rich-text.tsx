@@ -18,7 +18,7 @@ export type RichBlock =
   | { kind: "ul"; items: string[] }
   | { kind: "ol"; items: string[] }
   | { kind: "steps"; items: string[] }
-  | { kind: "code"; text: string }
+  | { kind: "code"; text: string; lang: "python" | "other" }
   | { kind: "formula"; text: string };
 
 const KNOWN_FUNCS = new Set([
@@ -46,6 +46,24 @@ export function looksLikeFormula(line: string): boolean {
   );
 }
 
+/** Claude review fix: detect if a code block is Python (runnable) vs SQL/pseudocode. */
+function detectCodeLang(text: string): "python" | "other" {
+  const t = text.toUpperCase();
+  // SQL keywords -> not Python
+  if (/\b(SELECT|CREATE TABLE|INSERT INTO|UPDATE|DELETE FROM|ALTER TABLE)\b/.test(t)) {
+    return "other";
+  }
+  // Python indicators
+  if (/\b(def |import |print\(|if __name__|elif |except:|finally:)/.test(text)) {
+    return "python";
+  }
+  // Pseudocode indicators (DAA) -> not Python
+  if (/←|→|⟵|⟶/.test(text)) {
+    return "other";
+  }
+  return "python";
+}
+
 function parseHeading(line: string): { term: string; rest: string } | null {
   const m = line.match(/^([A-Za-z][A-Za-z0-9 &'()/-]{0,40}):\s*(.*)$/);
   if (!m) return null;
@@ -71,7 +89,8 @@ export function parseRichText(lines: string[]): RichBlock[] {
   };
   const flushCode = () => {
     if (code.length > 0) {
-      blocks.push({ kind: "code", text: code.join("\n") });
+      const text = code.join("\n");
+      blocks.push({ kind: "code", text, lang: detectCodeLang(text) });
       code = [];
     }
   };
@@ -391,7 +410,16 @@ function RichBlockView({ block }: { block: RichBlock }) {
         </div>
       );
     case "code":
-      return <RunnableCode code={block.text} />;
+      // Claude review fix: only Python blocks get the Run button.
+      // SQL and pseudocode render as static code.
+      if (block.lang === "python") {
+        return <RunnableCode code={block.text} />;
+      }
+      return (
+        <pre className="overflow-x-auto rounded-lg bg-[var(--surface)] p-4 text-[13px] leading-[1.6] text-[var(--text)]">
+          <code>{block.text}</code>
+        </pre>
+      );
     case "formula":
       return <FormulaCard formula={block.text} />;
   }

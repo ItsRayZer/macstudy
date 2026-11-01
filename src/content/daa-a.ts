@@ -28,6 +28,8 @@ export const daaModulesA: Module[] = [
                 "SURE MARK (May 2019, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2025 H",
               "a": [
                 "An algorithm is a finite sequence of well-defined, unambiguous steps that solves a problem or performs a computation.",
@@ -48,6 +50,8 @@ export const daaModulesA: Module[] = [
                 "REPEATED (Oct 2021, Feb 2025)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Oct 2021, Feb 2025",
               "a": [
                 "Algorithm design techniques are general strategies for building algorithms; this syllabus uses four of them.",
@@ -68,6 +72,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An algorithm is the idea; a program is that idea written down in a programming language so a machine can run it.",
@@ -97,6 +103,8 @@ export const daaModulesA: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025",
               "a": [
                 "Time complexity is the number of basic steps an algorithm takes, expressed as a function of the input size n.",
@@ -115,6 +123,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Space complexity is the amount of memory an algorithm needs, expressed as a function of the input size n.",
@@ -133,6 +143,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Every active function call needs memory for its local variables, parameters and return address; this memory lives in a stack frame on the call stack.",
@@ -161,6 +173,8 @@ export const daaModulesA: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025",
               "a": [
                 "Time complexity measures how the running time of an algorithm grows when the input size n grows.",
@@ -181,6 +195,8 @@ export const daaModulesA: Module[] = [
                 "REPEATED (May 2019, Oct 2021)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "May 2019, Oct 2021",
               "a": [
                 "Performance analysis of an algorithm means measuring how its running time and memory use grow as the input size n grows.",
@@ -198,6 +214,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The worst case gives a hard guarantee: no input of size n can make the algorithm slower than this bound.",
@@ -244,6 +262,8 @@ export const daaModulesA: Module[] = [
                 "REPEATED (Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Feb 2025, Oct 2025 H",
               "a": [
                 "Big-O notation gives an asymptotic UPPER bound: it says a function never grows faster than some simpler function g(n), ignoring constant factors.",
@@ -262,6 +282,8 @@ export const daaModulesA: Module[] = [
                 "REPEATED (Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Feb 2025, Oct 2025 H",
               "a": [
                 "Omega notation gives an asymptotic LOWER bound: the function grows at least as fast as g(n).",
@@ -279,6 +301,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "We must find constants c > 0 and n0 such that 2n^2 + 10n <= c*n^2 for all n >= n0.",
@@ -302,6 +326,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Growth rates ordered from slowest to fastest give the standard complexity ladder.",
@@ -322,6 +348,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Big-O is only an upper bound: it says the algorithm grows no faster than g(n), but it may grow much slower.",
@@ -357,6 +385,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Recursion is a technique where a function calls itself on a smaller version of the same problem, until it reaches a trivial base case.",
@@ -376,6 +406,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Without a base case the function keeps calling itself on smaller inputs forever; this is infinite recursion.",
@@ -412,6 +444,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A recurrence relation expresses the running time T(n) for input size n in terms of the running time for smaller inputs, plus the cost of the current step.",
@@ -428,6 +462,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The substitution method solves a recurrence in two steps: guess the form of the answer, then prove the guess correct by mathematical induction.",
@@ -446,6 +482,8 @@ export const daaModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A recursion tree draws every recursive call as a node labelled with its non-recursive cost, arranged level by level.",

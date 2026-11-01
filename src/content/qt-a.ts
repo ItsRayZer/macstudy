@@ -23,6 +23,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Statistics is the science of collecting, organising, analysing, interpreting and presenting numerical data so that sensible conclusions can be drawn from them.",
@@ -40,6 +42,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The word statistics is used in two different senses: singular and plural.",
@@ -56,6 +60,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The statement 'statistics is the science of averages' means that an average is the most common and most useful tool in statistics.",
@@ -89,6 +95,8 @@ export const qtModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "One function of statistics is to simplify complex data. Raw data like the monthly sales of 100 shops is too large to understand, but an average or a percentage makes it simple.",
@@ -107,6 +115,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "In business, statistics is used to plan production. A company studies past sales figures to decide how much to produce next month, so that there is neither shortage nor waste.",
@@ -138,6 +148,8 @@ export const qtModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "Statistics can be misused means that the same set of figures can be presented in a dishonest way to create a false impression.",
@@ -155,6 +167,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Statistics is a powerful tool, but it has clear limitations that every student must know.",
@@ -185,6 +199,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Population is the complete collection of all items or persons we want to study. A sample is only a part of the population that is actually observed.",
@@ -201,6 +217,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Population is the total set of all units under study. For example, all the students of a college form the population if we are studying that college.",
@@ -230,6 +248,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Primary data is data collected fresh for the first time for a specific purpose. Secondary data is data already collected by someone else for some other purpose and reused by us.",
@@ -246,6 +266,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The main methods of collecting primary data are direct personal investigation, indirect oral investigation, questionnaires, schedules, and direct observation.",
@@ -263,6 +285,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A good questionnaire must have a clear purpose. Every question should be related to the aim of the study, and useless questions must be avoided.",
@@ -282,6 +306,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Qualitative data describes qualities or attributes that cannot be measured in numbers. Quantitative data consists of facts that can be measured and expressed in numbers.",
@@ -299,6 +325,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A questionnaire is a printed set of questions used to collect primary data directly from respondents.",
@@ -339,6 +367,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The main types of sampling are simple random sampling, stratified sampling, systematic sampling and cluster sampling, plus judgement sampling.",
@@ -356,6 +386,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A census survey studies every single unit of the population. A sample survey studies only a small selected part of it.",
@@ -373,6 +405,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Stratified sampling is a method in which the population is first divided into homogeneous groups called strata, and then a random sample is taken from each stratum.",
@@ -389,6 +423,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Multi-stage sampling is a probability sampling method in which the sample is selected in two or more stages.",
@@ -406,6 +442,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Systematic sampling is a probability sampling method in which every kth unit of the population is selected after a random start.",
@@ -423,6 +461,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "In non-probability sampling the units are not selected by chance; the investigator uses judgement or convenience.",
@@ -441,6 +481,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A sample survey studies only a part of the population instead of every single unit.",
@@ -458,6 +500,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A sample survey must be planned and executed in a clear sequence of steps.",
@@ -509,6 +553,8 @@ export const qtModulesA: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": null,
               "a": [
                 "Tabulation is the systematic arrangement of data in rows and columns in the form of a table, so that the data becomes easy to read and compare.",
@@ -528,6 +574,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Classification is the process of arranging data into groups or classes according to some common characteristic, so that similar facts come together.",
@@ -546,6 +594,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A source note is a short line written below a statistical table stating where the data was taken from.",
@@ -563,6 +613,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "table",
+              "marks": 2,
               "years": null,
               "a": [
                 "In the exclusive method the upper limit of a class is excluded and counted in the next class, so 10-20 means 10 up to but below 20.",
@@ -581,6 +633,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "table",
+              "marks": 2,
               "years": null,
               "a": [
                 "In the inclusive method both limits of a class are included, so 10-13 means the values 10, 11, 12 and 13.",
@@ -602,6 +656,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Cross tabulation is a table that presents the joint distribution of two characteristics at the same time.",
@@ -619,6 +675,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "numerical",
+              "marks": 2,
               "years": null,
               "hint": "This is a 'more than' cumulative frequency table; first convert it into ordinary class frequencies.",
               "a": [
@@ -659,6 +717,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A pie diagram is a circle divided into sectors, where each sector represents one part of the data and the size of the sector is proportional to the value it represents.",
@@ -677,6 +737,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An ogive is a graph of the cumulative frequency distribution, drawn as a smooth freehand curve. It is also called a cumulative frequency curve.",
@@ -701,6 +763,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A histogram is drawn for continuous frequency data, while a bar diagram is drawn for discrete or categorical data.",
@@ -718,6 +782,8 @@ export const qtModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A frequency polygon is a line graph obtained by joining the mid-points of the tops of the rectangles of a histogram with straight lines.",

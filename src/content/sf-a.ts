@@ -35,6 +35,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software is the set of programs and data that tell a computer what to do, and its role in society has changed completely over time.",
@@ -56,6 +58,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The nature of software means how it is built, who uses it and how it behaves, and this has changed a lot over time.",
@@ -77,6 +81,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software engineering is important because modern software is too large and complex to build by trial and error.",
@@ -97,6 +103,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Good software has a set of essential attributes that make it useful and trustworthy.",
@@ -117,6 +125,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Generic products are built for a wide market of customers; customized products are built for one specific customer.",
@@ -148,6 +158,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software engineering is built in layers, like the floors of a building, where each layer rests on the one below it.",
@@ -167,6 +179,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The three layers are process, methods and tools, supported by a quality focus at the base.",
@@ -244,6 +258,8 @@ export const sfModulesA: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Mar 2021, Oct 2021, Aug 2022, Feb 2025",
               "a": [
                 "The software life cycle is the series of phases a product passes through from birth to retirement.",
@@ -265,6 +281,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Aug 2022, Feb 2025",
               "a": [
                 "A software process is the set of related activities that leads to the production of a software product.",
@@ -285,6 +303,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A process framework is the common skeleton of activities that every software project follows, whatever model it uses.",
@@ -339,6 +359,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Framework activities, actions and tasks are three levels of work in a process framework, from big to small.",
@@ -358,6 +380,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Product is what is built; process is how it is built.",
@@ -406,6 +430,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Mar 2021, Feb 2025",
               "a": [
                 "The biggest drawback of the waterfall model is that real projects rarely have fixed requirements at the start.",
@@ -425,6 +451,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "May 2019, Feb 2025",
               "a": [
                 "The life-cycle model is selected by matching the project's nature with each model's strengths.",
@@ -450,6 +478,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The waterfall model is the oldest and simplest process model, where work flows down through fixed stages like water falling over steps.",
@@ -471,6 +501,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Waterfall and agile are opposite styles of building software.",
@@ -491,6 +523,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The waterfall model is suitable when the requirements are well understood and unlikely to change.",
@@ -510,6 +544,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Feb 2025, Mar 2021, Aug 2022",
               "a": [
                 "The waterfall model is simple and easy to manage when requirements are fixed, but it fails badly when requirements change.",
@@ -532,6 +568,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Choosing the wrong life-cycle model is itself a major project risk.",
@@ -562,6 +600,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "May 2019, Feb 2025",
               "a": [
                 "The first advantage of the incremental model is early delivery: the customer gets working software quickly instead of waiting for the whole project.",
@@ -581,6 +621,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The incremental model builds software in small pieces called increments instead of all at once.",
@@ -631,6 +673,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Mar 2021, Aug 2022",
               "a": [
                 "Both build software in repeated cycles, but they differ in goal and method.",
@@ -652,6 +696,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Evolutionary models accept that software grows and changes over time instead of being fixed at the start.",
@@ -673,6 +719,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A prototype is a quick rough model of the software that is shown to the customer before the real system is built.",
@@ -699,6 +747,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The spiral model was proposed by Barry Boehm and works in repeated loops called spirals.",
@@ -721,6 +771,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "RAD stands for Rapid Application Development, a model that builds software very fast using reusable components.",
@@ -741,6 +793,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "When requirements change frequently, an agile or evolutionary model should be selected.",
@@ -771,6 +825,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The Unified Process, or UP, is an iterative process model that is driven by use cases.",
@@ -792,6 +848,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Each phase of the Unified Process has a clear goal and a clear result.",
@@ -831,6 +889,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "Plan-driven and agile are two opposite ways of managing software projects.",
@@ -853,6 +913,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Agility is the ability of a team to respond quickly and correctly when requirements change.",
@@ -876,6 +938,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The Agile Manifesto states four values that guide all agile work.",
@@ -949,6 +1013,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "Extreme Programming, or XP, is an agile method that takes good practices to an extreme level.",
@@ -1009,6 +1075,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "XP and Scrum are both agile methods, but they focus on different things.",
@@ -1030,6 +1098,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Scrum is the most popular agile method; it organises work into fixed-length cycles called sprints.",
@@ -1053,6 +1123,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Scrum uses four meetings to keep the sprint on track.",
@@ -1076,6 +1148,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "These three are the main artefacts, or work products, of Scrum.",
@@ -1110,6 +1184,8 @@ export const sfModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "The agile tool set is the collection of tools that help a team work in an agile style.",
@@ -1131,6 +1207,8 @@ export const sfModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A Kanban board is a visual board that shows the status of every task in the project.",

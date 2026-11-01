@@ -180,12 +180,6 @@ export function extractModelCode(answerLines: string[]): string {
   return code.join("\n");
 }
 
-/** Heuristic: is this a write-the-program question? */
-export function isProgrammingQuestion(q: string, a: string[]): boolean {
-  if (/program|write.*code|code it|implement/i.test(q)) return true;
-  return extractModelCode(a).split("\n").filter((l) => l.trim()).length >= 2;
-}
-
 export const CodePad = forwardRef<
   CodePadHandle,
   {

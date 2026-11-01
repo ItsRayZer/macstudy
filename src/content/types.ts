@@ -1,7 +1,13 @@
+export type QuestionKind = "theory" | "numerical" | "table" | "code" | "sql" | "trace";
+
 export interface Question {
   q: string;
   tags: string[];
   tagBase: "SURE MARK" | "REPEATED" | "IMPORTANT";
+  /** Explicit question type: replaces regex guessing in practice/answer pads. */
+  kind: QuestionKind;
+  /** Marks for this question based on exam pattern (2/5/6/15). */
+  marks: number;
   years: string | null;
   a: string[];
   /** Optional exam hint, e.g. "This is a combined-mean problem…". Shown as a small note above the answer, never as the main answer. */

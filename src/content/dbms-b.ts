@@ -23,6 +23,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The ER (Entity-Relationship) model is a high-level conceptual design tool used to describe the data needed by an organisation and how that data is connected, before any tables are created.",
@@ -42,6 +44,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Attributes describe entities, and they are classified into types based on how their values behave.",
@@ -61,6 +65,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An entity is a real-world object or concept about which data is stored, like a student, a book or a department.",
@@ -77,6 +83,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Entity type is the schema-level definition: the name plus its attributes, e.g. STUDENT(rollno, name, marks).",
@@ -93,6 +101,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A relationship attribute is a property that belongs to the relationship itself, not to either participating entity.",
@@ -109,6 +119,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "If a relationship is viewed as an attribute of an entity, its value is a set of references to the related entities.",
@@ -158,6 +170,8 @@ export const dbmsModulesB: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": null,
               "a": [
                 "Step 1 - entity types: DEPARTMENT, PROJECT, EMPLOYEE, and DEPENDENT (a weak entity).",
@@ -185,6 +199,8 @@ export const dbmsModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "An ER diagram is a pictorial representation of the ER model, drawn with fixed symbols so that the database design can be seen at a glance.",
@@ -205,6 +221,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A weak entity set is an entity set that does not have a key attribute of its own, so its entities cannot be identified without help.",
@@ -223,6 +241,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Cardinality ratio says how many entities on one side can relate to how many on the other: 1:1, 1:N or M:N.",
@@ -251,6 +271,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The relational model stores data in two-dimensional tables called relations, where each table represents one entity set or one relationship.",
@@ -270,6 +292,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Degree of a relation is the number of attributes (columns) in the relation.",
@@ -287,6 +311,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Relation: a table in the relational model - rows (tuples) and columns (attributes), e.g. the STUDENT table.",
@@ -303,6 +329,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A domain is the set of allowed values for an attribute. For example, the domain of Age is integers from 0 to 150.",
@@ -319,6 +347,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Each relation (table) has a unique name, different from every other table.",
@@ -355,6 +385,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Relational algebra is a procedural query language: queries are written as step-by-step operations on relations, each producing a new relation.",
@@ -374,6 +406,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Relational algebra supports set operations that treat relations like mathematical sets of tuples.",
@@ -411,6 +445,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Relational calculus is a non-procedural query language: you describe what result you want, and the DBMS decides how to fetch it.",
@@ -429,6 +465,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Relational calculus is called non-procedural because the query only declares the desired result, never the steps to obtain it.",
@@ -470,6 +508,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "SQL commands are grouped by purpose: DDL defines and changes the structure of the database, while DML works with the data stored inside it.",
@@ -488,6 +528,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "DDL is used to define the structure of the table, starting with the CREATE TABLE command.",
@@ -512,6 +554,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "SQL (Structured Query Language) is the standard language for working with relational databases.",
@@ -528,6 +572,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "DDL (Data Definition Language) commands define or change the structure of tables.",
@@ -548,6 +594,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Syntax:",
@@ -567,6 +615,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "General form:",
@@ -588,6 +638,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "SELECT: lists which columns to show, e.g. SELECT name, marks.",
@@ -605,6 +657,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "(a) Add the column with ALTER TABLE:",
@@ -642,6 +696,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Aggregate functions in SQL take many rows as input and return a single summary value.",
@@ -662,6 +718,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "To count only the students above a cut-off, COUNT(*) is combined with a WHERE condition.",
@@ -700,6 +758,8 @@ export const dbmsModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "GROUP BY collects rows that share the same value in a column into separate groups, so aggregates can be computed per group.",
@@ -722,6 +782,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "WHERE and HAVING both filter data, but they work at different stages of a query.",
@@ -740,6 +802,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "LIKE is used in the WHERE clause to match text against a pattern.",
@@ -759,6 +823,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Rows are ordered with the ORDER BY clause at the end of a SELECT query.",
@@ -861,6 +927,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A join combines rows from two tables using a related column, usually a primary key matching a foreign key.",
@@ -879,6 +947,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "INNER JOIN and LEFT OUTER JOIN differ in how they treat rows that have no match in the other table.",
@@ -896,6 +966,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "To show each student's name together with their marks, the Student and Marks tables are joined on the common rollno column.",
@@ -916,6 +988,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
               "years": null,
               "a": [
                 "LEFT JOIN is used when every student must appear in the result even if the Marks table has no row for them.",
@@ -936,6 +1010,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "INTERSECT returns only the rows common to two query results (set intersection).",
@@ -952,6 +1028,8 @@ export const dbmsModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "UNIQUE is a constraint: it forbids duplicate values in a column but allows NULL.",

@@ -25,6 +25,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Divide and conquer is an algorithm design strategy that solves a problem by breaking it into smaller copies of itself.",
@@ -43,6 +45,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Better complexity: splitting often drops the running time dramatically, e.g. O(n log n) sorting instead of O(n^2).",
@@ -59,6 +63,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT (Oct 2025 H)"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": "Oct 2025 H",
               "a": [
                 "The control abstraction is the general recursive skeleton of divide and conquer, independent of any specific problem.",
@@ -99,6 +105,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Binary search finds a key in a SORTED array by repeatedly throwing away the half that cannot contain the key.",
@@ -124,6 +132,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The whole trick of binary search is discarding half the array after a single comparison with the middle element.",
@@ -155,6 +165,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "The straightforward method finds the maximum and the minimum in two separate scans of the array.",
@@ -172,6 +184,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Idea: instead of comparing every element against the running max and min, first pair elements up and compare them with each other.",
@@ -190,6 +204,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Linear search (straightforward method): compare each new element with the current max and the current min - 2 comparisons per element after the first.",
@@ -233,6 +249,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025",
               "a": [
                 "Merge sort is the classic divide-and-conquer sort: split the array into halves, sort each half recursively, then merge the sorted halves.",
@@ -258,6 +276,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025",
               "a": [
                 "The split step always cuts the array into two exactly equal halves, no matter what the data looks like.",
@@ -274,6 +294,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Extra memory: merging needs O(n) auxiliary space, while quick sort and heap sort work in place.",
@@ -295,6 +317,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT (Oct 2021)"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": "Oct 2021",
               "a": [
                 "The recursion tree of merge sort shows how the array keeps splitting until single elements, then merges back up.",
@@ -335,6 +359,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025",
               "a": [
                 "Quick sort picks one element as the pivot, partitions the array so smaller elements go left and larger go right, then sorts both sides recursively.",
@@ -356,6 +382,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025",
               "a": [
                 "The behaviour of quick sort depends entirely on where the pivot lands after partitioning.",
@@ -375,6 +403,8 @@ export const daaModulesB: Module[] = [
                 "REPEATED (Oct 2021, Feb 2025)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Oct 2021, Feb 2025",
               "a": [
                 "Both are divide-and-conquer sorting algorithms with O(n log n) average time, but they differ in guarantees and resources.",
@@ -392,6 +422,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The worst case comes from bad pivots, so the fix is to choose pivots that are unlikely to be extreme.",
@@ -427,6 +459,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Standard matrix multiplication of two n x n matrices needs O(n^3) operations; a plain divide-and-conquer version needs 8 half-size multiplications.",
@@ -444,6 +478,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "At each level Strassen creates 7 subproblems of half the size and does O(n^2) additions and subtractions to combine them.",
@@ -461,6 +497,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "High constant factors: the many additions, subtractions and complex bookkeeping make each recursion level expensive.",
@@ -500,6 +538,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "The greedy strategy builds an answer step by step, always taking the choice that looks best right now, and never reconsidering earlier choices.",
@@ -517,6 +557,8 @@ export const daaModulesB: Module[] = [
                 "REPEATED (Oct 2021, Feb 2025)"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Oct 2021, Feb 2025",
               "a": [
                 "A feasible solution is any candidate answer that satisfies all the constraints of the problem, whether or not it is the best one.",
@@ -534,6 +576,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The classic failure is the 0/1 knapsack, where items cannot be split.",
@@ -551,6 +595,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT (Feb 2025)"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": "Feb 2025",
               "a": [
                 "The control abstraction is the general skeleton that every greedy algorithm follows.",
@@ -575,6 +621,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT (Oct 2021)"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": "Oct 2021",
               "a": [
                 "Greedy problems fall into two paradigms: the subset paradigm and the ordering paradigm.",
@@ -664,6 +712,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "In the fractional knapsack, items may be split, and the goal is maximum profit within capacity M.",
@@ -740,6 +790,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "The difference is divisibility: fractional knapsack allows taking part of an item; 0/1 knapsack forces take-it-or-leave-it.",
@@ -757,6 +809,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "First compute the profit-to-weight ratio of each item.",
@@ -799,6 +853,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Prim's algorithm finds the Minimum Spanning Tree: the cheapest set of edges connecting all vertices without forming cycles.",
@@ -823,6 +879,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "The justification is the cut property of minimum spanning trees.",
@@ -860,6 +918,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Feb 2025, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Feb 2025, Oct 2025 H",
               "a": [
                 "Kruskal's finds the MST by considering all edges globally, cheapest first, skipping any edge that would form a cycle.",
@@ -885,6 +945,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both are greedy algorithms that produce a minimum spanning tree of the same minimum total cost.",
@@ -915,6 +977,8 @@ export const daaModulesB: Module[] = [
                 "SURE MARK (May 2019, Oct 2021, Oct 2025 H)"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Oct 2025 H",
               "a": [
                 "Dijkstra's algorithm finds the shortest paths from a single source to all vertices, requiring non-negative edge weights.",
@@ -942,6 +1006,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Dijkstra's core promise is: once a vertex is settled, its distance is final and will never improve.",
@@ -960,6 +1026,8 @@ export const daaModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Relaxation is the single operation at the heart of Dijkstra, Bellman-Ford and Floyd Warshall.",

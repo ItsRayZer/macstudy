@@ -28,6 +28,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Requirements engineering is the process of discovering, documenting and managing what the customer wants the software to do.",
@@ -47,6 +49,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Functional requirements describe what the system must do, the services it provides.",
@@ -66,6 +70,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Performance: the system must display search results within 2 seconds.",
@@ -103,6 +109,8 @@ export const sfModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "The requirements document is the agreed written record of everything the software must do.",
@@ -122,6 +130,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A software specification describes each requirement precisely enough to build and test it.",
@@ -140,6 +150,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Scope in an SRS, the Software Requirements Specification, defines the boundaries of what the software will and will not do.",
@@ -183,6 +195,8 @@ export const sfModulesB: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Model paper",
               "a": [
                 "Requirements elicitation and analysis is the heart of requirements engineering, where the team discovers and understands what to build.",
@@ -203,6 +217,8 @@ export const sfModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Mar 2021, Feb 2025",
               "a": [
                 "Requirements are difficult to uncover because customers often cannot state clearly what they need.",
@@ -223,6 +239,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Requirements engineering has four main processes that run in a loop.",
@@ -241,6 +259,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Interviews: meet stakeholders one by one and ask open questions about their needs.",
@@ -259,6 +279,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Requirements analysis studies the gathered requirements to find conflicts, gaps and impossible demands.",
@@ -277,6 +299,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Requirements validation checks that the requirements are correct, complete and realistic.",
@@ -295,6 +319,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Requirements management controls changes to requirements during the project.",
@@ -313,6 +339,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Negotiation is the process of resolving conflicts between different stakeholders' requirements.",
@@ -332,6 +360,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "FAST is a team-based technique for gathering requirements in a guided joint session.",
@@ -362,6 +392,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software risk is any uncertain event that can harm the project if it happens.",
@@ -380,6 +412,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Reactive strategy has no risk planning; the team panics when trouble arrives.",
@@ -409,6 +443,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Project risks threaten the schedule or the budget of the project.",
@@ -427,6 +463,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Known risks can be listed from experience before the project starts.",
@@ -462,6 +500,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Risk identification is listing all possible risks for the project.",
@@ -480,6 +520,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A risk table is a list of all identified risks with their probability and impact level.",
@@ -521,6 +563,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "RMMM stands for Risk Mitigation, Monitoring and Management.",
@@ -539,6 +583,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Risk: the key developer working on the payment module may leave mid-project.",
@@ -557,6 +603,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Mitigation is proactive: it acts before the risk happens to avoid or soften it.",
@@ -575,6 +623,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An RMMM plan documents how each major risk will be handled.",
@@ -604,6 +654,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software pricing decides how much to charge the customer for building the software.",
@@ -622,6 +674,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Underpricing means the company loses money even if the project succeeds.",
@@ -663,6 +717,8 @@ export const sfModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "Plan-driven development creates the complete plan, schedule and documents before coding starts.",
@@ -681,6 +737,8 @@ export const sfModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "Project planning is the activity of deciding how a software project will be executed before the work starts.",
@@ -701,6 +759,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Project scheduling divides the project into tasks with durations and deadlines.",
@@ -719,6 +779,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The critical path is the longest sequence of dependent tasks in the project.",
@@ -737,6 +799,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A feasibility study checks whether a proposed software project is worth doing before money is spent.",
@@ -756,6 +820,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Deliverables are the actual products handed over; milestones are the checkpoints that mark progress.",
@@ -786,6 +852,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Agile planning plans only as far as needed and then adapts as work continues.",
@@ -804,6 +872,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Traditional planning makes one big plan at the start and changing it is hard.",
@@ -834,6 +904,8 @@ export const sfModulesB: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Aug 2022, Feb 2025",
               "a": [
                 "COCOMO stands for Constructive Cost Model, created by Barry Boehm.",
@@ -852,6 +924,8 @@ export const sfModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "Estimation predicts how much effort, time and cost a project needs before building starts.",
@@ -870,6 +944,8 @@ export const sfModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Oct 2021, Aug 2022",
               "a": [
                 "Function point analysis is an estimation technique that measures software size by its functionality, not by lines of code.",
@@ -889,6 +965,8 @@ export const sfModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Story points measure task size relatively instead of in hours.",

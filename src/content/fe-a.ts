@@ -21,6 +21,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: A feature is a single measurable property of the data that is given as input to a machine learning model.",
@@ -41,6 +43,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Data is the raw collection of facts and figures gathered from the real world, like student marks or house prices.",
@@ -59,6 +63,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Data is raw unprocessed facts and figures, while information is data that has been processed into something meaningful.",
@@ -88,6 +94,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A machine learning model sees only the features, so the quality of features decides the quality of learning.",
@@ -106,6 +114,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "This statement means that the information fed into a model matters more than the model itself.",
@@ -135,6 +145,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Discrete data takes separate, countable values, while continuous data can take any value in a range.",
@@ -153,6 +165,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both nominal and ordinal are types of categorical (label) data, but they differ in order.",
@@ -171,6 +185,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both interval and ratio are numerical data types, and the difference lies in the meaning of zero.",
@@ -189,6 +205,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Machine learning models do mathematics, and mathematics needs numbers, not words.",
@@ -207,6 +225,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Ordinal data is categorical data with a meaningful order, like grades A, B, C or satisfaction levels.",
@@ -326,6 +346,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Missing data means some values are absent in the dataset, shown as blank cells or NaN.",
@@ -344,6 +366,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Imputation means filling missing values with a sensible replacement instead of deleting the row.",
@@ -362,6 +386,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Filling is the default choice when only a small part of the column is missing, because the column still carries useful information.",
@@ -397,6 +423,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Data cleaning is the process of fixing errors and inconsistencies in raw data so the model learns from correct data.",
@@ -415,6 +443,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Data quality problems are the common defects found in raw real-world data, and each has a standard fix.",
@@ -453,6 +483,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Feature scaling brings all features into a similar numeric range before training.",
@@ -471,6 +503,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Models that need scaling are those based on distances or gradients: KNN, K-means, SVM, neural networks and PCA.",
@@ -500,6 +534,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both are feature scaling methods, but they rescale data in different ways.",
@@ -518,6 +554,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Min-max normalization rescales a value x into the 0 to 1 range using the column minimum and maximum.",
@@ -536,6 +574,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Data transformation changes the shape of a feature distribution to make it more suitable for modeling.",
@@ -572,6 +612,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Binning is the process of grouping continuous numeric values into a small number of fixed intervals called bins.",
@@ -590,6 +632,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both are binning methods, but they divide the data using different rules.",
@@ -608,6 +652,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Discretization is the general process of converting continuous data into discrete groups or categories.",
@@ -648,6 +694,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Polynomial features are new columns made from powers of existing features, like x^2 and x^3.",
@@ -666,6 +714,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: An interaction feature combines two or more features, usually by multiplying them, to capture their joint effect.",
@@ -684,6 +734,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Polynomial features are powerful, but careless use quickly damages the model.",
@@ -720,6 +772,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: One-hot encoding converts each category of a column into its own new column containing only 0 or 1.",
@@ -738,6 +792,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The main disadvantage is the explosion of columns when a category has many unique values.",
@@ -756,6 +812,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "One-hot encoding is a one-line operation in both pandas and sklearn.",
@@ -792,6 +850,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Label encoding replaces each category with an integer label, keeping everything in a single column.",
@@ -812,6 +872,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Use label encoding for ordinal data, where the order of categories is real and meaningful.",
@@ -917,6 +979,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both convert categories to numbers, but they do it in opposite ways.",
@@ -935,6 +999,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A city column with 500 unique values is called high-cardinality data, and it needs special care.",
@@ -1041,6 +1107,8 @@ export const feModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": null,
               "a": [
                 "Both reduce the number of features, but they do it in fundamentally different ways.",
@@ -1059,6 +1127,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Prefer feature selection when interpretability matters, because the original column names are kept.",
@@ -1098,6 +1168,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Feature selection follows a systematic search process in four stages.",
@@ -1116,6 +1188,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The four standard stages of feature selection are generation, evaluation, stopping and validation.",
@@ -1134,6 +1208,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A stopping criterion tells the search when to halt, and without it the process has no natural end.",
@@ -1255,6 +1331,8 @@ export const feModulesA: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": null,
               "a": [
                 "These are the three families of feature selection, differing in how they judge features.",
@@ -1273,6 +1351,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Filter and wrapper methods differ in speed, accuracy and how they use the model.",
@@ -1291,6 +1371,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both are wrapper-style search strategies that build the feature set step by step.",
@@ -1309,6 +1391,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Embedded methods perform feature selection as a natural part of model training.",
@@ -1327,6 +1411,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: RFE is a wrapper method that finds the best features by repeatedly training a model and dropping the weakest feature.",
@@ -1379,6 +1465,8 @@ export const feModulesA: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": null,
               "a": [
                 "Definition: Dimensionality reduction is the process of reducing the number of features in a dataset while keeping as much information as possible.",
@@ -1403,6 +1491,8 @@ export const feModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": null,
               "a": [
                 "Definition: PCA (Principal Component Analysis) is a feature extraction technique that reduces dimensions by finding new uncorrelated axes called principal components.",
@@ -1421,6 +1511,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "PCA looks for the directions of maximum variance, so scale differences would hijack the result.",
@@ -1439,6 +1531,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Principal components are the new axes created by PCA from combinations of the original features.",
@@ -1457,6 +1551,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "PCA is used wherever high dimensions cause trouble, and three classic applications stand out.",
@@ -1475,6 +1571,8 @@ export const feModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "PCA in sklearn takes just a few lines, but standardization must come first.",

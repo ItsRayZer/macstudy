@@ -75,6 +75,8 @@ export const pythonModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": null,
               "a": [
                 "write(s) writes a single string to the file; it does not add a newline by itself.",
@@ -146,6 +148,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A file mode is the second argument to open() and tells Python what you want to do with the file.",
@@ -168,6 +172,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "The task is to open a text file, read its content, and count its lines, words and characters.",
@@ -193,6 +199,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "When you open a file, Python must later close it to free the file and save buffered data.",
@@ -214,6 +222,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A text file stores human-readable characters (letters, digits, symbols) encoded as text, for example .txt, .py and .csv files.",
@@ -229,6 +239,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Open in 'w' to write, close it, then reopen in 'r' to read back.",
@@ -248,6 +260,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Read the source fully, then write that content into the destination file.",
@@ -266,6 +280,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Files store text, so numbers must be converted with str() when writing and int() or float() when reading.",
@@ -307,6 +323,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Pickling converts a Python object into a byte stream that can be stored in a file.",
@@ -333,6 +351,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "CSV (Comma Separated Values) files store table data with commas between values and lines between rows.",
@@ -359,6 +379,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "JSON (JavaScript Object Notation) stores data as readable text in name-value form, like Python dictionaries.",
@@ -418,6 +440,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An exception is a runtime error, such as dividing by zero or converting bad input, that crashes the program if unhandled.",
@@ -447,6 +471,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Sometimes your program must fail on purpose, like when input breaks your own rules.",
@@ -468,6 +494,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Exceptions in Python are organized as a class tree, where every error is an object of some class.",
@@ -486,6 +514,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Goal: read two numbers, divide them, and show a friendly message if the divisor is zero.",
@@ -531,6 +561,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "matplotlib.pyplot, usually imported as plt, is Python's standard library for drawing charts.",
@@ -556,6 +588,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "To draw smooth curves we need many x points, which np.linspace(0, 2 * np.pi, 100) gives.",
@@ -581,6 +615,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A histogram is a bar-like chart that shows how numerical values are distributed across ranges.",
@@ -611,6 +647,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A grouped bar chart places bars for each category side by side, so values are compared directly.",
@@ -630,6 +668,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "2D plotting draws on flat x-y axes using matplotlib.pyplot functions like plot(), bar() and pie().",
@@ -648,6 +688,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The turtle module gives a pen (the turtle) that draws lines as it moves, used for simple 2D graphics.",
@@ -693,6 +735,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: read a number and test whether any value from 2 up to its square root divides it.",
@@ -719,6 +763,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: define a function power(base, exp) that multiplies base by itself exp times.",
@@ -742,6 +788,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: a number is even when its remainder on division by 2 is zero.",
@@ -764,6 +812,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: the series 1 - 2 + 3 - 4 ... adds odd terms and subtracts even terms.",
@@ -788,6 +838,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: read a string once, then ask the user to pick one of four operations from a menu.",
@@ -821,6 +873,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: scan the string position by position and compare each character with the target.",
@@ -845,6 +899,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: store the data in a Numpy array once, then offer sum, mean, max and min on a menu.",
@@ -874,6 +930,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: build a dictionary mapping each letter to its count.",
@@ -899,6 +957,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: create a fixed tuple and demonstrate the operations allowed on it.",
@@ -922,6 +982,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: read all lines of the source file into a list with readlines().",
@@ -943,6 +1005,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: read numerator and denominator and divide them inside a try block.",
@@ -966,6 +1030,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: define DuplicateError as a class that extends Exception.",
@@ -996,6 +1062,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: create 100 smooth x points from 0 to 2 pi with np.linspace.",
@@ -1022,6 +1090,8 @@ export const pythonModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Logic: store month names and matching profit values in two parallel lists.",

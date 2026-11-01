@@ -33,6 +33,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Built-in functions are ready-made functions that come with Python, so we can use them directly without importing anything or writing them ourselves.",
@@ -57,6 +59,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "range() is a built-in function that creates a sequence of numbers, and it is most often used to control how many times a for loop runs.",
@@ -79,6 +83,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Define with def, compare with if-else and return the bigger value.",
@@ -118,6 +124,8 @@ export const pythonModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "code",
+              "marks": 5,
               "years": null,
               "a": [
                 "Loop from 1 to n multiplying into a running total, then return it.",
@@ -144,6 +152,8 @@ export const pythonModulesB: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": null,
               "a": [
                 "Recursion is when a function calls itself to solve a smaller version of the same problem.",
@@ -164,6 +174,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A function is a named block of code that does one job, and it lets us reuse the same logic many times without rewriting it.",
@@ -187,6 +199,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The scope of a variable is the part of the program where that variable can be seen and used.",
@@ -212,6 +226,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A default parameter is a parameter that already has a value fixed in the function definition itself.",
@@ -236,6 +252,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The return statement ends a function immediately and hands a value back to the caller.",
@@ -259,6 +277,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "def creates a function: def add(a, b): defines add.",
@@ -280,6 +300,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Three small functions plus a menu that calls the chosen one.",
@@ -336,6 +358,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Command line arguments are values given to a program when it is started from the terminal, so the program can change its behaviour without editing the code.",
@@ -358,6 +382,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A lambda function is a small unnamed function written in a single line, used when we need a short function only once.",
@@ -379,6 +405,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The assert statement is a debugging tool that checks whether a condition is true while the program runs.",
@@ -401,6 +429,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The sys module gives access to interpreter-level information and functions.",
@@ -435,6 +465,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A module is simply a Python file that contains functions, variables or classes which we want to reuse in other programs.",
@@ -456,6 +488,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both statements bring the math module into the program, but they differ in what names they expose and how the functions are called.",
@@ -474,6 +508,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A package is a folder of related Python modules grouped under one name for easy import.",
@@ -556,6 +592,8 @@ export const pythonModulesB: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": null,
               "a": [
                 "pop(key) removes the entry with the given key and returns its value; it raises KeyError if the key is missing (unless a default is given).",
@@ -628,6 +666,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A list is an ordered collection that can be changed after creation, written in square brackets, for example [1, 2, 3].",
@@ -651,6 +691,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "List methods are built-in functions of the list object that add, remove or rearrange its items.",
@@ -670,6 +712,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Mutable objects are objects that can be changed after they are created, without making a new object.",
@@ -691,6 +735,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "When a list is passed to a function, Python passes the reference to the same list object, not a copy of it.",
@@ -715,6 +761,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Assigning to a new key inserts the pair; assigning to an existing key updates it.",
@@ -732,6 +780,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Lists are mutable: items can be changed, added or removed after creation; they are written in square brackets.",
@@ -752,6 +802,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An empty dictionary has no key-value pairs; it is the starting point you fill later.",
@@ -771,6 +823,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The + operator joins two lists into a new one; extend() appends all items of one list into another.",
@@ -790,6 +844,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Indexing reads tuple items by position starting at 0: t[0] is the first item.",
@@ -808,6 +864,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "The sorted() function returns a new sorted list; the sort() method sorts a list in place.",
@@ -847,6 +905,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The math module is Python's built-in library of mathematical functions, loaded with import math before use.",
@@ -869,6 +929,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Numpy is a popular Python library for fast numerical work, built around a special object called the array.",
@@ -891,6 +953,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "A Numpy array is created with np.array(), which turns a Python list into a fast Numpy array.",
@@ -913,6 +977,8 @@ export const pythonModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "numpy.arange(start, stop, step) builds evenly spaced values; a step of 2 gives even numbers.",

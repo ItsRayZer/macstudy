@@ -21,6 +21,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Python dominates ML because its libraries cover every step of the pipeline.",
@@ -39,6 +41,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both draw plots in Python, but they sit at different levels of convenience.",
@@ -57,6 +61,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "nltk, the Natural Language Toolkit, is the standard Python library for text preprocessing.",
@@ -96,6 +102,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The first step of handling missing data is finding where the gaps are.",
@@ -115,6 +123,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The fillna() method replaces missing values, and the strategy depends on the column type.",
@@ -135,6 +145,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Use the median instead of the mean whenever the data is skewed or contains outliers.",
@@ -153,6 +165,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "sklearn fills missing values with SimpleImputer, which fits neatly inside ML pipelines.",
@@ -191,6 +205,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Cleaning starts with removing duplicates and correcting column types.",
@@ -211,6 +227,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: The IQR (interquartile range) method finds outliers using the spread of the middle 50 percent of data.",
@@ -243,6 +261,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: EDA (Exploratory Data Analysis) is the process of understanding data with statistics and plots before building a model.",
@@ -261,6 +281,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: A boxplot is a compact visual summary of a numeric column distribution.",
@@ -279,6 +301,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: A correlation matrix is a table showing the correlation value between every pair of features.",
@@ -297,6 +321,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "These three plots form the core visual toolkit of EDA.",
@@ -318,6 +344,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "EDA follows a fixed order so that nothing important is missed.",
@@ -355,6 +383,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "pandas offers two one-line functions for binning.",
@@ -375,6 +405,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Use cut() when the bin ranges themselves carry meaning and should stay fixed.",
@@ -393,6 +425,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Labels turn numeric bin ranges into meaningful names that humans understand.",
@@ -422,6 +456,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "PolynomialFeatures generates polynomial and interaction terms automatically.",
@@ -442,6 +478,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Sometimes you want feature combinations without the squared terms.",
@@ -481,6 +519,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Skewed data piles up on one side with a long tail stretching to the other, like incomes with a few very high earners.",
@@ -499,6 +539,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The plain log function has a fatal weakness: log(0) is undefined and crashes the code.",
@@ -518,6 +560,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Always verify a transform visually by comparing before and after plots.",
@@ -564,6 +608,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Text preprocessing cleans raw text so it can become reliable features.",
@@ -582,6 +628,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both reduce words to base forms, but they differ in method and quality.",
@@ -600,6 +648,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: Stopwords are very common words like the, is, and and in.",
@@ -618,6 +668,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "nltk makes tokenization and stopword removal a few lines of code.",
@@ -658,6 +710,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "hint": "This is the standard PCA pipeline: scale first, then reduce.",
               "a": [                "Code:",
@@ -678,6 +732,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The number of components is chosen by how much variance you want to keep.",
@@ -698,6 +754,8 @@ export const feModulesB: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Definition: explained_variance_ratio_ is an array showing the fraction of total variance held by each principal component.",

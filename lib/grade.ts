@@ -16,18 +16,20 @@ const STOPWORDS = new Set([
   "both", "few", "more", "most", "other", "some", "any", "all", "one",
   "two", "first", "second", "new", "used", "use", "using", "used", "called",
   "known", "given", "like", "well", "much", "many", "get", "got", "make",
-  "made", "take", "part", "form", "example", "following", "define",
+  "made", "take", "part", "example", "following", "define",
   "defined", "definition", "explain", "briefly", "short", "note", "notes",
   "answer", "question", "mark", "marks", "step", "steps", "thus", "hence",
   "therefore", "however", "while", "because", "since", "about", "above",
   "below", "after", "before", "does", "did", "doing", "done", "been",
   "being", "its", "per", "via", "etc", "ie", "eg", "vs",
   // Generic academic filler that dilutes key-term lists.
-  "number", "numbers", "value", "values", "data", "set", "sets", "formula",
-  "formulas", "using", "gives", "give", "equal", "equals", "total", "find",
+  // NOTE: exam terms like data, set, formula, table, time, form are NOT
+  // stopwords (Claude review fix) - they carry real meaning in answers.
+  "number", "numbers", "value", "values",
+  "gives", "give", "equal", "equals", "total", "find",
   "found", "calculate", "calculated", "computation", "compute", "result",
-  "results", "table", "figure", "shown", "shows", "show", "way", "ways",
-  "time", "times", "often", "always", "never", "every", "without", "within",
+  "results", "figure", "shown", "shows", "show", "way", "ways",
+  "often", "always", "never", "every", "without", "within",
 ]);
 
 /** Light stemming: plural -> singular. */
@@ -109,7 +111,9 @@ export function gradeScore(graded: GradedTerm[]): number {
 
 /** Extract every number (int or decimal, optional sign) from free text. */
 export function extractNumbers(text: string): number[] {
-  const m = text.match(/-?\d+(?:\.\d+)?/g) ?? [];
+  // Claude review fix: don't treat "-" as negative when it follows a digit
+  // (e.g. "3-4" is a range, not 3 and -4).
+  const m = text.match(/(?<![\d.])-?\d+(?:\.\d+)?/g) ?? [];
   return m.map(Number).filter((n) => Number.isFinite(n));
 }
 

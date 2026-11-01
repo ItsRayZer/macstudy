@@ -39,6 +39,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Aug 2022, Feb 2025",
               "a": [
                 "Software design is the process of planning how the software will be built before coding starts.",
@@ -64,6 +66,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software design is the step where the requirements are converted into a clear plan for building the software.",
@@ -85,6 +89,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The input of the design process is the approved software requirements document.",
@@ -126,6 +132,8 @@ export const sfModulesC: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Mar 2021, Oct 2021, Aug 2022",
               "a": [
                 "Reliability is the probability that software works without failure for a given period in a given environment.",
@@ -146,6 +154,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A good design is one that is correct, easy to understand, easy to change and easy to test.",
@@ -167,6 +177,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Design quality is checked before coding through a design review meeting.",
@@ -211,6 +223,8 @@ export const sfModulesC: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Mar 2021, Oct 2021, Aug 2022",
               "a": [
                 "These four concepts are the basic rules that guide every good designer.",
@@ -232,6 +246,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "Cohesion is the measure of how focused a single module is on one job.",
@@ -252,6 +268,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Coupling is the measure of how much different modules depend on each other.",
@@ -272,6 +290,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A module is a separate, independent unit of software that performs one clear task.",
@@ -291,6 +311,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Object-oriented design organises software around objects; function-oriented design organises it around functions.",
@@ -332,6 +354,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The design model is the complete set of design documents that describe the software.",
@@ -352,6 +376,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The design model is created in levels because each level hides detail and shows one clear view.",
@@ -383,6 +409,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software architecture is the high-level structure of the system.",
@@ -403,6 +431,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An architectural style is a standard pattern for organising the parts of a system.",
@@ -435,6 +465,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Data design is the part of design that decides how data is organised and stored.",
@@ -455,6 +487,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A good data design has two main qualities: no duplication and fast access.",
@@ -486,6 +520,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Architectural design defines the big parts of the system and how they connect.",
@@ -507,6 +543,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Architectural design is hard to change later because everything is built on top of it.",
@@ -547,6 +585,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A class diagram shows the classes in the system and the relationships between them.",
@@ -568,6 +608,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Association means one class uses another class; it is shown by a plain straight line.",
@@ -590,6 +632,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "To draw the Book class, draw a rectangle box divided into three horizontal parts.",
@@ -622,6 +666,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A sequence diagram shows how objects interact with each other over time.",
@@ -643,6 +689,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "To draw the login sequence, place three boxes at the top: User, LoginPage and Database.",
@@ -663,6 +711,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both diagrams show the same object interactions, but they organise the information differently.",
@@ -705,6 +755,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A use case diagram shows what the system offers to its users.",
@@ -726,6 +778,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Draw a system boundary box and label it Online Shop.",
@@ -746,6 +800,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An actor is a role played by a user or another system that interacts with the system.",
@@ -766,6 +822,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A use case scenario is a specific story of how a user interacts with the system to achieve a goal.",
@@ -804,6 +862,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A collaboration diagram shows how objects interact, focusing on their links.",
@@ -824,6 +884,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A component diagram shows the physical parts of the system and their dependencies.",
@@ -865,6 +927,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "May 2019, Oct 2021",
               "a": [
                 "Unit testing tests each small part of the software in isolation.",
@@ -888,6 +952,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Mar 2021, Aug 2022",
               "a": [
                 "Verification and validation are the two complementary checks that software is built correctly.",
@@ -908,6 +974,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "The main objective of testing is to find errors in the software before delivery.",
@@ -927,6 +995,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A testing strategy is the overall plan that organises all testing work.",
@@ -948,6 +1018,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Complete testing of software is not possible in practice.",
@@ -967,6 +1039,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software testing is the process of running a program to find errors before users do.",
@@ -986,6 +1060,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Testing detects several types of errors at different levels of the software.",
@@ -1017,6 +1093,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Test strategies for conventional software follow the levels in order: unit, integration, then system.",
@@ -1038,6 +1116,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A stub is a dummy lower-level module used in top-down integration testing.",
@@ -1088,6 +1168,8 @@ export const sfModulesC: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Oct 2021, Aug 2022",
               "a": [
                 "Black box testing uses techniques based on inputs and outputs, not code.",
@@ -1109,6 +1191,8 @@ export const sfModulesC: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "May 2019, Mar 2021, Oct 2021, Aug 2022, Feb 2025",
               "a": [
                 "White box testing uses techniques based on the internal code structure.",
@@ -1130,6 +1214,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Black box testing checks the software's behaviour without looking at the code.",
@@ -1152,6 +1238,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Black box and white box testing find different types of bugs, so both are needed.",
@@ -1172,6 +1260,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Loop testing is a white-box technique that focuses on the validity of loop constructs in code.",
@@ -1196,6 +1286,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A flow graph is a diagram that shows the logical flow of a program for white-box testing.",
@@ -1215,6 +1307,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "May 2019, Aug 2022",
               "a": [
                 "(a) Path testing executes every independent route through the program's logic; (b) data flow testing checks how each variable is defined and used along those routes.",
@@ -1260,6 +1354,8 @@ export const sfModulesC: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": "Model paper",
               "a": [
                 "System testing checks the fully integrated system as one complete whole.",
@@ -1280,6 +1376,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "May 2019, Aug 2022",
               "a": [
                 "Validation testing checks that the software meets the customer's requirements.",
@@ -1301,6 +1399,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Mar 2021, Feb 2025",
               "a": [
                 "Functional testing checks what the software does; acceptance testing checks whether the customer accepts it.",
@@ -1320,6 +1420,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Recovery testing checks whether software can recover correctly after a failure.",
@@ -1338,6 +1440,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Robustness testing checks how software behaves with invalid or unexpected inputs.",
@@ -1367,6 +1471,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Debugging is the process of finding the cause of an error and fixing it.",
@@ -1388,6 +1494,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Testing and debugging are related but different activities.",
@@ -1427,6 +1535,8 @@ export const sfModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Model paper",
               "a": [
                 "Design model metrics measure the quality of the software design before any code is written.",
@@ -1446,6 +1556,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Software quality means the software meets user needs correctly and reliably.",
@@ -1467,6 +1579,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Product metrics are measurements of the software product itself, not the process.",
@@ -1499,6 +1613,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Different metrics are used at each stage of the software life cycle.",
@@ -1521,6 +1637,8 @@ export const sfModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Code metrics are measurements taken from the source code.",

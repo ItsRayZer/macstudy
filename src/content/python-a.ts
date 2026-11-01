@@ -31,6 +31,8 @@ export const pythonModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": null,
               "a": [
                 "Python is simple and easy to learn: its syntax reads almost like plain English, so beginners write working programs quickly.",
@@ -52,6 +54,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Python is a general-purpose language, so it is used in many different fields.",
@@ -71,6 +75,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An interpreted language is one whose code is run line by line by a program called an interpreter, without a separate compilation step.",
@@ -89,6 +95,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Interactive mode: type python3 in the terminal and run one line at a time; best for quick experiments.",
@@ -105,6 +113,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Python source files use the .py extension, for example program.py.",
@@ -117,6 +127,8 @@ export const pythonModulesA: Module[] = [
               "q": "Who developed Python and when was it released?",
               "tags": [],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Python was developed by Guido van Rossum, a Dutch programmer.",
@@ -147,6 +159,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An identifier is a name given to program elements like variables, functions, classes and modules.",
@@ -165,6 +179,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Keywords are reserved words in Python that have a fixed meaning and purpose.",
@@ -183,6 +199,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A Python program is a set of statements executed one after another from top to bottom.",
@@ -204,6 +222,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "In most languages braces mark a block of code; in Python, indentation (spaces at the line start) does that job.",
@@ -293,6 +313,8 @@ export const pythonModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": null,
               "a": [
                 "/ is normal division and always returns a float, even for whole results: 7 / 2 gives 3.5.",
@@ -311,6 +333,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "An operator is a symbol that performs an operation on values called operands.",
@@ -330,6 +354,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Operator precedence is the rule that decides which operator is evaluated first in an expression.",
@@ -349,6 +375,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "// is floor division: it divides and drops the fractional part, giving how many whole times one number fits in another.",
@@ -367,6 +395,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Membership operators test whether a value exists inside a sequence like a string, list or tuple.",
@@ -386,6 +416,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Python follows operator precedence: * is evaluated before +, like BODMAS in maths.",
@@ -446,6 +478,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "and gives True only when both sides are True: True and True is True, every other combination is False.",
@@ -484,6 +518,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A data type tells Python what kind of value is stored and what operations are allowed on it.",
@@ -503,6 +539,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Type conversion means changing a value from one data type to another.",
@@ -523,6 +561,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "int(\"25\") converts the string \"25\" into the integer 25.",
@@ -553,6 +593,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A statement is a complete instruction that performs an action, like x = 10.",
@@ -571,6 +613,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "print() displays output on the screen.",
@@ -591,6 +635,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "input() alone always returns a string, and strings cannot be used in maths directly.",
@@ -636,6 +682,8 @@ export const pythonModulesA: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": null,
               "a": [
                 "Slicing picks out a part of a string using the form s[start:end].",
@@ -657,6 +705,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Strings come with many built-in methods for common text jobs.",
@@ -676,6 +726,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "String formatting means inserting variable values neatly inside text.",
@@ -697,6 +749,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "First, s[1:4] slices the string from index 1 up to index 4 (not included).",
@@ -715,6 +769,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Characters in a string are accessed by index in square brackets, starting from 0.",
@@ -734,6 +790,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "A for loop can walk through a string one character at a time.",
@@ -751,6 +809,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "* with a string repeats it: 3 * 'Python' makes 'PythonPythonPython'.",
@@ -794,6 +854,8 @@ export const pythonModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": null,
               "a": [
                 "break ends the loop immediately, even if rounds remain.",
@@ -816,6 +878,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "if, elif and else let the program choose which code to run based on conditions.",
@@ -840,6 +904,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both loops repeat code, but they are used in different situations.",
@@ -864,6 +930,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Nested control flow means writing one if statement or loop inside another.",
@@ -885,6 +953,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "A year is a leap year if it is divisible by 4, except century years which must be divisible by 400.",
@@ -904,6 +974,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A for loop with range(1, 6) runs i through 1, 2, 3, 4, 5; a while loop needs a manual start, condition and increment.",
@@ -922,6 +994,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Even numbers are 2, 4, 6 and so on; range(2, 21, 2) steps through them directly.",
@@ -938,6 +1012,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "if-elif-else picks exactly one of the three cases.",
@@ -958,6 +1034,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "if: runs a block only when its condition is true.",
@@ -981,6 +1059,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A finite loop runs a fixed, known number of times and then stops by itself.",
@@ -1000,6 +1080,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "Each row i prints (n-i) spaces then (2*i-1) stars, forming a centered pyramid.",
@@ -1017,6 +1099,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "code",
+              "marks": 2,
               "years": null,
               "a": [
                 "An Armstrong number equals the sum of its digits each raised to the power of the digit count (153 = 1^3+5^3+3^3).",
@@ -1038,6 +1122,8 @@ export const pythonModulesA: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 5,
               "years": "Nov 2025",
               "a": [
                 "A for loop repeats a block of code once for each item in a sequence, like a list or a range.",
@@ -1059,6 +1145,8 @@ export const pythonModulesA: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "for syntax: for variable in sequence: with the loop body indented below it.",

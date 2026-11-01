@@ -25,6 +25,8 @@ export const dbmsModulesC: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": null,
               "a": [
                 "Modification (update) anomaly: changing one fact forces changes in many rows, risking inconsistency.",
@@ -41,6 +43,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Insertion anomaly: you cannot insert a fact because another unrelated fact is missing.",
@@ -57,6 +61,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Deletion anomaly: deleting one fact accidentally deletes another unrelated fact.",
@@ -92,6 +98,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A functional dependency X -> Y means that in a relation, each value of the attribute set X determines exactly one value of the attribute set Y.",
@@ -110,6 +118,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Example 1: rollno -> name. One roll number belongs to exactly one student, so knowing the roll number fixes the name.",
@@ -128,6 +138,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A functional dependency X -> Y means X's value fixes Y's value; this is how keys are discovered.",
@@ -162,6 +174,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Armstrong's axioms are three inference rules that derive every FD logically implied by a given set of FDs.",
@@ -180,6 +194,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Given: A -> B and B -> C hold in the relation.",
@@ -218,6 +234,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The attribute closure of X, written X+, is the complete set of attributes functionally determined by X under the given FDs.",
@@ -236,6 +254,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Given FDs: rollno -> dept and dept -> hod. We build the closure of {rollno} step by step.",
@@ -335,6 +355,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "First Normal Form requires that every cell of a table holds a single atomic value: no lists, no repeating groups, no multi-valued attributes packed into one column.",
@@ -353,6 +375,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "It violates 1NF because a single cell of the hobbies column holds many values at once, so the values are not atomic.",
@@ -460,6 +484,8 @@ export const dbmsModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "Second Normal Form requires: the relation is in 1NF, and it has no partial dependency.",
@@ -479,6 +505,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "2NF matters only when the primary key is composite, that is, made of two or more columns.",
@@ -586,6 +614,8 @@ export const dbmsModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "Third Normal Form requires: the relation is in 2NF, and it has no transitive dependency.",
@@ -605,6 +635,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "No, it is not in 3NF. Take Student(rollno, name, city, state) with rollno as key and FDs rollno -> city and city -> state.",
@@ -639,6 +671,8 @@ export const dbmsModulesC: Module[] = [
                 "SURE MARK"
               ],
               "tagBase": "SURE MARK",
+              "kind": "theory",
+              "marks": 15,
               "years": null,
               "a": [
                 "1NF: no multi-valued or repeating columns; every cell holds one atomic value. Example: split Hobbies('cricket, chess') into separate rows.",
@@ -655,6 +689,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Normalization organises tables to remove redundancy and the anomalies it causes.",
@@ -692,6 +728,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "BCNF (Boyce-Codd Normal Form) rule: for every non-trivial FD X -> Y in the relation, X must be a candidate key.",
@@ -711,6 +749,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Consider Teaching(student, subject, teacher) with FDs {student, subject} -> teacher and teacher -> subject.",
@@ -741,6 +781,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Denormalization is the deliberate re-introduction of controlled redundancy into a normalized database to improve read performance.",
@@ -759,6 +801,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The biggest problem is update anomalies: the same fact stored in two places can drift out of sync when one copy is updated and the other is missed.",
@@ -788,6 +832,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "ACID is the set of four guarantees a DBMS gives every transaction: Atomicity, Consistency, Isolation and Durability.",
@@ -806,6 +852,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Suppose a transfer debits Rs 5000 from account A, and then the system crashes before crediting account B.",
@@ -862,6 +910,8 @@ export const dbmsModulesC: Module[] = [
                 "REPEATED"
               ],
               "tagBase": "REPEATED",
+              "kind": "theory",
+              "marks": 6,
               "years": null,
               "a": [
                 "Active: the transaction is running and executing its reads and writes.",
@@ -878,6 +928,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A transaction is a logical unit of work: a sequence of database operations that must either complete fully or have no effect at all. Example: a fund transfer is a debit plus a credit as one transaction.",
@@ -896,6 +948,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A schedule is the chronological order in which the operations of concurrently running transactions are interleaved by the DBMS.",
@@ -931,6 +985,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Locks are how the DBMS stops two transactions from changing the same data at the same time; a transaction must hold a lock on a data item before touching it.",
@@ -949,6 +1005,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "It can suffer a dirty read: it may see a value written by another transaction that later rolls back, so the data it acted on never officially existed.",
@@ -967,6 +1025,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Lock granularity: row-level locks let many transactions work on different rows of the same table at once, while table-level locks block the whole table and destroy concurrency.",
@@ -997,6 +1057,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Two-Phase Locking (2PL) is a protocol that guarantees serializable schedules by splitting a transaction's locking behaviour into two strict phases.",
@@ -1016,6 +1078,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A schedule is serializable if its final effect on the database is identical to the effect of running the same transactions one after another in some serial order.",
@@ -1034,6 +1098,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A schedule is recoverable if no transaction commits before the transactions whose uncommitted data it read have committed.",
@@ -1052,6 +1118,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Both test whether a concurrent schedule behaves like some serial (one-after-another) order.",
@@ -1080,6 +1148,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "A deadlock is a circular wait between transactions: each transaction holds a lock that another one needs, so none of them can ever proceed.",
@@ -1098,6 +1168,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The wait-for graph has one node for each active transaction in the system.",
@@ -1128,6 +1200,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "COMMIT ends a transaction successfully and makes all its changes permanent and durable.",
@@ -1149,6 +1223,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "The DBMS keeps a write-ahead log: every change is recorded in the log on disk before it is applied to the database itself.",
@@ -1167,6 +1243,8 @@ export const dbmsModulesC: Module[] = [
                 "IMPORTANT"
               ],
               "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
               "years": null,
               "a": [
                 "Transaction failure: a single transaction aborts due to an error (bad input, deadlock); only its changes are rolled back.",

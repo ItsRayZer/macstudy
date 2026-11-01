@@ -44,7 +44,6 @@ import {
   WorkingPad,
   emptyTable,
   flattenTable,
-  isProgrammingQuestion,
   type CodePadHandle,
 } from "../answer-pads";
 import type { Question, Topic } from "@/src/content/types";
@@ -164,36 +163,17 @@ export function PracticePhase({
   const qIdx = queue[pos];
   const q = qIdx != null ? questions[qIdx] : null;
 
-  // Answer mode for the current question.
-  const isQT = short === "QT";
-  const isTableQ = isQT && q != null && /form a|construct|prepare|draw up|complete the|fill in the|make a|frequency distribution from/i.test(q.q);
-  // Working pad only for numerical QT questions: the question must contain
-  // actual numbers to work with. Year markers like (2024) are stripped first.
-  // Pure theory questions ("Define...", "Explain...", "What is...") get the
-  // normal answer textarea even when they mention words like mean/correlation.
-  const isNumericalQ =
-    isQT &&
-    !isTableQ &&
-    q != null &&
-    (() => {
-      const text = q.q.replace(/\(\d{4}(,\s*\d{4})*\)/g, "").trim();
-      if (/\d/.test(text)) return true;
-      if (
-        /^(define|explain|what is|what are|write a note|distinguish|compare|discuss|describe|state)\b/i.test(
-          text,
-        )
-      )
-        return false;
-      if (
-        /\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|hundred|thousand)\b/i.test(
-          text,
-        )
-      )
-        return true;
-      return /calculat|comput|find|determin|estimat/i.test(text);
-    })();
-  const isCodeQ =
-    short === "PYTHON" && q != null && isProgrammingQuestion(q.q, q.a);
+  // Ref to track current question index for race-condition checks.
+  const qIdxRef = useRef<number | null>(null);
+  qIdxRef.current = qIdx;
+
+  // Answer mode for the current question. Uses the explicit kind field
+  // (Claude review fix: replaces all regex guessing).
+  const isTableQ = q != null && q.kind === "table";
+  const isNumericalQ = q != null && q.kind === "numerical";
+  const isCodeQ = q != null && q.kind === "code";
+  const isSqlQ = q != null && q.kind === "sql";
+  const isTraceQ = q != null && q.kind === "trace";
 
   // Key terms for the current question, from the model answer only.
   const keyTerms = useMemo(
@@ -325,6 +305,10 @@ export function PracticePhase({
         subject: short,
       });
       if (v == null) return;
+      // Claude review fix: race condition - only apply if still on same question.
+      // Use functional update to check current qIdx.
+      const currentQi = qIdxRef.current;
+      if (currentQi !== qi) return;
       const remoteOk = v === "correct";
       if (remoteOk !== localOk) {
         setVerdictOk(remoteOk);
