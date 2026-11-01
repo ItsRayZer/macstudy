@@ -26,6 +26,10 @@ import {
   getTopicBySlug,
   topicHref,
 } from "../../lib/study";
+import {
+  countDueFlashcards,
+  countSubjectFlashcards,
+} from "../../lib/flashcards";
 import { subjects } from "@/src/content/subjects";
 import type { Question } from "@/src/content/types";
 import { TagPill } from "../subjects/[short]/[module]/[topic]/flow";
@@ -158,6 +162,7 @@ export default function RevisePage() {
   const [mistakes, setMistakes] = useState<DeckRow[]>([]);
   const [bookmarks, setBookmarks] = useState<DeckRow[]>([]);
   const [paperBookmarks, setPaperBookmarks] = useState<PaperRow[]>([]);
+  const [dueFlash, setDueFlash] = useState<Record<string, number>>({});
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -198,6 +203,9 @@ export default function RevisePage() {
       setMistakes(mRows);
       setBookmarks(bRows);
       setPaperBookmarks(pRows);
+      const flashDue: Record<string, number> = {};
+      for (const s of subjects) flashDue[s.short] = countDueFlashcards(s.short);
+      setDueFlash(flashDue);
       setLoaded(true);
     })().catch(() => {
       if (live) setLoaded(true);
@@ -215,6 +223,49 @@ export default function RevisePage() {
           Spaced repetition for your mistakes and bookmarks
         </p>
       </header>
+
+      <section aria-label="Flashcards" className="flex flex-col gap-3">
+        <div className="flex items-baseline justify-between">
+          <div>
+            <h2 className="text-lg font-bold text-[var(--text)]">Flashcards</h2>
+            <p className="text-xs text-[var(--text-dim)]">
+              Subject-wide decks, every topic
+            </p>
+          </div>
+          <Pill>{subjects.length} decks</Pill>
+        </div>
+        <div className="flex flex-col gap-2">
+          {subjects.map((s) => {
+            const total = countSubjectFlashcards(s.short);
+            const due = dueFlash[s.short] ?? total;
+            return (
+              <Link
+                key={s.short}
+                href={`/subjects/${s.short}/flashcards`}
+                className="block min-h-[44px]"
+                aria-label={`${s.name} flashcards, ${total} cards, ${due} due`}
+              >
+                <GlassCard className="transition-transform active:scale-[0.99]">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon)]/15 text-[15px] font-bold text-[var(--neon-soft)]">
+                      {s.short.slice(0, 2)}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[15px] font-semibold text-[var(--text)]">
+                        {s.name}
+                      </p>
+                      <p className="truncate text-xs tabular-nums text-[var(--text-dim)]">
+                        {total} cards{due > 0 ? ` · ${due} due` : " · all caught up"}
+                      </p>
+                    </div>
+                    <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
+                  </div>
+                </GlassCard>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
       <section aria-label="Mind maps" className="flex flex-col gap-3">
         <h2 className="text-lg font-bold text-[var(--text)]">Mind maps</h2>

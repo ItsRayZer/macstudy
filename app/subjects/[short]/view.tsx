@@ -22,6 +22,7 @@ import {
 import { EXAMS } from "../../../lib/exams";
 import { getSubjectLocal, summarizeExamPattern } from "../../../lib/study";
 import { countSubjectPyq } from "../../../lib/pyq";
+import { countSubjectFlashcards } from "../../../lib/flashcards";
 import { subjects } from "@/src/content/subjects";
 
 function Icon({
@@ -69,6 +70,15 @@ function BackIcon({ className }: { className?: string }) {
   );
 }
 
+function CardDeckIcon({ className }: { className?: string }) {
+  return (
+    <Icon className={className}>
+      <rect x="8" y="7" width="12" height="14" rx="2.5" />
+      <path d="M5.5 4.5h10a2.5 2.5 0 0 1 2.5 2.5v.5" />
+    </Icon>
+  );
+}
+
 interface ModuleRow {
   done: number;
   total: number;
@@ -80,6 +90,7 @@ export function SubjectView({ short }: { short: string }) {
   const [rows, setRows] = useState<Record<string, ModuleRow>>({});
   const [pyqPercent, setPyqPercent] = useState(0);
   const pyqCount = countSubjectPyq(subject.short);
+  const flashCount = countSubjectFlashcards(subject.short);
 
   useEffect(() => {
     let live = true;
@@ -179,6 +190,58 @@ export function SubjectView({ short }: { short: string }) {
           </span>
           <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
         </Link>
+        <Link
+          href={`/subjects/${subject.short}/flashcards`}
+          className="glass mt-3 flex min-h-[56px] items-center gap-3 rounded-3xl px-4 transition-transform active:scale-[0.99]"
+          aria-label={`${subject.name} flashcards`}
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+            <CardDeckIcon className="h-5 w-5" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[15px] font-bold text-[var(--text)]">
+              Flashcards
+            </span>
+            <span className="block truncate text-[12px] tabular-nums text-[var(--text-faint)]">
+              {flashCount} cards · every topic
+            </span>
+          </span>
+          <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
+        </Link>
+        <GlassCard className="mt-3 flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+              <BookIcon className="h-5 w-5" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-[15px] font-bold text-[var(--text)]">
+                Complete notes PDF
+              </span>
+              <span className="block truncate text-[12px] text-[var(--text-faint)]">
+                Full subject notes
+              </span>
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <a
+              href={`/pdfs/${subject.short}-Complete.pdf`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-[48px] items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-semibold text-[var(--text)] active:opacity-80"
+              aria-label={`Open complete notes PDF for ${subject.name}`}
+            >
+              Open
+            </a>
+            <a
+              href={`/pdfs/${subject.short}-Complete.pdf`}
+              download={`${subject.short}-Complete.pdf`}
+              className="cta-neon flex min-h-[48px] items-center justify-center rounded-2xl text-[14px] font-bold"
+              aria-label={`Download complete notes PDF for ${subject.name}`}
+            >
+              Download
+            </a>
+          </div>
+        </GlassCard>
       </header>
 
       <div className="flex flex-col gap-2">

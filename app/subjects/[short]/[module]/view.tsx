@@ -240,6 +240,41 @@ export function ModuleView({ short, num }: { short: string; num: string }) {
         </Link>
       ) : null}
 
+      <GlassCard className="flex flex-col gap-3">
+        <div className="flex items-center gap-4">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--neon)]/15 text-[var(--neon-soft)]">
+            <BookOpenIcon className="h-6 w-6" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[16px] font-semibold text-[var(--text)]">
+              Module PDF
+            </span>
+            <span className="block text-[12px] text-[var(--text-faint)]">
+              Notes for this chapter
+            </span>
+          </span>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <a
+            href={`/pdfs/${subject.short}-M${mod.num}.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex min-h-[48px] items-center justify-center rounded-2xl bg-[var(--track)] text-[14px] font-semibold text-[var(--text)] active:opacity-80"
+            aria-label={`Open module PDF for ${mod.title}`}
+          >
+            Open
+          </a>
+          <a
+            href={`/pdfs/${subject.short}-M${mod.num}.pdf`}
+            download={`${subject.short}-M${mod.num}.pdf`}
+            className="cta-neon flex min-h-[48px] items-center justify-center rounded-2xl text-[14px] font-bold"
+            aria-label={`Download module PDF for ${mod.title}`}
+          >
+            Download
+          </a>
+        </div>
+      </GlassCard>
+
       <div className="flex flex-col gap-2">
         {mod.topics.map((t, i) => {
           const r = rows[i] ?? {
