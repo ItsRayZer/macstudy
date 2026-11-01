@@ -106,63 +106,13 @@ export const qtModulesB: Module[] = [
               "tagBase": "IMPORTANT",
               "years": null,
               "hint": "This is a corrected-mean problem: one wrong value must be replaced by the correct one.",
-              "a": [                "Sum of the 20 values as first computed = 20 x 45 = 900.",
+              "a": [
+                "This is a corrected-mean problem: one wrong value must be replaced by the correct one.",
+                "Sum of the 20 values as first computed = 20 x 45 = 900.",
                 "Remove the wrong value 46 and add the correct value 64: corrected sum = 900 - 46 + 64 = 918.",
                 "The correct value 64 is larger than the wrong value 46, so the mean rises slightly after correction.",
                 "Corrected mean = 918 / 20 = 45.9.",
                 "Answer: the corrected mean is 45.9."
-              ]
-            },
-            {
-              "q": "What is harmonic mean? Find the harmonic mean of 2, 3 and 4.",
-              "tags": [
-                "IMPORTANT"
-              ],
-              "tagBase": "IMPORTANT",
-              "years": null,
-              "hint": "This is a harmonic mean problem: flip each value, average, then flip back.",
-              "a": [
-                "Harmonic mean is the reciprocal of the arithmetic mean of the reciprocals; for 2, 3 and 4 it is 2.77.",
-                "Definition: HM = n / (1/x1 + 1/x2 + ... + 1/xn).",
-                "It is the right average for rates and speeds, where the simple mean gives a wrong answer.",
-                "Worked: reciprocals are 1/2, 1/3 and 1/4; their sum is 6/12 + 4/12 + 3/12 = 13/12.",
-                "HM = 3 / (13/12) = 36/13 = 2.77.",
-                "Answer: the harmonic mean of 2, 3 and 4 is 2.77."
-              ]
-            },
-            {
-              "q": "A motor car travels 60 km at 30 km/h and returns the same 60 km at 20 km/h. Find the average speed.",
-              "tags": [
-                "IMPORTANT"
-              ],
-              "tagBase": "IMPORTANT",
-              "years": null,
-              "hint": "This is an average-speed problem: use the harmonic mean, not the simple average.",
-              "a": [
-                "The average speed is 24 km/h.",
-                "Time for the forward trip = 60 / 30 = 2 hours; time for the return = 60 / 20 = 3 hours.",
-                "Total distance = 60 + 60 = 120 km; total time = 2 + 3 = 5 hours.",
-                "Average speed = total distance / total time = 120 / 5 = 24 km/h.",
-                "Check with the harmonic mean formula: 2 / (1/30 + 1/20) = 2 / (5/60) = 24.",
-                "Note: the simple average (30 + 20) / 2 = 25 is wrong, because more time is spent at the slower speed.",
-                "Answer: 24 km/h."
-              ]
-            },
-            {
-              "q": "Find the geometric mean of 3, 6, 24 and 48.",
-              "tags": [
-                "REPEATED"
-              ],
-              "tagBase": "REPEATED",
-              "years": "P3 2019, P1 2024",
-              "hint": "This is a geometric mean problem: multiply all values, then take the nth root.",
-              "a": [
-                "The geometric mean of 3, 6, 24 and 48 is 12.",
-                "Definition: GM = nth root of the product of n values; it suits growth rates and ratios.",
-                "Product = 3 x 6 x 24 x 48 = 20736.",
-                "GM = 4th root of 20736.",
-                "Since 12 x 12 x 12 x 12 = 20736, the 4th root is 12.",
-                "Answer: 12."
               ]
             }
           ]
@@ -303,7 +253,9 @@ export const qtModulesB: Module[] = [
               "tagBase": "IMPORTANT",
               "years": null,
               "hint": "This is a 'marks above' cumulative table; first convert it to ordinary frequencies by subtraction.",
-              "a": [                "0-10: 122-118 = 4; 10-20: 118-112 = 6; 20-30: 112-92 = 20; 30-40: 92-60 = 32.",
+              "a": [
+                "This is a 'marks above' cumulative table; first convert it to ordinary frequencies by subtraction.",
+                "0-10: 122-118 = 4; 10-20: 118-112 = 6; 20-30: 112-92 = 20; 30-40: 92-60 = 32.",
                 "40-50: 60-27 = 33; 50-60: 27-10 = 17; 60-70: 10-2 = 8; 70-80: 2-0 = 2.",
                 "The modal class is 40-50 with the highest frequency 33.",
                 "Mode = l + ((f1-f0)/(2f1-f0-f2)) x h = 40 + ((33-32)/(66-32-17)) x 10.",
@@ -470,7 +422,9 @@ export const qtModulesB: Module[] = [
               "tagBase": "REPEATED",
               "years": null,
               "hint": "This is a weighted-mean problem: first find the number of workers in each wage group.",
-              "a": [                "Workers = total hours / average hours: 168/12 = 14, 170/10 = 17, 225/9 = 25, 272/8.5 = 32, 126/7 = 18, 91/6.5 = 14.",
+              "a": [
+                "This is a weighted-mean problem: first find the number of workers in each wage group.",
+                "Workers = total hours / average hours: 168/12 = 14, 170/10 = 17, 225/9 = 25, 272/8.5 = 32, 126/7 = 18, 91/6.5 = 14.",
                 "Total workers = 14+17+25+32+18+14 = 120.",
                 "Take wage mid-points 90, 110, 130, 150, 170, 190 as the values and worker counts as weights.",
                 "Weighted total = 90x14 + 110x17 + 130x25 + 150x32 + 170x18 + 190x14 = 1260+1870+3250+4800+3060+2660 = 16900.",
@@ -524,7 +478,9 @@ export const qtModulesB: Module[] = [
               "tagBase": "IMPORTANT",
               "years": null,
               "hint": "This is a combined-mean problem solved backwards to find the missing group's mean.",
-              "a": [                "Total age of all 100 children = 100 x 9.35 = 935 years.",
+              "a": [
+                "This is a combined-mean problem solved backwards to find the missing group's mean.",
+                "Total age of all 100 children = 100 x 9.35 = 935 years.",
                 "Total age of the 25 children = 25 x 8.75 = 218.75 years.",
                 "Total age of the 65 children = 65 x 10.51 = 683.15 years.",
                 "Number in the remainder group = 100 - 25 - 65 = 10 children.",
@@ -681,6 +637,20 @@ export const qtModulesB: Module[] = [
               ]
             },
             {
+              "q": "Define dispersion.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "a": [
+                "Dispersion measures how spread out the data values are around the average.",
+                "An average alone can mislead: two classes can have the same mean marks but very different spreads.",
+                "Common measures of dispersion are range, quartile deviation, mean deviation and standard deviation.",
+                "Low dispersion means the data is consistent; high dispersion means it varies widely."
+              ]
+            },
+            {
               "q": "Calculate mean deviation from mean from the following data: Age 0-10: 6, 10-20: 5, 20-30: 8, 30-40: 15, 40-50: 7, 50-60: 6, 60-70: 3 persons. (2024)",
               "tags": [
                 "IMPORTANT"
@@ -694,20 +664,6 @@ export const qtModulesB: Module[] = [
                 "f|x-mean| values: 170.4, 92.0, 67.2, 24.0, 81.2, 129.6, 94.8; sum = 659.2.",
                 "Mean deviation = 659.2/50 = 13.18.",
                 "Answer: the mean deviation from mean is 13.18 years."
-              ]
-            },
-            {
-              "q": "Define dispersion.",
-              "tags": [
-                "IMPORTANT"
-              ],
-              "tagBase": "IMPORTANT",
-              "years": null,
-              "a": [
-                "Dispersion measures how spread out the data values are around the average.",
-                "An average alone can mislead: two classes can have the same mean marks but very different spreads.",
-                "Common measures of dispersion are range, quartile deviation, mean deviation and standard deviation.",
-                "Low dispersion means the data is consistent; high dispersion means it varies widely."
               ]
             }
           ]
@@ -732,7 +688,9 @@ export const qtModulesB: Module[] = [
               "tagBase": "SURE MARK",
               "years": null,
               "hint": "This is the most repeated QT numerical: combined mean, combined SD and coefficient of variation together.",
-              "a": [                "(1) Total wages: Firm A = 550 x 50 = 27,500; Firm B = 650 x 45 = 29,250. So Firm B pays the larger total monthly wage.",
+              "a": [
+                "This is the most repeated QT numerical: combined mean, combined SD and coefficient of variation together.",
+                "(1) Total wages: Firm A = 550 x 50 = 27,500; Firm B = 650 x 45 = 29,250. So Firm B pays the larger total monthly wage.",
                 "(2) Combined mean = (27500 + 29250) / 1200 = 56750/1200 = 47.29.",
                 "For combined SD use: variance = [n1(SD1^2 + d1^2) + n2(SD2^2 + d2^2)] / (n1+n2), where d1, d2 are deviations of group means from the combined mean.",
                 "d1 = 50 - 47.29 = 2.71 and d2 = 45 - 47.29 = -2.29.",
@@ -1282,36 +1240,6 @@ export const qtModulesB: Module[] = [
                 "If r = +1 or r = -1, that is perfect correlation, the two lines merge into a single line.",
                 "The smaller the angle between the two lines, the higher the correlation."
               ]
-            },
-            {
-              "q": "What is a line of best fit?",
-              "tags": [
-                "IMPORTANT"
-              ],
-              "tagBase": "IMPORTANT",
-              "years": null,
-              "a": [
-                "The line of best fit is the straight line that passes closest to all the points in a scatter diagram.",
-                "It summarises the trend: a rising line means positive correlation, a falling line means negative correlation.",
-                "It is drawn so that the total distance of all points from the line is as small as possible (the least-squares line).",
-                "Its equation is the regression line, which is then used to predict one variable from another."
-              ]
-            },
-            {
-              "q": "The regression equation of rice yield (y) on rainfall (x) is y = 12 + 0.8x. Estimate the rice yield when rainfall is 29 cm.",
-              "tags": [
-                "IMPORTANT"
-              ],
-              "tagBase": "IMPORTANT",
-              "years": null,
-              "hint": "This is a regression estimate: put the given x into the regression equation to predict y.",
-              "a": [
-                "The estimated rice yield is 35.2 when rainfall is 29 cm.",
-                "Substitute x = 29 into y = 12 + 0.8x.",
-                "y = 12 + 0.8 x 29 = 12 + 23.2 = 35.2.",
-                "This is a regression estimate: predicting y from a given x using the line of best fit.",
-                "Answer: 35.2 (in the yield units)."
-              ]
             }
           ]
         },
@@ -1448,6 +1376,36 @@ export const qtModulesB: Module[] = [
               ]
             },
             {
+              "q": "What is a line of best fit?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "a": [
+                "The line of best fit is the straight line that passes closest to all the points in a scatter diagram.",
+                "It summarises the trend: a rising line means positive correlation, a falling line means negative correlation.",
+                "It is drawn so that the total distance of all points from the line is as small as possible (the least-squares line).",
+                "Its equation is the regression line, which is then used to predict one variable from another."
+              ]
+            },
+            {
+              "q": "The regression equation of rice yield (y) on rainfall (x) is y = 12 + 0.8x. Estimate the rice yield when rainfall is 29 cm.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "hint": "This is a regression estimate: put the given x into the regression equation to predict y.",
+              "a": [
+                "The estimated rice yield is 35.2 when rainfall is 29 cm.",
+                "Substitute x = 29 into y = 12 + 0.8x.",
+                "y = 12 + 0.8 x 29 = 12 + 23.2 = 35.2.",
+                "This is a regression estimate: predicting y from a given x using the line of best fit.",
+                "Answer: 35.2 (in the yield units)."
+              ]
+            },
+            {
               "q": "A panel of judges A and B graded seven debaters and independently awarded the following marks: A: 40, 34, 28, 30, 44, 38, 31; B: 32, 39, 26, 30, 38, 34, 28. An eighth debater was awarded 36 marks by Judge A while Judge B was not present. How many marks would you expect Judge B to award? (2022)",
               "tags": [
                 "IMPORTANT"
@@ -1455,7 +1413,9 @@ export const qtModulesB: Module[] = [
               "tagBase": "IMPORTANT",
               "years": null,
               "hint": "This is a regression estimate: predict B's marks (y) from A's marks (x) using the y-on-x line.",
-              "a": [                "Sums for n = 7: sum x = 245, sum y = 227, sum x-square = 8781, sum xy = 8066.",
+              "a": [
+                "This is a regression estimate: predict B's marks (y) from A's marks (x) using the y-on-x line.",
+                "Sums for n = 7: sum x = 245, sum y = 227, sum x-square = 8781, sum xy = 8066.",
                 "byx = [n.sum xy - sum x.sum y] / [n.sum x-square - (sum x)^2] = [56462 - 55615] / [61467 - 60025] = 847/1442 = 0.587.",
                 "Means: x-bar = 245/7 = 35, y-bar = 227/7 = 32.43.",
                 "Regression line: y - 32.43 = 0.587(x - 35).",

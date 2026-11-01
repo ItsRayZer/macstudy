@@ -221,7 +221,9 @@ export const qtModulesC: Module[] = [
               "tagBase": "IMPORTANT",
               "years": null,
               "hint": "This is a combination problem: choose the required players from each category and multiply.",
-              "a": [                "3 batsmen from 10: C(10,3) = 120 ways.",
+              "a": [
+                "This is a combination problem: choose the required players from each category and multiply.",
+                "3 batsmen from 10: C(10,3) = 120 ways.",
                 "3 all-rounders from 5: C(5,3) = 10 ways.",
                 "2 bowlers from 8: C(8,2) = 28 ways.",
                 "1 wicketkeeper from 2: C(2,1) = 2 ways.",
@@ -302,7 +304,9 @@ export const qtModulesC: Module[] = [
               "tagBase": "IMPORTANT",
               "years": null,
               "hint": "This is a direct application of the addition theorem: P(A union B) = P(A) + P(B) - P(A intersection B).",
-              "a": [                "Numbers from 1 to 100 divisible by 3: 33 numbers, so P(divisible by 3) = 33/100.",
+              "a": [
+                "This is a direct application of the addition theorem: P(A union B) = P(A) + P(B) - P(A intersection B).",
+                "Numbers from 1 to 100 divisible by 3: 33 numbers, so P(divisible by 3) = 33/100.",
                 "Numbers divisible by 5: 20 numbers, so P(divisible by 5) = 20/100.",
                 "Numbers divisible by both 3 and 5, that is by 15: 6 numbers, so P(both) = 6/100.",
                 "P(either) = 33/100 + 20/100 - 6/100 = 47/100.",
@@ -535,21 +539,6 @@ export const qtModulesC: Module[] = [
               ]
             },
             {
-              "q": "Your officer is happy on 60% of your calls, so P(happy on visit) = 0.6. If he is happy he accedes to your request with probability 0.4, and if not happy with probability 0.1. You call one day and he accedes. What is the probability he was happy? (2022)",
-              "tags": [
-                "IMPORTANT"
-              ],
-              "tagBase": "IMPORTANT",
-              "years": null,
-              "hint": "This is a Bayes theorem problem: turn the observed effect (he acceded) back into the probable cause (he was happy).",
-              "a": [                "P(Happy) = 0.6 and P(Not happy) = 0.4.",
-                "P(Accede | Happy) = 0.4 and P(Accede | Not happy) = 0.1.",
-                "Total P(Accede) = 0.6x0.4 + 0.4x0.1 = 0.24 + 0.04 = 0.28.",
-                "By Bayes: P(Happy | Accede) = (0.6 x 0.4) / 0.28 = 0.24/0.28 = 0.857.",
-                "Answer: the probability he was happy is 0.86 (exactly 6/7)."
-              ]
-            },
-            {
               "q": "In a bolt factory, machines M1, M2 and M3 manufacture 25%, 35% and 40% of the total output. Of their outputs, 5%, 4% and 2% respectively are defective. If a bolt drawn at random is defective, find the probability it was made by M1.",
               "tags": [
                 "SURE MARK"
@@ -565,6 +554,23 @@ export const qtModulesC: Module[] = [
                 "That is 0.0125 + 0.014 + 0.008 = 0.0345.",
                 "Bayes theorem: P(M1|D) = P(D|M1) x P(M1) / P(D) = 0.0125 / 0.0345 = 0.362.",
                 "Answer: about 0.36, so roughly a 36% chance the defective bolt was made by M1."
+              ]
+            },
+            {
+              "q": "Your officer is happy on 60% of your calls, so P(happy on visit) = 0.6. If he is happy he accedes to your request with probability 0.4, and if not happy with probability 0.1. You call one day and he accedes. What is the probability he was happy? (2022)",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "hint": "This is a Bayes theorem problem: turn the observed effect (he acceded) back into the probable cause (he was happy).",
+              "a": [
+                "This is a Bayes theorem problem: turn the observed effect (he acceded) back into the probable cause (he was happy).",
+                "P(Happy) = 0.6 and P(Not happy) = 0.4.",
+                "P(Accede | Happy) = 0.4 and P(Accede | Not happy) = 0.1.",
+                "Total P(Accede) = 0.6x0.4 + 0.4x0.1 = 0.24 + 0.04 = 0.28.",
+                "By Bayes: P(Happy | Accede) = (0.6 x 0.4) / 0.28 = 0.24/0.28 = 0.857.",
+                "Answer: the probability he was happy is 0.86 (exactly 6/7)."
               ]
             }
           ]

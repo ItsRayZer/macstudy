@@ -621,7 +621,9 @@ export const qtModulesA: Module[] = [
               "tagBase": "IMPORTANT",
               "years": null,
               "hint": "This is a 'more than' cumulative frequency table; first convert it into ordinary class frequencies.",
-              "a": [                "500-1000: 600-550 = 50; 1000-1500: 550-425 = 125; 1500-2000: 425-275 = 150.",
+              "a": [
+                "This is a 'more than' cumulative frequency table; first convert it into ordinary class frequencies.",
+                "500-1000: 600-550 = 50; 1000-1500: 550-425 = 125; 1500-2000: 425-275 = 150.",
                 "2000-2500: 275-100 = 175; 2500-3000: 100-25 = 75; above 3000: 25.",
                 "We need businessmen paying more than 1200 but not more than 2400.",
                 "From class 1000-1500 (125 persons), the part above 1200 is (1500-1200)/500 = 0.6, giving 0.6 x 125 = 75.",

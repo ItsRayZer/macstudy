@@ -109,6 +109,7 @@ export function PracticePhase({
   const [checking, setChecking] = useState(false);
   const [finished, setFinished] = useState(false);
   const [bookmarked, setBookmarked] = useState<Record<number, boolean>>({});
+  const codePadRef = useRef<CodePadHandle | null>(null);
   // Resume: saved { queue, pos } in localStorage; returning offers Continue / Restart.
   const [resumeOffer, setResumeOffer] = useState<{ pos: number; total: number; queue: number[] } | null>(null);
   const resumeStorageKey = resumeKey ? `macstudy:resume:${resumeKey}` : null;
@@ -159,7 +160,6 @@ export function PracticePhase({
     if (finished) clearResume();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finished]);
-  const codePadRef = useRef<CodePadHandle | null>(null);
 
   const qIdx = queue[pos];
   const q = qIdx != null ? questions[qIdx] : null;
@@ -726,7 +726,7 @@ export function PracticePhase({
                 Model answer
               </p>
               <div className="mt-2">
-                <AnswerBlock lines={q.a} mode="collapsed" figure={q.figure} hint={q.hint} />
+                <AnswerBlock lines={q.a} mode="collapsed" hint={q.hint} figure={q.figure} />
               </div>
             </div>
 
@@ -774,7 +774,7 @@ export function PracticePhase({
                 Model answer
               </p>
               <div className="mt-2">
-                <AnswerBlock lines={q.a} mode="collapsed" figure={q.figure} hint={q.hint} />
+                <AnswerBlock lines={q.a} mode="collapsed" hint={q.hint} figure={q.figure} />
               </div>
             </div>
             <div className="mt-4 grid grid-cols-2 gap-2">

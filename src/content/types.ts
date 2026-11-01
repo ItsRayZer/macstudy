@@ -4,10 +4,10 @@ export interface Question {
   tagBase: "SURE MARK" | "REPEATED" | "IMPORTANT";
   years: string | null;
   a: string[];
-  /** Optional figure shown with the model answer in Practice/Test. */
-  figure?: FigureSpec;
   /** Optional exam hint, e.g. "This is a combined-mean problem…". Shown as a small note above the answer, never as the main answer. */
   hint?: string;
+  /** Optional figure shown with the model answer in Practice/Test. */
+  figure?: FigureSpec;
 }
 
 export interface Topic {

@@ -218,13 +218,13 @@ export function FlipIcon({ className }: { className?: string }) {
 export function AnswerBlock({
   lines,
   mode = "collapsed",
-  figure,
   hint,
+  figure,
 }: {
   lines: string[];
   mode?: "full" | "collapsed";
-  figure?: FigureSpec;
   hint?: string | null;
+  figure?: FigureSpec;
 }) {
   const [open, setOpen] = useState(false);
   const firstIdx = lines.findIndex((l) => l.trim().length > 0);
@@ -589,7 +589,7 @@ type PointBlock =
   | { kind: "points"; items: string[] }
   | { kind: "examples"; items: string[] }
   | { kind: "figures"; figures: FigureSpec[] }
-  | { kind: "qa"; q: string; a: string[]; tagBase: Question["tagBase"]; years: string | null; hint?: string | null };
+  | { kind: "qa"; q: string; a: string[]; tagBase: Question["tagBase"]; years: string | null; hint?: string | null; figure?: FigureSpec };
 
 /**
  * Group raw points into headed course sections. Conservative heuristics only;
@@ -669,7 +669,7 @@ function structureLearn(topic: Topic): PointBlock[] {
     blocks.push({ kind: "figures", figures: topic.figures });
   }
   for (const q of topic.questions) {
-    blocks.push({ kind: "qa", q: q.q, a: q.a, tagBase: q.tagBase, years: q.years, hint: q.hint });
+    blocks.push({ kind: "qa", q: q.q, a: q.a, tagBase: q.tagBase, years: q.years, hint: q.hint, figure: q.figure });
   }
   return blocks;
 }
@@ -745,7 +745,7 @@ function LearnBlocks({
                   {b.q}
                 </p>
                 <div className="mt-3">
-                  <AnswerBlock lines={b.a} mode="full" hint={b.hint} />
+                  <AnswerBlock lines={b.a} mode="full" hint={b.hint} figure={b.figure} />
                 </div>
               </div>
             </div>
@@ -899,32 +899,35 @@ export function LearnPhase({
 
       {isLast ? <ExamFootnote pattern={pattern} /> : null}
 
-      <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-2 gap-2">
-          {page > 0 ? (
-            <button
-              type="button"
-              onClick={() => setPage((p) => Math.max(0, p - 1))}
-              className="flex min-h-[56px] items-center justify-center rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-            >
-              Back
-            </button>
-          ) : null}
-          <div className={page > 0 ? "" : "col-span-2"}>
-            {isLast ? (
-              <NextButton
-                label={`Practice · ${topic.questions.length} questions`}
-                onClick={onNext}
-              />
-            ) : (
-              <NextButton label="Next" onClick={() => setPage((p) => p + 1)} />
-            )}
-          </div>
-        </div>
-        <p className="text-center text-[13px] tabular-nums text-[var(--text-faint)]">
-          Part {page + 1} of {totalPages}
-        </p>
+      <div className="flex items-center justify-between gap-3">
+        {page > 0 ? (
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            className="flex min-h-[52px] items-center rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+          >
+            Back
+          </button>
+        ) : (
+          <span className="text-[13px] tabular-nums text-[var(--text-faint)]">
+            Part 1 of {totalPages}
+          </span>
+        )}
+        {page > 0 ? (
+          <span className="text-[13px] tabular-nums text-[var(--text-faint)]">
+            Part {page + 1} of {totalPages}
+          </span>
+        ) : null}
       </div>
+
+      {isLast ? (
+        <NextButton
+          label={`Practice · ${topic.questions.length} questions`}
+          onClick={onNext}
+        />
+      ) : (
+        <NextButton label="Next" onClick={() => setPage((p) => p + 1)} />
+      )}
     </section>
   );
 }

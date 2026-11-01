@@ -505,25 +505,6 @@ export const sfModulesA: Module[] = [
               ]
             },
             {
-              "q": "Write a note on project risks in the selection of a life-cycle model.",
-              "tags": [
-                "IMPORTANT"
-              ],
-              "tagBase": "IMPORTANT",
-              "years": null,
-              "a": [
-                "Choosing the wrong life-cycle model is itself a major project risk.",
-                "If requirements are unstable and waterfall is chosen, late changes become extremely expensive.",
-                "If the team is inexperienced and agile is chosen without guidance, sprints can drift without direction.",
-                "Technical risks, like unproven technology, need a model with early prototypes or risk loops, such as the spiral model.",
-                "Schedule risks need models that deliver early usable versions, like incremental or RAD.",
-                "Customer-related risks, like an unavailable customer, rule out models needing constant feedback, such as XP.",
-                "The selection should therefore start with a risk assessment, not with habit or fashion.",
-                "Example: picking waterfall for a hospital system whose rules keep changing risks delivering a system nobody wants.",
-                "In short, model selection must weigh requirement, technical, schedule and people risks before the project starts."
-              ]
-            },
-            {
               "q": "Write the advantages and disadvantages of waterfall model.",
               "tags": [
                 "REPEATED"
@@ -543,6 +524,25 @@ export const sfModulesA: Module[] = [
                 "Disadvantage 4: no early feedback, so misunderstandings are found very late.",
                 "Disadvantage 5: testing happens only near the end, so risks pile up unseen.",
                 "In short, waterfall suits stable requirements and fails wherever change is expected."
+              ]
+            },
+            {
+              "q": "Write a note on project risks in the selection of a life-cycle model.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "years": null,
+              "a": [
+                "Choosing the wrong life-cycle model is itself a major project risk.",
+                "If requirements are unstable and waterfall is chosen, late changes become extremely expensive.",
+                "If the team is inexperienced and agile is chosen without guidance, sprints can drift without direction.",
+                "Technical risks, like unproven technology, need a model with early prototypes or risk loops, such as the spiral model.",
+                "Schedule risks need models that deliver early usable versions, like incremental or RAD.",
+                "Customer-related risks, like an unavailable customer, rule out models needing constant feedback, such as XP.",
+                "The selection should therefore start with a risk assessment, not with habit or fashion.",
+                "Example: picking waterfall for a hospital system whose rules keep changing risks delivering a system nobody wants.",
+                "In short, model selection must weigh requirement, technical, schedule and people risks before the project starts."
               ]
             }
           ]

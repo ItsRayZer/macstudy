@@ -1207,7 +1207,8 @@ export const sfModulesC: Module[] = [
                 "Example: for a simple if-else that checks pass or fail marks, the flow graph has 4 nodes and the complexity is 2, so two test cases cover both paths.",
                 "In short, a flow graph turns code structure into a map that tells testers exactly which paths to test."
               ]
-            },
+            }
+,
             {
               "q": "Explain: (a) Path testing (b) Data flow testing.",
               "tags": [
@@ -1230,8 +1231,7 @@ export const sfModulesC: Module[] = [
                 "Anomalies reveal bugs: using a variable before it is defined, defining it twice with no use in between, or never using a defined variable.",
                 "In short, path testing covers the routes and data flow testing watches the variables travelling on them."
               ]
-            }
-          ]
+            },          ]
         },
         {
           "title": "Validation and System Testing",
