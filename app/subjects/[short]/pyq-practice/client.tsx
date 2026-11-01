@@ -90,6 +90,7 @@ export function PyqPracticeClient({ short }: { short: string }) {
           questions={questions}
           mode="pyq"
           onProgress={setProgress}
+          resumeKey={`pyq:${subject.short}`}
           onNext={() => router.push(`/subjects/${subject.short}`)}
         />
       )}

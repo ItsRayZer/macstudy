@@ -62,6 +62,7 @@ export function PracticeClient({
         topic={topic}
         questions={topic.questions}
         onProgress={setProgress}
+        resumeKey={`practice:${short}:${num}:${slug}`}
         onNext={() => {
           router.push(`${base}/test`);
         }}

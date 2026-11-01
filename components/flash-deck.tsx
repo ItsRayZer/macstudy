@@ -47,15 +47,28 @@ export function FlashDeck({
   onProgress,
   headerExtra,
   title = "Revise flashcards",
+  resumeKey,
 }: {
   cards: FlashCard[];
   onDeckDone?: () => void;
   onProgress?: (fraction: number) => void;
   headerExtra?: ReactNode;
   title?: string;
+  /** When set, the deck position is saved to localStorage; returning offers Continue / Restart. */
+  resumeKey?: string;
 }) {
   const [deck, setDeck] = useState<FlashCard[] | null>(null);
   const [pos, setPos] = useState(0);
+  // Resume: { pos, keys } saved to localStorage; returning offers Continue / Restart.
+  const [resumeOffer, setResumeOffer] = useState<{ pos: number; total: number; keys: string[] } | null>(null);
+  const resumeStorageKey = resumeKey ? `macstudy:resume:${resumeKey}` : null;
+
+  const clearResume = () => {
+    if (!resumeStorageKey) return;
+    try {
+      localStorage.removeItem(resumeStorageKey);
+    } catch {}
+  };
   // Premium deck interaction: 3D flip, swipe, stack.
   const [flipped, setFlipped] = useState(false);
   const [dragDx, setDragDx] = useState<number | null>(null);
@@ -105,6 +118,26 @@ export function FlashDeck({
     setExiting(null);
     setRequeue([]);
     doneFired.current = false;
+    // Offer to resume a previous session, if one was saved.
+    if (resumeStorageKey && entries.length > 0) {
+      try {
+        const raw = localStorage.getItem(resumeStorageKey);
+        if (raw) {
+          const saved = JSON.parse(raw) as { pos?: number; keys?: string[] };
+          if (
+            typeof saved.pos === "number" &&
+            saved.pos > 0 &&
+            saved.pos < entries.length &&
+            Array.isArray(saved.keys) &&
+            saved.keys.length === entries.length
+          ) {
+            setResumeOffer({ pos: saved.pos, total: entries.length, keys: saved.keys });
+          } else {
+            localStorage.removeItem(resumeStorageKey);
+          }
+        }
+      } catch {}
+    }
     onProgress?.(entries.length === 0 ? 1 : 0);
   };
 
@@ -112,7 +145,21 @@ export function FlashDeck({
 
   useEffect(() => {
     if (deck) onProgress?.(deck.length === 0 ? 1 : pos / deck.length);
-  }, [deck, pos, onProgress]);
+    // Persist position for resume (skip while the resume prompt is showing).
+    if (resumeStorageKey && deck && deck.length > 0 && resumeOffer === null) {
+      try {
+        localStorage.setItem(
+          resumeStorageKey,
+          JSON.stringify({ keys: deck.map((d) => d.key), pos, ts: Date.now() })
+        );
+      } catch {}
+    }
+  }, [deck, pos, onProgress, resumeStorageKey, resumeOffer]);
+
+  // Deck finished: clear any saved resume state.
+  useEffect(() => {
+    if (deckDone) clearResume();
+  }, [deckDone]);
 
   if (deck === null) {
     return (
@@ -128,6 +175,53 @@ export function FlashDeck({
         title="All caught up"
         subtitle="No flashcards are due right now. Come back later for spaced review."
       />
+    );
+  }
+
+  if (resumeOffer && deck) {
+    return (
+      <section aria-label="Resume flashcards" className="flex flex-col gap-4">
+        {headerExtra}
+        <GlassCard>
+          <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
+            Continue where you left off
+          </p>
+          <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
+            Card {resumeOffer.pos + 1} of {resumeOffer.total}
+          </h2>
+          <p className="mt-2 text-[15px] text-[var(--text-dim)]">
+            You were partway through this deck. Pick up where you stopped, or start over.
+          </p>
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                clearResume();
+                setResumeOffer(null);
+                buildDeck();
+              }}
+              className="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+            >
+              Restart
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                // Restore the saved order, then jump to the saved position.
+                const order = new Map(resumeOffer.keys.map((k, i) => [k, i]));
+                setDeck((d) =>
+                  d ? [...d].sort((a, b) => (order.get(a.key) ?? 9999) - (order.get(b.key) ?? 9999)) : d
+                );
+                setPos(Math.min(resumeOffer.pos, deck.length - 1));
+                setResumeOffer(null);
+              }}
+              className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold"
+            >
+              Continue
+            </button>
+          </div>
+        </GlassCard>
+      </section>
     );
   }
 

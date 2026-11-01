@@ -216,24 +216,38 @@ export function FlipIcon({ className }: { className?: string }) {
 export function AnswerBlock({
   lines,
   mode = "collapsed",
+  hint,
 }: {
   lines: string[];
   mode?: "full" | "collapsed";
+  hint?: string | null;
 }) {
   const [open, setOpen] = useState(false);
   const firstIdx = lines.findIndex((l) => l.trim().length > 0);
-  if (firstIdx === -1) return null;
-  const main = [lines[firstIdx]];
-  const rest = lines.slice(firstIdx + 1).filter((l) => l.trim().length > 0);
-  const mainView = (
+  if (firstIdx === -1 && !hint) return null;
+  const main = firstIdx === -1 ? [] : [lines[firstIdx]];
+  const rest = firstIdx === -1 ? [] : lines.slice(firstIdx + 1).filter((l) => l.trim().length > 0);
+  const hintView = hint ? (
+    <p className="rounded-xl bg-[var(--neon)]/10 px-3 py-2 text-[12px] leading-relaxed text-[var(--neon-soft)]">
+      {hint}
+    </p>
+  ) : null;
+  const mainView = main.length > 0 ? (
     <div className="font-semibold text-[var(--text)]">
       <RichText lines={main} />
     </div>
-  );
-  if (rest.length === 0) return mainView;
+  ) : null;
+  if (rest.length === 0)
+    return (
+      <div className="flex flex-col gap-2">
+        {hintView}
+        {mainView}
+      </div>
+    );
   if (mode === "full") {
     return (
       <div className="flex flex-col gap-3">
+        {hintView}
         {mainView}
         <RichText lines={rest} />
       </div>
@@ -241,6 +255,7 @@ export function AnswerBlock({
   }
   return (
     <div className="flex flex-col gap-3">
+      {hintView}
       {mainView}
       <button
         type="button"
@@ -557,7 +572,7 @@ type PointBlock =
   | { kind: "lead"; text: string }
   | { kind: "points"; items: string[] }
   | { kind: "examples"; items: string[] }
-  | { kind: "qa"; q: string; a: string[]; tagBase: Question["tagBase"]; years: string | null };
+  | { kind: "qa"; q: string; a: string[]; tagBase: Question["tagBase"]; years: string | null; hint?: string | null };
 
 /**
  * Group raw points into headed course sections. Conservative heuristics only;
@@ -631,7 +646,7 @@ function paginateLearn(blocks: PointBlock[]): PointBlock[][] {
 function structureLearn(topic: Topic): PointBlock[] {
   const blocks = structurePoints(topic.points, topic.title);
   for (const q of topic.questions) {
-    blocks.push({ kind: "qa", q: q.q, a: q.a, tagBase: q.tagBase, years: q.years });
+    blocks.push({ kind: "qa", q: q.q, a: q.a, tagBase: q.tagBase, years: q.years, hint: q.hint });
   }
   return blocks;
 }
@@ -695,7 +710,7 @@ function LearnBlocks({
                   {b.q}
                 </p>
                 <div className="mt-3">
-                  <AnswerBlock lines={b.a} mode="full" />
+                  <AnswerBlock lines={b.a} mode="full" hint={b.hint} />
                 </div>
               </div>
             </div>
@@ -849,35 +864,32 @@ export function LearnPhase({
 
       {isLast ? <ExamFootnote pattern={pattern} /> : null}
 
-      <div className="flex items-center justify-between gap-3">
-        {page > 0 ? (
-          <button
-            type="button"
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
-            className="flex min-h-[52px] items-center rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
-          >
-            Back
-          </button>
-        ) : (
-          <span className="text-[13px] tabular-nums text-[var(--text-faint)]">
-            Part 1 of {totalPages}
-          </span>
-        )}
-        {page > 0 ? (
-          <span className="text-[13px] tabular-nums text-[var(--text-faint)]">
-            Part {page + 1} of {totalPages}
-          </span>
-        ) : null}
+      <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-2 gap-2">
+          {page > 0 ? (
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+              className="flex min-h-[56px] items-center justify-center rounded-2xl bg-[var(--track)] px-6 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+            >
+              Back
+            </button>
+          ) : null}
+          <div className={page > 0 ? "" : "col-span-2"}>
+            {isLast ? (
+              <NextButton
+                label={`Practice · ${topic.questions.length} questions`}
+                onClick={onNext}
+              />
+            ) : (
+              <NextButton label="Next" onClick={() => setPage((p) => p + 1)} />
+            )}
+          </div>
+        </div>
+        <p className="text-center text-[13px] tabular-nums text-[var(--text-faint)]">
+          Part {page + 1} of {totalPages}
+        </p>
       </div>
-
-      {isLast ? (
-        <NextButton
-          label={`Practice · ${topic.questions.length} questions`}
-          onClick={onNext}
-        />
-      ) : (
-        <NextButton label="Next" onClick={() => setPage((p) => p + 1)} />
-      )}
     </section>
   );
 }

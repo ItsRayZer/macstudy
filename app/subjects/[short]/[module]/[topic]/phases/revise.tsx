@@ -21,6 +21,7 @@ export function RevisePhase({
   topic,
   questions,
   onProgress,
+  resumeKey,
 }: {
   short: string;
   num: string;
@@ -28,6 +29,7 @@ export function RevisePhase({
   topic: Topic;
   questions: Question[];
   onProgress: (fraction: number) => void;
+  resumeKey?: string;
 }) {
   // Raw cards (stable SRS keys); FlashDeck filters to due/new and sorts.
   const cards = useMemo<FlashCard[]>(() => {
@@ -69,6 +71,7 @@ export function RevisePhase({
       onDeckDone={handleDeckDone}
       onProgress={onProgress}
       title="Revise flashcards"
+      resumeKey={resumeKey}
     />
   );
 }

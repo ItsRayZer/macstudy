@@ -4,6 +4,8 @@ export interface Question {
   tagBase: "SURE MARK" | "REPEATED" | "IMPORTANT";
   years: string | null;
   a: string[];
+  /** Optional exam hint, e.g. "This is a combined-mean problem…". Shown as a small note above the answer, never as the main answer. */
+  hint?: string;
 }
 
 export interface Topic {

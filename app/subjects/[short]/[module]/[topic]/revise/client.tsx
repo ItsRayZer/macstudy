@@ -60,6 +60,7 @@ export function ReviseClient({
         topic={topic}
         questions={topic.questions}
         onProgress={setProgress}
+        resumeKey={`revise:${short}:${num}:${slug}`}
       />
     </PhaseShell>
   );

@@ -60,6 +60,7 @@ export function PracticePhase({
   onProgress,
   onNext,
   mode = "topic",
+  resumeKey,
 }: {
   short: string;
   num: string;
@@ -70,6 +71,8 @@ export function PracticePhase({
   onNext: () => void;
   /** "pyq": subject-wide PYQ mode - tag filter chips, 100% on finish. */
   mode?: "topic" | "pyq";
+  /** When set, the session position is saved to localStorage; returning offers Continue / Restart. */
+  resumeKey?: string;
 }) {
   const isPyq = mode === "pyq";
   // Question priority: PYQ tags first, filler last. Toggle limits the
@@ -107,13 +110,63 @@ export function PracticePhase({
   const [finished, setFinished] = useState(false);
   const [bookmarked, setBookmarked] = useState<Record<number, boolean>>({});
   const codePadRef = useRef<CodePadHandle | null>(null);
+  // Resume: saved { queue, pos } in localStorage; returning offers Continue / Restart.
+  const [resumeOffer, setResumeOffer] = useState<{ pos: number; total: number; queue: number[] } | null>(null);
+  const resumeStorageKey = resumeKey ? `macstudy:resume:${resumeKey}` : null;
+  const clearResume = () => {
+    if (!resumeStorageKey) return;
+    try {
+      localStorage.removeItem(resumeStorageKey);
+    } catch {}
+  };
+
+  // Persist session position for resume.
+  useEffect(() => {
+    if (!resumeStorageKey || queue.length === 0 || resumeOffer !== null || finished) return;
+    try {
+      localStorage.setItem(
+        resumeStorageKey,
+        JSON.stringify({ queue, pos, round, ts: Date.now() })
+      );
+    } catch {}
+  }, [resumeStorageKey, queue, pos, round, resumeOffer, finished]);
+
+  // On mount, offer to resume a previous session if the queue still matches.
+  useEffect(() => {
+    if (!resumeStorageKey) return;
+    try {
+      const raw = localStorage.getItem(resumeStorageKey);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as { queue?: number[]; pos?: number; round?: number };
+      if (
+        saved.round === 1 &&
+        typeof saved.pos === "number" &&
+        saved.pos > 0 &&
+        Array.isArray(saved.queue) &&
+        saved.queue.length === queue.length &&
+        saved.queue.every((v, i) => v === queue[i]) &&
+        saved.pos < saved.queue.length
+      ) {
+        setResumeOffer({ pos: saved.pos, total: saved.queue.length, queue: saved.queue });
+      } else {
+        localStorage.removeItem(resumeStorageKey);
+      }
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resumeStorageKey]);
+
+  // Session finished: clear any saved resume state.
+  useEffect(() => {
+    if (finished) clearResume();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finished]);
 
   const qIdx = queue[pos];
   const q = qIdx != null ? questions[qIdx] : null;
 
   // Answer mode for the current question.
   const isQT = short === "QT";
-  const isTableQ = isQT && q != null && /table|frequency distribution/i.test(q.q);
+  const isTableQ = isQT && q != null && /form a|construct|prepare|draw up|complete the|fill in the|make a|frequency distribution from/i.test(q.q);
   // Working pad only for numerical QT questions: a digit in the question, or a
   // numerical keyword. Pure theory questions get the normal answer textarea.
   const isNumericalQ =
@@ -404,6 +457,45 @@ export function PracticePhase({
 
   return (
     <section aria-label="Practice" className="flex flex-col gap-4">
+      {resumeOffer ? (
+        <GlassCard>
+          <p className="text-[12px] font-medium uppercase tracking-widest text-[var(--text-dim)]">
+            Continue where you left off
+          </p>
+          <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
+            Question {resumeOffer.pos + 1} of {resumeOffer.total}
+          </h2>
+          <p className="mt-2 text-[15px] text-[var(--text-dim)]">
+            You were partway through this session. Pick up where you stopped, or start over.
+          </p>
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                clearResume();
+                setResumeOffer(null);
+              }}
+              className="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[var(--track)] text-[15px] font-semibold text-[var(--text)] active:opacity-80"
+            >
+              Restart
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setQueue(resumeOffer.queue);
+                setPos(resumeOffer.pos);
+                setRound(1);
+                resetStep();
+                reportProgress(resumeOffer.pos, 1, resumeOffer.total);
+                setResumeOffer(null);
+              }}
+              className="cta-neon flex min-h-[52px] w-full items-center justify-center rounded-2xl text-[15px] font-bold"
+            >
+              Continue
+            </button>
+          </div>
+        </GlassCard>
+      ) : null}
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-[20px] font-bold text-[var(--text)]">
           {isPyq ? "PYQ Practice" : "Practice"}
@@ -418,9 +510,21 @@ export function PracticePhase({
                 resetStep();
                 reportProgress(np, round, queue.length);
               }}
-              className="flex min-h-[32px] items-center rounded-full px-3 text-[12px] font-medium text-[var(--text-dim)] transition-colors active:opacity-70"
+              className="flex min-h-[36px] items-center gap-1.5 rounded-full border border-[var(--glass-border)] bg-[var(--glass)] px-3.5 text-[13px] font-semibold text-[var(--text)] active:opacity-70"
               aria-label="Previous question"
             >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-3.5 w-3.5"
+                aria-hidden="true"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
               Previous
             </button>
           ) : null}
@@ -622,7 +726,7 @@ export function PracticePhase({
                 Model answer
               </p>
               <div className="mt-2">
-                <AnswerBlock lines={q.a} mode="collapsed" />
+                <AnswerBlock lines={q.a} mode="collapsed" hint={q.hint} />
               </div>
             </div>
 
@@ -670,7 +774,7 @@ export function PracticePhase({
                 Model answer
               </p>
               <div className="mt-2">
-                <AnswerBlock lines={q.a} mode="collapsed" />
+                <AnswerBlock lines={q.a} mode="collapsed" hint={q.hint} />
               </div>
             </div>
             <div className="mt-4 grid grid-cols-2 gap-2">

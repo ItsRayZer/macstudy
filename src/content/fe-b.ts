@@ -659,9 +659,8 @@ export const feModulesB: Module[] = [
               ],
               "tagBase": "IMPORTANT",
               "years": null,
-              "a": [
-                "This is the standard PCA pipeline: scale first, then reduce.",
-                "Code:",
+              "hint": "This is the standard PCA pipeline: scale first, then reduce.",
+              "a": [                "Code:",
                 "    from sklearn.preprocessing import StandardScaler",
                 "    from sklearn.decomposition import PCA",
                 "    X_scaled = StandardScaler().fit_transform(X)",

@@ -129,6 +129,7 @@ export function FlashcardsClient({ short }: { short: string }) {
         onDeckDone={handleDeckDone}
         headerExtra={chips}
         title="Subject flashcards"
+        resumeKey={`flash:${subject.short}`}
       />
 
       <Link
