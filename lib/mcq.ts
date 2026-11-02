@@ -56,18 +56,49 @@ function similarity(a: string, b: string): number {
   return inter / Math.max(sa.size, sb.size);
 }
 
+/** Pick the most substantive line from an answer, skipping intro sentences.
+ * Theory answers often start with a vague intro ("Statistics is a powerful
+ * tool, but it has clear limitations that every student must know.") which
+ * makes a terrible MCQ correct option. We skip lines that look like intros
+ * and pick the first line with real content. */
+function pickSubstantiveLine(lines: string[]): string {
+  const candidates = lines.filter((l) => l.trim().length >= 24);
+  if (candidates.length === 0) return "";
+  const introPatterns = [
+    /is a powerful tool/i,
+    /must know/i,
+    /in this answer/i,
+    /following are/i,
+    /let us (see|discuss|understand|learn)/i,
+    /^in short,/i,
+    /as discussed/i,
+  ];
+  for (let i = 0; i < candidates.length; i++) {
+    const line = candidates[i].trim();
+    // Only skip the first line if it matches an intro pattern and is short.
+    // Later lines are substantive content even if they match a pattern.
+    if (i === 0 && line.length < 140) {
+      const isIntro = introPatterns.some((p) => p.test(line));
+      if (isIntro) continue;
+    }
+    return line;
+  }
+  return candidates[0];
+}
+
 export function buildMcq(
   q: Question,
   topic: Topic,
   qIndex: number,
 ): Mcq {
-  const correct = oneLine(q.a[0] ?? q.q);
+  const correct = oneLine(pickSubstantiveLine(q.a) || q.q);
 
   // Candidate distractors: other questions' answers first, then theory points.
+  // Use pickSubstantiveLine to avoid intro sentences as distractors too.
   const pool: string[] = [];
   topic.questions.forEach((other, oi) => {
     if (oi === qIndex) return;
-    const line = oneLine(other.a[0] ?? "");
+    const line = oneLine(pickSubstantiveLine(other.a));
     if (line.length >= 24) pool.push(line);
   });
   for (const pt of topic.points) {
