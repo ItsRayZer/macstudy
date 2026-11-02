@@ -55,7 +55,7 @@ export function CramClient({ short, name }: { short: string; name: string }) {
   const total = questions.length;
 
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-32 pt-6">
+    <div className="mx-auto max-w-2xl lg:max-w-4xl px-4 pb-32 pt-6">
       <Link
         href={`/subjects/${short}`}
         className="mb-4 inline-flex items-center gap-2 text-[14px] text-[var(--text-dim)]"

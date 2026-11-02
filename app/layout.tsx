@@ -74,7 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <PdfPrefetch />
-        <div className="relative mx-auto flex min-h-dvh w-full max-w-[480px] flex-col px-4 pb-24 pt-6">
+        <div className="relative mx-auto flex min-h-dvh w-full max-w-[480px] flex-col px-4 pb-24 pt-6 md:max-w-2xl lg:max-w-4xl">
           {children}
         </div>
         <BottomNav />
