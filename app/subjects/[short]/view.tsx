@@ -9,9 +9,7 @@ import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import {
   BookIcon,
-  ChevronRightIcon,
-  GlassCard,
-  ProgressBar,
+  RowCard,
   TabBarSpacer,
   ZapIcon,
 } from "../../../components/ui";
@@ -159,7 +157,7 @@ export function SubjectView({ short }: { short: string }) {
             className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
             aria-label={`${subject.name} mind map`}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
               <MindMapIcon className="h-5 w-5" />
             </span>
             <span className="min-w-0">
@@ -176,7 +174,7 @@ export function SubjectView({ short }: { short: string }) {
             className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
             aria-label={`${subject.name} practice hub`}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
               <ZapIcon className="h-5 w-5" />
             </span>
             <span className="min-w-0">
@@ -193,7 +191,7 @@ export function SubjectView({ short }: { short: string }) {
             className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
             aria-label={`${subject.name} flashcards`}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
               <CardDeckIcon className="h-5 w-5" />
             </span>
             <span className="min-w-0">
@@ -210,7 +208,7 @@ export function SubjectView({ short }: { short: string }) {
             className="glass flex flex-col gap-2 rounded-3xl p-3 transition-transform active:scale-[0.99]"
             aria-label={`${subject.name} library`}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--neon-dim)] text-[var(--neon-soft)]">
               <BookIcon className="h-5 w-5" />
             </span>
             <span className="min-w-0">
@@ -225,43 +223,26 @@ export function SubjectView({ short }: { short: string }) {
         </div>
       </header>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
         {subject.modules.map((m, i) => {
           const r = rows[m.num] ?? { done: 0, total: 0, percent: 0 };
-          const row = (
-            <div className="glass flex items-center gap-4 rounded-3xl p-4">
-              <span
-                className={`w-9 shrink-0 text-[30px] font-bold tabular-nums leading-none ${
-                  "text-[var(--text)]"
-                }`}
-                aria-hidden="true"
-              >
-                {i + 1}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span
-                  className={`block truncate text-[16px] font-semibold ${
-                    "text-[var(--text)]"
-                  }`}
-                >
-                  {m.title}
-                </span>
-                <ProgressBar value={r.percent} className="mt-2 h-1" />
-                <span className="mt-1.5 block text-[12px] text-[var(--text-faint)]">
-                  {r.done}/{r.total} Completed
-                </span>
-              </span>
-              <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--text)]" aria-hidden="true" />
-            </div>
-          );
           return (
             <Link
               key={m.num}
               href={`/subjects/${subject.short}/${m.num}`}
-              className="block min-h-[44px] rounded-3xl transition-transform active:scale-[0.99]"
+              className="block"
               aria-label={`Chapter ${i + 1}, ${m.title}, ${r.done} of ${r.total} completed`}
             >
-              {row}
+              <RowCard
+                icon={
+                  <span className="text-[14px] font-bold tabular-nums">
+                    {i + 1}
+                  </span>
+                }
+                title={m.title}
+                subtitle={`${r.done}/${r.total} Completed · ${Math.round(r.percent)}%`}
+                iconBg="track"
+              />
             </Link>
           );
         })}

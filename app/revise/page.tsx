@@ -7,9 +7,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
-  ChevronRightIcon,
   EmptyState,
-  GlassCard,
   Pill,
   RowCard,
   RowCardButton,
@@ -33,7 +31,6 @@ import {
 } from "../../lib/flashcards";
 import { subjects } from "@/src/content/subjects";
 import type { Question } from "@/src/content/types";
-import { TagPill } from "../subjects/[short]/[module]/[topic]/flow";
 import { useWindowed, WindowSentinel } from "../../components/windowed";
 import { modulesWithFormulas } from "@/src/content/formulas";
 
@@ -265,37 +262,26 @@ function DeckList({
           const href = topic
             ? `${topicHref(subj!.short, mod!.num, topic)}/practice`
             : "#";
+          const missed =
+            r.wrongCount != null && r.wrongCount > 1
+              ? ` · Missed ${r.wrongCount}x`
+              : "";
           return (
             <Link
               key={r.key}
               href={href}
-              className="block min-h-[44px]"
+              className="block"
               aria-label={`Revise: ${r.question.q}`}
             >
-              <GlassCard className="transition-transform active:scale-[0.99]">
-                <div className="flex items-center gap-3 p-4!">
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-[14px] font-bold text-[var(--text)]">
-                      {r.question.q}
-                    </p>
-                    <p className="mt-1 truncate text-[12px] text-[var(--text-faint)]">
-                      {subj?.name} · Module {r.num} · {r.topicTitle}
-                    </p>
-                    <div className="mt-2 flex flex-wrap items-center gap-2">
-                      <TagPill
-                        tagBase={r.question.tagBase}
-                        years={r.question.years}
-                      />
-                      {r.wrongCount != null && r.wrongCount > 1 ? (
-                        <Pill variant="repeated">
-                          Missed {r.wrongCount}x
-                        </Pill>
-                      ) : null}
-                    </div>
-                  </div>
-                  <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-                </div>
-              </GlassCard>
+              <RowCard
+                icon={
+                  <span className="text-[14px] font-bold">
+                    {r.short.slice(0, 2)}
+                  </span>
+                }
+                title={r.question.q}
+                subtitle={`${subj?.name} · M${r.num}${missed}`}
+              />
             </Link>
           );
         })
@@ -337,23 +323,18 @@ function PaperBookmarkList({
             href={r.paper.file}
             target="_blank"
             rel="noopener noreferrer"
-            className="block min-h-[44px]"
+            className="block"
             aria-label={`Open paper: ${r.paper.title}`}
           >
-            <GlassCard className="transition-transform active:scale-[0.99]">
-              <div className="flex items-center gap-3 p-4!">
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Pill>{r.short}</Pill>
-                    <Pill variant="default">{r.paper.label}</Pill>
-                  </div>
-                  <p className="mt-1.5 truncate text-[14px] font-bold text-[var(--text)]">
-                    {r.paper.title}
-                  </p>
-                </div>
-                <ChevronRightIcon className="h-5 w-5 shrink-0 text-[var(--text-faint)]" />
-              </div>
-            </GlassCard>
+            <RowCard
+              icon={
+                <span className="text-[14px] font-bold">
+                  {r.short.slice(0, 2)}
+                </span>
+              }
+              title={r.paper.title}
+              subtitle={r.paper.label}
+            />
           </a>
         ))
       )}
@@ -531,4 +512,3 @@ export default function RevisePage() {
     </main>
   );
 }
-// force redeploy Sun Nov  1 18:51:36 IST 2026
