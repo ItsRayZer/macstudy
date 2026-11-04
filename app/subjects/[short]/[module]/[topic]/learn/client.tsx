@@ -66,7 +66,7 @@ export function LearnClient({
   if (showResume && savedPhase) {
     const phaseLabel = savedPhase.charAt(0).toUpperCase() + savedPhase.slice(1);
     return (
-      <div className="mx-auto flex min-h-[80vh] max-w-2xl lg:max-w-4xl items-center justify-center px-4 pb-32">
+      <div className="mx-auto flex min-h-[80vh] w-full items-center justify-center px-4 pb-32">
         <div className="glass w-full rounded-3xl p-6 text-center">
           <h2 className="text-[20px] font-bold text-[var(--text)]">
             Welcome back

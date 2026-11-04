@@ -72,7 +72,7 @@ export default async function PracticeHubPage({
   ];
 
   return (
-    <div className="mx-auto max-w-2xl lg:max-w-4xl px-4 pb-32 pt-6">
+    <div className="mx-auto w-full px-4 pb-32 pt-6">
       <Link
         href={`/subjects/${subject.short}`}
         className="mb-4 flex min-h-[48px] w-full items-center gap-2 rounded-2xl bg-[var(--track)] px-4 text-[15px] font-semibold text-[var(--text)] active:opacity-80"
