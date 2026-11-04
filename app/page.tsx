@@ -335,6 +335,12 @@ export default function HomePage() {
       href: "/pyqs",
     },
     {
+      icon: <FileIcon className="h-6 w-6" />,
+      title: "Model Questions",
+      sub: "College model papers 2025",
+      href: "/pyqs",
+    },
+    {
       icon: <CardsIcon className="h-6 w-6" />,
       title: "NotebookLM",
       sub: "AI notes, audio, mind maps",
