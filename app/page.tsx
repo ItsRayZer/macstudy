@@ -18,6 +18,7 @@ import {
   ProgressBar,
   TabBarSpacer,
 } from "../components/ui";
+import { AuthAvatar } from "../components/auth";
 import { useAppStore } from "../lib/store";
 import { getDB } from "../lib/db";
 import {
@@ -407,6 +408,7 @@ export default function HomePage() {
               {streak}
             </span>
           </span>
+          <AuthAvatar />
         </div>
       </header>
 

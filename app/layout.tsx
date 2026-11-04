@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { BottomNav } from "../components/ui";
 import { ThemeSync } from "../components/theme-sync";
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </div>
         <BottomNav />
+        <Analytics />
       </body>
     </html>
   );
