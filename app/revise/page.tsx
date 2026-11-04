@@ -409,7 +409,7 @@ export default function RevisePage() {
   const savedCount = bookmarks.length + paperBookmarks.length;
 
   return (
-    <main className="mx-auto flex w-full flex-col gap-5 px-4 pb-32 pt-6">
+    <main className="flex w-full flex-col gap-5 pb-32 pt-6">
       <header>
         <h1 className="text-[24px] font-bold leading-tight text-[var(--text)]">
           Revise
