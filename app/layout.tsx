@@ -5,6 +5,7 @@ import "./globals.css";
 import { BottomNav } from "../components/ui";
 import { ThemeSync } from "../components/theme-sync";
 import { PdfPrefetch } from "../components/pdf-prefetch";
+import { AutoSignInPrompt } from "../components/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -79,6 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </div>
         <BottomNav />
+        <AutoSignInPrompt />
         <Analytics />
       </body>
     </html>

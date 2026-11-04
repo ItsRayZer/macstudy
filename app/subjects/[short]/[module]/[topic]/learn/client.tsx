@@ -14,7 +14,7 @@ import {
   getSubjectLocal,
   getTopicBySlug,
 } from "../../../../../../lib/study";
-
+import { rememberTopic } from "../../../../../../components/insights";
 export function LearnClient({
   short,
   num,
@@ -30,6 +30,8 @@ export function LearnClient({
   const [showResume, setShowResume] = useState(false);
 
   useEffect(() => {
+    // Remember where the user is for "continue where you left off".
+    rememberTopic(short, num, slug);
     // Check saved phase BEFORE overwriting. If user was on practice/test/revise,
     // offer Continue/Restart. But NOT if they just clicked back from a phase
     // of this same topic (referrer check) — that's intentional back navigation.

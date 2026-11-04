@@ -771,3 +771,130 @@ export function getDB(): ProgressDB {
   }
   return instance;
 }
+
+// ------------------------------------------------------- migrateLocalToCloud ---
+
+const MIGRATED_KEY = "macstudy:cloud-migrated";
+
+/**
+ * Uploads all local progress to the signed-in user's cloud account.
+ * Called once after the first Google sign-in. Safe to call repeatedly:
+ * it skips when already migrated for this device, and only uploads
+ * when a cloud user is actually signed in.
+ */
+export async function migrateLocalToCloud(): Promise<{
+  migrated: boolean;
+  counts: Record<string, number>;
+}> {
+  const counts: Record<string, number> = {
+    topics: 0,
+    bookmarks: 0,
+    mistakes: 0,
+    xp: 0,
+  };
+  try {
+    if (typeof window === "undefined") return { migrated: false, counts };
+    if (window.localStorage.getItem(MIGRATED_KEY) === "1") {
+      return { migrated: false, counts };
+    }
+    if (!isCloud()) return { migrated: false, counts };
+
+    const local = new LocalDB();
+    const cloud = getDB();
+    // getDB() returns SupabaseDB when cloud is configured; its `cloud()`
+    // helper falls back to local when nobody is signed in. We need to know
+    // a user is actually signed in before uploading.
+    if (!(cloud instanceof SupabaseDB)) return { migrated: false, counts };
+    const uid = await (cloud as SupabaseDB)["uid"]();
+    if (!uid) return { migrated: false, counts };
+
+    // --- topic progress: read every local topic, upsert to cloud ---
+    const allTopics = read<Record<string, TopicProgress>>("topic-progress", {});
+    for (const [key, tp] of Object.entries(allTopics)) {
+      const [subject, module, topic] = key.split("::");
+      if (!subject || !module || !topic) continue;
+      // Only upload topics with real progress.
+      if (tp.percent <= 0 && !tp.completed && tp.quizBest <= 0) continue;
+      await cloud.setTopicProgress(subject, module, topic, {
+        percent: tp.percent,
+        quizBest: tp.quizBest,
+        completed: tp.completed,
+      });
+      counts.topics++;
+    }
+
+    // --- bookmarks ---
+    const bookmarks = await local.getBookmarks();
+    for (const b of bookmarks) {
+      // toggleBookmark would remove existing ones; use direct upsert via
+      // setTopicProgress-free path: check then add.
+      const existing = await cloud.getBookmarks();
+      const found = existing.some(
+        (e) =>
+          e.subject === b.subject &&
+          e.module === b.module &&
+          e.topic === b.topic &&
+          e.qIndex === b.qIndex,
+      );
+      if (!found) {
+        await cloud.toggleBookmark(b.subject, b.module, b.topic, b.qIndex);
+        counts.bookmarks++;
+      }
+    }
+
+    // --- mistake deck ---
+    const mistakes = await local.getMistakes(false);
+    for (const m of mistakes) {
+      const existing = await cloud.getMistakes(false);
+      const found = existing.some(
+        (e) =>
+          e.subject === m.subject &&
+          e.module === m.module &&
+          e.topic === m.topic &&
+          e.qIndex === m.qIndex,
+      );
+      if (!found) {
+        await cloud.addMistake(m.subject, m.module, m.topic, m.qIndex);
+        counts.mistakes++;
+      }
+    }
+
+    // --- XP: replay local xp history as a single grant ---
+    const localXP = await local.getXP();
+    if (localXP > 0) {
+      const cloudXP = await cloud.getXP();
+      if (cloudXP < localXP) {
+        await cloud.addXP(localXP - cloudXP, "migrated from device");
+        counts.xp = localXP - cloudXP;
+      }
+    }
+
+    // --- streak: keep the better one ---
+    const localStreak = await local.getStreak();
+    const cloudStreak = await cloud.getStreak();
+    if (
+      localStreak.current > cloudStreak.current ||
+      localStreak.longest > cloudStreak.longest
+    ) {
+      // touchStreak only increments; directly upsert via client when better.
+      // Fall back to keeping cloud when local is not better.
+      const sb = cloud as SupabaseDB;
+      const client = (sb as unknown as { client: SupabaseClient }).client;
+      await client.from("streaks").upsert(
+        {
+          user_id: uid,
+          current: Math.max(localStreak.current, cloudStreak.current),
+          longest: Math.max(localStreak.longest, cloudStreak.longest),
+          last_day: localStreak.lastDay ?? cloudStreak.lastDay,
+          freezes: Math.max(localStreak.freezes, cloudStreak.freezes),
+        },
+        { onConflict: "user_id" },
+      );
+    }
+
+    window.localStorage.setItem(MIGRATED_KEY, "1");
+    return { migrated: true, counts };
+  } catch {
+    return { migrated: false, counts };
+  }
+}
