@@ -1,10 +1,7 @@
-// Service Worker: cache PDFs and static assets for offline/low-internet use.
-const CACHE = "bcaeasy-v1";
+// Service Worker: cache-first for instant loads, network updates in background.
+const CACHE = "bcaeasy-v2";
 
-const PRECACHE = [
-  "/",
-  "/subjects",
-];
+const PRECACHE = ["/", "/subjects"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(
@@ -25,11 +22,12 @@ self.addEventListener("fetch", (e) => {
   // Only handle same-origin GET requests.
   if (e.request.method !== "GET" || url.origin !== self.location.origin) return;
 
-  // PDFs, diagrams, manifests: cache-first (they rarely change).
+  // PDFs, diagrams, manifests, JS/CSS: cache-first (they rarely change).
   if (
     url.pathname.startsWith("/pdfs/") ||
     url.pathname.startsWith("/pyq/") ||
-    url.pathname.startsWith("/diagrams/")
+    url.pathname.startsWith("/diagrams/") ||
+    url.pathname.startsWith("/_next/static/")
   ) {
     e.respondWith(
       caches.open(CACHE).then(async (cache) => {
@@ -43,16 +41,21 @@ self.addEventListener("fetch", (e) => {
     return;
   }
 
-  // Pages and API: network-first, fall back to cache.
+  // Pages: stale-while-revalidate. Serve cache instantly, update in background.
+  // This makes the app open with one tap even on slow networks.
   e.respondWith(
-    fetch(e.request)
-      .then((res) => {
-        if (res.ok) {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(e.request, copy));
-        }
-        return res;
-      })
-      .catch(() => caches.match(e.request))
+    caches.open(CACHE).then(async (cache) => {
+      const hit = await cache.match(e.request);
+      const network = fetch(e.request)
+        .then((res) => {
+          if (res.ok) cache.put(e.request, res.clone());
+          return res;
+        })
+        .catch(() => null);
+      if (hit) return hit;
+      const res = await network;
+      if (res) return res;
+      return new Response("Offline", { status: 503 });
+    })
   );
 });
