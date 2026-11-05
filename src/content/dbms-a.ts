@@ -10,8 +10,13 @@ export const dbmsModulesA: Module[] = [
           "title": "Data, Database and DBMS",
           "points": [
             "Data means raw facts and figures, like names, marks or prices, with no meaning by themselves.",
+            "Data can be of many types, such as numbers, text, dates, images, audio and video, and it is collected from sources like forms, sensors and transactions.",
+            "Information is processed and organised data that has meaning and helps in decision making, for example a class average calculated from raw marks.",
+            "Data differs from information because data is raw and unorganised, while information is data that has been processed, arranged and given a context.",
             "A database is an organised collection of related data stored together, like all student records of a college.",
+            "A good database avoids unnecessary duplication, keeps data consistent and correct, allows many users to share data at the same time, and protects data with security and access control.",
             "DBMS (Database Management System) is software that stores, manages and retrieves data from a database.",
+            "A DBMS creates and maintains the database, lets users insert, update, delete and query data, controls concurrent access, enforces integrity rules, and provides backup and recovery.",
             "Examples of DBMS: MySQL, Oracle, PostgreSQL and MongoDB."
           ],
           "questions": [
@@ -53,6 +58,44 @@ export const dbmsModulesA: Module[] = [
                 "It includes backup and recovery tools, so data can be restored if the system crashes or a disk fails.",
                 "Two popular examples of DBMS are MySQL, which is widely used in web applications, and Oracle, which is used in large enterprise systems.",
                 "Other well-known examples include PostgreSQL and MongoDB."
+              ]
+            },
+            {
+              "q": "What is data? Give examples.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "Data means raw, unprocessed facts and figures that have no meaning by themselves until they are organised and interpreted.",
+                "It is the basic input from which information is produced, and it is collected from sources like forms, transactions, sensors and user entries.",
+                "Data can be of many types, such as numbers like 85, text like 'Arun', dates like 20 October 2006, and also images, audio and video.",
+                "For example, the values 'Arun', 85 and 'Kottayam' are data, but on their own they do not tell us who Arun is or what the 85 refers to.",
+                "Data becomes useful only when it is processed and put into context, such as arranging marks into a mark list or a result sheet.",
+                "In a database, data is stored in an organised way in tables, so that it can be searched, updated and turned into information whenever needed.",
+                "So data is the raw material of a database, while information is the meaningful output produced from that data."
+              ]
+            },
+            {
+              "q": "What is a database? Give examples.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "A database is an organised collection of related data stored together in one place so that it can be stored, searched, updated and used easily.",
+                "The data in a database is related and organised, not a random pile of files, so that every piece of data has a clear place and purpose.",
+                "For example, all the student records of a college, with names, roll numbers, courses and marks, together form a student database.",
+                "Other examples are a bank database holding customer accounts and transactions, and a hospital database holding patient records and appointments.",
+                "A database avoids unnecessary duplication by storing each fact once, and it keeps the data consistent, so an update in one place is reflected everywhere.",
+                "It allows many users to share the same data at the same time, while security controls decide who can see or change which data.",
+                "A database is managed by a DBMS, which is the software that creates the database and lets users work with the data in it."
               ]
             }
           ]
@@ -162,9 +205,16 @@ export const dbmsModulesA: Module[] = [
           "title": "Disadvantages of DBMS",
           "points": [
             "High cost: DBMS software, hardware and training are expensive.",
+            "The total cost includes software licences, powerful servers, storage, regular maintenance and paid support, so small organisations may find it unaffordable.",
             "Needs trained staff like a DBA to manage it.",
+            "A DBMS is complex to install, configure, secure and tune, so it needs trained staff and a skilled DBA, and hiring such experts adds to the running cost.",
             "Large and complex: needs more memory and processing power.",
-            "Single point of failure: if the DBMS goes down, all applications stop."
+            "The DBMS software itself is large and resource hungry, needing extra memory, disk space and processing power, and its many features make administration harder than managing simple files.",
+            "Single point of failure: if the DBMS goes down, all applications stop.",
+            "Performance overhead: locking, logging, security checks and integrity rules add extra work, which can slow down very simple tasks compared with direct file access.",
+            "Conversion and migration cost: moving old file-based data into a DBMS takes time, planning, data cleaning and retraining of staff, and any mistake can lose or corrupt data.",
+            "Backup and recovery are complex: regular backups, recovery plans and testing are needed, and a failure in these procedures can still lead to data loss.",
+            "Vendor dependence: once an organisation adopts a particular DBMS, switching to another vendor is costly and difficult because of different features, formats and training needs."
           ],
           "questions": [
             {
@@ -201,6 +251,44 @@ export const dbmsModulesA: Module[] = [
                 "Modern hardware and cloud options have reduced the cost problem, since a DBMS can now be rented cheaply instead of bought.",
                 "The cost of data loss or wrong data, like a wrong bank balance, is far higher than the cost of the DBMS itself.",
                 "So almost every serious application today, from banking to e-commerce, runs on a DBMS."
+              ]
+            },
+            {
+              "q": "Why is a DBMS expensive to set up and run?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "A DBMS is expensive because the software itself costs money, whether as a one time licence fee for products like Oracle or as a recurring subscription for cloud databases.",
+                "It also needs powerful hardware, with fast processors, large memory and plenty of disk space, to run the DBMS software and store growing amounts of data.",
+                "Setting it up needs trained staff, and a skilled DBA must be hired to install, configure, secure, tune and maintain the system, which adds salary costs.",
+                "Staff must also be trained to use the DBMS and its query language, and this training takes time and money.",
+                "Running costs continue after setup, including maintenance, software updates, technical support, electricity and regular backups.",
+                "Moving old file-based data into the DBMS adds a further one time conversion cost for planning, cleaning and testing the data.",
+                "For small organisations with little data, these combined costs can be higher than the benefits, which is why cost is listed as a major disadvantage of a DBMS."
+              ]
+            },
+            {
+              "q": "What is meant by single point of failure in a DBMS?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "Single point of failure means that one central component, the DBMS, controls all the data, so if that one component fails, everything that depends on it stops working.",
+                "In a DBMS, all applications read and write data through the same central database server, instead of each keeping its own separate files.",
+                "If the DBMS software crashes, the server hardware fails, or the database gets corrupted, no application can access any data at all.",
+                "For example, if a bank's central DBMS goes down, every branch, ATM and mobile app stops working at the same time, because they all depend on that one system.",
+                "This is riskier than a file system, where the failure of one file affects only the application that uses that file.",
+                "To reduce this risk, organisations use backups, standby servers and replication, so that another copy can take over quickly if the main DBMS fails.",
+                "Even with these safeguards, the centralised design of a DBMS means a single failure can still bring the whole system to a halt."
               ]
             }
           ]

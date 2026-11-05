@@ -769,10 +769,16 @@ export const dbmsModulesC: Module[] = [
         {
           "title": "Denormalization",
           "points": [
-            "Denormalization deliberately adds redundancy back into normalised tables.",
-            "It speeds up read-heavy queries by avoiding many joins.",
-            "Used in data warehouses and reporting systems.",
-            "Trade-off: faster reads, but slower writes and more storage."
+            "Denormalization is the deliberate reintroduction of controlled redundancy into tables that were previously normalized, so some data is stored in more than one place on purpose.",
+            "Normalization splits data into many small tables to remove duplication, while denormalization merges some of that data back together to make common queries simpler and faster.",
+            "It speeds up read queries mainly because it avoids joins, since a single row can already contain the customer name, product price, or department name that would otherwise come from another table.",
+            "Fewer joins also mean fewer table lookups and less work for the query optimizer, so reports over millions of rows finish much sooner.",
+            "It is used most in data warehouses and reporting systems, where data is loaded in batches, read very often, and updated rarely.",
+            "It is also used on live systems when one specific join heavy query is a proven bottleneck and cannot be fixed by indexing or better query design.",
+            "The main trade off is extra storage, because duplicated values occupy more disk space and grow with every copied row.",
+            "Writes become slower and more expensive, because every insert or update must change all copies of the same fact inside one transaction.",
+            "It reintroduces the update anomalies that normalization removed, since one copy can be updated while another is missed, leaving contradictory values in the database.",
+            "For these reasons denormalization is applied selectively, only to the tables and queries that truly need the speedup, and never as a default design for the whole database."
           ],
           "questions": [
             {
@@ -814,16 +820,60 @@ export const dbmsModulesC: Module[] = [
                 "These costs are accepted only where read speed matters far more than write speed and storage, such as data warehouses.",
                 "So the exam answer is: faster reads, but anomalies, extra storage, slower writes and harder maintenance."
               ]
+            },
+            {
+              "q": "Why does denormalization speed up read queries?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "Denormalization speeds up read queries mainly by removing joins, because the data a query needs is already stored together in one row instead of spread across several tables.",
+                "A join forces the DBMS to match rows from two or more tables, compare keys, and combine the results, and that work grows sharply as the tables get larger.",
+                "When the customer name is copied into every order row, a sales report can read the order table alone and never touch the Customer table at all.",
+                "Fewer tables in a query also means fewer index lookups and less work for the query optimizer when it plans how to execute the query.",
+                "Aggregation queries benefit too, since grouping and summing can run over one wide table instead of first joining several tables and then aggregating the joined result.",
+                "The speedup is largest on read heavy workloads such as reports and dashboards, where the same joins would otherwise run thousands of times a day.",
+                "In short, denormalization trades extra storage and slower writes for reads that scan one table instead of joining many."
+              ]
+            },
+            {
+              "q": "When should denormalization be avoided?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "Denormalization should be avoided when the system is write heavy, because every insert or update must then change all copies of the same fact and writes become slow and costly.",
+                "It should also be avoided when data changes frequently, since frequent changes multiply the risk that one copy is updated while another is missed.",
+                "It is a poor choice when correctness matters more than speed, for example in banking or booking systems, where contradictory copies could cause wrong balances or double bookings.",
+                "It should be avoided when storage is tight or the duplicated data is large, because copying wide values across millions of rows wastes a lot of disk space.",
+                "It is unnecessary when the slow query can be fixed more cheaply, for example with an index, a better query, or a materialized view that keeps the base tables normalized.",
+                "It should never be applied blindly to the whole database, because that reintroduces the anomalies normalization was designed to remove.",
+                "The rule is simple: denormalize only a proven bottleneck after measuring it, and leave the rest of the database normalized."
+              ]
             }
           ]
         },
         {
           "title": "ACID Properties",
           "points": [
-            "Atomicity: a transaction is all or nothing; no half-done updates.",
-            "Consistency: every transaction moves the database from one valid state to another.",
-            "Isolation: concurrent transactions behave as if run one after another.",
-            "Durability: once committed, data survives crashes and power failure."
+            "ACID stands for Atomicity, Consistency, Isolation, and Durability, the four guarantees a DBMS gives to every transaction.",
+            "Atomicity means a transaction is all or nothing, so either every operation in the transaction completes, or none of them takes effect and the database is rolled back to its earlier state.",
+            "Consistency means every transaction moves the database from one valid state to another valid state, preserving all integrity constraints, rules, and business invariants.",
+            "Isolation means concurrent transactions behave as if they ran one after another, so one transaction cannot see the half finished work of another transaction.",
+            "Durability means once a transaction commits, its effects are permanent and survive crashes, power failure, and system restarts.",
+            "All four properties matter together, because each one guards a different failure: atomicity guards partial work, consistency guards broken rules, isolation guards interference between transactions, and durability guards lost work.",
+            "If any one property fails, the database can hold wrong data, for example a transfer that debits one account without crediting the other, or a committed payment that disappears after a crash.",
+            "The classic bank transfer example shows all four at work: the debit and credit happen together, the total money stays the same, other transactions do not interfere, and the new balances survive a crash after commit.",
+            "The DBMS enforces ACID using logging, locking, and recovery mechanisms, so application programs can trust a transaction without implementing these guarantees themselves.",
+            "In the exam, remember ACID as the reason databases are trusted with money, bookings, and other critical data, because without it the data could not be relied on."
           ],
           "questions": [
             {
@@ -864,6 +914,44 @@ export const dbmsModulesC: Module[] = [
                 "Rollback restores the pre-transfer state, so the transfer either completes fully or has no effect at all.",
                 "That is the point of atomicity: it turns a pair of updates into a safe, all-or-nothing transaction.",
                 "Partial work is the most dangerous kind of wrong data: it looks complete but is not."
+              ]
+            },
+            {
+              "q": "What is atomicity? Give an example.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "Atomicity is the guarantee that a transaction is all or nothing, so either every operation in the transaction completes successfully, or none of them takes effect.",
+                "The transaction is treated as one indivisible unit of work, even though it may contain several reads and writes.",
+                "If any operation fails or the system crashes midway, the DBMS rolls back all the operations already done and restores the database to its state before the transaction began.",
+                "Example: a fund transfer of Rs 5000 consists of debiting account A and crediting account B, and both steps belong to one atomic transaction.",
+                "If the system crashes after the debit but before the credit, atomicity ensures the debit is undone, so no money vanishes from the database.",
+                "If both steps succeed, the transaction commits and both changes become permanent together.",
+                "Without atomicity, a partial transfer could leave money debited but never credited, which is why atomicity is the first and most basic ACID guarantee."
+              ]
+            },
+            {
+              "q": "What is durability? Give an example.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "Durability is the guarantee that once a transaction commits, its effects are permanent and will not be lost, even if the system crashes immediately afterwards.",
+                "A committed transaction survives power failure, operating system crashes, and DBMS restarts, so the user never has to redo work that was already confirmed.",
+                "The DBMS achieves durability by writing the changes to stable storage, usually through a transaction log on disk, before it reports the commit as successful.",
+                "Example: after a fund transfer of Rs 5000 commits, the new balances of both accounts are recorded on disk.",
+                "If the server loses power one second later, the balances after restart still show the transfer, because the committed data was already made durable.",
+                "If the same transfer had not yet committed when the crash happened, durability does not apply, and the transaction may be rolled back instead.",
+                "Durability is what makes a commit a promise: once the DBMS says a transaction is done, that result is safe forever."
               ]
             }
           ]

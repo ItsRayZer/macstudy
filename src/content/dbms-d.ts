@@ -9,10 +9,15 @@ export const dbmsModulesD: Module[] = [
         {
           "title": "Introduction to NoSQL",
           "points": [
-            "NoSQL means \"Not only SQL\": databases built for huge, fast-changing data.",
-            "Traditional SQL struggles with unstructured data like posts, videos and logs.",
-            "NoSQL systems scale horizontally by adding more servers.",
-            "They trade some strict consistency for speed and flexibility."
+            "NoSQL means \"Not only SQL\": a family of database systems built for huge, fast-changing data that does not fit neatly into rows and columns.",
+            "It was introduced because web and mobile apps like social media, e-commerce and streaming started generating enormous volumes of data at speeds and in forms that a single-server SQL database could not store or process fast enough.",
+            "NoSQL is designed for unstructured and semi-structured data such as social media posts, videos, logs, sensor readings and JSON messages, which have no fixed shape and change often.",
+            "NoSQL systems scale horizontally, which means they spread data and traffic across many cheap servers instead of upgrading one expensive server, so capacity grows by adding machines.",
+            "They use flexible schemas, so each record can carry its own fields and new fields can be added at any time without redesigning tables first.",
+            "To gain speed and availability, most NoSQL systems trade off the strict ACID consistency of SQL for a looser model called BASE, where all copies of the data agree eventually rather than instantly.",
+            "There are four main types of NoSQL stores: document databases like MongoDB, key-value stores like Redis, column-family stores like Cassandra and graph databases like Neo4j.",
+            "MongoDB stores flexible JSON-like documents and suits catalogs and user profiles, while Cassandra is built for massive write loads and high availability across many servers.",
+            "In short, choose NoSQL when huge scale, flexible data shapes and always-on availability matter more than instant consistency, and choose SQL when exact correctness is non-negotiable."
           ],
           "questions": [
             {
@@ -51,6 +56,45 @@ export const dbmsModulesD: Module[] = [
                 "Fifth, query style: SQL uses the standard SQL language everywhere, while each NoSQL system has its own API suited to its data model.",
                 "Example: use SQL for bank accounts where exact balances matter, and use NoSQL for a social media feed where speed and scale matter more than instant consistency.",
                 "In short, choose SQL when correctness is non-negotiable and NoSQL when huge scale, flexibility and uptime come first."
+              ]
+            },
+            {
+              "q": "What is horizontal scaling in NoSQL?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "Horizontal scaling means growing a database by adding more servers to share the load, instead of upgrading one single server to a bigger machine.",
+                "Each new server takes a share of the data and the requests, so the total storage and processing power of the system grows with every machine added.",
+                "NoSQL databases are built for this: they split data across servers automatically, a process called sharding, and keep copies on several servers for safety.",
+                "The opposite approach is vertical scaling, where one server is replaced by a bigger, more expensive machine, which has hard limits and a single point of failure.",
+                "Horizontal scaling is cheaper because it uses many ordinary machines, and it has no single ceiling because more machines can keep being added.",
+                "It also improves availability: if one server fails, the others keep serving data, so the application stays online.",
+                "Example: a social media app handling millions of posts a day adds new servers during a festival rush instead of buying one giant server.",
+                "In short, horizontal scaling is the scale-out design that lets NoSQL systems handle huge data and traffic."
+              ]
+            },
+            {
+              "q": "What kind of data suits NoSQL best?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "NoSQL suits data that is large in volume, fast moving, and varied or unstructured, the kind that does not fit neatly into fixed rows and columns.",
+                "Examples are social media posts, comments, videos, click logs, sensor readings, chat messages and JSON data from mobile apps.",
+                "It fits data where each record can have a different shape, like products in a catalog where a T-shirt has sizes and a book has an author.",
+                "It also fits data that grows rapidly and unpredictably, because a flexible schema lets new fields appear without rebuilding tables.",
+                "Workloads with huge read and write traffic, such as feeds, shopping carts and real-time analytics, suit NoSQL because it scales out across many servers.",
+                "It is less suited to data needing strict correctness and complex relationships, such as bank accounts, where SQL and ACID transactions are safer.",
+                "In short, choose NoSQL for big, fast, flexible data and choose SQL for small, structured data where exact consistency matters most."
               ]
             }
           ]
@@ -111,10 +155,15 @@ export const dbmsModulesD: Module[] = [
         {
           "title": "Document Databases: Uses and Features",
           "points": [
-            "Store data as flexible JSON-style documents; each document can have different fields.",
-            "No fixed schema: new fields can be added without rebuilding tables.",
-            "Good for catalogs, user profiles, blogs and content management.",
-            "Documents can be nested, so related data stays together in one read."
+            "A document database stores data as JSON-style documents, each one a self-contained record of field and value pairs, grouped into collections that play the role of tables in SQL.",
+            "Each document can have different fields, so a product document for a T-shirt can hold sizes while a book document holds an author, with no empty columns forced on either.",
+            "There is no fixed schema to define upfront, so new fields can be added to new documents at any time without rebuilding tables or disturbing existing data.",
+            "Documents can be nested, so related data such as a product's reviews, images and stock details can live inside one document and load in a single read.",
+            "Because related data stays together, most queries need no joins, which makes reads fast and the code simpler than joining many tables.",
+            "Document databases scale horizontally by spreading collections across many servers, so they handle growing data and heavy traffic well.",
+            "They are developer friendly because JSON is the same format web and mobile apps already use, so data moves between the app and the database with little conversion.",
+            "Typical uses are product catalogs, user profiles, blogs, content management systems and real-time analytics, anywhere records vary in shape and change often.",
+            "The leading example is MongoDB, which stores documents in BSON format and supports rich queries, indexing and aggregation on document fields."
           ],
           "questions": [
             {
@@ -152,6 +201,44 @@ export const dbmsModulesD: Module[] = [
                 "Scaling out handles traffic: during festival sales, more servers are added to carry the load, which document stores like MongoDB are built for.",
                 "JSON documents also match web and mobile apps naturally, since APIs already speak JSON, so less conversion code is needed.",
                 "In short, a document database matches exactly how online stores evolve: varied products, fast page reads and constant change."
+              ]
+            },
+            {
+              "q": "What is a document in a document database?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "A document is a single self-contained record in a document database, stored as a set of field and value pairs in a JSON-like format.",
+                "Each document has a unique identifier field, usually called _id, which the database uses to find it quickly.",
+                "Fields can hold simple values like strings and numbers, or complex values like arrays and nested sub-documents.",
+                "Example: a product document can be {name: 'shoe', price: 999, sizes: ['7', '8', '9'], reviews: [{user: 'Arun', rating: 5}]}.",
+                "Unlike a row in SQL, a document does not have to match a fixed table schema, so two documents in the same collection can carry different fields.",
+                "Documents are grouped into collections, which play the role of tables, but each document inside a collection stays independent.",
+                "Because a document holds its related data together, one read returns the whole record, which is why document databases are fast for fetching complete records."
+              ]
+            },
+            {
+              "q": "How does a document database handle schema changes?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "A document database handles schema changes easily because it has no fixed schema that all records must follow.",
+                "Adding a new field means simply writing it into new documents; old documents keep working without the field, so nothing needs to be migrated or rebuilt.",
+                "Removing a field is equally simple: new documents just stop carrying it, while old documents can keep it or have it removed later.",
+                "There is no ALTER TABLE step and no downtime, which is a big difference from SQL where changing a table can lock it and disturb millions of rows.",
+                "Over time, documents in one collection may exist in several versions of the shape, and the application code handles the missing fields with defaults.",
+                "If a clean-up is ever needed, the database can update documents gradually in the background instead of forcing one big migration.",
+                "This flexibility is why document databases suit apps that evolve fast, like adding a discount field to products during a sale without touching old records."
               ]
             }
           ]
@@ -338,10 +425,15 @@ export const dbmsModulesD: Module[] = [
         {
           "title": "Big Data Technologies: Hadoop, MongoDB, Cassandra",
           "points": [
-            "Hadoop: open-source platform that stores and processes huge data across clusters.",
-            "HDFS spreads files over many machines; MapReduce processes them in parallel.",
-            "MongoDB: document database used as a flexible store for big varied data.",
-            "Cassandra: column-family store built for high availability and massive write loads."
+            "Hadoop is an open-source platform from the Apache Software Foundation that stores and processes huge data across clusters of ordinary machines.",
+            "HDFS, the Hadoop Distributed File System, splits large files into blocks and spreads them over many machines, keeping several copies of each block so data survives machine failures.",
+            "MapReduce is Hadoop's processing model: it splits a job into small map tasks that run in parallel on the machines holding the data, then combines the results in a reduce step.",
+            "MongoDB is a document database that stores big varied data as flexible JSON-like documents, so records with different fields can live together in one collection.",
+            "Cassandra is a distributed column-family database built for high availability and massive write loads, with no single point of failure because every node is equal.",
+            "The three fit different needs: Hadoop fits batch storage and analysis of huge files, MongoDB fits flexible varied records, and Cassandra fits always-on systems taking thousands of writes per second.",
+            "Big data is described by the 3 Vs: Volume (terabytes to petabytes of data), Velocity (data arriving fast from sensors and clicks) and Variety (text, images, video and logs mixed together).",
+            "The three technologies often work together: Cassandra collects fast incoming data, Hadoop analyses the stored history in batches, and MongoDB serves the flexible application data.",
+            "Together they cover the whole big-data pipeline, from collecting and storing huge data to processing it and serving answers to users."
           ],
           "questions": [
             {
@@ -395,6 +487,45 @@ export const dbmsModulesD: Module[] = [
                 "Such data needs distributed systems like Hadoop and NoSQL stores like MongoDB or Cassandra.",
                 "Big Data problems appear when volume, velocity or variety breaks a single relational server.",
                 "That is why the syllabus pairs it with Hadoop, MongoDB and Cassandra - the distributed answer."
+              ]
+            },
+            {
+              "q": "What is HDFS and how does it store data?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "HDFS is the Hadoop Distributed File System, the storage layer of Hadoop that holds very large files across a cluster of ordinary machines.",
+                "It splits each large file into fixed-size blocks, usually 128 MB each, and spreads those blocks across many machines in the cluster.",
+                "Every block is copied to several machines, by default three, so if one machine fails the data is still safe on the others.",
+                "A master node called the NameNode keeps a directory of which blocks live on which machines, while worker nodes called DataNodes actually store the blocks.",
+                "When a file is read, HDFS fetches its blocks in parallel from different machines, which makes reading huge files fast.",
+                "HDFS is built for write-once, read-many workloads like logs and sensor archives, not for frequent small updates.",
+                "In short, HDFS turns many cheap machines into one huge reliable disk by splitting files into replicated blocks."
+              ]
+            },
+            {
+              "q": "What is MapReduce?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "MapReduce is Hadoop's programming model for processing huge datasets in parallel across a cluster of machines.",
+                "It works in two main steps: the Map step and the Reduce step, with a shuffle in between.",
+                "In the Map step, the job is split into many small tasks that run at the same time, each one processing a chunk of data on the machine where that data already lives.",
+                "Each map task turns its chunk into intermediate key-value pairs, for example counting how many times each word appears in one part of a file.",
+                "In the Shuffle step, all pairs with the same key are grouped together and sent to the same reducer.",
+                "In the Reduce step, each reducer combines the grouped values into a final result, such as the total count for each word.",
+                "Because the work runs in parallel on many machines, MapReduce can process terabytes of data far faster than a single machine could.",
+                "Example: analysing one year of web server logs to find the most visited pages is a classic MapReduce job."
               ]
             }
           ]
@@ -615,10 +746,15 @@ export const dbmsModulesD: Module[] = [
         {
           "title": "PL/SQL Basics",
           "points": [
-            "PL/SQL adds programming to SQL: variables, conditions, loops and error handling.",
-            "Block structure: DECLARE, BEGIN, EXCEPTION, END.",
-            "DECLARE holds variables; BEGIN holds the logic; EXCEPTION handles errors.",
-            "Used for triggers, procedures and batch jobs inside the database."
+            "PL/SQL is Oracle's Procedural Language extension to SQL, which adds programming features like variables, conditions, loops and error handling to plain SQL statements.",
+            "Every PL/SQL program is a block with up to four sections: DECLARE for variables, BEGIN for the logic, EXCEPTION for error handling, and END to close the block.",
+            "Variables are declared in the DECLARE section with a name and a data type, such as m NUMBER or name VARCHAR2(50), and can be given an initial value with :=.",
+            "The BEGIN section holds the executable statements, including SQL queries, assignments and calls to built-in procedures.",
+            "IF conditions let a block choose between actions, such as printing Pass when marks are above 40 and Fail otherwise.",
+            "Loops like LOOP, WHILE and FOR repeat work, for example processing each row of a table one by one until a condition is met.",
+            "Cursors let a block fetch and process query results row by row when a query returns more than one row.",
+            "PL/SQL is used to build stored procedures, functions and triggers, which are reusable blocks of logic stored inside the database itself.",
+            "DBMS_OUTPUT.PUT_LINE prints text to the output window, which is how programmers display results and debug values while testing a block."
           ],
           "questions": [
             {
@@ -676,16 +812,66 @@ export const dbmsModulesD: Module[] = [
                 "DBMS_OUTPUT.PUT_LINE prints the text to the output window.",
                 "Expected output: Pass, because 55 is above 40; with m = 30 the output would be Fail."
               ]
+            },
+            {
+              "q": "What is the structure of a PL/SQL block?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "A PL/SQL block has up to four sections in a fixed order: DECLARE, BEGIN, EXCEPTION and END.",
+                "The DECLARE section is optional and holds variable declarations with their data types.",
+                "The BEGIN section is mandatory and holds the executable statements, the actual logic of the block.",
+                "The EXCEPTION section is optional and holds handlers that run when a named error occurs.",
+                "Example structure:",
+                "    DECLARE",
+                "        m NUMBER := 55;",
+                "    BEGIN",
+                "        DBMS_OUTPUT.PUT_LINE('Marks: ' || m);",
+                "    EXCEPTION",
+                "        WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('Error');",
+                "    END;",
+                "    /",
+                "In short: DECLARE sets up variables, BEGIN does the work, EXCEPTION catches errors, and END closes the block."
+              ]
+            },
+            {
+              "q": "What is DBMS_OUTPUT.PUT_LINE used for in PL/SQL?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "DBMS_OUTPUT.PUT_LINE is a built-in PL/SQL procedure that prints a line of text to the output window.",
+                "It is used to display results, such as the value of a variable or a message like Pass or Fail, while a block runs.",
+                "Programmers use it to debug their code: by printing variable values at key points they can check whether the logic is working correctly.",
+                "It takes one argument, usually a string, and you can join values to text with the || operator, for example DBMS_OUTPUT.PUT_LINE('Marks: ' || m).",
+                "The output appears only when server output is switched on in the tool, with SET SERVEROUTPUT ON in SQL*Plus or the equivalent setting in SQL Developer.",
+                "Without it, a PL/SQL block runs silently and the user sees no result even if the logic worked correctly.",
+                "In short, DBMS_OUTPUT.PUT_LINE is the print statement of PL/SQL: it shows results and helps debug blocks."
+              ]
             }
           ]
         },
         {
           "title": "MongoDB Query Practice",
           "points": [
-            "use college switches to (or creates) a database.",
-            "db.createCollection(\"students\") makes a collection.",
-            "insertMany adds several documents at once.",
-            "find with operators filters; updateMany and deleteMany act on many documents."
+            "The use command switches to a database and creates it if it does not exist, for example use college switches to the college database.",
+            "db.createCollection(\"students\") creates a new collection called students inside the current database.",
+            "insertOne adds a single document to a collection, for example db.students.insertOne({name: \"Arun\", marks: 85}).",
+            "insertMany adds several documents in one call by passing an array of documents, which is faster than inserting them one by one.",
+            "find searches a collection and returns matching documents; with no filter it returns every document in the collection.",
+            "Comparison operators filter results inside find: $gt means greater than, $lt means less than, $gte and $lte include the equal value, and $eq means equal.",
+            "updateOne changes the first matching document and updateMany changes every matching document, usually with the $set operator to change only chosen fields.",
+            "deleteOne removes the first document matching a filter and deleteMany removes every matching document, so the filter must be chosen carefully.",
+            "Results can be shaped with sort and limit: sort({marks: -1}) orders results from highest to lowest, and limit(5) returns only the first five documents."
           ],
           "questions": [
             {
@@ -734,6 +920,44 @@ export const dbmsModulesD: Module[] = [
                 "The $set operator changes only the listed fields and leaves the rest of the document untouched.",
                 "deleteOne removes the first document matching the filter, here the student named Ben.",
                 "Expected result: all students with marks below 40 get result: \"fail\", and Ben's document is gone from the collection."
+              ]
+            },
+            {
+              "q": "Write a MongoDB command to find all students with marks above 80.",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "sql",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "To find all students with marks above 80, use find with the $gt (greater than) operator on the marks field.",
+                "    db.students.find({marks: {$gt: 80}});",
+                "How it works: find() searches the students collection and returns every document matching the filter.",
+                "$gt: 80 keeps only documents where marks is strictly greater than 80, so a student with exactly 80 is not included.",
+                "The filter {marks: {$gt: 80}} is a document where the marks field holds the operator and its value.",
+                "Example result: if Arun has 92 and Ben has 74, only Arun's document is returned.",
+                "Add .pretty() at the end for readable output, or .sort({marks: -1}) to list the toppers first."
+              ]
+            },
+            {
+              "q": "What does the $set operator do in MongoDB?",
+              "tags": [
+                "IMPORTANT"
+              ],
+              "tagBase": "IMPORTANT",
+              "kind": "theory",
+              "marks": 2,
+              "years": null,
+              "a": [
+                "The $set operator changes the value of one or more fields inside matching documents, without touching the other fields.",
+                "It is used inside update commands such as updateOne and updateMany, in the update document after the filter.",
+                "Example: db.students.updateOne({name: \"Arun\"}, {$set: {marks: 90}}) sets Arun's marks to 90 and leaves his name and all other fields unchanged.",
+                "If the field named in $set does not exist yet, MongoDB creates it in the document, so $set can also add new fields.",
+                "Without $set, an update would replace the whole document, so $set is what makes MongoDB updates precise and safe.",
+                "It can set several fields at once, for example {$set: {marks: 90, result: \"pass\"}} changes both fields in one update.",
+                "In short, $set means change only these fields, keep everything else exactly as it is."
               ]
             }
           ]
