@@ -411,6 +411,34 @@ export class SupabaseDB implements ProgressDB {
     }
   }
 
+  /** Public: returns the signed-in user's id, or null. Used by migration. */
+  async getUserId(): Promise<string | null> {
+    return this.uid();
+  }
+
+  /** Public: overwrites the streak row. Used by migration to keep the best. */
+  async setStreak(s: {
+    current: number;
+    longest: number;
+    lastDay: string | null;
+    freezes: number;
+  }): Promise<void> {
+    const uid = await this.uid();
+    if (!uid) return;
+    try {
+      await this.client.from("streaks").upsert(
+        {
+          user_id: uid,
+          current: s.current,
+          longest: s.longest,
+          last_day: s.lastDay,
+          freezes: s.freezes,
+        },
+        { onConflict: "user_id" },
+      );
+    } catch {}
+  }
+
   /**
    * Runs the cloud query when a user is signed in, otherwise delegates to the
    * local offline store. Cloud errors propagate; they never silently fall back.
@@ -805,7 +833,7 @@ export async function migrateLocalToCloud(): Promise<{
     // helper falls back to local when nobody is signed in. We need to know
     // a user is actually signed in before uploading.
     if (!(cloud instanceof SupabaseDB)) return { migrated: false, counts };
-    const uid = await (cloud as SupabaseDB)["uid"]();
+    const uid = await cloud.getUserId();
     if (!uid) return { migrated: false, counts };
 
     // --- topic progress: read every local topic, upsert to cloud ---
@@ -876,20 +904,12 @@ export async function migrateLocalToCloud(): Promise<{
       localStreak.current > cloudStreak.current ||
       localStreak.longest > cloudStreak.longest
     ) {
-      // touchStreak only increments; directly upsert via client when better.
-      // Fall back to keeping cloud when local is not better.
-      const sb = cloud as SupabaseDB;
-      const client = (sb as unknown as { client: SupabaseClient }).client;
-      await client.from("streaks").upsert(
-        {
-          user_id: uid,
-          current: Math.max(localStreak.current, cloudStreak.current),
-          longest: Math.max(localStreak.longest, cloudStreak.longest),
-          last_day: localStreak.lastDay ?? cloudStreak.lastDay,
-          freezes: Math.max(localStreak.freezes, cloudStreak.freezes),
-        },
-        { onConflict: "user_id" },
-      );
+      await cloud.setStreak({
+        current: Math.max(localStreak.current, cloudStreak.current),
+        longest: Math.max(localStreak.longest, cloudStreak.longest),
+        lastDay: localStreak.lastDay ?? cloudStreak.lastDay,
+        freezes: Math.max(localStreak.freezes, cloudStreak.freezes),
+      });
     }
 
     window.localStorage.setItem(MIGRATED_KEY, "1");
