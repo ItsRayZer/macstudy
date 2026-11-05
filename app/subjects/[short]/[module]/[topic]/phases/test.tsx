@@ -40,7 +40,7 @@ import {
   type QuizFinal,
 } from "../../../../../../lib/quiz";
 import { buildMcq, type Mcq } from "../../../../../../lib/mcq";
-import { priorityOrder } from "../../../../../../lib/question-priority";
+import { testableOrder } from "../../../../../../lib/question-priority";
 import type { Question, Topic } from "@/src/content/types";
 
 const EXAM_SECONDS_PER_QUESTION = 30;
@@ -207,7 +207,7 @@ export function TestPhase({
   }, [session, tick]);
 
   const start = () => {
-    const order = priorityOrder(questions, pyqOnly);
+    const order = testableOrder(questions, pyqOnly);
     if (order.length === 0) return;
     setFinal(null);
     setPicked(null);
@@ -463,7 +463,7 @@ export function TestPhase({
             Exam mode
           </p>
           <h2 className="mt-2 text-[22px] font-bold text-[var(--text)]">
-            {priorityOrder(questions, pyqOnly).length} questions · one shot
+            {testableOrder(questions, pyqOnly).length} questions · one shot
             each
           </h2>
           <ul className="mt-3 flex list-disc flex-col gap-2 pl-5 text-[15px] leading-[1.7] text-[var(--text-dim)]">

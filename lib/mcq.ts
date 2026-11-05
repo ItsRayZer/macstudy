@@ -56,6 +56,35 @@ function similarity(a: string, b: string): number {
   return inter / Math.max(sa.size, sb.size);
 }
 
+/**
+ * Detects multi-concept questions that cannot be fair MCQs.
+ * A question is multi-concept when it asks for 2+ distinct definitions
+ * or explanations in one question ("Define data, database and DBMS",
+ * "Explain COMMIT, ROLLBACK and SAVEPOINT"). Its answer has several
+ * independent parts, so no single option can be "the" correct answer.
+ */
+export function isMultiConcept(q: Question): boolean {
+  const text = q.q.toLowerCase();
+  // "Define X, Y and Z" / "Explain X, Y and Z" / "What is X and Y?"
+  // Count commas + "and" joining multiple named concepts.
+  const defineExplain = /^(define|explain|describe|discuss|what is|what are|distinguish between|compare)\b/.test(text);
+  if (!defineExplain) return false;
+  // Two or more commas, or a comma plus "and", signals a list of concepts.
+  const commas = (text.match(/,/g) || []).length;
+  const hasAnd = /\band\b/.test(text);
+  if (commas >= 2) return true;
+  if (commas >= 1 && hasAnd) return true;
+  // "X and Y" with no comma: "What is data and information?"
+  if (hasAnd && /^(define|explain|what is|what are)\b/.test(text)) {
+    // Only when the "and" joins two short concept names, not a clause.
+    const parts = text.split(/\band\b/);
+    if (parts.length === 2 && parts[0].split(" ").length <= 6 && parts[1].split(" ").length <= 6) {
+      return true;
+    }
+  }
+  return false;
+}
+
 /** Pick the most substantive line from an answer, skipping intro sentences.
  * Theory answers often start with a vague intro ("Statistics is a powerful
  * tool, but it has clear limitations that every student must know.") which
@@ -90,7 +119,14 @@ export function buildMcq(
   q: Question,
   topic: Topic,
   qIndex: number,
-): Mcq {
+): Mcq | null {
+  // Multi-concept questions cannot be MCQs: their answer defines several
+  // things at once ("Define data, database and DBMS"), so the first line
+  // alone is not the whole answer and the other parts become "wrong"
+  // distractors. Return null so Test skips them (they still show in
+  // Learn and Practice as reading material).
+  if (isMultiConcept(q)) return null;
+
   const correct = oneLine(pickSubstantiveLine(q.a) || q.q);
 
   // Candidate distractors: other questions' answers first, then theory points.

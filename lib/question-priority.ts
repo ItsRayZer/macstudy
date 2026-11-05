@@ -8,6 +8,7 @@
 // filter keeps just the tagged questions.
 
 import type { Question } from "@/src/content/types";
+import { isMultiConcept } from "./mcq";
 
 const TAG_RANK: Record<string, number> = {
   "SURE MARK": 0,
@@ -39,4 +40,19 @@ export function priorityOrder(
     .filter(({ q }) => !pyqOnly || isTagged(q))
     .sort((a, b) => tagRank(a.q) - tagRank(b.q) || a.i - b.i)
     .map(({ i }) => i);
+}
+
+/**
+ * Test-phase queue: same priority order, but multi-concept questions are
+ * excluded entirely. They cannot be fair MCQs (their answer defines
+ * several things, so no single option is "the" correct one). They still
+ * appear in Learn and Practice as reading material.
+ */
+export function testableOrder(
+  questions: Question[],
+  pyqOnly: boolean,
+): number[] {
+  return priorityOrder(questions, pyqOnly).filter(
+    (i) => !isMultiConcept(questions[i]),
+  );
 }
