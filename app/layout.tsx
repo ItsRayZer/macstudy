@@ -73,7 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ThemeSync />
         <script
           dangerouslySetInnerHTML={{
-            __html: `if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}`,
+            __html: `if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').then(function(r){r.update().catch(function(){});}).catch(function(){});}`,
           }}
         />
         <PdfPrefetch />

@@ -1,5 +1,5 @@
 // Service Worker: cache-first for instant loads, network updates in background.
-const CACHE = "bcaeasy-v2";
+const CACHE = "bcaeasy-v3";
 
 const PRECACHE = ["/", "/subjects"];
 
